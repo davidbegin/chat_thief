@@ -7,22 +7,15 @@ import time
 from pathlib import Path
 from logging.handlers import RotatingFileHandler
 
-# socket()
-# connect()
-# send()
-
-# Why am I never closing
-# should I be passing the server object around
-
-ENCODING="utf-8"
-CHAT_MSG="PRIVMSG"
-ARE_YOU_ALIVE="PING"
-I_AM_ALIVE="PONG"
+ENCODING      = "utf-8"
+CHAT_MSG      = "PRIVMSG"
+ARE_YOU_ALIVE = "PING"
+I_AM_ALIVE    = "PONG"
 
 def send_msg(msg):
     server = connect_to_twitch()
 
-    # We want all configuration pulled out and validated
+    # We want all configuration pulled out and validated in one place
     channel = os.environ.get("TWITCH_CHANNEL", "beginbot")
 
     if msg:
@@ -35,13 +28,13 @@ def run_bot(server):
     logger = logging.getLogger("Chat Log")
     logger.setLevel(logging.INFO)
     Path("logs").mkdir(exist_ok=True)
-    # Decide what I want around logging
+    # Decide what we want around logging
     handler = RotatingFileHandler("logs/chat.log", maxBytes=50000000, backupCount=5)
     logger.addHandler(handler)
     logger.addHandler(logging.StreamHandler(sys.stdout))
     
     while True:
-        # Why do I use the magical 2048
+        # Why do we use the magical 2048
         irc_response = server.recv(2048).decode(ENCODING).split()
 
         if irc_response[1] == CHAT_MSG:
@@ -89,7 +82,7 @@ if __name__ == "__main__":
         raise ValueError(errors)
 
     connection_data = ("irc.chat.twitch.tv", 6667)
-    # AF_INET and SOCK_STREAM
+    # Should we add explicit params of: AF_INET and SOCK_STREAM
     with socket.socket() as server:
         server.connect(connection_data)
         _handshake(server)
