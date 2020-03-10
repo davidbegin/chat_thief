@@ -7,3 +7,9 @@ Set the following environment variables:
 ```
 python bot.py
 ```
+
+Goals:
+======
+- I want chat_thief to be unix-like:
+  - Send messages to chat
+  - Collect messages and send them somewhere

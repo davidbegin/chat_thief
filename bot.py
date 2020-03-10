@@ -7,32 +7,48 @@ import time
 from pathlib import Path
 from logging.handlers import RotatingFileHandler
 
+# socket()
+# connect()
+# send()
+
+# Why am I never closing
+# should I be passing the server object around
+
+ENCODING="utf-8"
+CHAT_MSG="PRIVMSG"
+ARE_YOU_ALIVE="PING"
+I_AM_ALIVE="PONG"
 
 def send_msg(msg):
     server = connect_to_twitch()
+
+    # We want all configuration pulled out and validated
     channel = os.environ.get("TWITCH_CHANNEL", "beginbot")
 
     if msg:
-        result = server.send(
-            bytes("PRIVMSG " + f"#{channel}" + " :" + msg + "\n", "utf-8")
+        result = server.sendall(
+            bytes(f"{CHAT_MSG} #{channel} :{msg}\n", ENCODING)
         )
 
 def run_bot(server):
+    # Too much logging logic
     logger = logging.getLogger("Chat Log")
     logger.setLevel(logging.INFO)
     Path("logs").mkdir(exist_ok=True)
+    # Decide what I want around logging
     handler = RotatingFileHandler("logs/chat.log", maxBytes=50000000, backupCount=5)
     logger.addHandler(handler)
     logger.addHandler(logging.StreamHandler(sys.stdout))
     
     while True:
-        irc_response = server.recv(2048).decode("utf-8").split()
+        # Why do I use the magical 2048
+        irc_response = server.recv(2048).decode(ENCODING).split()
 
-        if irc_response[1] == "PRIVMSG":
+        if irc_response[1] == CHAT_MSG:
             user, msg = _parse_user_and_msg(irc_response)
             logger.info(f"{user}: {msg}")
-        elif irc_response[0] == "PING":
-            server.send(bytes("PONG" + "\r\n", "utf-8"))
+        elif irc_response[0] == ARE_YOU_ALIVE:
+            server.sendall(bytes(I_AM_ALIVE + "\r\n", ENCODING))
 
 
 def _parse_user_and_msg(irc_response):
@@ -55,17 +71,11 @@ def _handshake(server):
 
     print(json.dumps({"message": f"Connecting to #{channel} as {bot}"}))
 
-    server.send(bytes("PASS " + token + "\r\n", "utf-8"))
-    server.send(bytes("NICK " + bot + "\r\n", "utf-8"))
-    server.send(bytes("JOIN " + f"#{channel}" + "\r\n", "utf-8"))
-
-def connect_to_twitch():
-    connection_data = ("irc.chat.twitch.tv", 6667)
-    server = socket.socket()
-    server.connect(connection_data)
-    _handshake(server)
-    return server
-
+    # Is this the 3-Way Client Handshake
+    # Is this IRC only?
+    server.sendall(bytes("PASS " + token + "\r\n", ENCODING))
+    server.sendall(bytes("NICK " + bot + "\r\n", ENCODING))
+    server.sendall(bytes("JOIN " + f"#{channel}" + "\r\n", ENCODING))
 
 if __name__ == "__main__":
     required_config = "TWITCH_OAUTH_TOKEN TWITCH_CHANNEL TWITCH_BOT_NAME"
@@ -78,5 +88,9 @@ if __name__ == "__main__":
         print(errors)
         raise ValueError(errors)
 
-    server = connect_to_twitch()
-    run_bot(server)
+    connection_data = ("irc.chat.twitch.tv", 6667)
+    # AF_INET and SOCK_STREAM
+    with socket.socket() as server:
+        server.connect(connection_data)
+        _handshake(server)
+        run_bot(server)
