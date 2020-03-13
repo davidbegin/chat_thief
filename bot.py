@@ -1,22 +1,17 @@
 import json
-import logging
-import os
 import socket
-import sys
-import time
-from pathlib import Path
 
 from log import Log
 from config import TwitchConfig
 from command_parser import CommandParser
 
 CONNECTION_DATA = ("irc.chat.twitch.tv", 6667)
-ENCODING      = "utf-8"
-CHAT_MSG      = "PRIVMSG"
+ENCODING = "utf-8"
+CHAT_MSG = "PRIVMSG"
 ARE_YOU_ALIVE = "PING"
-I_AM_ALIVE    = "PONG"
+I_AM_ALIVE = "PONG"
 
-config = TwitchConfig(channel="zabt2")
+config = TwitchConfig()
 logger = Log()
 
 
@@ -32,7 +27,9 @@ def send_msg(server, msg):
 
 
 def irc_handshake(server):
-    logger.debug(json.dumps({"message": f"Connecting to #{config.channel} as {config.bot}"}))
+    logger.debug(
+        json.dumps({"message": f"Connecting to #{config.channel} as {config.bot}"})
+    )
 
     server.sendall(bytes("PASS " + config.token + "\r\n", ENCODING))
     server.sendall(bytes("NICK " + config.bot + "\r\n", ENCODING))
@@ -48,12 +45,11 @@ def run_bot(server):
         elif len(irc_response) < 2:
             pass
         elif irc_response[1] == CHAT_MSG:
-            if response:= CommandParser(irc_response, logger).build_response():
-                send_msg(server,  response)
+            if response := CommandParser(irc_response, logger).build_response():
+                send_msg(server, response)
 
 
 if __name__ == "__main__":
-    # Should we add explicit params of: AF_INET and SOCK_STREAM
     with socket.socket() as server:
         server.connect(CONNECTION_DATA)
         irc_handshake(server)
