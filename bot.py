@@ -43,11 +43,13 @@ def run_bot(server):
     while True:
         irc_response = server.recv(2048).decode(ENCODING).split()
 
-        if irc_response[1] == CHAT_MSG:
+        if irc_response[0] == ARE_YOU_ALIVE:
+            pong(server)
+        elif len(irc_response) < 2:
+            pass
+        elif irc_response[1] == CHAT_MSG:
             if response:= CommandParser(irc_response, logger).build_response():
                 send_msg(server,  response)
-        elif irc_response[0] == ARE_YOU_ALIVE:
-            pong(server)
 
 
 if __name__ == "__main__":
