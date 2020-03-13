@@ -1,7 +1,7 @@
 import os
 from dataclasses import dataclass
 
-DEFAULT_BOT = "beginbotbot"
+DEFAULT_BOT     = "beginbotbot"
 DEFAULT_CHANNEL = "beginbotbot"
 
 

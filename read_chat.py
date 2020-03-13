@@ -1,10 +1,9 @@
 from pathlib import Path
 import re
 import sys
-
 DEFAULT_LINES_TO_GRAB = 5
 # BLACKLISTED_USERS = []
-BLACKLISTED_USERS = ["beginbotbot"]
+BLACKLISTED_USERS = ["beginbotbot", "nightbot"]
 
 from optparse import OptionParser
 

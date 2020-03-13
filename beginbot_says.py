@@ -8,6 +8,7 @@ NIGHTBOT_COMMANDS = [
     "discord",
     "github",
     "links",
+    "linux",
     "marker",
     "schedule",
     "so",
