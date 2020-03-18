@@ -11,5 +11,5 @@ class TwitchConfig:
     bot: str = os.environ.get("TWITCH_BOT_NAME", DEFAULT_BOT)
     channel: str = os.environ.get("TWITCH_CHANNEL", DEFAULT_CHANNEL)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"TwitchConfig(bot: {self.bot}, channel: {self.channel})"

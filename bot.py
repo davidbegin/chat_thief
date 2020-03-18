@@ -1,7 +1,8 @@
+from typing import List, Dict
 import json
 import socket
 
-from chat_thief.log import Log
+from chat_thief.log import logger
 from chat_thief.config import TwitchConfig
 from chat_thief.command_parser import CommandParser
 
@@ -12,22 +13,19 @@ ARE_YOU_ALIVE = "PING"
 I_AM_ALIVE = "PONG"
 
 config = TwitchConfig()
-logger = Log()
 
 
-def pong(server):
+def pong(server: socket.socket) -> None:
     server.sendall(bytes(I_AM_ALIVE + "\r\n", ENCODING))
 
 
-def send_msg(server, msg: str):
+def send_msg(server: socket.socket, msg: str) -> None:
     if msg:
-        result = server.sendall(
-            bytes(f"{CHAT_MSG} #{config.channel} :{msg}\n", ENCODING)
-        )
+        server.sendall(bytes(f"{CHAT_MSG} #{config.channel} :{msg}\n", ENCODING))
 
 
-def irc_handshake(server):
-    logger.debug(
+def irc_handshake(server: socket.socket) -> None:
+    logger.info(
         json.dumps({"message": f"Connecting to #{config.channel} as {config.bot}"})
     )
 
@@ -36,7 +34,7 @@ def irc_handshake(server):
     server.sendall(bytes("JOIN " + f"#{config.channel}" + "\r\n", ENCODING))
 
 
-def run_bot(server):
+def run_bot(server: socket.socket) -> None:
     while True:
         irc_response = server.recv(2048).decode(ENCODING).split()
 

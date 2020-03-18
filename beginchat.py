@@ -4,13 +4,15 @@ import re
 import string
 import sys
 
+from typing import List
+
 DEFAULT_LINES_TO_GRAB = 5
 # BLACKLISTED_USERS = ["beginbotbot", "nightbot"]
 BLACKLISTED_USERS = ["nightbot"]
 # BLACKLISTED_USERS = []
 
 
-def filter_out_logs(logs):
+def filter_out_logs(logs: List[str]) -> List[str]:
     pattern = re.compile("[^{]*: .*")
     return [
         log
@@ -19,7 +21,7 @@ def filter_out_logs(logs):
     ]
 
 
-def rot13(text):
+def rot13(text: str) -> str:
     abc = string.ascii_lowercase
     return "".join([abc[(abc.find(c) + 13) % 26] for c in text])
 
