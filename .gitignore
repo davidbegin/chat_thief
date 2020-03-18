@@ -1,5 +1,6 @@
 logs/*
 __pycache__/*
+chat_thief/__pycache__/*
 venv/*
 
 

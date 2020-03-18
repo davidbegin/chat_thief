@@ -1,8 +1,9 @@
 import json
 import socket
-from log import Log
-from config import TwitchConfig
-from command_parser import CommandParser
+
+from chat_thief.log import Log
+from chat_thief.config import TwitchConfig
+from chat_thief.command_parser import CommandParser
 
 CONNECTION_DATA = ("irc.chat.twitch.tv", 6667)
 ENCODING = "utf-8"

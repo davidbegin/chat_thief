@@ -8,7 +8,7 @@ class Log:
     def __new__(cls):
         logger = logging.getLogger("Chat Log")
         logger.setLevel(logging.INFO)
-        logs_path = Path(__file__).parent.joinpath("logs")
+        logs_path = Path(__file__).parent.parent.joinpath("logs")
         logs_path.mkdir(exist_ok=True)
         # Figure out the actual values we want and make them configurable
         logger.addHandler(

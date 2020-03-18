@@ -65,5 +65,4 @@ if __name__ == "__main__":
                 print(chat_words)
 
         chat = filter_out_logs(lines)
-        chat = []
     print("\n".join(chat))
