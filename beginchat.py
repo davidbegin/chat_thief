@@ -47,7 +47,7 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
 
     with Path(__file__).parent.joinpath("logs/chat.log") as log:
-        chat_lines = log.read_text().split("\n")
+        chat_lines = [line for line in log.read_text().split("\n") if line]
         if options.all:
             lines = chat_lines
         else:
@@ -63,7 +63,8 @@ if __name__ == "__main__":
 
             # We need some spell checking
             if rot13_word_matches > regular_word_matches and rot13_word_matches > 0:
-                print(chat_words)
+                username, *words = chat_words
+                print(f"{rot13(username)} {' '.join(words)}")
 
         chat = filter_out_logs(lines)
     print("\n".join(chat))
