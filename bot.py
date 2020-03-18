@@ -5,10 +5,10 @@ from config import TwitchConfig
 from command_parser import CommandParser
 
 CONNECTION_DATA = ("irc.chat.twitch.tv", 6667)
-ENCODING        = "utf-8"
-CHAT_MSG        = "PRIVMSG"
-ARE_YOU_ALIVE   = "PING"
-I_AM_ALIVE      = "PONG"
+ENCODING = "utf-8"
+CHAT_MSG = "PRIVMSG"
+ARE_YOU_ALIVE = "PING"
+I_AM_ALIVE = "PONG"
 
 config = TwitchConfig()
 logger = Log()
