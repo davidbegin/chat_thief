@@ -16,6 +16,12 @@ python bot.py
   - Send messages to chat
   - Collect messages and send them somewhere
 
+```bash
+beginbot
+
+beginchat
+```
+
 ## Vim Integration
 
 We want a command that takes the selected area and sends it the command

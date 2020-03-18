@@ -1,14 +1,13 @@
+from optparse import OptionParser
 from pathlib import Path
 import re
+import string
 import sys
 
 DEFAULT_LINES_TO_GRAB = 5
-# BLACKLISTED_USERS = []
 # BLACKLISTED_USERS = ["beginbotbot", "nightbot"]
 BLACKLISTED_USERS = ["nightbot"]
-
-from optparse import OptionParser
-import string
+# BLACKLISTED_USERS = []
 
 
 def filter_out_logs(logs):

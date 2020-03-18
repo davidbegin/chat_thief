@@ -19,7 +19,7 @@ def pong(server):
     server.sendall(bytes(I_AM_ALIVE + "\r\n", ENCODING))
 
 
-def send_msg(server, msg):
+def send_msg(server, msg: str):
     if msg:
         result = server.sendall(
             bytes(f"{CHAT_MSG} #{config.channel} :{msg}\n", ENCODING)
