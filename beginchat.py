@@ -1,15 +1,19 @@
 from optparse import OptionParser
+
 from pathlib import Path
 import re
 import string
 import sys
+import codecs
 
 from typing import List
 
 DEFAULT_LINES_TO_GRAB = 5
 # BLACKLISTED_USERS = ["beginbotbot", "nightbot"]
-BLACKLISTED_USERS = ["nightbot"]
 # BLACKLISTED_USERS = []
+BLACKLISTED_USERS = ["nightbot"]
+
+DICT_WORDS = Path("/usr/share/dict/cracklib-small").read_text().split()
 
 
 def filter_out_logs(logs: List[str]) -> List[str]:
@@ -22,8 +26,31 @@ def filter_out_logs(logs: List[str]) -> List[str]:
 
 
 def rot13(text: str) -> str:
-    abc = string.ascii_lowercase
-    return "".join([abc[(abc.find(c) + 13) % 26] for c in text])
+    decrypted_msg, _length = codecs.lookup("rot13").encode(text)
+    return decrypted_msg
+
+
+# Identify URLs and ping them first?
+# or just regular
+#
+# This fails for code
+def is_encrypted_msg(line: str) -> bool:
+    chat_words = [word for word in line.split(" ")[1:] if word.strip()]
+
+    regular_word_matches = len(set(DICT_WORDS) & set(chat_words))
+    rot13_word_matches = len(
+        set(DICT_WORDS) & set([rot13(word) for word in chat_words])
+    )
+    return rot13_word_matches > regular_word_matches
+
+
+def decrypt_msg(line: str) -> str:
+    if is_encrypted_msg(line):
+        chat_words = [word for word in line.split(" ") if word.strip()]
+        username, *words = chat_words
+        return f"*{username}* {' '.join([rot13(word) for word in words ])}"
+    else:
+        return line
 
 
 if __name__ == "__main__":
@@ -53,18 +80,7 @@ if __name__ == "__main__":
         else:
             lines = chat_lines[-options.line_count :]
 
-        dict_words = Path("/usr/share/dict/cracklib-small").read_text().split()
-        for line in lines:
-            chat_words = [word for word in line.split(" ") if word]
-            regular_word_matches = len(set(dict_words) & set(chat_words))
-            rot13_word_matches = len(
-                set(dict_words) & set([rot13(word) for word in chat_words])
-            )
+        # We should do something when there are less lines than the count
+        chat = [decrypt_msg(msg) for msg in filter_out_logs(lines)]
 
-            # We need some spell checking
-            if rot13_word_matches > regular_word_matches and rot13_word_matches > 0:
-                username, *words = chat_words
-                print(f"{rot13(username)} {' '.join(words)}")
-
-        chat = filter_out_logs(lines)
     print("\n".join(chat))
