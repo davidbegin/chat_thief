@@ -1,6 +1,8 @@
 from typing import List, Dict
 import json
 import socket
+import asyncio
+
 
 from chat_thief.log import logger
 from chat_thief.config import TwitchConfig
@@ -45,10 +47,21 @@ def run_bot(server: socket.socket) -> None:
         elif irc_response[1] == CHAT_MSG:
             if response := CommandParser(irc_response, logger).build_response():
                 send_msg(server, response)
+                send_msg(resonse)
+
+
+def run():
+    with socket.socket() as server:
+        server.connect(connection_data)
+        irc_handshake(server)
+        run_bot(server)
 
 
 if __name__ == "__main__":
     with socket.socket() as server:
-        server.connect(CONNECTION_DATA)
+        server.connect(connection_data)
         irc_handshake(server)
         run_bot(server)
+    # self.loop = asyncio.get_event_loop()
+    # self.loop.create_task(run())
+    # self.loop.run_forever()

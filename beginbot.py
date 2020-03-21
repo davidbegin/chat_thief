@@ -1,4 +1,5 @@
 import socket
+
 import sys
 
 from bot import irc_handshake, send_msg, CONNECTION_DATA
