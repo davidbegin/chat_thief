@@ -17,11 +17,16 @@ I_AM_ALIVE = "PONG"
 config = TwitchConfig()
 
 
-def pong(server: socket.socket) -> None:
+async def pong(server: socket.socket) -> None:
     server.sendall(bytes(I_AM_ALIVE + "\r\n", ENCODING))
 
 
-def send_msg(server: socket.socket, msg: str) -> None:
+def simple_send_msg(server: socket.socket, msg: str) -> None:
+    if msg:
+        server.sendall(bytes(f"{CHAT_MSG} #{config.channel} :{msg}\n", ENCODING))
+
+
+async def send_msg(server: socket.socket, msg: str) -> None:
     if msg:
         server.sendall(bytes(f"{CHAT_MSG} #{config.channel} :{msg}\n", ENCODING))
 
@@ -30,38 +35,36 @@ def irc_handshake(server: socket.socket) -> None:
     logger.info(
         json.dumps({"message": f"Connecting to #{config.channel} as {config.bot}"})
     )
-
     server.sendall(bytes("PASS " + config.token + "\r\n", ENCODING))
     server.sendall(bytes("NICK " + config.bot + "\r\n", ENCODING))
     server.sendall(bytes("JOIN " + f"#{config.channel}" + "\r\n", ENCODING))
 
 
-def run_bot(server: socket.socket) -> None:
+async def chat_response(server: socket.socket):
+   return server.recv(2048).decode(ENCODING).split()
+
+
+async def run_bot(server: socket.socket) -> None:
     while True:
-        irc_response = server.recv(2048).decode(ENCODING).split()
+        irc_response = await chat_response(server)
+
+        print(irc_response)
 
         if irc_response[0] == ARE_YOU_ALIVE:
-            pong(server)
+            await pong(server)
         elif len(irc_response) < 2:
             pass
         elif irc_response[1] == CHAT_MSG:
             if response := CommandParser(irc_response, logger).build_response():
-                send_msg(server, response)
-                send_msg(resonse)
+                await send_msg(server, response)
 
 
-def run():
+async def main():
     with socket.socket() as server:
-        server.connect(connection_data)
+        server.connect(CONNECTION_DATA)
         irc_handshake(server)
-        run_bot(server)
+        await asyncio.gather(run_bot(server))
 
 
 if __name__ == "__main__":
-    with socket.socket() as server:
-        server.connect(connection_data)
-        irc_handshake(server)
-        run_bot(server)
-    # self.loop = asyncio.get_event_loop()
-    # self.loop.create_task(run())
-    # self.loop.run_forever()
+    asyncio.run(main())

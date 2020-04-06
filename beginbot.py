@@ -2,7 +2,7 @@ import socket
 
 import sys
 
-from bot import irc_handshake, send_msg, CONNECTION_DATA
+from bot import irc_handshake, simple_send_msg, CONNECTION_DATA
 
 # We add ! to these commands
 NIGHTBOT_COMMANDS = [
@@ -10,9 +10,16 @@ NIGHTBOT_COMMANDS = [
     "github",
     "links",
     "linux",
+    "guest",
     "marker",
     "schedule",
     "so",
+    "idk",
+    "ha",
+    "wyp",
+    "jdi",
+    "clap",
+    "ahh",
     "topic",
 ]
 
@@ -24,4 +31,4 @@ if __name__ == "__main__":
         if cmd in NIGHTBOT_COMMANDS:
             cmd = f"!{cmd}"
 
-        send_msg(server, f"{cmd} {' '.join(args)}")
+        simple_send_msg(server, f"{cmd} {' '.join(args)}")
