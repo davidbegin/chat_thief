@@ -4,4 +4,5 @@ chat_thief/__pycache__/*
 venv/*
 .mypy_cache/*
 .whitelisted_users
+.welcome
 scripts/*
