@@ -41,14 +41,12 @@ def irc_handshake(server: socket.socket) -> None:
 
 
 async def chat_response(server: socket.socket):
-   return server.recv(2048).decode(ENCODING).split()
+    return server.recv(2048).decode(ENCODING).split()
 
 
 async def run_bot(server: socket.socket) -> None:
     while True:
         irc_response = await chat_response(server)
-
-        # print(irc_response)
 
         if irc_response[0] == ARE_YOU_ALIVE:
             await pong(server)
@@ -56,7 +54,13 @@ async def run_bot(server: socket.socket) -> None:
             pass
         elif irc_response[1] == CHAT_MSG:
             if response := CommandParser(irc_response, logger).build_response():
-                await send_msg(server, response)
+                MESSAGE_LIMIT = 500
+                if len(response) > MESSAGE_LIMIT:
+                    # This is dumb!
+                    await send_msg(server, f"{response[:500]}")
+                    await send_msg(server, f"{response[500:]}")
+                else:
+                    await send_msg(server, f"{response[:500]}")
 
 
 async def main():

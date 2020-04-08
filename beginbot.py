@@ -28,6 +28,8 @@ if __name__ == "__main__":
         server.connect(CONNECTION_DATA)
         irc_handshake(server)
         cmd, *args = sys.argv[1:]
+
+        # This should look for this commands when I am sending them and add the exclamation if I have a sound effect
         if cmd in NIGHTBOT_COMMANDS:
             cmd = f"!{cmd}"
 
