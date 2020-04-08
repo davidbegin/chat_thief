@@ -48,7 +48,7 @@ async def run_bot(server: socket.socket) -> None:
     while True:
         irc_response = await chat_response(server)
 
-        print(irc_response)
+        # print(irc_response)
 
         if irc_response[0] == ARE_YOU_ALIVE:
             await pong(server)

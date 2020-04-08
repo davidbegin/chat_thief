@@ -9,6 +9,8 @@ STREAM_LORDS = [
     "stupac62",
     "vivax3794",
     "artmattdank",
+    "baldclap",
+    "tramstarzz",
 ]
 
 OBS_COMMANDS = [
@@ -37,11 +39,59 @@ class CommandParser:
         self._logger.info(f"{self.user}: {self.msg}")
 
     def play_sample(self, sound_file):
-        print("WE ARE TRYING TO PLAY {sound_file}")
+        print(f"WE ARE TRYING TO PLAY {sound_file}")
         os.system(f"mplayer {sound_file}")
+
+    def welcome(self):
+        print(f"WE ARE TRYING TO PLAY {self.user}")
+        # Need need to add the user name to the .welcome)
+        # We need to find the write sample name
+        SOUND_EFFECT_FILES = [
+            p for p in Path(SAMPLES_PATH).glob("**/*")
+            if p.suffix in ALLOWED_AUDIO_FORMATS
+            if p.name[:-len(p.suffix)] == self.user
+        ]
+
+        for effect in SOUND_EFFECT_FILES:
+            os.system(f"mplayer {effect.resolve()}")
+
+        # path = Path(__file__).parent.parent.parent.parent.joinpath(f"stream/Stream/Samples/{self.user}.m4a")
+        # This must add to the welcome file
+
+
+    def add_command(self):
+        if self.user in STREAM_LORDS:
+            print("\n\n\nSTREAM LORD!!!!\n\n")
+            print(f"\n\n\n{self.user} is trying to add a command: {self.msg}\n\n\n")
+
+            command = self.msg[1:].split()[0]
+            effect_args = self.msg.split()[1:]
+
+            # ['Xs6_vecSv2Y', 'correct', '05:08', '05:11']
+            os.system(
+                f"/home/begin/stream/Stream/Samples/add_sound_effect {' '.join(effect_args) }"
+            )
+
+
 
     def build_response(self) -> Optional[str]:
         self.print_msg()
+
+        try:
+            welcome_file = Path(__file__).parent.parent.joinpath(".welcome")
+            present_viewers = welcome_file.read_text().split()
+        except:
+            present_viewers = []
+
+        if self.user not in present_viewers:
+            print(f"\n\nNew User: {self.user}\n\n")
+            try:
+                self.welcome()
+            except:
+                print("WE need a soundeffect")
+
+            with open(welcome_file, "a") as f:
+                f.write(f"{self.user}\n")
 
         if self._is_command_msg():
             command = self.msg[1:].split()[0]
@@ -51,12 +101,15 @@ class CommandParser:
             if msg == "!so":
                 return self.shoutout()
 
+            if command == "soundeffect":
+                return self.add_command()
+
             # We need to read the file in right here
 
             WHITELISTED_USERS = Path(__file__).parent.parent.joinpath(
                     ".whitelisted_users").read_text().split()
 
-            print(WHITELISTED_USERS)
+            # print(WHITELISTED_USERS)
 
             if self.user in WHITELISTED_USERS:
                 SOUND_AFFECT_FILES = {
