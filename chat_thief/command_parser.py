@@ -6,17 +6,19 @@ import subprocess
 
 from chat_thief.irc import send_twitch_msg
 
-# TODO: Whitelist command
 # Blacklist Command
-
 # We need stream lords
+# Move this to a file
 STREAM_LORDS = [
-    "beginbotbot",
+    # "beginbotbot",
     "stupac62",
     "vivax3794",
     "artmattdank",
     "baldclap",
     "tramstarzz",
+    "sweeku",
+    "isidentical",
+    "disk1of5",
 ]
 
 OBS_COMMANDS = [
@@ -33,9 +35,6 @@ SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
 THEME_SONGS_PATH = "/home/begin/stream/Stream/Samples/theme_songs"
 
 WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
-
-# !whitelist
-
 
 def fetch_whitelisted_users():
     return (
@@ -58,10 +57,10 @@ def fetch_soundeffect_samples():
 
 
 def fetch_soundeffect_names():
-    return {
+    return [
         sound_file.name[: -len(sound_file.suffix)]
         for sound_file in fetch_soundeffect_samples()
-    }
+    ]
 
 
 def fetch_present_users():
@@ -70,6 +69,22 @@ def fetch_present_users():
     else:
         WELCOME_FILE.touch()
         return []
+
+
+def remove_completed_requests():
+    soundeffect_names = fetch_soundeffect_names()
+    print(f"\n\n{soundeffect_names}\n\n")
+    soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
+
+    unfulfilled_reqests = [
+        request for request in soundeffect_requests.read_text().strip().split("\n")
+        if request.split()[2] not in soundeffect_names
+    ]
+
+    print(f"\n\nUnfulfilled Request: {unfulfilled_reqests}\n\n")
+    with open(soundeffect_requests, "w") as f:
+        f.write("\n".join(unfulfilled_reqests) + "\n")
+
 
 
 class CommandParser:
@@ -87,7 +102,8 @@ class CommandParser:
     def play_sample(self, sound_file):
         print(f"Playing: {sound_file}")
         subprocess.call(
-            ["mplayer", sound_file],
+            ["mplayer", "-af", "volnorm=2:0.65", sound_file],
+            # We neeed to read in the requests
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
         )
@@ -102,16 +118,50 @@ class CommandParser:
         ]
 
         for effect in SOUND_EFFECT_FILES:
-            os.system(f"mplayer {effect.resolve()}")
+            subprocess.call(
+                ["mplayer", "-af", "volnorm=2:0.65", effect.resolve()],
+                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+            )
 
     def add_command(self):
         if self.user in STREAM_LORDS:
             print("\n\n\nSTREAM LORD!!!!\n\n")
             print(f"\n\n\n{self.user} is trying to add a command: {self.msg}\n\n\n")
             effect_args = self.msg.split()[1:]
-            os.system(
-                f"/home/begin/stream/Stream/Samples/add_sound_effect {' '.join(effect_args) }"
+
+            add_sound_effect = Path(SAMPLES_PATH).joinpath("add_sound_effect")
+            args = [add_sound_effect.resolve()] + effect_args
+
+            subprocess.call(
+                args,
+                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
             )
+
+            new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
+            send_twitch_msg(f"New Sound Available: !{effect_args[1]}")
+            subprocess.call(
+                ["mplayer", new_item],
+                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+            )
+        else:
+            # Themes don't go to theme folder
+            # we don't normalize the type of audio
+            soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
+            previous_requests = soundeffect_requests.read_text().split("\n")
+            print(previous_requests)
+
+            if self.msg in previous_requests:
+                send_twitch_msg(f"Thank you @{self.user} we already have that request")
+            else:
+                send_twitch_msg(f"@{self.user} thank you for your patience in this trying time, beginbot is doing all he can to ensure your safety during this COVID-19 situation. Your request will be processed by a streamlord in due time thanks")
+                if self.user != "beginbotbot":
+                    with open(soundeffect_requests, "a") as f:
+                        # is the text already in here
+                        f.write(self.msg + "\n")
+
         return None
 
     def welcome_new_users(self):
@@ -154,8 +204,26 @@ class CommandParser:
                 return self.shoutout()
 
             if msg == "!whitelist":
-                print("WHITELIST")
                 return " ".join(fetch_whitelisted_users())
+
+            if msg == "!streamlords":
+                return " ".join(STREAM_LORDS)
+
+            if msg == "!requests":
+                try:
+                    remove_completed_requests()
+                except Exception as e:
+                    print(f"Error Removing Message: {e}")
+
+                soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
+                previous_requests = soundeffect_requests.read_text().split("\n")
+
+                if previous_requests:
+                    for sound_request in previous_requests:
+                        if sound_request:
+                            send_twitch_msg("Request: " + sound_request)
+                else:
+                    send_twitch_msg("No Requests! Great Job STREAM_LORDS")
 
             if msg == "!soundeffect":
                 return self.add_command()
