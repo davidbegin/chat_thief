@@ -1,14 +1,13 @@
+from dataclasses import dataclass
+from pathlib import Path
 from typing import Dict, List, Optional
 import logging
 import os
-from pathlib import Path
-from dataclasses import dataclass
 import subprocess
 
 from tinydb import TinyDB, Query
 
 from chat_thief.irc import send_twitch_msg
-
 from chat_thief.stream_lords import STREAM_LORDS
 
 
@@ -36,16 +35,13 @@ OBS_COMMANDS = [
 ]
 
 ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
-
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
-
 THEME_SONGS_PATH = "/home/begin/stream/Stream/Samples/theme_songs"
-
 WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
+MPLAYER_VOL_NORM = "0.55"
 
-MPLAYER_VOL_NORM = "0.65"
-
-DB = TinyDB("db/soundeffects.json")
+soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
+DB = TinyDB(soundeffects_db_path)
 
 
 def fetch_theme_songs():
@@ -107,7 +103,6 @@ class AudioCommandCenter:
         print(f"Playing: {sound_file}")
         subprocess.call(
             ["mplayer", "-af", f"volnorm=2:{MPLAYER_VOL_NORM}", sound_file],
-            # We neeed to read in the requests
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
         )
@@ -157,66 +152,70 @@ class AudioCommandCenter:
         # result = db.search(SoundEffectQuery.name == 'update')
         # print(result)
 
+    def save_request(self):
+        # Themes don't go to theme folder
+        # we don't normalize the type of audio
+        soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
+        previous_requests = soundeffect_requests.read_text().split("\n")
+        print(previous_requests)
+
+        request_to_save = self.user + " " + self.msg
+
+        if request_to_save in previous_requests:
+            send_twitch_msg(f"Thank you @{self.user} we already have that request")
+        else:
+            send_twitch_msg(
+                f"@{self.user} thank you for your patience in this trying time, beginbot is doing all he can to ensure your safety during this COVID-19 situation. Your request will be processed by a streamlord in due time thanks"
+            )
+            if self.user != "beginbotbot":
+                with open(soundeffect_requests, "a") as f:
+                    f.write(request_to_save + "\n")
+
+    def create_new_soundeffect(self):
+        print(f"\n\n\n{self.user} is trying to add a command: {self.msg}\n\n\n")
+        effect_args = self.msg.split()[1:]
+
+        previous_sfs = [
+            Path(SAMPLES_PATH).joinpath(f"{effect_args[1]}{suffix}")
+            for suffix in ALLOWED_AUDIO_FORMATS
+        ]
+
+        existing_sfs = [sf for sf in previous_sfs if sf.is_file()]
+
+        for sf in existing_sfs:
+            print(f"Deleting {sf}")
+            sf.unlink()
+
+        add_sound_effect = Path(SAMPLES_PATH).joinpath("add_sound_effect")
+        args = [add_sound_effect.resolve()] + effect_args
+
+        try:
+            self.save_command(effect_args)
+        except Exception as e:
+            import traceback
+
+            trace = traceback.format_exc()
+            print(f"Error saving command: {e} {trace}")
+
+        subprocess.call(
+            args, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+        )
+
+        if existing_sfs:
+            new_item = Path(SAMPLES_PATH).joinpath("update.opus")
+            send_twitch_msg(f"Updated Sound Available: !{effect_args[1]}")
+        else:
+            new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
+            send_twitch_msg(f"New Sound Available: !{effect_args[1]}")
+
+        self.play_soundeffect(new_item)
+
     def add_command(self):
         if self.user in STREAM_LORDS:
             print("\n\n\nSTREAM LORD!!!!\n\n")
-            print(f"\n\n\n{self.user} is trying to add a command: {self.msg}\n\n\n")
-            effect_args = self.msg.split()[1:]
-
-            previous_sfs = [
-                Path(SAMPLES_PATH).joinpath(f"{effect_args[1]}{suffix}")
-                for suffix in ALLOWED_AUDIO_FORMATS
-            ]
-            # print(f"{sf} {f.is_file()}")
-
-            existing_sfs = [sf for sf in previous_sfs if sf.is_file()]
-
-            for sf in existing_sfs:
-                print(f"Deleting {sf}")
-                sf.unlink()
-
-            add_sound_effect = Path(SAMPLES_PATH).joinpath("add_sound_effect")
-            args = [add_sound_effect.resolve()] + effect_args
-
-            try:
-                self.save_command(effect_args)
-            except Exception as e:
-                import traceback
-
-                trace = traceback.format_exc()
-                print(f"Error saving command: {e} {trace}")
-
-            subprocess.call(
-                args, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
-            )
-
-            if existing_sfs:
-                new_item = Path(SAMPLES_PATH).joinpath("update.opus")
-                send_twitch_msg(f"Updated Sound Available: !{effect_args[1]}")
-            else:
-                new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
-                send_twitch_msg(f"New Sound Available: !{effect_args[1]}")
-
-            self.play_soundeffect(new_item)
+            self.create_new_soundeffect()
         else:
-            # Themes don't go to theme folder
-            # we don't normalize the type of audio
-
-            soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
-            previous_requests = soundeffect_requests.read_text().split("\n")
-            print(previous_requests)
-
-            request_to_save = self.user + " " + self.msg
-
-            if request_to_save in previous_requests:
-                send_twitch_msg(f"Thank you @{self.user} we already have that request")
-            else:
-                send_twitch_msg(
-                    f"@{self.user} thank you for your patience in this trying time, beginbot is doing all he can to ensure your safety during this COVID-19 situation. Your request will be processed by a streamlord in due time thanks"
-                )
-                if self.user != "beginbotbot":
-                    with open(soundeffect_requests, "a") as f:
-                        f.write(request_to_save + "\n")
+            self.save_request()
         return None
 
     def welcome_new_users(self):

@@ -46,9 +46,25 @@ class CommandParser:
     def print_msg(self) -> None:
         self._logger.info(f"{self.user}: {self.msg}")
 
+    def handle_them_requests(self):
+        try:
+            remove_completed_requests()
+        except Exception as e:
+            print(f"Error Removing Message: {e}")
+
+        soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
+        previous_requests = soundeffect_requests.read_text().split("\n")
+
+        if previous_requests:
+            for sound_request in previous_requests:
+                if sound_request:
+                    send_twitch_msg("Request: " + sound_request)
+        else:
+            send_twitch_msg("No Requests! Great Job STREAM_LORDS")
+
     def build_response(self) -> Optional[str]:
         self.print_msg()
-        # self.welcome_new_users()
+        self.audio_command_center.welcome_new_users()
 
         if self._is_command_msg():
             command = self.msg[1:].split()[0]
@@ -65,25 +81,10 @@ class CommandParser:
                 return " ".join(STREAM_LORDS)
 
             if msg == "!requests":
-                try:
-                    remove_completed_requests()
-                except Exception as e:
-                    print(f"Error Removing Message: {e}")
-
-                soundeffect_requests = Path(__file__).parent.parent.joinpath(
-                    ".requests"
-                )
-                previous_requests = soundeffect_requests.read_text().split("\n")
-
-                if previous_requests:
-                    for sound_request in previous_requests:
-                        if sound_request:
-                            send_twitch_msg("Request: " + sound_request)
-                else:
-                    send_twitch_msg("No Requests! Great Job STREAM_LORDS")
+                return self.handle_them_requests()
 
             if msg == "!soundeffect":
-                return self.add_command()
+                return self.audio_command_center.add_command()
 
             if self.user in fetch_whitelisted_users():
                 if command in OBS_COMMANDS:
