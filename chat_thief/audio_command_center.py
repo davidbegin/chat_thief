@@ -115,7 +115,11 @@ class AudioCommandCenter:
         )
 
     def welcome(self):
-        print(f"Welcome: {self.user}")
+
+        # We Start you off here
+        # User(
+        # name: self.user,
+        # permitted_commands:
 
         # CommandPermission
         #     user=self.user,

@@ -16,8 +16,6 @@ from chat_thief.audio_command_center import (
     remove_completed_requests,
 )
 
-# We might wat to move this
-
 
 def fetch_whitelisted_users():
     return (
@@ -35,9 +33,6 @@ class CommandParser:
         self.user = user_info.split("!")[0][1:]
         self.msg = self._msg_sanitizer(raw_msg)
         self.audio_command_center = AudioCommandCenter(user=self.user, msg=self.msg)
-
-    def print_msg(self) -> None:
-        self._logger.info(f"{self.user}: {self.msg}")
 
     def handle_them_requests(self):
         try:
@@ -63,7 +58,7 @@ class CommandParser:
             self.audio_command_center.audio_command(command)
 
     def build_response(self) -> Optional[str]:
-        self.print_msg()
+        self._logger.info(f"{self.user}: {self.msg}")
         self.audio_command_center.welcome_new_users()
 
         if self._is_command_msg():
