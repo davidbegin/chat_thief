@@ -2,6 +2,7 @@ logs/*
 __pycache__/*
 chat_thief/__pycache__/*
 venv/*
+db/*
 .mypy_cache/*
 .whitelisted_users
 .welcome
