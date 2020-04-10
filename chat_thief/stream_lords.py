@@ -7,7 +7,7 @@ STREAM_LORDS = [
     "stupac62",
     "vivax3794",
     "artmattdank",
-    # "baldclap",
+    "baldclap",
     "tramstarzz",
     "sweeku",
     "isidentical",

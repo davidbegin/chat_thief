@@ -4,12 +4,14 @@ import os
 from pathlib import Path
 from dataclasses import dataclass
 import subprocess
+import traceback
 
 from tinydb import TinyDB, Query
 
 from chat_thief.obs import OBS_COMMANDS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.audio_command_center import (
     AudioCommandCenter,
     fetch_soundeffect_names,
@@ -33,6 +35,7 @@ class CommandParser:
         self.user = user_info.split("!")[0][1:]
         self.msg = self._msg_sanitizer(raw_msg)
         self.audio_command_center = AudioCommandCenter(user=self.user, msg=self.msg)
+        self.command_permission_center = CommandPermissionCenter()
 
     def handle_them_requests(self):
         try:
@@ -65,6 +68,19 @@ class CommandParser:
             command = self.msg[1:].split()[0]
             msg = self.msg.split()[0].lower()
             print(f"User: {self.user} | Command: {command}")
+
+            if msg == "!perms":
+                _, command, *_ = self.msg.split(" ")
+                return self.command_permission_center.fetch_command_permissions(command)
+
+            try:
+                if msg == "!add_perm":
+                    return self.command_permission_center.add_permission(self.msg)
+            except Exception as e:
+                trace = traceback.format_exc()
+                print(f"Error adding permission: {e} {trace}")
+
+            # We need to start blocking if not allowed
 
             if msg == "!so":
                 return self.shoutout()

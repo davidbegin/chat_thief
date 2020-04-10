@@ -9,30 +9,9 @@ from tinydb import TinyDB, Query
 
 from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.command_permissions import CommandPermissionCenter
 
-
-@dataclass
-class User:
-    name: str
-    permitted_commands: List
-
-
-@dataclass
-class CommandPermission:
-    user: str
-    command: str
-    permitted_users: List[str]
-    karma: int = 0
-
-
-@dataclass
-class SoundEffect:
-    user: str
-    youtube_id: str
-    name: str
-    start_time: str
-    end_time: str
-
+from chat_thief.models import User, SoundEffect, CommandPermission
 
 OBS_COMMANDS = [
     "wyp",
@@ -49,6 +28,9 @@ MPLAYER_VOL_NORM = "0.55"
 
 soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
 DB = TinyDB(soundeffects_db_path)
+
+# Do you want the new item and update item sounds
+PLAY_UPDATE_EFFECTS = True
 
 
 def fetch_theme_songs():
@@ -115,18 +97,6 @@ class AudioCommandCenter:
         )
 
     def welcome(self):
-
-        # We Start you off here
-        # User(
-        # name: self.user,
-        # permitted_commands:
-
-        # CommandPermission
-        #     user=self.user,
-        #     command: str
-        #     permitted_users: List[str]
-        #     karma: int = 0
-
         SOUND_EFFECT_FILES = [
             p
             for p in Path(SAMPLES_PATH).glob("**/*")
@@ -165,10 +135,6 @@ class AudioCommandCenter:
         print(f"Saving in our DB! {sound.__dict__}")
         soundeffects_table.insert(sound.__dict__)
         command_permissions_table.insert(command_permission.__dict__)
-
-        # SoundEffectQuery = Query()
-        # result = db.search(SoundEffectQuery.name == 'update')
-        # print(result)
 
     def save_request(self):
         # Themes don't go to theme folder
@@ -226,7 +192,8 @@ class AudioCommandCenter:
             new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
             send_twitch_msg(f"New Sound Available: !{effect_args[1]}")
 
-        self.play_soundeffect(new_item)
+        if PLAY_UPDATE_EFFECTS:
+            self.play_soundeffect(new_item)
 
     def add_command(self):
         if self.user in STREAM_LORDS:
@@ -251,8 +218,18 @@ class AudioCommandCenter:
                 f.write(f"{self.user}\n")
 
     def audio_command(self, command):
+        allowed_users = CommandPermission().fetch_command_permissions(command)
+
+        if self.user in allowed_users:
+            print(f"\n{self.user} is allowed {command}")
+        else:
+            print(f"\n{self.user} is NOT allowed {command}")
+
         for sound_file in fetch_soundeffect_samples():
             filename = sound_file.name[: -len(sound_file.suffix)]
+
+            # We need to check if the user is allowed to use this command
+
             if command == filename:
                 if command in fetch_theme_songs():
                     if self.user == command:
