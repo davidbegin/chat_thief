@@ -7,23 +7,16 @@ import subprocess
 
 from tinydb import TinyDB, Query
 
+from chat_thief.obs import OBS_COMMANDS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.audio_command_center import (
     AudioCommandCenter,
-    fetch_theme_songs,
-    fetch_soundeffect_samples,
     fetch_soundeffect_names,
-    fetch_present_users,
     remove_completed_requests,
 )
 
-OBS_COMMANDS = [
-    "wyp",
-    "idk",
-    "jdi",
-    "brb",
-]
+# We might wat to move this
 
 
 def fetch_whitelisted_users():
@@ -62,6 +55,13 @@ class CommandParser:
         else:
             send_twitch_msg("No Requests! Great Job STREAM_LORDS")
 
+    def try_soundeffect(self, command, msg):
+        if command in OBS_COMMANDS:
+            print(f"executing OBS Command: {msg}")
+            os.system(f"so {command}")
+        elif command in fetch_soundeffect_names():
+            self.audio_command_center.audio_command(command)
+
     def build_response(self) -> Optional[str]:
         self.print_msg()
         self.audio_command_center.welcome_new_users()
@@ -87,11 +87,7 @@ class CommandParser:
                 return self.audio_command_center.add_command()
 
             if self.user in fetch_whitelisted_users():
-                if command in OBS_COMMANDS:
-                    print(f"executing OBS Command: {msg}")
-                    os.system(f"so {command}")
-                elif command in fetch_soundeffect_names():
-                    self.audio_command_center.audio_command(command)
+                self.try_soundeffect(command, msg)
 
         return None
 

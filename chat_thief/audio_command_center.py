@@ -12,10 +12,17 @@ from chat_thief.stream_lords import STREAM_LORDS
 
 
 @dataclass
+class User:
+    name: str
+    permitted_commands: List
+
+
+@dataclass
 class CommandPermission:
     user: str
     command: str
     permitted_users: List[str]
+    karma: int = 0
 
 
 @dataclass
@@ -109,6 +116,13 @@ class AudioCommandCenter:
 
     def welcome(self):
         print(f"Welcome: {self.user}")
+
+        # CommandPermission
+        #     user=self.user,
+        #     command: str
+        #     permitted_users: List[str]
+        #     karma: int = 0
+
         SOUND_EFFECT_FILES = [
             p
             for p in Path(SAMPLES_PATH).glob("**/*")
