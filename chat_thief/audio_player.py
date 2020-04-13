@@ -1,0 +1,14 @@
+import subprocess
+
+MPLAYER_VOL_NORM = "0.55"
+
+
+class AudioPlayer:
+    @staticmethod
+    def play_sample(sound_file):
+        print(f"Playing: {sound_file}")
+        subprocess.call(
+            ["mplayer", "-af", f"volnorm=2:{MPLAYER_VOL_NORM}", sound_file],
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+        )

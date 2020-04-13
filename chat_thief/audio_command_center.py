@@ -5,35 +5,39 @@ import logging
 import os
 import re
 import subprocess
-
 import traceback
 
 from tinydb import TinyDB, Query
 
-from chat_thief.irc import send_twitch_msg
-from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.audio_player import AudioPlayer
 from chat_thief.command_permissions import CommandPermissionCenter
-
+from chat_thief.irc import send_twitch_msg
 from chat_thief.models import User, SoundEffect, CommandPermission
-
-OBS_COMMANDS = [
-    "wyp",
-    "idk",
-    "jdi",
-    "brb",
-]
+from chat_thief.stream_lords import STREAM_LORDS
 
 ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
 THEME_SONGS_PATH = "/home/begin/stream/Stream/Samples/theme_songs"
 WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
-MPLAYER_VOL_NORM = "0.55"
 
 soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
 DB = TinyDB(soundeffects_db_path)
 
 # Do you want the new item and update item sounds
 PLAY_UPDATE_EFFECTS = True
+
+
+# These go in permissions
+def fetch_present_users_non_streamlords():
+    return set(fetch_present_users()) - set(STREAM_LORDS)
+
+
+def fetch_present_users():
+    if WELCOME_FILE.is_file():
+        return WELCOME_FILE.read_text().split()
+    else:
+        WELCOME_FILE.touch()
+        return []
 
 
 def fetch_theme_songs():
@@ -59,18 +63,6 @@ def fetch_soundeffect_names():
         sound_file.name[: -len(sound_file.suffix)]
         for sound_file in fetch_soundeffect_samples()
     ]
-
-
-def fetch_present_users_non_streamlords():
-    return set(fetch_present_users()) - set(STREAM_LORDS)
-
-
-def fetch_present_users():
-    if WELCOME_FILE.is_file():
-        return WELCOME_FILE.read_text().split()
-    else:
-        WELCOME_FILE.touch()
-        return []
 
 
 def remove_completed_requests():
@@ -100,12 +92,7 @@ class AudioCommandCenter:
         self.msg = msg
 
     def play_sample(self, sound_file):
-        print(f"Playing: {sound_file}")
-        subprocess.call(
-            ["mplayer", "-af", f"volnorm=2:{MPLAYER_VOL_NORM}", sound_file],
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-        )
+        AudioPlayer.play_sample(sound_file)
 
     def welcome(self):
         SOUND_EFFECT_FILES = [
@@ -245,17 +232,15 @@ class AudioCommandCenter:
         for sound_file in fetch_soundeffect_samples():
             filename = sound_file.name[: -len(sound_file.suffix)]
 
-            # We need to check if the user is allowed to use this command
-
             if command == filename:
                 if command in fetch_theme_songs():
                     if self.user == command:
-                        self.play_sample(sound_file.resolve())
+                        AudioPlayer.play_sample(sound_file.resolve())
                 elif command == "snorlax":
                     if self.user == "artmattdank":
-                        self.play_sample(sound_file.resolve())
+                        AudioPlayer.play_sample(sound_file.resolve())
                 else:
-                    self.play_sample(sound_file.resolve())
+                    AudioPlayer.play_sample(sound_file.resolve())
 
     def update_effect_permissions(self):
         if self.user in STREAM_LORDS:
