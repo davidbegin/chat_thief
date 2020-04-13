@@ -17,8 +17,10 @@ python bot.py
   - Collect messages and send them somewhere
 
 ```bash
+# Sends message to Twitch
 beginbot
 
+# Pulls message Chat
 beginchat
 ```
 
