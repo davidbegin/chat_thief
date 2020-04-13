@@ -1,4 +1,4 @@
-# Simple Python Twitch Chat Client with no deps
+# Simple Python Twitch Chat Client with no Dependencies
 
 Set the following environment variables:
 
