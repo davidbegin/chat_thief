@@ -8,6 +8,10 @@ Set the following environment variables:
 
 ```bash
 python bot.py
+
+python fake_bot.py
+
+python art.py
 ```
 
 ## Goals
