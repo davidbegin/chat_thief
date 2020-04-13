@@ -20,6 +20,16 @@ class CommandPermissionCenter:
             print("Defaulting to STREAM_LORDS")
             return STREAM_LORDS
 
+
+    def fetch_user_permissions(self, user):
+        def test_func(permitted_users, user):
+            return user in permitted_users
+
+        return self.command_permissions_table.search(
+            Query().permitted_users.test(test_func, user)
+        )
+
+
     def add_permission(self, raw_msg):
         _, command, *users = raw_msg.strip().split(" ")
 

@@ -60,6 +60,16 @@ class CommandParser:
         elif command in fetch_soundeffect_names():
             self.audio_command_center.audio_command(command)
 
+    def add_permission(self):
+        if self.user in STREAM_LORDS:
+            try:
+                return self.command_permission_center.add_permission(self.msg)
+            except Exception as e:
+                trace = traceback.format_exc()
+                print(f"Error adding permission: {e} {trace}")
+        else:
+            print(f"{self.user} cannot add permissions")
+
     def build_response(self) -> Optional[str]:
         self._logger.info(f"{self.user}: {self.msg}")
         self.audio_command_center.welcome_new_users()
@@ -73,14 +83,8 @@ class CommandParser:
                 _, command, *_ = self.msg.split(" ")
                 return self.command_permission_center.fetch_command_permissions(command)
 
-            try:
-                if msg == "!add_perm":
-                    return self.command_permission_center.add_permission(self.msg)
-            except Exception as e:
-                trace = traceback.format_exc()
-                print(f"Error adding permission: {e} {trace}")
-
-            # We need to start blocking if not allowed
+            if msg == "!add_perm":
+                return self.add_permission()
 
             if msg == "!so":
                 return self.shoutout()
@@ -97,8 +101,14 @@ class CommandParser:
             if msg == "!soundeffect":
                 return self.audio_command_center.add_command()
 
-            if self.user in fetch_whitelisted_users():
+            # We need to start blocking if not allowed
+            if self.user in self.command_permission_center.fetch_command_permissions(command):
                 self.try_soundeffect(command, msg)
+            else:
+                print("hey you can't do that!")
+
+            # if self.user in fetch_whitelisted_users():
+            #     self.try_soundeffect(command, msg)
 
         return None
 

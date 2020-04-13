@@ -63,8 +63,8 @@ def fetch_present_users():
 
 
 def remove_completed_requests():
-    print(f"\n\n{soundeffect_names}\n\n")
     soundeffect_names = fetch_soundeffect_names()
+    print(f"\n\n{soundeffect_names}\n\n")
     soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
 
     unfulfilled_requests = [
@@ -218,7 +218,7 @@ class AudioCommandCenter:
                 f.write(f"{self.user}\n")
 
     def audio_command(self, command):
-        allowed_users = CommandPermission().fetch_command_permissions(command)
+        allowed_users = CommandPermissionCenter().fetch_command_permissions(command)
 
         if self.user in allowed_users:
             print(f"\n{self.user} is allowed {command}")

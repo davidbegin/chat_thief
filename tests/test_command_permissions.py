@@ -25,3 +25,16 @@ class TestCommandPermissions():
         subject.add_permission("beginbot: " + command + " " + user)
         final_perms = subject.fetch_command_permissions(command)
         assert user in final_perms
+
+
+    def test_checking_user_permissions(self, subject):
+        user = "fakeuser"
+        command = "fakecommand"
+
+        allowed_commands = subject.fetch_user_permissions(user)
+        assert allowed_commands == []
+
+        subject.add_permission(f"{user}: " + command + " " + user)
+
+        allowed_commands = subject.fetch_user_permissions(user)
+        assert allowed_commands == ["fakecommand"]
