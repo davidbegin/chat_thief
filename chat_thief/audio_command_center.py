@@ -3,7 +3,10 @@ from pathlib import Path
 from typing import Dict, List, Optional
 import logging
 import os
+import re
 import subprocess
+
+import traceback
 
 from tinydb import TinyDB, Query
 
@@ -39,6 +42,10 @@ def fetch_theme_songs():
     ]
 
 
+def soundeffects_only():
+    return set(fetch_soundeffect_names()) - set(fetch_theme_songs())
+
+
 def fetch_soundeffect_samples():
     return {
         p.resolve()
@@ -52,6 +59,10 @@ def fetch_soundeffect_names():
         sound_file.name[: -len(sound_file.suffix)]
         for sound_file in fetch_soundeffect_samples()
     ]
+
+
+def fetch_present_users_non_streamlords():
+    return set(fetch_present_users()) - set(STREAM_LORDS)
 
 
 def fetch_present_users():
@@ -117,24 +128,30 @@ class AudioCommandCenter:
     def save_command(self, effect_args):
         youtube_id, name, start_time, end_time = effect_args
 
-        soundeffects_table = DB.table("soundeffects")
-        command_permissions_table = DB.table("command_permissions")
+        # TODO: reject if theres any characters that could wreck our live
+        regex = re.compile("^[a-zA-Z0-9_-]*$")
+        if not regex.match(name):
+            print("WHAT THE HECK ARE YOU DOING")
+            return
+        else:
+            soundeffects_table = DB.table("soundeffects")
+            command_permissions_table = DB.table("command_permissions")
 
-        sound = SoundEffect(
-            user=self.user,
-            youtube_id=youtube_id,
-            name=name,
-            start_time=start_time,
-            end_time=end_time,
-        )
+            sound = SoundEffect(
+                user=self.user,
+                youtube_id=youtube_id,
+                name=name,
+                start_time=start_time,
+                end_time=end_time,
+            )
 
-        command_permission = CommandPermission(
-            user=self.user, command=name, permitted_users=STREAM_LORDS
-        )
+            command_permission = CommandPermission(
+                user=self.user, command=name, permitted_users=STREAM_LORDS
+            )
 
-        print(f"Saving in our DB! {sound.__dict__}")
-        soundeffects_table.insert(sound.__dict__)
-        command_permissions_table.insert(command_permission.__dict__)
+            print(f"Saving in our DB! {sound.__dict__}")
+            soundeffects_table.insert(sound.__dict__)
+            command_permissions_table.insert(command_permission.__dict__)
 
     def save_request(self):
         # Themes don't go to theme folder
@@ -239,3 +256,15 @@ class AudioCommandCenter:
                         self.play_sample(sound_file.resolve())
                 else:
                     self.play_sample(sound_file.resolve())
+
+    def update_effect_permissions(self):
+        if self.user in STREAM_LORDS:
+            try:
+                # return self.add_permission(self.msg)
+                CommandPermissionCenter().add_permission(self.msg)
+            except Exception as e:
+                trace = traceback.format_exc()
+                print(f"Error adding permission: {e} {trace}")
+        # elif self.user in
+        else:
+            print(f"{self.user} cannot add permissions")

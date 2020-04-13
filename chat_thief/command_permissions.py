@@ -20,21 +20,25 @@ class CommandPermissionCenter:
             print("Defaulting to STREAM_LORDS")
             return STREAM_LORDS
 
-
     def fetch_user_permissions(self, user):
         def test_func(permitted_users, user):
             return user in permitted_users
 
-        return self.command_permissions_table.search(
-            Query().permitted_users.test(test_func, user)
-        )
-
+        return [
+            permission["command"]
+            for permission in self.command_permissions_table.search(
+                Query().permitted_users.test(test_func, user)
+            )
+        ]
 
     def add_permission(self, raw_msg):
         _, command, *users = raw_msg.strip().split(" ")
 
         # TODO: fix this
-        user = users[0]
+        for user in users:
+            self.add_permission_for_user(user, command)
+
+    def add_permission_for_user(self, user, command):
         print(f"\nAttempting To Add Permission: {command} for {user}")
 
         # Find the previous permission configuration

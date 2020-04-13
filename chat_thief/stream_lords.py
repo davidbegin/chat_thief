@@ -16,4 +16,5 @@ STREAM_LORDS = [
     "mondaynightfreehotdogs",
     "arbaya",
     "hellsridge",
+    "eatpizza22",
 ]
