@@ -15,10 +15,10 @@ from chat_thief.irc import send_twitch_msg
 from chat_thief.models import User, SoundEffect, CommandPermission
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
-THEME_SONGS_PATH = "/home/begin/stream/Stream/Samples/theme_songs"
 
 soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
 DB = TinyDB(soundeffects_db_path)
@@ -32,77 +32,12 @@ def fetch_present_users_non_streamlords():
     return set(WelcomeCommittee.fetch_present_users()) - set(STREAM_LORDS)
 
 
-def fetch_theme_songs():
-    return [
-        theme.name[: -len(theme.suffix)] for theme in Path(THEME_SONGS_PATH).glob("*")
-    ]
-
-
-def soundeffects_only():
-    return set(fetch_soundeffect_names()) - set(fetch_theme_songs())
-
-
-def fetch_soundeffect_samples():
-    return {
-        p.resolve()
-        for p in Path(SAMPLES_PATH).glob("**/*")
-        if p.suffix in ALLOWED_AUDIO_FORMATS
-    }
-
-
-def fetch_soundeffect_names():
-    return [
-        sound_file.name[: -len(sound_file.suffix)]
-        for sound_file in fetch_soundeffect_samples()
-    ]
-
-
-def remove_completed_requests():
-    soundeffect_names = fetch_soundeffect_names()
-    print(f"\n\n{soundeffect_names}\n\n")
-    soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
-
-    unfulfilled_requests = [
-        request
-        for request in soundeffect_requests.read_text().strip().split("\n")
-        if request.split()[3] not in soundeffect_names
-    ]
-
-    print(f"\n\nUnfulfilled Request: {unfulfilled_requests}\n\n")
-    with open(soundeffect_requests, "w") as f:
-        if unfulfilled_requests:
-            f.write("\n".join(unfulfilled_requests) + "\n")
-        else:
-            f.write("")
-
-
 # Separate out adding sound effects
 class AudioCommandCenter:
     # TODO: Add Default Logger
     def __init__(self, user: str, msg: str) -> None:
         self.user = user
         self.msg = msg
-
-    def play_sample(self, sound_file):
-        AudioPlayer.play_sample(sound_file)
-
-    def welcome(self):
-        SOUND_EFFECT_FILES = [
-            p
-            for p in Path(SAMPLES_PATH).glob("**/*")
-            if p.suffix in ALLOWED_AUDIO_FORMATS
-            if p.name[: -len(p.suffix)] == self.user
-        ]
-
-        for effect in SOUND_EFFECT_FILES:
-            self.play_soundeffect(effect.resolve())
-
-    def play_soundeffect(self, effect_path):
-        subprocess.call(
-            ["mplayer", "-af", "volnorm=2:0.5", effect_path],
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-        )
 
     def save_command(self, effect_args):
         youtube_id, name, start_time, end_time = effect_args
@@ -189,7 +124,7 @@ class AudioCommandCenter:
             send_twitch_msg(f"New Sound Available: !{effect_args[1]}")
 
         if PLAY_UPDATE_EFFECTS:
-            self.play_soundeffect(new_item)
+            AudioPlayer.play_sample(new_item)
 
     def add_command(self):
         if self.user in STREAM_LORDS:
@@ -199,20 +134,6 @@ class AudioCommandCenter:
             self.save_request()
         return None
 
-    def welcome_new_users(self):
-        if self.user not in WelcomeCommittee.fetch_present_users():
-            print(f"\nNew User: {self.user}\n")
-            try:
-                self.welcome()
-            except:
-                send_twitch_msg(f"You need a theme song! @{self.user}")
-                send_twitch_msg(
-                    "Format: soundeffect YOUTUBE-ID INSERT_USERNAME 00:03 00:07"
-                )
-
-            with open(WELCOME_FILE, "a") as f:
-                f.write(f"{self.user}\n")
-
     def audio_command(self, command):
         allowed_users = CommandPermissionCenter().fetch_command_permissions(command)
 
@@ -221,11 +142,11 @@ class AudioCommandCenter:
         else:
             print(f"\n{self.user} is NOT allowed {command}")
 
-        for sound_file in fetch_soundeffect_samples():
+        for sound_file in SoundeffectsLibrary.fetch_soundeffect_samples():
             filename = sound_file.name[: -len(sound_file.suffix)]
 
             if command == filename:
-                if command in fetch_theme_songs():
+                if command in SoundeffectsLibrary.fetch_theme_songs():
                     if self.user == command:
                         AudioPlayer.play_sample(sound_file.resolve())
                 elif command == "snorlax":

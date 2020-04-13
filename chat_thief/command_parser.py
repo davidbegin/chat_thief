@@ -15,13 +15,14 @@ from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.audio_command_center import (
-    AudioCommandCenter,
-    fetch_soundeffect_names,
-    fetch_present_users,
-    remove_completed_requests,
-    soundeffects_only,
+    AudioCommandCenter
 )
+
+from chat_thief.commands.shoutout import shoutout
+from chat_thief.commands.user_requests import handle_user_requests
 
 
 # Separate out adding sound effects
@@ -36,27 +37,12 @@ class CommandParser:
         self.audio_command_center = AudioCommandCenter(user=self.user, msg=self.msg)
         self.command_permission_center = CommandPermissionCenter()
 
-    def handle_them_requests(self):
-        try:
-            remove_completed_requests()
-        except Exception as e:
-            print(f"Error Removing Message: {e}")
-
-        soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
-        previous_requests = soundeffect_requests.read_text().split("\n")
-
-        if previous_requests:
-            for sound_request in previous_requests:
-                if sound_request:
-                    send_twitch_msg("Request: " + sound_request)
-        else:
-            send_twitch_msg("No Requests! Great Job STREAM_LORDS")
-
+    # This belongs somwehre else
     def try_soundeffect(self, command, msg):
         if command in OBS_COMMANDS:
             print(f"executing OBS Command: {msg}")
             os.system(f"so {command}")
-        elif command in fetch_soundeffect_names():
+        elif command in SoundeffectsLibrary.fetch_soundeffect_names():
             self.audio_command_center.audio_command(command)
 
     def add_permission(self, command):
@@ -76,11 +62,11 @@ class CommandParser:
             print(f"Error adding permission: {e} {trace}")
 
     def random_soundeffect(self):
-        return random.sample(soundeffects_only(), 1)[0]
+        return random.sample(SoundeffectsLibrary.soundeffects_only(), 1)[0]
 
     # Not include STREAM LORDS
     def random_user(self):
-        return random.sample(fetch_present_users(), 1)[0]
+        return random.sample(WelcomeCommittee.fetch_present_users(), 1)[0]
 
     def drop_soundeffect(self):
         user = self.random_user()
@@ -92,7 +78,7 @@ class CommandParser:
 
     def build_response(self) -> Optional[str]:
         self._logger.info(f"{self.user}: {self.msg}")
-        self.audio_command_center.welcome_new_users()
+        # self.audio_command_center.welcome_new_users()
 
         if self._is_command_msg():
             command = self.msg[1:].split()[0]
@@ -111,7 +97,7 @@ class CommandParser:
                 return self.add_permission(command)
 
             if msg == "!so":
-                return self.shoutout()
+                return shoutout(self.msg)
 
             if msg == "!whitelist":
                 return " ".join(WelcomeCommittee.fetch_whitelisted_users())
@@ -120,7 +106,7 @@ class CommandParser:
                 return " ".join(STREAM_LORDS)
 
             if msg == "!requests":
-                return self.handle_them_requests()
+                return handle_user_requests()
 
             if msg == "!soundeffect":
                 return self.audio_command_center.add_command()
@@ -144,11 +130,3 @@ class CommandParser:
 
     def _is_command_msg(self) -> bool:
         return self.msg[0] == "!" and self.msg[1] != "!"
-
-    def shoutout(self) -> str:
-        msg_segs = self.msg.split()
-
-        if len(msg_segs) > 1 and msg_segs[1].startswith("@"):
-            return f"Shoutout twitch.tv/{msg_segs[1][1:]}"
-        else:
-            return f"Shoutout twitch.tv/{msg_segs[1]}"
