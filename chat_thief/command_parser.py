@@ -23,6 +23,8 @@ from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.prize_dropper import drop_soundeffect
 
+from chat_thief.irc_msg import IrcMsg
+
 
 # Separate out adding sound effects
 class CommandParser:
@@ -30,13 +32,17 @@ class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
         self._irc_msg = irc_msg
         self._logger = logger
+
+        self.irc_msg = IrcMsg(irc_msg)
+
         user_info, _, _, *raw_msg = self._irc_msg
         self.user = user_info.split("!")[0][1:]
         self.msg = self._msg_sanitizer(raw_msg)
+
         self.audio_command_center = AudioCommandCenter(user=self.user, msg=self.msg)
         self.command_permission_center = CommandPermissionCenter()
 
-    def try_soundeffect(self, command, msg):
+    def try_soundeffect(self, command, msg) -> None:
         if command in OBS_COMMANDS:
             print(f"executing OBS Command: {msg}")
             os.system(f"so {command}")

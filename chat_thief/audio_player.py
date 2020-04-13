@@ -3,7 +3,7 @@ import os
 
 MPLAYER_VOL_NORM = "0.55"
 
-from obs import OBS_COMMANDS
+from chat_thief.obs import OBS_COMMANDS
 
 
 class AudioPlayer:
