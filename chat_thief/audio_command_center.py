@@ -155,6 +155,7 @@ class AudioCommandCenter:
                 else:
                     AudioPlayer.play_sample(sound_file.resolve())
 
+    # this goes somewhere else
     def update_effect_permissions(self):
         if self.user in STREAM_LORDS:
             try:

@@ -21,7 +21,6 @@ class WelcomeCommittee:
         ]
 
         # WE can grab this from the soundeffects library
-
         for effect in SOUND_EFFECT_FILES:
             self.play_soundeffect(effect.resolve())
 

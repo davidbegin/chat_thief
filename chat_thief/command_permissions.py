@@ -37,6 +37,22 @@ class CommandPermissionCenter:
             )
         ]
 
+    def add_perm(self, command):
+        try:
+            if self.user in STREAM_LORDS:
+                return self.command_permission_center.add_permission(self.msg)
+            else:
+                allowed_commands = CommandPermissionCenter().fetch_user_permissions(
+                    self.user
+                )
+                if command in allowed_commands:
+                    print(f"{self.user} CAN ADD")
+                else:
+                    print(f"{self.user} cannot add permissions")
+        except Exception as e:
+            trace = traceback.format_exc()
+            print(f"Error adding permission: {e} {trace}")
+
     def add_permission(self, raw_msg):
         _, command, *users = raw_msg.strip().split(" ")
 

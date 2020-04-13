@@ -17,12 +17,11 @@ from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.audio_command_center import (
-    AudioCommandCenter
-)
+from chat_thief.audio_command_center import AudioCommandCenter
 
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.user_requests import handle_user_requests
+from chat_thief.prize_dropper import drop_soundeffect
 
 
 # Separate out adding sound effects
@@ -37,44 +36,12 @@ class CommandParser:
         self.audio_command_center = AudioCommandCenter(user=self.user, msg=self.msg)
         self.command_permission_center = CommandPermissionCenter()
 
-    # This belongs somwehre else
     def try_soundeffect(self, command, msg):
         if command in OBS_COMMANDS:
             print(f"executing OBS Command: {msg}")
             os.system(f"so {command}")
         elif command in SoundeffectsLibrary.fetch_soundeffect_names():
             self.audio_command_center.audio_command(command)
-
-    def add_permission(self, command):
-        try:
-            if self.user in STREAM_LORDS:
-                return self.command_permission_center.add_permission(self.msg)
-            else:
-                allowed_commands = CommandPermissionCenter().fetch_user_permissions(
-                    self.user
-                )
-                if command in allowed_commands:
-                    print(f"{self.user} CAN ADD")
-                else:
-                    print(f"{self.user} cannot add permissions")
-        except Exception as e:
-            trace = traceback.format_exc()
-            print(f"Error adding permission: {e} {trace}")
-
-    def random_soundeffect(self):
-        return random.sample(SoundeffectsLibrary.soundeffects_only(), 1)[0]
-
-    # Not include STREAM LORDS
-    def random_user(self):
-        return random.sample(WelcomeCommittee.fetch_present_users(), 1)[0]
-
-    def drop_soundeffect(self):
-        user = self.random_user()
-        soundeffect = self.random_soundeffect()
-        soundeffect_name = soundeffect
-        self.command_permission_center.add_permission_for_user(user, soundeffect_name)
-        msg = f"@{user} now has access to Sound Effect: !{soundeffect_name}"
-        return msg
 
     def build_response(self) -> Optional[str]:
         self._logger.info(f"{self.user}: {self.msg}")
@@ -87,14 +54,14 @@ class CommandParser:
 
             if msg == "!dropeffect":
                 if self.user in STREAM_LORDS:
-                    return self.drop_soundeffect()
+                    return drop_soundeffect()
 
             if msg == "!perms":
                 _, command, *_ = self.msg.split(" ")
                 return self.command_permission_center.fetch_command_permissions(command)
 
             if msg == "!add_perm":
-                return self.add_permission(command)
+                return self.command_permission_center.add_perm(command)
 
             if msg == "!so":
                 return shoutout(self.msg)
