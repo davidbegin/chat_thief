@@ -3,20 +3,19 @@ from pathlib import Path
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 
+SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.parent.joinpath("db/.requests")
 
 def remove_completed_requests():
     soundeffect_names = SoundeffectsLibrary.fetch_soundeffect_names()
-    print(f"\n\n{soundeffect_names}\n\n")
-    soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
 
     unfulfilled_requests = [
         request
-        for request in soundeffect_requests.read_text().strip().split("\n")
+        for request in SOUNDEFFECT_REQUESTS_PATH.read_text().strip().split("\n")
         if request.split()[3] not in soundeffect_names
     ]
 
-    print(f"\n\nUnfulfilled Request: {unfulfilled_requests}\n\n")
-    with open(soundeffect_requests, "w") as f:
+    # print(f"\n\nUnfulfilled Request: {unfulfilled_requests}\n\n")
+    with open(SOUNDEFFECT_REQUESTS_PATH, "w") as f:
         if unfulfilled_requests:
             f.write("\n".join(unfulfilled_requests) + "\n")
         else:
@@ -24,15 +23,13 @@ def remove_completed_requests():
 
 
 
-# This belongs somewhere else
-def handle_user_requests(self):
+def handle_user_requests():
     try:
         remove_completed_requests()
     except Exception as e:
         print(f"Error Removing Message: {e}")
 
-    soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
-    previous_requests = soundeffect_requests.read_text().split("\n")
+    previous_requests = SOUNDEFFECT_REQUESTS_PATH.read_text().split("\n")
 
     if previous_requests:
         for sound_request in previous_requests:
@@ -40,4 +37,3 @@ def handle_user_requests(self):
                 send_twitch_msg("Request: " + sound_request)
     else:
         send_twitch_msg("No Requests! Great Job STREAM_LORDS")
-

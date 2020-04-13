@@ -6,17 +6,18 @@ from pathlib import Path
 from chat_thief.models import User, SoundEffect, CommandPermission
 
 
-def fetch_whitelisted_users():
-    return (
-        Path(__file__).parent.parent.joinpath(".whitelisted_users").read_text().split()
-    )
-
 
 class CommandPermissionCenter:
     def __init__(self, db_location="db/soundeffects.json"):
         soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
         DB = TinyDB(soundeffects_db_path)
         self.command_permissions_table = DB.table("command_permissions")
+
+    @staticmethod
+    def fetch_whitelisted_users():
+        return (
+            Path(__file__).parent.parent.joinpath(".whitelisted_users").read_text().split()
+        )
 
     def fetch_command_permissions(self, command):
         print(f"Looking for command: {command}")
