@@ -14,11 +14,11 @@ from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.irc import send_twitch_msg
 from chat_thief.models import User, SoundEffect, CommandPermission
 from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.welcome_committee import WelcomeCommittee
 
 ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
 THEME_SONGS_PATH = "/home/begin/stream/Stream/Samples/theme_songs"
-WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
 
 soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
 DB = TinyDB(soundeffects_db_path)
@@ -29,15 +29,7 @@ PLAY_UPDATE_EFFECTS = True
 
 # These go in permissions
 def fetch_present_users_non_streamlords():
-    return set(fetch_present_users()) - set(STREAM_LORDS)
-
-
-def fetch_present_users():
-    if WELCOME_FILE.is_file():
-        return WELCOME_FILE.read_text().split()
-    else:
-        WELCOME_FILE.touch()
-        return []
+    return set(WelcomeCommittee.fetch_present_users()) - set(STREAM_LORDS)
 
 
 def fetch_theme_songs():
@@ -208,7 +200,7 @@ class AudioCommandCenter:
         return None
 
     def welcome_new_users(self):
-        if self.user not in fetch_present_users():
+        if self.user not in WelcomeCommittee.fetch_present_users():
             print(f"\nNew User: {self.user}\n")
             try:
                 self.welcome()

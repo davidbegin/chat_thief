@@ -14,6 +14,7 @@ from chat_thief.obs import OBS_COMMANDS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.command_permissions import CommandPermissionCenter
+from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.audio_command_center import (
     AudioCommandCenter,
     fetch_soundeffect_names,
@@ -21,12 +22,6 @@ from chat_thief.audio_command_center import (
     remove_completed_requests,
     soundeffects_only,
 )
-
-
-def fetch_whitelisted_users():
-    return (
-        Path(__file__).parent.parent.joinpath(".whitelisted_users").read_text().split()
-    )
 
 
 # Separate out adding sound effects
@@ -119,7 +114,7 @@ class CommandParser:
                 return self.shoutout()
 
             if msg == "!whitelist":
-                return " ".join(fetch_whitelisted_users())
+                return " ".join(WelcomeCommittee.fetch_whitelisted_users())
 
             if msg == "!streamlords":
                 return " ".join(STREAM_LORDS)
