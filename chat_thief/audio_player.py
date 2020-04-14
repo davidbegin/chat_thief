@@ -26,4 +26,3 @@ class AudioPlayer:
             AudioCommandCenter(user=user, command=command, msg=msg).audio_command(
                 command
             )
-            # self.audio_command_center.audio_command(command)
