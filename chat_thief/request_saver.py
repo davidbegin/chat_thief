@@ -28,11 +28,12 @@ class RequestSaver:
 
         # TODO: Make these messages configurable, aka turn them off
         if request_to_save in self._previous_requests():
-            send_twitch_msg(f"Thank you @{self.user} we already have that request")
+            # send_twitch_msg(f"Thank you @{self.user} we already have that request")
+            pass
         else:
             if self.user not in BLACKLISTED_REQUESTERS:
                 print(f"Saving Request: {request_to_save}")
-                send_twitch_msg(BEGINS_PROMISE_TO_YOU)
+                # send_twitch_msg(BEGINS_PROMISE_TO_YOU)
                 with open(SOUNDEFFECT_REQUESTS_PATH, "a") as f:
                     f.write(request_to_save + "\n")
 

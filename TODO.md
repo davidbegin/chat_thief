@@ -3,6 +3,8 @@
 - move all DB files into DB folder
   - .requests
   - .welcome
+- More test coverage
+- better separation of concerns
 
 ## Features
 
@@ -13,4 +15,4 @@
 
 ## Testing the bot locally
 
-- python fake_bot.py "beginbotbot: !perms clap"
+- python fake_bot.py "\!perms clap"

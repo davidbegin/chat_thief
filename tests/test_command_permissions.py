@@ -11,28 +11,46 @@ class TestCommandPermissions:
 
     @classmethod
     def setup_class(cls):
-        cls.db_filepath.unlink()
+        if cls.db_filepath.is_file():
+            cls.db_filepath.unlink()
 
     @pytest.fixture
-    def subject(self):
-        return CommandPermissionCenter(self.__class__.db_filepath)
+    def command_permission_center(self):
+        def _command_permission_center(user, command, args=[]):
+            return CommandPermissionCenter(
+                user=user,
+                command=command,
+                args=args,
+                db_location=self.__class__.db_filepath,
+            )
 
-    def test_adding_a_permission(self, subject):
+        return _command_permission_center
+
+    def test_adding_a_permission(self, command_permission_center):
         user = "fakeuser"
-        command = "fakecommand"
 
-        initial_perms = subject.fetch_command_permissions(command)
+        subject = command_permission_center(
+            user=user, command="fakecommand", args=[user]
+        )
+
+        initial_perms = subject.fetch_command_permissions()
         assert user not in initial_perms
-        subject.add_permission("beginbot: " + command + " " + user)
-        final_perms = subject.fetch_command_permissions(command)
+        subject.add_permission()
+        final_perms = subject.fetch_command_permissions()
         assert user in final_perms
 
-    def test_checking_user_permissions(self, subject):
+    def test_checking_user_permissions(self, command_permission_center):
         user = "new_fakeuser"
         command = "fakecommand"
 
-        allowed_commands = subject.fetch_user_permissions(user)
+        subject = command_permission_center(
+            user=user, command=command, args=["new_fakeuser"]
+        )
+
+        # This should maye not depend on the command
+        allowed_commands = subject.fetch_user_permissions()
         assert allowed_commands == []
-        subject.add_permission(f"{user}: " + command + " " + user)
-        allowed_commands = subject.fetch_user_permissions(user)
+
+        subject.add_permission()
+        allowed_commands = subject.fetch_user_permissions()
         assert allowed_commands == [command]
