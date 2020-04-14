@@ -32,9 +32,6 @@ class CommandParser:
         self.msg = self.irc_msg.msg
         self.command = self.irc_msg.command
 
-        # This should take in the irc_msg instead
-        self.audio_command_center = AudioCommandCenter(user=self.user, msg=self.msg)
-
         self.command_permission_center = CommandPermissionCenter()
 
     def build_response(self) -> Optional[str]:
@@ -51,7 +48,9 @@ class CommandParser:
                     return drop_soundeffect()
 
             if self.command == "perms":
-                return self.command_permission_center.fetch_command_permissions(self.command)
+                return self.command_permission_center.fetch_command_permissions(
+                    self.command
+                )
 
             if self.command == "add_perm":
                 return self.command_permission_center.add_perm(self.command)
@@ -69,7 +68,7 @@ class CommandParser:
                 return handle_user_requests()
 
             if self.command == "soundeffect":
-                return self.audio_command_center.add_command()
+                return AudioCommandCenter(self.irc_msg).add_command()
 
             # We need to start blocking if not allowed
             if self.user in self.command_permission_center.fetch_command_permissions(
@@ -86,4 +85,4 @@ class CommandParser:
             print(f"executing OBS Command: {msg}")
             os.system(f"so {command}")
         elif command in SoundeffectsLibrary.fetch_soundeffect_names():
-            self.audio_command_center.audio_command(command)
+            AudioCommandCenter(self.irc_msg).play_audio_command()

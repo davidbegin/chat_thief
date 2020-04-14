@@ -6,7 +6,6 @@ from pathlib import Path
 from chat_thief.models import User, SoundEffect, CommandPermission
 
 
-
 class CommandPermissionCenter:
     def __init__(self, db_location="db/soundeffects.json"):
         soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
@@ -16,7 +15,10 @@ class CommandPermissionCenter:
     @staticmethod
     def fetch_whitelisted_users():
         return (
-            Path(__file__).parent.parent.joinpath(".whitelisted_users").read_text().split()
+            Path(__file__)
+            .parent.parent.joinpath(".whitelisted_users")
+            .read_text()
+            .split()
         )
 
     def fetch_command_permissions(self, command):
@@ -80,3 +82,16 @@ class CommandPermissionCenter:
             )
             print(f"Adding Initial Command Permissions {command_permission.__dict__}")
             self.command_permissions_table.insert(command_permission.__dict__)
+
+    # this goes somewhere else
+    # def update_effect_permissions(self):
+    #     if self.user in STREAM_LORDS:
+    #         try:
+    #             # return self.add_permission(self.msg)
+    #             CommandPermissionCenter().add_permission(self.msg)
+    #         except Exception as e:
+    #             trace = traceback.format_exc()
+    #             print(f"Error adding permission: {e} {trace}")
+    #     # elif self.user in
+    #     else:
+    #         print(f"{self.user} cannot add permissions")

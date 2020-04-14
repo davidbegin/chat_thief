@@ -16,6 +16,7 @@ from chat_thief.models import User, SoundEffect, CommandPermission
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.irc_msg import IrcMsg
 
 ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
@@ -27,20 +28,30 @@ DB = TinyDB(soundeffects_db_path)
 PLAY_UPDATE_EFFECTS = True
 
 
-# These go in permissions
-def fetch_present_users_non_streamlords():
-    return set(WelcomeCommittee.fetch_present_users()) - set(STREAM_LORDS)
+# SampleSaver
+# RequestSaver
 
-
-# Separate out adding sound effects
 class AudioCommandCenter:
-    # TODO: Add Default Logger
-    def __init__(self, user: str, msg: str) -> None:
-        self.user = user
-        self.msg = msg
+    """
+    In charge of saving new audio samples, and requests
+    """
 
-    def save_command(self, effect_args):
-        youtube_id, name, start_time, end_time = effect_args
+    def __init__(self, irc_msg: IrcMsg) -> None:
+        self.user = irc_msg.user
+        self.msg = irc_msg.msg
+        self.args = irc_msg.args
+
+    # We don't need this logic here!
+    def add_command(self):
+        if self.user in STREAM_LORDS:
+            self._save_sample()
+        else:
+            self._save_request()
+
+    def _save_command(self, effect_args):
+        # Add some validation here
+        # These should use another object, that handles the parsing
+        youtube_id, name, start_time, end_time = self.args
 
         # TODO: reject if theres any characters that could wreck our live
         regex = re.compile("^[a-zA-Z0-9_-]*$")
@@ -67,7 +78,7 @@ class AudioCommandCenter:
             soundeffects_table.insert(sound.__dict__)
             command_permissions_table.insert(command_permission.__dict__)
 
-    def save_request(self):
+    def _save_request(self):
         # Themes don't go to theme folder
         # we don't normalize the type of audio
         soundeffect_requests = Path(__file__).parent.parent.joinpath(".requests")
@@ -80,13 +91,17 @@ class AudioCommandCenter:
             send_twitch_msg(f"Thank you @{self.user} we already have that request")
         else:
             send_twitch_msg(
-                f"@{self.user} thank you for your patience in this trying time, beginbot is doing all he can to ensure your safety during this COVID-19 situation. Your request will be processed by a streamlord in due time thanks"
+                """
+                @{self.user} thank you for your patience in this trying time,
+                beginbot is doing all he can to ensure your safety during this COVID-19 situation.
+                Your request will be processed by a streamlord in due time thanks
+                """
             )
             if self.user != "beginbotbot":
                 with open(soundeffect_requests, "a") as f:
                     f.write(request_to_save + "\n")
 
-    def create_new_soundeffect(self):
+    def _save_sample(self):
         print(f"\n\n\n{self.user} is trying to add a command: {self.msg}\n\n\n")
         effect_args = self.msg.split()[1:]
 
@@ -105,10 +120,8 @@ class AudioCommandCenter:
         args = [add_sound_effect.resolve()] + effect_args
 
         try:
-            self.save_command(effect_args)
+            self._save_command(effect_args)
         except Exception as e:
-            import traceback
-
             trace = traceback.format_exc()
             print(f"Error saving command: {e} {trace}")
 
@@ -126,44 +139,37 @@ class AudioCommandCenter:
         if PLAY_UPDATE_EFFECTS:
             AudioPlayer.play_sample(new_item)
 
-    def add_command(self):
-        if self.user in STREAM_LORDS:
-            print("\n\n\nSTREAM LORD!!!!\n\n")
-            self.create_new_soundeffect()
-        else:
-            self.save_request()
-        return None
-
-    def audio_command(self, command):
+    # This command also checks permissions
+    # If should be moved up
+    def play_audio_command(self, command):
         allowed_users = CommandPermissionCenter().fetch_command_permissions(command)
-
         if self.user in allowed_users:
             print(f"\n{self.user} is allowed {command}")
         else:
             print(f"\n{self.user} is NOT allowed {command}")
+            return
 
-        for sound_file in SoundeffectsLibrary.fetch_soundeffect_samples():
-            filename = sound_file.name[: -len(sound_file.suffix)]
+        sound_files = [
+            sound_file
+            for sound_file in SoundeffectsLibrary.fetch_soundeffect_samples()
+            if sound_file.name[: -len(sound_file.suffix)] == command
+        ]
 
-            if command == filename:
-                if command in SoundeffectsLibrary.fetch_theme_songs():
-                    if self.user == command:
-                        AudioPlayer.play_sample(sound_file.resolve())
-                elif command == "snorlax":
-                    if self.user == "artmattdank":
-                        AudioPlayer.play_sample(sound_file.resolve())
-                else:
-                    AudioPlayer.play_sample(sound_file.resolve())
+        for sound_file in sound_files:
+            # You can't play other people's Theme Songs!
+            if not self._is_personal_theme_song(command) and self._is_theme_song(
+                command
+            ):
+                return
 
-    # this goes somewhere else
-    def update_effect_permissions(self):
-        if self.user in STREAM_LORDS:
-            try:
-                # return self.add_permission(self.msg)
-                CommandPermissionCenter().add_permission(self.msg)
-            except Exception as e:
-                trace = traceback.format_exc()
-                print(f"Error adding permission: {e} {trace}")
-        # elif self.user in
-        else:
-            print(f"{self.user} cannot add permissions")
+            # Only artmattdank gets to the power of Snorlax
+            if command == "snorlax" and self.user != "artmattdank":
+                return
+
+            AudioPlayer.play_sample(sound_file.resolve())
+
+    def _is_theme_song(self, command):
+        return command in SoundeffectsLibrary.fetch_theme_songs()
+
+    def _is_personal_theme_song(self, command):
+        return self._is_theme_song(command) and self.user == command

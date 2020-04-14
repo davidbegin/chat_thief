@@ -2,6 +2,9 @@ from pathlib import Path
 
 WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
 
+# def fetch_present_users_non_streamlords():
+#     return set(WelcomeCommittee.fetch_present_users()) - set(STREAM_LORDS)
+
 
 class WelcomeCommittee:
     @staticmethod
