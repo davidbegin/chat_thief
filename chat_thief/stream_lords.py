@@ -2,8 +2,8 @@
 # We need stream lords
 # Move this to a file
 STREAM_LORDS = [
-    "beginbotbot",
-    "beginbot",
+    # "beginbotbot",
+    # "beginbot",
     "stupac62",
     "vivax3794",
     "artmattdank",

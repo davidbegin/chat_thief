@@ -85,4 +85,8 @@ class CommandParser:
             print(f"executing OBS Command: {msg}")
             os.system(f"so {command}")
         elif command in SoundeffectsLibrary.fetch_soundeffect_names():
-            AudioCommandCenter(self.irc_msg).play_audio_command()
+            allowed_users = CommandPermissionCenter().fetch_command_permissions(command)
+            if self.user in allowed_users:
+                AudioCommandCenter(self.irc_msg).play_audio_command()
+            else:
+                print(f"\n{self.user} is NOT allowed {command}")
