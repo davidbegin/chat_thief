@@ -22,6 +22,7 @@ class SampleSaver:
     command_permissions_table = DB.table("command_permissions")
 
     def __init__(self, irc_msg: IrcMsg):
+        breakpoint()
         self.user = irc_msg.user
         self.msg = irc_msg.msg
         self.command = irc_msg.command

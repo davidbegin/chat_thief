@@ -43,9 +43,8 @@ class CommandParser:
             msg = self.msg.split()[0].lower()
             print(f"User: {self.user} | Command: {command}")
 
-            if self.command == "dropeffect":
-                if self.user in STREAM_LORDS:
-                    return drop_soundeffect()
+            if self.command == "dropeffect" and self.user in STREAM_LORDS:
+                return drop_soundeffect()
 
             if self.command == "perms":
                 return self.command_permission_center.fetch_command_permissions(
@@ -70,23 +69,28 @@ class CommandParser:
             if self.command == "soundeffect":
                 return AudioCommandCenter(self.irc_msg).add_command()
 
-            # We need to start blocking if not allowed
+            self._try_anything()
+
+        def _try_anything(self):
+            # This is back to free mode
+            # if self.user in fetch_whitelisted_users():
+            #     self.try_soundeffect(command, msg)
             if self.user in self.command_permission_center.fetch_command_permissions(
                 self.command
             ):
-                self.try_soundeffect(self.command, self.msg)
+                self.try_soundeffect()
             else:
                 print("hey you can't do that!")
-            # if self.user in fetch_whitelisted_users():
-            #     self.try_soundeffect(command, msg)
 
-    def try_soundeffect(self, command, msg) -> None:
-        if command in OBS_COMMANDS:
-            print(f"executing OBS Command: {msg}")
-            os.system(f"so {command}")
-        elif command in SoundeffectsLibrary.fetch_soundeffect_names():
-            allowed_users = CommandPermissionCenter().fetch_command_permissions(command)
+    def try_soundeffect(self) -> None:
+        if self.command in OBS_COMMANDS:
+            print(f"executing OBS Command: {self.command}")
+            os.system(f"so {self.command}")
+        elif self.command in SoundeffectsLibrary.fetch_soundeffect_names():
+            allowed_users = CommandPermissionCenter().fetch_command_permissions(
+                self.command
+            )
             if self.user in allowed_users:
                 AudioCommandCenter(self.irc_msg).play_audio_command()
             else:
-                print(f"\n{self.user} is NOT allowed {command}")
+                print(f"\n{self.user} is NOT allowed {self.command}")

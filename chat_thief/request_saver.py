@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from chat_thief.irc import send_twitch_msg
-from chat_thief.irc_msg import IrcMsg
 
 
 BLACKLISTED_REQUESTERS = ["beginbotbot"]
@@ -16,9 +15,9 @@ Your request will be processed by a streamlord in due time thanks
 
 
 class RequestSaver:
-    def __init__(self, irc_msg: IrcMsg):
-        self.msg = irc_msg.msg
-        self.user = irc_msg.user
+    def __init__(self, user, msg):
+        self.msg = msg
+        self.user = user
 
         if not SOUNDEFFECT_REQUESTS_PATH.is_file():
             SOUNDEFFECT_REQUESTS_PATH.touch()
@@ -32,7 +31,7 @@ class RequestSaver:
             send_twitch_msg(f"Thank you @{self.user} we already have that request")
         else:
             if self.user not in BLACKLISTED_REQUESTERS:
-                print(f"Saving Request: {request_save}")
+                print(f"Saving Request: {request_to_save}")
                 send_twitch_msg(BEGINS_PROMISE_TO_YOU)
                 with open(SOUNDEFFECT_REQUESTS_PATH, "a") as f:
                     f.write(request_to_save + "\n")
