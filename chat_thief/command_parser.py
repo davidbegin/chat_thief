@@ -50,7 +50,10 @@ class CommandParser:
 
             if self.command == "perms":
                 try:
-                    self.command_permission_center.fetch_permissions()
+                    # self.command_permission_center.fetch_permissions()
+                    return CommandPermissionCenter.fetch_permissions(
+                        user=self.user, args=self.args,
+                    )
                 except:
                     traceback.print_exc()
 

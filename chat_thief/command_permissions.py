@@ -9,17 +9,28 @@ from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
 
-db_location = "db/soundeffects.json"
-soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
-DB = TinyDB(soundeffects_db_path)
-COMMAND_PERMISSIONS_TABLE = DB.table("command_permissions")
+TABLE_NAME = "command_permissions"
+
+
+def _command_permissions_table(db_location):
+    soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
+    return TinyDB(soundeffects_db_path).table(TABLE_NAME)
 
 
 class CommandPermissionCenter:
-    def __init__(self, user, command, args, db_location="db/soundeffects.json"):
+    def __init__(
+        self,
+        user,
+        command=None,
+        args=[],
+        db_location="db/soundeffects.json",
+        skip_validation=False,
+    ):
         self.user = user
         self.command = command
         self.args = args
+        self.table = _command_permissions_table(db_location)
+        self.skip_validation = skip_validation
 
     @staticmethod
     def fetch_whitelisted_users():
@@ -30,44 +41,30 @@ class CommandPermissionCenter:
             .split()
         )
 
-    # You could pass nothing, then I look the permissions for the user
-    # if you pass in someone whose in the chat (according to welcome), then
-    # their permissions
-    # If you pass in a command, what users have permission for that command command permissions
-    def fetch_permissions(self):
-        # Return the users permissions
-        if not self.args:
-            send_twitch_msg(
-                f"@{self.user}'s Permissions: {self.fetch_user_permissions()}"
-            )
-        elif self.command in WelcomeCommittee.fetch_present_users():
-            send_twitch_msg(
-                f"!{self.args[0]}'s Permissions: {self.fetch_user_permissions(self.args[0])}"
-            )
+    @classmethod
+    def fetch_permissions(cls, user, args=[]):
+        if not args:
+            user_permissions = cls(user=user).fetch_user_permissions()
+            send_twitch_msg(f"@{user}'s Permissions: {user_permissions}")
+        # Is the first argument a user name?
+        elif args[0] in WelcomeCommittee.fetch_present_users():
+            user_permissions = cls(user=args[0]).fetch_user_permissions()
+            send_twitch_msg(f"!{args[0]}'s Permissions: {user_permissions}")
+        elif args[0] in SoundeffectsLibrary.fetch_soundeffect_names():
+            if len(args) > 1:
+                for arg in args[1:]:
+                    if arg in WelcomeCommittee.fetch_present_users():
+                        permissions = cls(
+                            user=arg, command=args[0]
+                        ).fetch_user_permissions()
+                        send_twitch_msg(f"@{arg}'s Permissions: {permissions}")
+            else:
+                permissions = cls(
+                    user=None, command=args[0]
+                ).fetch_command_permissions()
+                send_twitch_msg(f"!{args[0]}'s Permissions: {permissions}")
         else:
-            permissions = CommandPermissionCenter.permissions_for_command(self.args[0])
-            send_twitch_msg(f"!{self.args[0]}'s Permissions: {permissions}")
-            # We need to check if it is user
-
-    def _is_theme_song(self):
-        return self.command in SoundeffectsLibrary.fetch_theme_songs()
-
-    def _is_personal_theme_song(self):
-        return self._is_theme_song() and self.user == self.command
-
-    @staticmethod
-    def permissions_for_command(command):
-        if command in SoundeffectsLibrary.fetch_theme_songs():
-            return [command]
-
-        if command == "snorlax":
-            return ["snorlax"]
-
-        if result := COMMAND_PERMISSIONS_TABLE.search(Query().command == command):
-            return result[-1]["permitted_users"]
-        else:
-            return ["Stream Lords"]
-            # print("Defaulting to STREAM_LORDS")
+            print("Not sure what to do!!!")
 
     def fetch_command_permissions(self):
         print(f"Looking for command: {self.command}")
@@ -81,32 +78,29 @@ class CommandPermissionCenter:
         if self.command == "snorlax" and self.user == "artmattdank":
             return ["snorlax"]
 
-        if result := COMMAND_PERMISSIONS_TABLE.search(Query().command == self.command):
+        if result := self.table.search(Query().command == self.command):
             return result[-1]["permitted_users"]
         else:
             return ["Stream Lords"]
 
-    def fetch_user_permissions(self, user=None):
-        if user is None:
-            user = self.user
-
-        def test_func(permitted_users, current_user):
+    def fetch_user_permissions(self):
+        def in_permitted_users(permitted_users, current_user):
             return current_user in permitted_users
 
-        if user in STREAM_LORDS:
+        if self.user in STREAM_LORDS:
             return ["All Commands!"]
         else:
             return [
                 permission["command"]
-                for permission in COMMAND_PERMISSIONS_TABLE.search(
-                    Query().permitted_users.test(test_func, user)
+                for permission in self.table.search(
+                    Query().permitted_users.test(in_permitted_users, self.user)
                 )
             ]
 
     def add_perm(self):
         try:
             if self.user in STREAM_LORDS:
-                return self.add_permission()
+                return self._add_permission()
             else:
                 allowed_commands = self.fetch_user_permissions()
                 if self.command in allowed_commands:
@@ -117,32 +111,50 @@ class CommandPermissionCenter:
             trace = traceback.format_exc()
             print(f"Error adding permission: {e} {trace}")
 
-    # This self.args thing might be wrong
-    # or I think it is wrong
-    # Its implying we only want to add permissions
-    # from chat
-    def add_permission(self):
-        # WE need to check if these are valid users
-        # Maybe by the welcome list
-        for user in self.args:
-            self.add_permission_for_user(user)
+    def _add_permission(self):
+        if len(self.args) < 2:
+            print("you need more args!")
+            return
 
-    def add_permission_for_user(self, user):
-        print(f"\nAttempting To Add Permission: {self.args[0]} for {user}")
-
-        # Find the previous permission configuration
-        command_config = COMMAND_PERMISSIONS_TABLE.search(
-            Query().command == self.args[0]
-        )
-
-        if command_config:
-            command_config = command_config[-1]
-            command_config["permitted_users"].append(user)
-            print(f"Updating Previous Command Permissions {command_config.__dict__}")
-            COMMAND_PERMISSIONS_TABLE.update(command_config)
+        print(f"\nAttempting To Add Permission: {self.args[0]}")
+        if command_config := self.table.search(Query().command == self.args[0]):
+            self._update_permissions(command_config[-1])
         else:
+            self._new_permissions()
+
+    def _new_permissions(self):
+        if self._validate_user(self.args[1]):
             command_permission = CommandPermission(
-                user=user, command=self.args[0], permitted_users=[user],
+                user=self.user, command=self.args[0], permitted_users=[self.args[1]],
             )
             print(f"Adding Initial Command Permissions {command_permission.__dict__}")
-            COMMAND_PERMISSIONS_TABLE.insert(command_permission.__dict__)
+            self.table.insert(command_permission.__dict__)
+
+    def _update_permissions(self, command_config):
+        if self._validate_user(self.args[1]):
+            if self.args[1] not in command_config["permitted_users"]:
+                command_config["permitted_users"].append(self.args[1])
+                print(
+                    f"Updating Previous Command Permissions {command_config.__dict__}"
+                )
+                self.table.update(command_config)
+            else:
+                print(f"{self.args[1]} already has that command: {self.args[0]}!")
+
+    def _validate_user(self, user):
+        if self.skip_validation:
+            print("Skipping Validation for adding user permissions")
+            return True
+
+        user_eligible_for_permissions = (
+            user not in STREAM_LORDS and user in WelcomeCommittee.fetch_present_users()
+        )
+        if not user_eligible_for_permissions:
+            print("This user is not eligible for permissions")
+        return user_eligible_for_permissions
+
+    def _is_theme_song(self):
+        return self.command in SoundeffectsLibrary.fetch_theme_songs()
+
+    def _is_personal_theme_song(self):
+        return self._is_theme_song() and self.user == self.command
