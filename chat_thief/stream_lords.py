@@ -5,11 +5,18 @@
 STREAM_GODS = [
     "beginbot",
     "beginbotbot",
+    "stupac62",
+    "artmattdank",
 ]
+
+STREAM_PEASANTS = []
+
+STREAM_KINGS = []
+
+STREAM_MERCHANTS = []
 
 STREAM_LORDS = [
     "arbaya",
-    "artmattdank",
     "baldclap",
     "detlion1643",
     "disk1of5",
@@ -20,7 +27,6 @@ STREAM_LORDS = [
     "mondaynightfreehotdogs",
     "sketchyscripts",
     "spfar",
-    "stupac62",
     "sweeku",
     "tramstarzz",
     "usuallyhigh",

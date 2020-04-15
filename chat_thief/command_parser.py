@@ -21,10 +21,11 @@ from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.commands.leaderboard import leaderboard
 
 HELP_MENU = [
-    "!perms - Check what soundeffects you have access to with",
+    "!perms - Check what soundeffects you have access to",
     "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
     "!add_perm COMMAND USER_TO_GIVE_PERMS - give someone else access to a command you have access to",
     "!perms clap - See who is allowed to use the !clap command",
+    "!perms beginbot - See what commands beginbot has access to",
     "!leaderboard - See what users have the most commands",
 ]
 
@@ -58,7 +59,7 @@ class CommandParser:
             if self.command == "dropeffect" and self.user in STREAM_LORDS:
                 return drop_soundeffect(self.user, self.args)
 
-            if self.command == "perms":
+            if self.command in ["permissions", "permission", "perms", "perm"]:
                 return CommandPermissionCenter.fetch_permissions(
                     user=self.user, args=self.args,
                 )
@@ -69,7 +70,7 @@ class CommandParser:
             if self.command == "users":
                 return WelcomeCommittee.fetch_present_users()
 
-            if self.command == "add_perm":
+            if self.command in ["add_perm", "add_perms", "share_perm", "share_perms"]:
                 return self.command_permission_center.add_perm()
 
             if self.command == "so":

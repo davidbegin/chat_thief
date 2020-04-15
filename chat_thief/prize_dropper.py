@@ -22,6 +22,7 @@ def random_user():
 def drop_random_soundeffect_to_random_user():
     user = random_user()
     soundeffect = random_soundeffect()
+
     soundeffect_name = CommandPermissionCenter(
         user="beginbot", command="add_perms", args=[soundeffect, user]
     ).add_perm()

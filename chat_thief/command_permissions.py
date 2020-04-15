@@ -43,27 +43,36 @@ class CommandPermissionCenter:
 
     @classmethod
     def fetch_permissions(cls, user, args=[]):
+        user_permissions = []
+
         if not args:
+            title = f"@{user}'s"
             user_permissions = cls(user=user).fetch_user_permissions()
-            send_twitch_msg(f"@{user}'s Permissions: {user_permissions}")
         elif args[0] in WelcomeCommittee.fetch_present_users():
+            title = f"@{args[0]}'s"
             user_permissions = cls(user=args[0]).fetch_user_permissions()
-            send_twitch_msg(f"!{args[0]}'s Permissions: {user_permissions}")
         elif args[0] in SoundeffectsLibrary.fetch_soundeffect_names():
             if len(args) > 1:
                 for arg in args[1:]:
                     if arg in WelcomeCommittee.fetch_present_users():
-                        permissions = cls(
+                        title = f"@{arg}'s"
+                        user_permissions = cls(
                             user=arg, command=args[0]
                         ).fetch_user_permissions()
-                        send_twitch_msg(f"@{arg}'s Permissions: {permissions}")
             else:
-                permissions = cls(
+                title = f"!{args[0]}'s"
+                user_permissions = cls(
                     user=None, command=args[0]
                 ).fetch_command_permissions()
-                send_twitch_msg(f"!{args[0]}'s Permissions: {permissions}")
         else:
             print("Not sure what to do!!!")
+            return
+
+        user_permissions = list(set(user_permissions))
+        if user_permissions:
+            send_twitch_msg(f"{title} Permissions: {user_permissions}")
+        else:
+            pass
 
     def fetch_command_permissions(self):
         print(f"Looking for command: {self.command}")
@@ -108,7 +117,10 @@ class CommandPermissionCenter:
                 return self._add_permission()
             else:
                 allowed_commands = self.fetch_user_permissions()
-                if self.args[0] in allowed_commands:
+                if (
+                    self.args[0] in allowed_commands
+                    and self.args[0] is not SoundeffectsLibrary.fetch_theme_songs()
+                ):
                     return self._add_permission()
                 else:
                     print(f"{self.user} cannot add permissions")
@@ -123,8 +135,10 @@ class CommandPermissionCenter:
 
         print(f"\nAttempting To Add Permission: {self.args[0]}")
         if command_config := self.table.search(Query().command == self.args[0]):
+            print("Updating Permission")
             self._update_permissions(command_config[-1])
         else:
+            print("New Permission")
             self._new_permissions()
 
     def _new_permissions(self):
