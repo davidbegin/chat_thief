@@ -9,6 +9,7 @@ from chat_thief.models import SoundEffect, CommandPermission
 from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.audio_player import AudioPlayer
+from chat_thief.welcome_committee import WelcomeCommittee
 
 
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
@@ -51,10 +52,15 @@ class SampleSaver:
         # When should we save
         self._save_command()
 
-        # We need to check if
-        # Here is where we save the sample
+        # This is supposed to handle saving the theme
+        # We should also lowercase everything earlier
+        if self.args[1] in WelcomeCommittee.fetch_present_users():
+            args = self.args + ["theme"]
+        else:
+            args = self.args
+
         subprocess.call(
-            [ADD_SOUND_EFFECT_PATH.resolve()] + self.args,
+            [ADD_SOUND_EFFECT_PATH.resolve()] + args,
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
         )

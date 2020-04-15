@@ -17,6 +17,15 @@ def _command_permissions_table(db_location):
     return TinyDB(soundeffects_db_path).table(TABLE_NAME)
 
 
+def fetch_whitelisted_users():
+    return (
+        Path(__file__)
+        .parent.parent.joinpath("db/.whitelisted_users")
+        .read_text()
+        .split()
+    )
+
+
 class CommandPermissionCenter:
     def __init__(
         self,
@@ -32,21 +41,11 @@ class CommandPermissionCenter:
         self.table = _command_permissions_table(db_location)
         self.skip_validation = skip_validation
 
-    @staticmethod
-    def fetch_whitelisted_users():
-        return (
-            Path(__file__)
-            .parent.parent.joinpath(".whitelisted_users")
-            .read_text()
-            .split()
-        )
-
     @classmethod
     def fetch_permissions(cls, user, args=[]):
         if not args:
             user_permissions = cls(user=user).fetch_user_permissions()
             send_twitch_msg(f"@{user}'s Permissions: {user_permissions}")
-        # Is the first argument a user name?
         elif args[0] in WelcomeCommittee.fetch_present_users():
             user_permissions = cls(user=args[0]).fetch_user_permissions()
             send_twitch_msg(f"!{args[0]}'s Permissions: {user_permissions}")
@@ -90,12 +89,15 @@ class CommandPermissionCenter:
         if self.user in STREAM_LORDS:
             return ["All Commands!"]
         else:
-            return [
+            command_permissions = [
                 permission["command"]
                 for permission in self.table.search(
                     Query().permitted_users.test(in_permitted_users, self.user)
                 )
             ]
+            if self._has_theme_song():
+                return command_permissions + [self.user]
+            return command_permissions
 
     def add_perm(self):
         try:
@@ -152,6 +154,9 @@ class CommandPermissionCenter:
         if not user_eligible_for_permissions:
             print("This user is not eligible for permissions")
         return user_eligible_for_permissions
+
+    def _has_theme_song(self):
+        return self.user in SoundeffectsLibrary.fetch_theme_songs()
 
     def _is_theme_song(self):
         return self.command in SoundeffectsLibrary.fetch_theme_songs()
