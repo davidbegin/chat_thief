@@ -77,10 +77,13 @@ class CommandPermissionCenter:
         if self.command == "snorlax" and self.user == "artmattdank":
             return ["snorlax"]
 
+        if self.user in STREAM_LORDS:
+            return [self.user]
+
         if result := self.table.search(Query().command == self.command):
             return result[-1]["permitted_users"]
         else:
-            return ["Stream Lords"]
+            return []
 
     def fetch_user_permissions(self):
         def in_permitted_users(permitted_users, current_user):

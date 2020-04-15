@@ -56,7 +56,7 @@ class CommandParser:
                 return leaderboard()
 
             if self.command == "dropeffect" and self.user in STREAM_LORDS:
-                return drop_soundeffect()
+                return drop_soundeffect(self.user, self.args)
 
             if self.command == "perms":
                 return CommandPermissionCenter.fetch_permissions(
@@ -86,17 +86,11 @@ class CommandParser:
             if self.command == "soundeffect":
                 return AudioCommandCenter(self.irc_msg).add_command()
 
-            self._try_anything()
+            self.try_soundeffect()
 
     # This is back to free mode
     # if self.user in fetch_whitelisted_users():
     #     self.try_soundeffect(command, msg)
-    def _try_anything(self):
-        if self.user in self.command_permission_center.fetch_command_permissions():
-            self.try_soundeffect()
-        else:
-            print("hey you can't do that!")
-
     def try_soundeffect(self) -> None:
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")
@@ -104,6 +98,7 @@ class CommandParser:
 
         elif self.command in SoundeffectsLibrary.fetch_soundeffect_names():
             allowed_users = self.command_permission_center.fetch_command_permissions()
+
             if self.command == "clap":
                 AudioCommandCenter(self.irc_msg).play_audio_command()
             elif self.user in allowed_users:
