@@ -1,5 +1,6 @@
 from typing import List, Dict
 import json
+import os
 import socket
 
 
@@ -27,6 +28,9 @@ def send_twitch_msg(msg):
         server.connect(CONNECTION_DATA)
         _irc_handshake(server)
         if msg:
-            server.sendall(bytes(f"{CHAT_MSG} #{config.channel} :{msg}\n", ENCODING))
-        else:
-            print(f"\n{msg}")
+            if "BLOCK_TWITCH_MSGS" in os.environ:
+                print(msg)
+            else:
+                server.sendall(
+                    bytes(f"{CHAT_MSG} #{config.channel} :{msg}\n", ENCODING)
+                )

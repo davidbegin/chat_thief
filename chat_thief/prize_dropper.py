@@ -34,13 +34,14 @@ def drop_random_soundeffect_to_random_user():
     return drop_effect(user, soundeffect)
 
 
+# This needs a stronger interface
 def drop_soundeffect(invoking_user, args=[]):
     if invoking_user not in STREAM_GODS:
         return
     elif len(args) == 0:
         return drop_random_soundeffect_to_random_user()
     else:
-        if args[0] in SoundeffectsLibrary.fetch_theme_songs():
+        if args[0] in WelcomeCommittee.fetch_present_users():
             user = args[0]
             soundeffect = random_soundeffect()
             return drop_effect(user, soundeffect)

@@ -5,5 +5,5 @@ format:
 	black **/*.py *.py
 
 t:
-	python -m  pytest tests/*
+	BLOCK_TWITCH_MSGS=true python -m  pytest tests/*
 	# python -m  pytest tests/* -s

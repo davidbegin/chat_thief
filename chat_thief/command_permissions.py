@@ -12,6 +12,10 @@ from chat_thief.welcome_committee import WelcomeCommittee
 TABLE_NAME = "command_permissions"
 
 
+# This handles wayyyy too much
+# We need to separate out the logic and clean up abstractions
+
+
 def _command_permissions_table(db_location):
     soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
     return TinyDB(soundeffects_db_path).table(TABLE_NAME)
@@ -77,6 +81,9 @@ class CommandPermissionCenter:
         else:
             pass
 
+    # There are 2 concepts
+    # Fetch command permission
+    # fetch command permissions for a user
     def fetch_command_permissions(self):
         print(f"Looking for command: {self.command}")
 
@@ -167,8 +174,8 @@ class CommandPermissionCenter:
             return True
 
         user_eligible_for_permissions = (
-            user not in STREAM_LORDS
-            and user in WelcomeCommittee.fetch_present_users()
+            # user not in STREAM_LORDS
+            user in WelcomeCommittee.fetch_present_users()
             and self.command not in SoundeffectsLibrary.fetch_theme_songs()
         )
         if not user_eligible_for_permissions:

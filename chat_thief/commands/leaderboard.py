@@ -27,6 +27,10 @@ def leaderboard():
     result = table.search(
         Query().permitted_users
     )
+
+    print(f"\n\nResult: {result}\n\n")
+
+    # Sometimes we have multiples for the same command
     count = Counter(list(chain.from_iterable( [ command["permitted_users"] for command in result ])))
 
     # TODO: Format this better

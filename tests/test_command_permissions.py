@@ -38,6 +38,9 @@ class TestCommandPermissions:
         initial_perms = subject.fetch_command_permissions()
         assert user not in initial_perms
         subject._add_permission()
+        subject = command_permission_center(
+            user=user, command=command, args=[command, user]
+        )
         final_perms = subject.fetch_command_permissions()
         assert user in final_perms
 

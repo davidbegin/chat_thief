@@ -38,7 +38,7 @@ class SampleSaver:
     def _add_soundeffect_args(self):
         args = [self.youtube_id, self.name, self.start_time, self.end_time]
         if self.name in WelcomeCommittee.fetch_present_users():
-            args + ["theme"]
+            args = args + ["theme"]
         return args
 
     def save(self):
