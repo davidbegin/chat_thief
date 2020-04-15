@@ -19,10 +19,7 @@ def random_user():
     return user
 
 
-def drop_random_soundeffect_to_random_user():
-    user = random_user()
-    soundeffect = random_soundeffect()
-
+def drop_effect(user, soundeffect):
     soundeffect_name = CommandPermissionCenter(
         user="beginbot", command="add_perms", args=[soundeffect, user]
     ).add_perm()
@@ -31,11 +28,23 @@ def drop_random_soundeffect_to_random_user():
     return msg
 
 
+def drop_random_soundeffect_to_random_user():
+    user = random_user()
+    soundeffect = random_soundeffect()
+    return drop_effect(user, soundeffect)
+
+
 def drop_soundeffect(invoking_user, args=[]):
     if invoking_user not in STREAM_GODS:
         return
     elif len(args) == 0:
         return drop_random_soundeffect_to_random_user()
     else:
-        print("COMING SOON")
-        pass
+        if args[0] in SoundeffectsLibrary.fetch_theme_songs():
+            user = args[0]
+            soundeffect = random_soundeffect()
+            return drop_effect(user, soundeffect)
+        elif args[0] in SoundeffectsLibrary.fetch_soundeffect_names():
+            user = random_user()
+            soundeffect = args[0]
+            return drop_effect(user, soundeffect)

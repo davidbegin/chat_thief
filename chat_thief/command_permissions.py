@@ -68,6 +68,9 @@ class CommandPermissionCenter:
             print("Not sure what to do!!!")
             return
 
+        if user in STREAM_LORDS:
+            title = f"Stream Lord: {title}"
+
         user_permissions = list(set(user_permissions))
         if user_permissions:
             send_twitch_msg(f"{title} Permissions: {user_permissions}")
@@ -98,18 +101,15 @@ class CommandPermissionCenter:
         def in_permitted_users(permitted_users, current_user):
             return current_user in permitted_users
 
-        if self.user in STREAM_LORDS:
-            return ["All Commands!"]
-        else:
-            command_permissions = [
-                permission["command"]
-                for permission in self.table.search(
-                    Query().permitted_users.test(in_permitted_users, self.user)
-                )
-            ]
-            if self._has_theme_song():
-                return command_permissions + [self.user]
-            return command_permissions
+        command_permissions = [
+            permission["command"]
+            for permission in self.table.search(
+                Query().permitted_users.test(in_permitted_users, self.user)
+            )
+        ]
+        if self._has_theme_song():
+            return command_permissions + [self.user]
+        return command_permissions
 
     def add_perm(self):
         try:
