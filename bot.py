@@ -2,7 +2,7 @@ from typing import List, Dict
 import json
 import socket
 import asyncio
-
+import traceback
 
 from chat_thief.log import logger
 from chat_thief.config import TwitchConfig
@@ -53,14 +53,17 @@ async def run_bot(server: socket.socket) -> None:
         elif len(irc_response) < 2:
             pass
         elif irc_response[1] == CHAT_MSG:
-            if response := CommandParser(irc_response, logger).build_response():
-                MESSAGE_LIMIT = 500
-                if len(response) > MESSAGE_LIMIT:
-                    # This is dumb!
-                    await send_msg(server, f"{response[:500]}")
-                    await send_msg(server, f"{response[500:]}")
-                else:
-                    await send_msg(server, f"{response[:500]}")
+            try:
+                if response := CommandParser(irc_response, logger).build_response():
+                    MESSAGE_LIMIT = 500
+                    if len(response) > MESSAGE_LIMIT:
+                        # This is dumb!
+                        await send_msg(server, f"{response[:500]}")
+                        await send_msg(server, f"{response[500:]}")
+                    else:
+                        await send_msg(server, f"{response[:500]}")
+            except:
+                traceback.print_exc()
 
 
 async def main():

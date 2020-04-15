@@ -43,19 +43,18 @@ class CommandParser:
             print(f"User: {self.user} | Command: {command}")
 
             if self.command == "dropeffect" and self.user in STREAM_LORDS:
-                try:
-                    return drop_soundeffect()
-                except:
-                    traceback.print_exc()
+                return drop_soundeffect()
 
             if self.command == "perms":
-                try:
-                    # self.command_permission_center.fetch_permissions()
-                    return CommandPermissionCenter.fetch_permissions(
-                        user=self.user, args=self.args,
-                    )
-                except:
-                    traceback.print_exc()
+                return CommandPermissionCenter.fetch_permissions(
+                    user=self.user, args=self.args,
+                )
+
+            if self.command == "help":
+                return "COMING SOON!"
+
+            if self.command == "users":
+                return WelcomeCommittee.fetch_present_users()
 
             if self.command == "add_perm":
                 return self.command_permission_center.add_perm()
@@ -69,20 +68,17 @@ class CommandParser:
             if self.command == "streamlords":
                 return " ".join(STREAM_LORDS)
 
-            try:
-                if self.command == "requests":
-                    handle_user_requests()
-                if self.command == "soundeffect":
-                    return AudioCommandCenter(self.irc_msg).add_command()
-            except:
-                traceback.print_exc()
+            if self.command == "requests":
+                handle_user_requests()
+            if self.command == "soundeffect":
+                return AudioCommandCenter(self.irc_msg).add_command()
 
             self._try_anything()
 
+    # This is back to free mode
+    # if self.user in fetch_whitelisted_users():
+    #     self.try_soundeffect(command, msg)
     def _try_anything(self):
-        # This is back to free mode
-        # if self.user in fetch_whitelisted_users():
-        #     self.try_soundeffect(command, msg)
         if self.user in self.command_permission_center.fetch_command_permissions():
             self.try_soundeffect()
         else:
@@ -94,9 +90,7 @@ class CommandParser:
             os.system(f"so {self.command}")
 
         elif self.command in SoundeffectsLibrary.fetch_soundeffect_names():
-
             allowed_users = self.command_permission_center.fetch_command_permissions()
-
             if self.user in allowed_users:
                 AudioCommandCenter(self.irc_msg).play_audio_command()
             else:

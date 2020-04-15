@@ -103,8 +103,8 @@ class CommandPermissionCenter:
                 return self._add_permission()
             else:
                 allowed_commands = self.fetch_user_permissions()
-                if self.command in allowed_commands:
-                    print(f"{self.user} CAN ADD")
+                if self.args[0] in allowed_commands:
+                    return self._add_permission()
                 else:
                     print(f"{self.user} cannot add permissions")
         except Exception as e:

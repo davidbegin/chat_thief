@@ -1,25 +1,29 @@
 # Blacklist Command
 # We need stream lords
 # Move this to a file
-STREAM_LORDS = [
-    "beginbotbot",
+
+STREAM_GODS = [
     "beginbot",
-    "stupac62",
-    "vivax3794",
+    "beginbotbot",
+]
+
+STREAM_LORDS = [
+    "arbaya",
     "artmattdank",
     "baldclap",
-    "tramstarzz",
-    "sweeku",
-    "isidentical",
-    "disk1of5",
-    "usuallyhigh",
-    "mondaynightfreehotdogs",
-    "arbaya",
-    "hellsridge",
-    "eatpizza22",
-    "sketchyscripts",
     "detlion1643",
+    "disk1of5",
+    "eatpizza22",
+    "hellsridge",
+    "isidentical",
     "kiekaemodaiwieco",
+    "mondaynightfreehotdogs",
+    "sketchyscripts",
     "spfar",
+    "stupac62",
+    "sweeku",
+    "tramstarzz",
+    "usuallyhigh",
+    "vivax3794",
     "zerostheory",
-]
+] + STREAM_GODS
