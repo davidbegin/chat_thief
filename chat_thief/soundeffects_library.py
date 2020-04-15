@@ -7,6 +7,17 @@ ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
 
 class SoundeffectsLibrary:
     @staticmethod
+    def find_sample(name):
+        samples = [
+            sample
+            for sample in SoundeffectsLibrary.fetch_soundeffect_samples()
+            if name == sample.name[: -len(sample.suffix)]
+        ]
+        if samples:
+            return samples[0]
+        raise ValueError("Not a Valid Sample")
+
+    @staticmethod
     def fetch_theme_songs():
         return [
             theme.name[: -len(theme.suffix)]

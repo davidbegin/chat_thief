@@ -15,6 +15,7 @@ from chat_thief.prize_dropper import drop_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.audio_command import AudioCommand
 
 from chat_thief.request_saver import RequestSaver
 from chat_thief.commands.user_requests import handle_user_requests
@@ -96,13 +97,12 @@ class CommandParser:
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")
             os.system(f"so {self.command}")
+            return
 
-        elif self.command in SoundeffectsLibrary.fetch_soundeffect_names():
-            allowed_users = self.command_permission_center.fetch_command_permissions()
+        audio_command = AudioCommand(self.command)
+        # allowed_users = self.command_permission_center.fetch_command_permissions()
 
-            if self.command == "clap":
-                AudioCommandCenter(self.irc_msg).play_audio_command()
-            elif self.user in allowed_users:
-                AudioCommandCenter(self.irc_msg).play_audio_command()
-            else:
-                print(f"\n{self.user} is NOT allowed {self.command}")
+        if audio_command.allowed_to_play(self.user):
+            audio_command.play_audio_command()
+        else:
+            print(f"\n{self.user} is NOT allowed {self.command}")
