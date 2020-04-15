@@ -17,6 +17,7 @@ from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.request_saver import RequestSaver
 from chat_thief.commands.user_requests import handle_user_requests
+from chat_thief.commands.leaderboard import leaderboard
 
 
 class CommandParser:
@@ -41,6 +42,9 @@ class CommandParser:
             command = self.msg[1:].split()[0]
             msg = self.msg.split()[0].lower()
             print(f"User: {self.user} | Command: {command}")
+
+            if self.command == "leaderboard":
+                return leaderboard()
 
             if self.command == "dropeffect" and self.user in STREAM_LORDS:
                 return drop_soundeffect()
@@ -91,7 +95,9 @@ class CommandParser:
 
         elif self.command in SoundeffectsLibrary.fetch_soundeffect_names():
             allowed_users = self.command_permission_center.fetch_command_permissions()
-            if self.user in allowed_users:
+            if self.command == "clap":
+                AudioCommandCenter(self.irc_msg).play_audio_command()
+            elif self.user in allowed_users:
                 AudioCommandCenter(self.irc_msg).play_audio_command()
             else:
                 print(f"\n{self.user} is NOT allowed {self.command}")

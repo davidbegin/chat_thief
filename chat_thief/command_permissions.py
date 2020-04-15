@@ -149,7 +149,9 @@ class CommandPermissionCenter:
             return True
 
         user_eligible_for_permissions = (
-            user not in STREAM_LORDS and user in WelcomeCommittee.fetch_present_users()
+            user not in STREAM_LORDS
+            and user in WelcomeCommittee.fetch_present_users()
+            and self.command not in SoundeffectsLibrary.fetch_theme_songs()
         )
         if not user_eligible_for_permissions:
             print("This user is not eligible for permissions")
