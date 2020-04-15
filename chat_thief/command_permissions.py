@@ -4,7 +4,7 @@ import traceback
 from tinydb import TinyDB, Query
 
 from chat_thief.models import User, SoundEffect, CommandPermission
-from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
@@ -104,7 +104,7 @@ class CommandPermissionCenter:
 
     def add_perm(self):
         try:
-            if self.user in STREAM_LORDS:
+            if self.user in STREAM_GODS:
                 return self._add_permission()
             else:
                 allowed_commands = self.fetch_user_permissions()
@@ -137,6 +137,7 @@ class CommandPermissionCenter:
 
     def _update_permissions(self, command_config):
         if self._validate_user(self.args[1]):
+
             if self.args[1] not in command_config["permitted_users"]:
                 command_config["permitted_users"].append(self.args[1])
                 print(

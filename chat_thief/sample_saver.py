@@ -10,6 +10,7 @@ from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.audio_player import AudioPlayer
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.prize_dropper import random_user
 
 
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
@@ -31,13 +32,20 @@ class SampleSaver:
         self.args = irc_msg.args
         self.soundeffects_table = DB.table("soundeffects")
         self.command_permissions_table = DB.table("command_permissions")
+        self.youtube_id, self.name, self.start_time, self.end_time = self.args
+        self.name = self.name.lower()
+
+    def _add_soundeffect_args(self):
+        args = [self.youtube_id, self.name, self.start_time, self.end_time]
+        if self.name in WelcomeCommittee.fetch_present_users():
+            args + ["theme"]
+        return args
 
     def save(self):
-        youtube_id, name, start_time, end_time = self.args
-        # TODO: reject if theres any characters that could wreck our live
         regex = re.compile("^[a-zA-Z0-9_-]*$")
-        if not regex.match(name):
-            print("WHAT THE HECK ARE YOU DOING")
+        if not regex.match(self.name):
+            # Autotime out?
+            print(f"THAT IS NOT A VALID NAME FOR A COMMAND: {self.name}")
             return
 
         print(f"\n{self.user} is trying to add a command: {self.command}\n")
@@ -52,25 +60,18 @@ class SampleSaver:
         # When should we save
         self._save_command()
 
-        # This is supposed to handle saving the theme
-        # We should also lowercase everything earlier
-        if self.args[1] in WelcomeCommittee.fetch_present_users():
-            args = self.args + ["theme"]
-        else:
-            args = self.args
-
         subprocess.call(
-            [ADD_SOUND_EFFECT_PATH.resolve()] + args,
+            [ADD_SOUND_EFFECT_PATH.resolve()] + self._add_soundeffect_args(),
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
         )
 
         if sample_updated:
             new_item = Path(SAMPLES_PATH).joinpath("update.opus")
-            send_twitch_msg(f"Updated Sound Available: !{self.args[1]}")
+            send_twitch_msg(f"Updated Sound Available: !{self.name}")
         else:
             new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
-            send_twitch_msg(f"New Sound Available: !{self.args[1]}")
+            send_twitch_msg(f"New Sound Available: !{self.name}")
 
         if PLAY_UPDATE_EFFECTS:
             AudioPlayer.play_sample(new_item)
@@ -82,17 +83,16 @@ class SampleSaver:
         ]
 
     def _save_command(self):
-        youtube_id, name, start_time, end_time = self.args
-
         sound = SoundEffect(
             user=self.user,
-            youtube_id=youtube_id,
-            name=name,
-            start_time=start_time,
-            end_time=end_time,
+            youtube_id=self.youtube_id,
+            name=self.name,
+            start_time=self.start_time,
+            end_time=self.end_time,
         )
+        # Lets grab a random user
         command_permission = CommandPermission(
-            user=self.user, command=name, permitted_users=STREAM_LORDS
+            user=self.user, command=self.name, permitted_users=[random_user()]
         )
         print(f"Saving in our DB! {sound.__dict__}")
         self.soundeffects_table.insert(sound.__dict__)
