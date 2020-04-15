@@ -15,9 +15,18 @@ from chat_thief.prize_dropper import drop_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.welcome_committee import WelcomeCommittee
+
 from chat_thief.request_saver import RequestSaver
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.commands.leaderboard import leaderboard
+
+HELP_MENU = [
+    "!perms - Check what soundeffects you have access to with",
+    "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
+    "!add_perm COMMAND USER_TO_GIVE_PERMS - give someone else access to a command you have access to",
+    "!perms clap - See who is allowed to use the !clap command",
+    "!leaderboard - See what users have the most commands",
+]
 
 
 class CommandParser:
@@ -55,7 +64,7 @@ class CommandParser:
                 )
 
             if self.command == "help":
-                return "COMING SOON!"
+                return HELP_MENU
 
             if self.command == "users":
                 return WelcomeCommittee.fetch_present_users()

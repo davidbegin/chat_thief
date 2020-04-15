@@ -56,7 +56,11 @@ async def run_bot(server: socket.socket) -> None:
             try:
                 if response := CommandParser(irc_response, logger).build_response():
                     MESSAGE_LIMIT = 500
-                    if len(response) > MESSAGE_LIMIT:
+
+                    if isinstance(response, List):
+                        for r in response:
+                            await send_msg(server, f"{r}")
+                    elif len(response) > MESSAGE_LIMIT:
                         # This is dumb!
                         await send_msg(server, f"{response[:500]}")
                         await send_msg(server, f"{response[500:]}")

@@ -28,9 +28,7 @@ access to. It will also play everytime you join the chat for the first time each
 stream! The theme should be no more than 5 seconds from a youtube clip in the
 following format:
 
-```
-!soundeffect YOUTUBE_ID YOUR_FULL_TWITCHNAME_LOWERCASE 00:05 00:09
-```
+`!soundeffect YOUTUBE_ID YOUR_FULL_TWITCHNAME_LOWERCASE 00:05 00:09`
 
 Once a Streamlord approves this, you and you alone will have access to your
 theme song.
