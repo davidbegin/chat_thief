@@ -17,4 +17,9 @@ STREAM_LORDS = [
     "arbaya",
     "hellsridge",
     "eatpizza22",
+    "sketchyscripts",
+    "detlion1643",
+    "kiekaemodaiwieco",
+    "spfar",
+    "zerostheory",
 ]

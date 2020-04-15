@@ -1,6 +1,7 @@
 from pathlib import Path
 import traceback
 
+from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SAMPLES_PATH, ALLOWED_AUDIO_FORMATS
 from chat_thief.audio_player import AudioPlayer
 

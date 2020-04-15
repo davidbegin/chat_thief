@@ -15,18 +15,20 @@ from chat_thief.prize_dropper import drop_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.request_saver import RequestSaver
+from chat_thief.commands.user_requests import handle_user_requests
 
 
 class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
         self._logger = logger
         self.irc_msg = IrcMsg(irc_msg)
+
         self.user = self.irc_msg.user
         self.msg = self.irc_msg.msg
         self.command = self.irc_msg.command
         self.args = self.irc_msg.args
 
-        # This should take in much more!
         self.command_permission_center = CommandPermissionCenter(
             user=self.user, command=self.command, args=self.args,
         )
@@ -41,10 +43,16 @@ class CommandParser:
             print(f"User: {self.user} | Command: {command}")
 
             if self.command == "dropeffect" and self.user in STREAM_LORDS:
-                return drop_soundeffect()
+                try:
+                    return drop_soundeffect()
+                except:
+                    traceback.print_exc()
 
             if self.command == "perms":
-                return self.command_permission_center.fetch_command_permissions()
+                try:
+                    self.command_permission_center.fetch_permissions()
+                except:
+                    traceback.print_exc()
 
             if self.command == "add_perm":
                 return self.command_permission_center.add_perm()
@@ -58,11 +66,13 @@ class CommandParser:
             if self.command == "streamlords":
                 return " ".join(STREAM_LORDS)
 
-            if self.command == "requests":
-                return handle_user_requests()
-
-            if self.command == "soundeffect":
-                return AudioCommandCenter(self.irc_msg).add_command()
+            try:
+                if self.command == "requests":
+                    handle_user_requests()
+                if self.command == "soundeffect":
+                    return AudioCommandCenter(self.irc_msg).add_command()
+            except:
+                traceback.print_exc()
 
             self._try_anything()
 
@@ -76,11 +86,14 @@ class CommandParser:
             print("hey you can't do that!")
 
     def try_soundeffect(self) -> None:
-        if self.command in OBS_COMMANDS:
+        if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")
             os.system(f"so {self.command}")
+
         elif self.command in SoundeffectsLibrary.fetch_soundeffect_names():
+
             allowed_users = self.command_permission_center.fetch_command_permissions()
+
             if self.user in allowed_users:
                 AudioCommandCenter(self.irc_msg).play_audio_command()
             else:

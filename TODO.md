@@ -5,6 +5,9 @@
   - .welcome
 - More test coverage
 - better separation of concerns
+- let people who have a command give a command
+- Get Themes in the right folder!
+- Really fix this add_perms issue
 
 ## Features
 

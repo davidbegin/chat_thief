@@ -1,9 +1,14 @@
 from pathlib import Path
 import re
+import subprocess
 
 from tinydb import TinyDB, Query
 
 from chat_thief.irc_msg import IrcMsg
+from chat_thief.models import SoundEffect, CommandPermission
+from chat_thief.irc import send_twitch_msg
+from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.audio_player import AudioPlayer
 
 
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
@@ -18,14 +23,13 @@ DB = TinyDB(soundeffects_db_path)
 
 
 class SampleSaver:
-    soundeffects_table = DB.table("soundeffects")
-    command_permissions_table = DB.table("command_permissions")
-
     def __init__(self, irc_msg: IrcMsg):
-        breakpoint()
         self.user = irc_msg.user
         self.msg = irc_msg.msg
         self.command = irc_msg.command
+        self.args = irc_msg.args
+        self.soundeffects_table = DB.table("soundeffects")
+        self.command_permissions_table = DB.table("command_permissions")
 
     def save(self):
         youtube_id, name, start_time, end_time = self.args
@@ -47,6 +51,8 @@ class SampleSaver:
         # When should we save
         self._save_command()
 
+        # We need to check if
+        # Here is where we save the sample
         subprocess.call(
             [ADD_SOUND_EFFECT_PATH.resolve()] + self.args,
             stderr=subprocess.DEVNULL,
@@ -83,5 +89,5 @@ class SampleSaver:
             user=self.user, command=name, permitted_users=STREAM_LORDS
         )
         print(f"Saving in our DB! {sound.__dict__}")
-        soundeffects_table.insert(sound.__dict__)
-        command_permissions_table.insert(command_permission.__dict__)
+        self.soundeffects_table.insert(sound.__dict__)
+        self.command_permissions_table.insert(command_permission.__dict__)

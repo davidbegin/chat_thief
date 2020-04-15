@@ -26,5 +26,5 @@ def send_twitch_msg(msg):
     with socket.socket() as server:
         server.connect(CONNECTION_DATA)
         _irc_handshake(server)
-        if msg:
+        if msg and False:
             server.sendall(bytes(f"{CHAT_MSG} #{config.channel} :{msg}\n", ENCODING))

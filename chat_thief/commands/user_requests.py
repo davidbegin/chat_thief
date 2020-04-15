@@ -5,7 +5,7 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.parent.joinpath("db/.requests")
 
-def remove_completed_requests():
+def _remove_completed_requests():
     soundeffect_names = SoundeffectsLibrary.fetch_soundeffect_names()
 
     unfulfilled_requests = [
@@ -14,7 +14,9 @@ def remove_completed_requests():
         if request.split()[3] not in soundeffect_names
     ]
 
-    # print(f"\n\nUnfulfilled Request: {unfulfilled_requests}\n\n")
+    print(f"\n{soundeffect_names}\n")
+
+    print(f"\n\nUnfulfilled Request: {unfulfilled_requests}\n\n")
     with open(SOUNDEFFECT_REQUESTS_PATH, "w") as f:
         if unfulfilled_requests:
             f.write("\n".join(unfulfilled_requests) + "\n")
@@ -22,10 +24,9 @@ def remove_completed_requests():
             f.write("")
 
 
-
 def handle_user_requests():
     try:
-        remove_completed_requests()
+        _remove_completed_requests()
     except Exception as e:
         print(f"Error Removing Message: {e}")
 
@@ -34,6 +35,6 @@ def handle_user_requests():
     if previous_requests:
         for sound_request in previous_requests:
             if sound_request:
-                send_twitch_msg("Request: " + sound_request)
+                send_twitch_msg("Request: @" + sound_request)
     else:
         send_twitch_msg("No Requests! Great Job STREAM_LORDS")

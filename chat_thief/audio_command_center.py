@@ -35,7 +35,7 @@ class AudioCommandCenter:
             SampleSaver(self.irc_msg).save()
         else:
             print("Not a Streamlord, so we are attempting to save you sample")
-            RequestSaver(self.irc_msg).save()
+            RequestSaver(self.user, self.msg).save()
 
     def play_audio_command(self):
         sound_files = [
@@ -43,20 +43,5 @@ class AudioCommandCenter:
             for sound_file in SoundeffectsLibrary.fetch_soundeffect_samples()
             if sound_file.name[: -len(sound_file.suffix)] == self.command
         ]
-
         for sound_file in sound_files:
-            # You can't play other people's Theme Songs!
-            if not self._is_personal_theme_song() and self._is_theme_song():
-                return
-
-            # Only artmattdank gets to the power of Snorlax
-            if self.command == "snorlax" and self.user != "artmattdank":
-                return
-
             AudioPlayer.play_sample(sound_file.resolve())
-
-    def _is_theme_song(self):
-        return self.command in SoundeffectsLibrary.fetch_theme_songs()
-
-    def _is_personal_theme_song(self):
-        return self._is_theme_song() and self.user == self.command
