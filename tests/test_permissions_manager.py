@@ -37,17 +37,14 @@ class TestPermissionsManager:
             user="beginbot", command=command, args=[command, user]
         )
 
-        # initial_perms = subject.fetch_command_permissions()
-        initial_perms = AudioCommand(
-            command, db_location=self.__class__.db_filepath
-        ).permitted_users()
+        audio_command = AudioCommand(command, db_location=self.__class__.db_filepath)
+
+        initial_perms = audio_command.permitted_users()
 
         assert user not in initial_perms
-        subject._add_permission()
+        audio_command.allow_user(user)
         subject = permissions_manager(user=user, command=command, args=[command, user])
-        final_perms = AudioCommand(
-            command, db_location=self.__class__.db_filepath
-        ).permitted_users()
+        final_perms = audio_command.permitted_users()
         assert user in final_perms
 
     def test_checking_user_permissions(self, permissions_manager):
@@ -59,10 +56,10 @@ class TestPermissionsManager:
         allowed_commands = User(user, db_location=self.__class__.db_filepath).commands()
         assert allowed_commands == []
 
-        subject._add_permission()
+        audio_command = AudioCommand(command, db_location=self.__class__.db_filepath)
+
+        audio_command.allow_user(user)
 
         allowed_commands = User(user, db_location=self.__class__.db_filepath).commands()
-        final_perms = AudioCommand(
-            command, db_location=self.__class__.db_filepath
-        ).permitted_users()
+        final_perms = audio_command.permitted_users()
         assert allowed_commands == [command]

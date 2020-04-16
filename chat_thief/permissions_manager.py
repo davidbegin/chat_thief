@@ -25,29 +25,27 @@ class PermissionsManager:
     ):
         self.user = user
         self.command = command
-        self.args = args
+
+        if len(args) < 2:
+            print("you need more args: command user!")
+            raise ArgumentError
+
+        self.target_command = args[0]
+        self.target_user = args[1]
+
         self.table = _command_permissions_table(db_location)
         self.skip_validation = skip_validation
-        self.db_location = db_location
+        self.audio_command = AudioCommand(self.target_command, db_location=db_location)
 
     def add_perm(self):
-        audio = AudioCommand(self.args[0], db_location=self.db_location)
+        permitted_users = self.audio_command.permitted_users()
 
         if self.user in STREAM_GODS:
-            return self._add_permission()
+            return self.audio_command.allow_user(self.target_user)
         else:
-            print(f"Permitted Users For: {self.args[0]} {audio.permitted_users()}")
+            print(f"Permitted Users For: {self.target_command} {permitted_users}")
 
-            if self.user in audio.permitted_users():
-                return self._add_permission()
+            if self.user in permitted_users:
+                return self.audio_command.allow_user(self.target_user)
             else:
                 print(f"{self.user} cannot add permissions")
-
-    def _add_permission(self):
-        if len(self.args) < 2:
-            print("you need more args!")
-            return
-
-        return AudioCommand(self.args[0], db_location=self.db_location).allow_user(
-            self.args[1]
-        )
