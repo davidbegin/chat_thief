@@ -31,11 +31,14 @@ class PermissionsManager:
         self.db_location = db_location
 
     def add_perm(self):
-        audio = AudioCommand(self.args[0])
+        audio = AudioCommand(self.args[0], db_location=self.db_location)
+
         if self.user in STREAM_GODS:
             return self._add_permission()
         else:
-            if self.args[1] in audio.permitted_users():
+            print(f"Permitted Users For: {self.args[0]} {audio.permitted_users()}")
+
+            if self.user in audio.permitted_users():
                 return self._add_permission()
             else:
                 print(f"{self.user} cannot add permissions")
