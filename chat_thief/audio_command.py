@@ -9,13 +9,6 @@ from chat_thief.irc import send_twitch_msg
 
 from chat_thief.stream_lords import STREAM_LORDS
 
-# TABLE_NAME = "command_permissions"
-# DEFAULT_DB_LOCATION = "db/soundeffects.json"
-
-# def _command_permissions_table(db_location):
-#     soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
-#     return TinyDB(soundeffects_db_path).table(TABLE_NAME)
-
 from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
 
 
@@ -51,28 +44,36 @@ class AudioCommand:
         else:
             return []
 
-    # TODO: user > target user
-    def allow_user(self, user):
+    def allow_user(self, target_user):
         command_permission = self.table.search(Query().command == self.name)
+        print(
+            f"\n\nAudioCommand#allow_user @{target_user} command_permission: {command_permission}"
+        )
 
         if command_permission:
             command_permission = command_permission[-1]
-            if user not in command_permission["permitted_users"]:
-                command_permission["permitted_users"].append(user)
+
+            if target_user not in command_permission["permitted_users"]:
+                command_permission["permitted_users"].append(target_user)
+
                 print(
                     f"Updating Previous Command Permissions {command_permission.__dict__}"
                 )
                 self.table.update(command_permission)
-                message = f"User @{user} updated permissions for command: {self.name}"
+                message = (
+                    f"User @{target_user} updated permissions for command: {self.name}"
+                )
             else:
-                message = f"User @{user} is already in permitted_users for {self.name}!"
+                message = f"User @{target_user} is already in permitted_users for {self.name}!"
         else:
             command_permission = CommandPermission(
-                user=user, command=self.name, permitted_users=[user],
+                user="beginbot", command=self.name, permitted_users=[target_user],
             )
             print(f"Creating New Command Permissions: {command_permission.__dict__}")
             self.table.insert(command_permission.__dict__)
-            message = f"User @{user} created new permissions for command: {self.name}"
+            message = (
+                f"User @{target_user} created new permissions for command: {self.name}"
+            )
             send_twitch_msg(f"New CommandPermission created: {self.name}")
 
         return message
