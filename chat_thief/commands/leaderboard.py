@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import traceback
 from collections import Counter
 from itertools import chain
@@ -24,5 +25,5 @@ def leaderboard():
 
     # Sometimes we have multiples for the same command
     counter = Counter(list(chain.from_iterable( [ command["permitted_users"] for command in result ])))
-    for user in counter:
-        send_twitch_msg(f"User: {user} | {counter[user]}")
+    for user, count in counter.most_common():
+        send_twitch_msg(f"User: {user} | {count}")

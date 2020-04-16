@@ -14,7 +14,7 @@ from chat_thief.irc_msg import IrcMsg
 from chat_thief.obs import OBS_COMMANDS
 from chat_thief.prize_dropper import drop_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
-from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.audio_command import AudioCommand
 
@@ -81,6 +81,9 @@ class CommandParser:
 
             if self.command == "streamlords":
                 return " ".join(STREAM_LORDS)
+
+            if self.command == "streamgods":
+                return " ".join(STREAM_GODS)
 
             if self.command == "requests":
                 return handle_user_requests()
