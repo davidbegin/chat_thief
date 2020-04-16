@@ -30,7 +30,9 @@ def handle_user_requests():
     except Exception as e:
         print(f"Error Removing Message: {e}")
 
-    previous_requests = SOUNDEFFECT_REQUESTS_PATH.read_text().split("\n")
+    previous_requests = [ request for request in SOUNDEFFECT_REQUESTS_PATH.read_text().split("\n") if request != "" ]
+
+    print(f"Previous Requests: {previous_requests}")
 
     if previous_requests:
         for sound_request in previous_requests:

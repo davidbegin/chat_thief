@@ -61,12 +61,18 @@ class AudioCommand:
                     f"Updating Previous Command Permissions {command_permission.__dict__}"
                 )
                 self.table.update(command_permission)
+                message = f"User @{user} updated permissions for command: {self.name}"
+            else:
+                message = f"User is not allowed to add perm: @{user} {self.name}"
         else:
             command_permission = CommandPermission(
                 user=user, command=self.name, permitted_users=[user],
             )
             print(f"Creating New Command Permissions: {command_permission.__dict__}")
             self.table.insert(command_permission.__dict__)
+            message = f"User @{user} created new permissions for command: {self.name}"
+
+        return message
 
     # def _validate_user(self, user):
     #     if self.skip_validation:

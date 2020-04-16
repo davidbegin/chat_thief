@@ -83,7 +83,7 @@ class CommandParser:
                 return " ".join(STREAM_LORDS)
 
             if self.command == "requests":
-                handle_user_requests()
+                return handle_user_requests()
             if self.command == "soundeffect":
                 return AudioCommandCenter(self.irc_msg).add_command()
 
