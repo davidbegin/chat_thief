@@ -41,16 +41,23 @@ class AudioCommand:
 
         return False
 
+    def permitted_users(self):
+        if command_permission := self.table.search(Query().command == self.name):
+            return command_permission[-1]["permitted_users"]
+        else:
+            return []
+
     def allow_user(self, user):
         command_permission = self.table.search(Query().command == self.name)
 
         if command_permission:
             command_permission = command_permission[-1]
-            command_permission["permitted_users"].append(user)
-            print(
-                f"Updating Previous Command Permissions {command_permission.__dict__}"
-            )
-            self.table.update(command_permission)
+            if user not in command_permission["permitted_users"]:
+                command_permission["permitted_users"].append(user)
+                print(
+                    f"Updating Previous Command Permissions {command_permission.__dict__}"
+                )
+                self.table.update(command_permission)
         else:
             command_permission = CommandPermission(
                 user=user, command=self.name, permitted_users=[user],

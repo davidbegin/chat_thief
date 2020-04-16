@@ -8,6 +8,7 @@ from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.audio_command import AudioCommand
 
 TABLE_NAME = "command_permissions"
 
@@ -74,6 +75,7 @@ class CommandPermissionCenter:
         if user in STREAM_LORDS:
             title = f"Stream Lord: {title}"
 
+        # This is a hack
         user_permissions = list(set(user_permissions))
         if user_permissions:
             send_twitch_msg(f"{title} Permissions: {user_permissions}")

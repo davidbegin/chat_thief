@@ -48,3 +48,12 @@ class TestAudioCommand:
         assert not subject.allowed_to_play("some_other_rando")
         subject.allow_user("some_other_rando")
         assert subject.allowed_to_play("some_other_rando")
+
+    def test_permitted_users(self, audio_command):
+        subject = audio_command("ha")
+        assert subject.permitted_users() == []
+        subject.allow_user("beginbot")
+        assert subject.permitted_users() == ["beginbot"]
+        subject.allow_user("beginbot")
+        subject.allow_user("some_rando")
+        assert subject.permitted_users() == ["beginbot", "some_rando"]
