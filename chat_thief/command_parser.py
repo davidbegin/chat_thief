@@ -100,9 +100,8 @@ class CommandParser:
             return
 
         audio_command = AudioCommand(self.command)
-        # allowed_users = self.command_permission_center.fetch_command_permissions()
 
         if audio_command.allowed_to_play(self.user):
-            audio_command.play_audio_command()
+            audio_command.play_sample()
         else:
             print(f"\n{self.user} is NOT allowed {self.command}")

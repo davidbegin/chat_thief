@@ -2,8 +2,8 @@ import random
 
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.audio_command import AudioCommand
 
 
 def random_soundeffect():
@@ -20,10 +20,7 @@ def random_user():
 
 
 def drop_effect(user, soundeffect):
-    soundeffect_name = CommandPermissionCenter(
-        user="beginbot", command="add_perms", args=[soundeffect, user]
-    ).add_perm()
-
+    AudioCommand(soundeffect).allow_user(user)
     msg = f"@{user} now has access to Sound Effect: !{soundeffect}"
     return msg
 
