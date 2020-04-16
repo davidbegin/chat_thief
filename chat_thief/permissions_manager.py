@@ -20,7 +20,7 @@ class PermissionsManager:
         user,
         command=None,
         args=[],
-        db_location="db/soundeffects.json",
+        db_location=DEFAULT_DB_LOCATION,
         skip_validation=False,
     ):
         self.user = user
@@ -28,6 +28,7 @@ class PermissionsManager:
         self.args = args
         self.table = _command_permissions_table(db_location)
         self.skip_validation = skip_validation
+        self.db_location = db_location
 
     def add_perm(self):
         audio = AudioCommand(self.args[0])
@@ -44,4 +45,6 @@ class PermissionsManager:
             print("you need more args!")
             return
 
-        return AudioCommand(self.args[0]).allow_user(self.args[1])
+        return AudioCommand(self.args[0], db_location=self.db_location).allow_user(
+            self.args[1]
+        )
