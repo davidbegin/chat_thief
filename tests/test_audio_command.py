@@ -59,3 +59,37 @@ class TestAudioCommand:
         subject.allow_user("beginbot")
         subject.allow_user("some_rando")
         assert subject.permitted_users() == ["beginbot", "some_rando"]
+
+    # @pytest.mark.focus
+    def test_allow_users_bug(self, audio_command):
+        subject = audio_command("i3")
+        assert subject.permitted_users() == []
+        subject.allow_user("beginbot")
+        subject.allow_user("beginbot")
+        assert subject.permitted_users() == ["beginbot"]
+        subject.allow_user("fakeuser")
+        other_command = audio_command("arch")
+        other_command.allow_user("fakeuser")
+        assert other_command.permitted_users() == ["fakeuser"]
+        assert subject.permitted_users() == ["beginbot", "fakeuser"]
+        subject.allow_user("billgates")
+        # assert subject.permitted_users() == ["beginbot", "fakeuser", "billgates"]
+        # other_command = audio_command("arch")
+        # other_command.allow_user("fakeuser")
+        # assert other_command.permitted_users() == ["fakeuser"]
+        # subject = audio_command("i3")
+        # assert subject.permitted_users() == ["beginbot", "fakeuser", "billgates"]
+
+    @pytest.mark.focus
+    def test_allow_users(self, audio_command):
+        subject = audio_command("i3")
+        subject.allow_user("beginbot")
+
+        # Because of this of fakeuser having a permission
+        # in both i3 and arch, adding a new user, creates bill gates???
+        subject.allow_user("fakeuser")
+        other_command = audio_command("arch")
+        other_command.allow_user("fakeuser")
+
+        subject.allow_user("billgates")
+        # Now we have 2 i3 commands

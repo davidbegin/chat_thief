@@ -59,12 +59,17 @@ class AudioCommand:
             command_permission = command_permission[-1]
 
             if target_user not in command_permission["permitted_users"]:
-                command_permission["permitted_users"].append(target_user)
-
                 print(
                     f"Updating Previous Command Permissions {command_permission.__dict__}"
                 )
-                self.table.update(command_permission)
+
+                def add_permitted_users():
+                    def transform(doc):
+                        doc["permitted_users"].append(target_user)
+                    return transform
+
+                self.table.update(add_permitted_users(), Query().command == self.name)
+
                 message = (
                     f"User @{target_user} updated permissions for command: {self.name}"
                 )
