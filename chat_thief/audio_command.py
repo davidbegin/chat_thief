@@ -8,13 +8,14 @@ from chat_thief.models import CommandPermission
 
 from chat_thief.stream_lords import STREAM_LORDS
 
-TABLE_NAME = "command_permissions"
-DEFAULT_DB_LOCATION = "db/soundeffects.json"
+# TABLE_NAME = "command_permissions"
+# DEFAULT_DB_LOCATION = "db/soundeffects.json"
 
+# def _command_permissions_table(db_location):
+#     soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
+#     return TinyDB(soundeffects_db_path).table(TABLE_NAME)
 
-def _command_permissions_table(db_location):
-    soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
-    return TinyDB(soundeffects_db_path).table(TABLE_NAME)
+from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
 
 
 class AudioCommand:
