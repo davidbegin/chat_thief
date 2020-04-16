@@ -11,7 +11,6 @@ from chat_thief.welcome_committee import WelcomeCommittee
 
 TABLE_NAME = "command_permissions"
 
-
 # This handles wayyyy too much
 # We need to separate out the logic and clean up abstractions
 
