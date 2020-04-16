@@ -35,7 +35,11 @@ class PermissionsManager:
 
         self.table = _command_permissions_table(db_location)
         self.skip_validation = skip_validation
-        self.audio_command = AudioCommand(self.target_command, db_location=db_location)
+        self.audio_command = AudioCommand(
+            self.target_command,
+            skip_validation=skip_validation,
+            db_location=db_location,
+        )
 
     def add_perm(self):
         permitted_users = self.audio_command.permitted_users()

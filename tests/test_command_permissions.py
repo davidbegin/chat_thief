@@ -39,6 +39,8 @@ class TestCommandPermissions:
         allowed_commands = subject.fetch_user_permissions()
         assert allowed_commands == []
 
-        AudioCommand(command, db_location=self.__class__.db_filepath).allow_user(user)
+        AudioCommand(
+            command, db_location=self.__class__.db_filepath, skip_validation=True
+        ).allow_user(user)
         allowed_commands = subject.fetch_user_permissions()
         assert allowed_commands == [command]

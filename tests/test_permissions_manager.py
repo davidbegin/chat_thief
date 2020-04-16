@@ -37,7 +37,9 @@ class TestPermissionsManager:
             user="beginbot", command=command, args=[command, user]
         )
 
-        audio_command = AudioCommand(command, db_location=self.__class__.db_filepath)
+        audio_command = AudioCommand(
+            command, skip_validation=True, db_location=self.__class__.db_filepath
+        )
 
         initial_perms = audio_command.permitted_users()
 
@@ -56,7 +58,9 @@ class TestPermissionsManager:
         allowed_commands = User(user, db_location=self.__class__.db_filepath).commands()
         assert allowed_commands == []
 
-        audio_command = AudioCommand(command, db_location=self.__class__.db_filepath)
+        audio_command = AudioCommand(
+            command, skip_validation=True, db_location=self.__class__.db_filepath
+        )
 
         audio_command.allow_user(user)
 

@@ -8,7 +8,6 @@ from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.audio_command import AudioCommand
 from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
 from chat_thief.user import User
 
@@ -96,7 +95,7 @@ class CommandPermissionCenter:
             return []
 
     def fetch_user_permissions(self):
-        command_permissions = User(self.user, self.db_location).commands()
+        command_permissions = User(self.user, db_location=self.db_location).commands()
 
         # def in_permitted_users(permitted_users, current_user):
         #     return current_user in permitted_users
