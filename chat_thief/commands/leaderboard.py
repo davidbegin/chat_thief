@@ -10,18 +10,10 @@ from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
 
 
-
-TABLE_NAME = "command_permissions"
-
-db_location="db/soundeffects.json"
-
-def _command_permissions_table(db_location):
-    soundeffects_db_path = Path(__file__).parent.parent.parent.joinpath(db_location)
-    return TinyDB(soundeffects_db_path).table(TABLE_NAME)
-
-table = _command_permissions_table(db_location)
+table = _command_permissions_table(DEFAULT_DB_LOCATION)
 
 def leaderboard():
     result = table.search(
@@ -31,7 +23,6 @@ def leaderboard():
     print(f"\n\nResult: {result}\n\n")
 
     # Sometimes we have multiples for the same command
-    count = Counter(list(chain.from_iterable( [ command["permitted_users"] for command in result ])))
-
-    # TODO: Format this better
-    return str(count)
+    counter = Counter(list(chain.from_iterable( [ command["permitted_users"] for command in result ])))
+    for user in counter:
+        send_twitch_msg(f"User: {user} | {counter[user]}")

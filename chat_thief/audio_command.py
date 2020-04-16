@@ -50,6 +50,7 @@ class AudioCommand:
         else:
             return []
 
+    # TODO: user > target user
     def allow_user(self, user):
         command_permission = self.table.search(Query().command == self.name)
 
@@ -63,7 +64,7 @@ class AudioCommand:
                 self.table.update(command_permission)
                 message = f"User @{user} updated permissions for command: {self.name}"
             else:
-                message = f"User is not allowed to add perm: @{user} {self.name}"
+                message = f"User @{user} is already in permitted_users for {self.name}!"
         else:
             command_permission = CommandPermission(
                 user=user, command=self.name, permitted_users=[user],
