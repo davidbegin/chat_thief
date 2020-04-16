@@ -1,4 +1,5 @@
 import random
+from pathlib import Path
 
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
@@ -31,11 +32,28 @@ def drop_random_soundeffect_to_random_user():
     return drop_effect(user, soundeffect)
 
 
+INVALID_USERS = ["nightbot",] + STREAM_LORDS
+
+CONNECTING_MSG = '{"message": "Connecting to #beginbot as beginbotbot"}'
+
+
+def dropreward():
+    with Path(__file__).parent.parent.joinpath("logs/chat.log") as log:
+        chat_lines = [
+            line
+            for line in log.read_text().split("\n")
+            if line
+            and line.split(":")[0] not in INVALID_USERS
+            and line != CONNECTING_MSG
+        ]
+    user = chat_lines[-1].split(":")[0]
+    soundeffect = random_soundeffect()
+    return drop_effect(user, soundeffect)
+
+
 # This needs a stronger interface
 def drop_soundeffect(invoking_user, args=[]):
-    if invoking_user not in STREAM_GODS:
-        return
-    elif len(args) == 0:
+    if len(args) == 0:
         return drop_random_soundeffect_to_random_user()
     else:
         if args[0] in WelcomeCommittee.fetch_present_users():

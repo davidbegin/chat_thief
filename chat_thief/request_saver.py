@@ -8,11 +8,14 @@ BLACKLISTED_REQUESTERS = []
 
 SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.joinpath("db/.requests")
 
-BEGINS_PROMISE_TO_YOU = """
-@{self.user} thank you for your patience in this trying time,
-beginbot is doing all he can to ensure your safety during this COVID-19 situation.
-Your request will be processed by a streamlord in due time thanks
-"""
+
+def begins_promise(user):
+    return """
+    @{user} thank you for your patience in this trying time,
+    beginbot is doing all he can to ensure your safety during this COVID-19 situation.
+    Your request will be processed by a streamlord in due time thanks
+    """
+
 
 # We need a method that deletes previous requests
 
@@ -38,7 +41,7 @@ class RequestSaver:
             pass
         else:
             if self.user not in BLACKLISTED_REQUESTERS:
-                send_twitch_msg(BEGINS_PROMISE_TO_YOU)
+                send_twitch_msg(begins_promise(self.user))
                 with open(SOUNDEFFECT_REQUESTS_PATH, "a") as f:
                     f.write(request_to_save + "\n")
 

@@ -15,7 +15,6 @@ def _remove_completed_requests():
     ]
 
     print(f"\n{soundeffect_names}\n")
-
     print(f"\n\nUnfulfilled Request: {unfulfilled_requests}\n\n")
     with open(SOUNDEFFECT_REQUESTS_PATH, "w") as f:
         if unfulfilled_requests:

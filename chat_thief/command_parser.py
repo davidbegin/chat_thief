@@ -12,7 +12,7 @@ from chat_thief.commands.shoutout import shoutout
 from chat_thief.irc import send_twitch_msg
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.obs import OBS_COMMANDS
-from chat_thief.prize_dropper import drop_soundeffect
+from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.welcome_committee import WelcomeCommittee
@@ -54,8 +54,11 @@ class CommandParser:
             if self.command == "leaderboard":
                 return leaderboard()
 
-            if self.command == "dropeffect" and self.user in STREAM_LORDS:
+            if self.command == "dropeffect" and self.user in STREAM_GODS:
                 return drop_soundeffect(self.user, self.args)
+
+            if self.command == "dropreward" and self.user in STREAM_GODS:
+                return dropreward()
 
             if self.command in ["permissions", "permission", "perms", "perm"]:
                 return CommandPermissionCenter.fetch_permissions(
