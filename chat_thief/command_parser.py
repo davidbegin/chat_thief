@@ -7,6 +7,7 @@ import traceback
 
 from chat_thief.audio_command_center import AudioCommandCenter
 from chat_thief.command_permissions import CommandPermissionCenter
+from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.irc import send_twitch_msg
 from chat_thief.irc_msg import IrcMsg
@@ -41,10 +42,6 @@ class CommandParser:
         self.command = self.irc_msg.command
         self.args = self.irc_msg.args
 
-        self.command_permission_center = CommandPermissionCenter(
-            user=self.user, command=self.command, args=self.args,
-        )
-
     def build_response(self) -> Optional[str]:
         self._logger.info(f"{self.user}: {self.msg}")
         WelcomeCommittee(self.user).welcome_new_users()
@@ -65,14 +62,16 @@ class CommandParser:
                     user=self.user, args=self.args,
                 )
 
+            if self.command in ["add_perm", "add_perms", "share_perm", "share_perms"]:
+                return PermissionsManager(
+                    user=self.user, command=self.command, args=self.args,
+                ).add_perm()
+
             if self.command == "help":
                 return HELP_MENU
 
             if self.command == "users":
                 return WelcomeCommittee.fetch_present_users()
-
-            if self.command in ["add_perm", "add_perms", "share_perm", "share_perms"]:
-                return self.command_permission_center.add_perm()
 
             if self.command == "so":
                 return shoutout(self.msg)

@@ -4,6 +4,7 @@ import pytest
 
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.command_permissions import CommandPermissionCenter
+from chat_thief.audio_command import AudioCommand
 
 
 class TestCommandPermissions:
@@ -27,26 +28,9 @@ class TestCommandPermissions:
 
         return _command_permission_center
 
-    def test_adding_a_permission(self, command_permission_center):
-        user = "fakeuser"
-        command = "fakecommand"
-
-        subject = command_permission_center(
-            user="beginbot", command=command, args=[command, user]
-        )
-
-        initial_perms = subject.fetch_command_permissions()
-        assert user not in initial_perms
-        subject._add_permission()
-        subject = command_permission_center(
-            user=user, command=command, args=[command, user]
-        )
-        final_perms = subject.fetch_command_permissions()
-        assert user in final_perms
-
     def test_checking_user_permissions(self, command_permission_center):
         user = "new_fakeuser"
-        command = "fakecommand"
+        command = "wow"
 
         subject = command_permission_center(
             user=user, command=command, args=[command, user]
@@ -55,6 +39,6 @@ class TestCommandPermissions:
         allowed_commands = subject.fetch_user_permissions()
         assert allowed_commands == []
 
-        subject._add_permission()
+        AudioCommand(command, db_location=self.__class__.db_filepath).allow_user(user)
         allowed_commands = subject.fetch_user_permissions()
         assert allowed_commands == [command]

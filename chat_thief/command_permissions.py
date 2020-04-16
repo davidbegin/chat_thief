@@ -3,22 +3,14 @@ import traceback
 
 from tinydb import TinyDB, Query
 
-from chat_thief.models import User, SoundEffect, CommandPermission
+from chat_thief.models import SoundEffect, CommandPermission
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.audio_command import AudioCommand
-
-TABLE_NAME = "command_permissions"
-
-# This handles wayyyy too much
-# We need to separate out the logic and clean up abstractions
-
-
-def _command_permissions_table(db_location):
-    soundeffects_db_path = Path(__file__).parent.parent.joinpath(db_location)
-    return TinyDB(soundeffects_db_path).table(TABLE_NAME)
+from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
+from chat_thief.user import User
 
 
 def fetch_whitelisted_users():
@@ -42,7 +34,8 @@ class CommandPermissionCenter:
         self.user = user
         self.command = command
         self.args = args
-        self.table = _command_permissions_table(db_location)
+        self.db_location = db_location
+        self.table = _command_permissions_table(DEFAULT_DB_LOCATION)
         self.skip_validation = skip_validation
 
     @classmethod
@@ -76,15 +69,12 @@ class CommandPermissionCenter:
             title = f"Stream Lord: {title}"
 
         # This is a hack
-        user_permissions = list(set(user_permissions))
+        # user_permissions = list(set(user_permissions))
         if user_permissions:
             send_twitch_msg(f"{title} Permissions: {user_permissions}")
         else:
             pass
 
-    # There are 2 concepts
-    # Fetch command permission
-    # fetch command permissions for a user
     def fetch_command_permissions(self):
         print(f"Looking for command: {self.command}")
 
@@ -106,82 +96,20 @@ class CommandPermissionCenter:
             return []
 
     def fetch_user_permissions(self):
-        def in_permitted_users(permitted_users, current_user):
-            return current_user in permitted_users
+        command_permissions = User(self.user, self.db_location).commands()
 
-        command_permissions = [
-            permission["command"]
-            for permission in self.table.search(
-                Query().permitted_users.test(in_permitted_users, self.user)
-            )
-        ]
+        # def in_permitted_users(permitted_users, current_user):
+        #     return current_user in permitted_users
+
+        # command_permissions = [
+        #     permission["command"]
+        #     for permission in self.table.search(
+        #         Query().permitted_users.test(in_permitted_users, self.user)
+        #     )
+        # ]
         if self._has_theme_song():
             return command_permissions + [self.user]
         return command_permissions
-
-    def add_perm(self):
-        try:
-            if self.user in STREAM_GODS:
-                return self._add_permission()
-            else:
-                allowed_commands = self.fetch_user_permissions()
-                if (
-                    self.args[0] in allowed_commands
-                    and self.args[0] is not SoundeffectsLibrary.fetch_theme_songs()
-                ):
-                    return self._add_permission()
-                else:
-                    print(f"{self.user} cannot add permissions")
-        except Exception as e:
-            trace = traceback.format_exc()
-            print(f"Error adding permission: {e} {trace}")
-
-    def _add_permission(self):
-        if len(self.args) < 2:
-            print("you need more args!")
-            return
-
-        print(f"\nAttempting To Add Permission: {self.args[0]}")
-        if command_config := self.table.search(Query().command == self.args[0]):
-            print("Updating Permission")
-            self._update_permissions(command_config[-1])
-        else:
-            print("New Permission")
-            self._new_permissions()
-
-    def _new_permissions(self):
-        if self._validate_user(self.args[1]):
-            command_permission = CommandPermission(
-                user=self.user, command=self.args[0], permitted_users=[self.args[1]],
-            )
-            print(f"Adding Initial Command Permissions {command_permission.__dict__}")
-            self.table.insert(command_permission.__dict__)
-
-    def _update_permissions(self, command_config):
-        if self._validate_user(self.args[1]):
-
-            if self.args[1] not in command_config["permitted_users"]:
-                command_config["permitted_users"].append(self.args[1])
-                print(
-                    f"Updating Previous Command Permissions {command_config.__dict__}"
-                )
-                self.table.update(command_config)
-            else:
-                print(f"{self.args[1]} already has that command: {self.args[0]}!")
-
-    def _validate_user(self, user):
-        if self.skip_validation:
-            print("Skipping Validation for adding user permissions")
-            return True
-
-        user_eligible_for_permissions = (
-            # user not in STREAM_LORDS
-            user in WelcomeCommittee.fetch_present_users()
-            and self.command not in SoundeffectsLibrary.fetch_theme_songs()
-        )
-        if not user_eligible_for_permissions:
-            print("This user is not eligible for permissions")
-        return user_eligible_for_permissions
 
     def _has_theme_song(self):
         return self.user in SoundeffectsLibrary.fetch_theme_songs()

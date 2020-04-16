@@ -15,7 +15,9 @@ class TestAudioCommand:
     @pytest.fixture
     def audio_command(self):
         def _audio_command(name):
-            return AudioCommand(name=name, db_location=self.__class__.db_filepath,)
+            return AudioCommand(
+                name=name, skip_validation=True, db_location=self.__class__.db_filepath,
+            )
 
         return _audio_command
 

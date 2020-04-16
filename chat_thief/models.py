@@ -13,10 +13,10 @@ def _command_permissions_table(db_location):
     return TinyDB(soundeffects_db_path).table(TABLE_NAME)
 
 
-@dataclass
-class User:
-    name: str
-    permitted_commands: List
+# @dataclass
+# class User:
+#     name: str
+#     permitted_commands: List
 
 
 @dataclass

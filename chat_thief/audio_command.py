@@ -19,8 +19,10 @@ from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
 
 
 class AudioCommand:
-    def __init__(self, name, db_location=DEFAULT_DB_LOCATION):
+    def __init__(self, name, skip_validation=False, db_location=DEFAULT_DB_LOCATION):
         self.name = name
+        self.skip_validation = skip_validation
+        self.db_location = db_location
         self.soundfile = SoundeffectsLibrary.find_sample(name)
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
         self.table = _command_permissions_table(db_location)
