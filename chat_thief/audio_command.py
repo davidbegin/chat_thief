@@ -12,6 +12,7 @@ from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 
 BEGINBOTS = ["beginbot", "beginbotbot"]
 
+
 class AudioCommand:
     def __init__(
         self,
