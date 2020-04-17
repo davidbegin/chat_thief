@@ -17,10 +17,17 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.audio_command import AudioCommand
+from chat_thief.chat_logs import ChatLogs
 
 from chat_thief.request_saver import RequestSaver
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.commands.leaderboard import leaderboard
+
+BLACKLISTED_LOG_USERS = [
+    "beginbotbot",
+    "beginbot",
+    "nightbot",
+]
 
 HELP_MENU = [
     "!perms - Check what soundeffects you have access to",
@@ -43,8 +50,11 @@ class CommandParser:
         self.args = self.irc_msg.args
 
     def build_response(self) -> Optional[str]:
-        self._logger.info(f"{self.user}: {self.msg}")
-        WelcomeCommittee(self.user).welcome_new_users()
+        if self.user not in BLACKLISTED_LOG_USERS:
+            self._logger.info(f"{self.user}: {self.msg}")
+            WelcomeCommittee(self.user).welcome_new_users()
+        else:
+            print(f"{self.user}: {self.msg}")
 
         if self.irc_msg.is_command():
             command = self.msg[1:].split()[0]
@@ -53,6 +63,15 @@ class CommandParser:
 
             if self.command == "leaderboard":
                 return leaderboard()
+
+            if self.command == "peasants":
+                return ChatLogs().recent_stream_peasants()
+
+            if self.command == "loserboard":
+                return loserboard()
+
+            # Drop randomeffect for new users
+            # Weight For Powers
 
             if self.command == "dropeffect" and self.user in STREAM_GODS:
                 return drop_soundeffect(self.user, self.args)
@@ -65,7 +84,14 @@ class CommandParser:
                     user=self.user, args=self.args,
                 )
 
-            if self.command in ["add_perm", "add_perms", "share_perm", "share_perms"]:
+            if self.command in [
+                "give",
+                "share",
+                "add_perm",
+                "add_perms",
+                "share_perm",
+                "share_perms",
+            ]:
                 return PermissionsManager(
                     user=self.user, command=self.command, args=self.args,
                 ).add_perm()
