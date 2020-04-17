@@ -62,6 +62,9 @@ class CommandPermissionCenter:
                 user_permissions = cls(
                     user=None, command=args[0]
                 ).fetch_command_permissions()
+
+                if not user_permissions:
+                    title = "No One can use !{args[0]}"
         else:
             print("Not sure what to do!!!")
             return
