@@ -3,20 +3,20 @@ import pytest
 from chat_thief.audio_command import AudioCommand
 from pathlib import Path
 
+commands_db_path = Path(__file__).parent.joinpath("db/commands.json")
+
 
 class TestAudioCommand:
-    db_filepath = Path(__file__).parent.joinpath("db/test.json")
-
-    @classmethod
-    def setup_class(cls):
-        if cls.db_filepath.is_file():
-            cls.db_filepath.unlink()
+    @pytest.fixture(autouse=True)
+    def clear_db(self):
+        if commands_db_path.is_file():
+            commands_db_path.unlink()
 
     @pytest.fixture
     def audio_command(self):
         def _audio_command(name):
             return AudioCommand(
-                name=name, skip_validation=True, db_location=self.__class__.db_filepath,
+                name=name, skip_validation=True, commands_db_path=commands_db_path
             )
 
         return _audio_command
@@ -60,7 +60,6 @@ class TestAudioCommand:
         subject.allow_user("some_rando")
         assert subject.permitted_users() == ["beginbot", "some_rando"]
 
-    # @pytest.mark.focus
     def test_allow_users_bug(self, audio_command):
         subject = audio_command("i3")
         assert subject.permitted_users() == []
@@ -74,11 +73,6 @@ class TestAudioCommand:
         assert subject.permitted_users() == ["beginbot", "fakeuser"]
         subject.allow_user("billgates")
         assert subject.permitted_users() == ["beginbot", "fakeuser", "billgates"]
-        # other_command = audio_command("arch")
-        # other_command.allow_user("fakeuser")
-        # assert other_command.permitted_users() == ["fakeuser"]
-        # subject = audio_command("i3")
-        # assert subject.permitted_users() == ["beginbot", "fakeuser", "billgates"]
 
     def test_allow_users(self, audio_command):
         subject = audio_command("i3")

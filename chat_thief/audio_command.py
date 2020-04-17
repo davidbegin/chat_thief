@@ -20,17 +20,13 @@ class AudioCommand:
         self,
         name,
         skip_validation=False,
-        db_location=DEFAULT_DB_LOCATION,
         users_db_path=USERS_DB_PATH,
         commands_db_path=COMMANDS_DB_PATH,
     ):
         self.name = name
         self.skip_validation = skip_validation
-        self.db_location = db_location
         self.soundfile = SoundeffectsLibrary.find_sample(name)
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
-        # self.table = _command_permissions_table(db_location)
-        self.table = db_table(db_location, "commands")
 
         self.users_db = db_table(users_db_path, "users")
         self.commands_db = db_table(commands_db_path, "commands")
@@ -45,7 +41,7 @@ class AudioCommand:
         if user in STREAM_LORDS:
             return True
 
-        command_permission = self.table.search(Query().command == self.name)
+        command_permission = self.commands_db.search(Query().command == self.name)
 
         if command_permission:
             return user in command_permission[-1]["permitted_users"]
@@ -53,7 +49,7 @@ class AudioCommand:
         return False
 
     def permitted_users(self):
-        if command_permission := self.table.search(Query().command == self.name):
+        if command_permission := self.commands_db.search(Query().command == self.name):
             return command_permission[-1]["permitted_users"]
         else:
             return []
@@ -63,7 +59,7 @@ class AudioCommand:
             if target_user not in WelcomeCommittee.fetch_present_users():
                 raise ValueError(f"Not a valid user: {target_user}")
 
-        command_permission = self.table.search(Query().command == self.name)
+        command_permission = self.commands_db.search(Query().command == self.name)
         print(
             f"\n\nAudioCommand#allow_user @{target_user} command_permission: {command_permission}"
         )
@@ -82,7 +78,9 @@ class AudioCommand:
 
                     return transform
 
-                self.table.update(add_permitted_users(), Query().command == self.name)
+                self.commands_db.update(
+                    add_permitted_users(), Query().command == self.name
+                )
 
                 message = (
                     f"User @{target_user} updated permissions for command: {self.name}"
@@ -94,7 +92,7 @@ class AudioCommand:
                 user="beginbot", command=self.name, permitted_users=[target_user],
             )
             print(f"Creating New Command Permissions: {command_permission.__dict__}")
-            self.table.insert(command_permission.__dict__)
+            self.commands_db.insert(command_permission.__dict__)
             message = (
                 f"User @{target_user} created new permissions for command: {self.name}"
             )

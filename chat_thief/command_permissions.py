@@ -1,15 +1,14 @@
 from pathlib import Path
-import traceback
 
-from tinydb import TinyDB, Query
+from tinydb import Query
 
-from chat_thief.models import SoundEffect, CommandPermission
-from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.irc import send_twitch_msg
+from chat_thief.models import SoundEffect, CommandPermission
 from chat_thief.soundeffects_library import SoundeffectsLibrary
-from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
+from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.user import User
+from chat_thief.welcome_committee import WelcomeCommittee
 
 
 def fetch_whitelisted_users():
@@ -27,15 +26,17 @@ class CommandPermissionCenter:
         user,
         command=None,
         args=[],
-        db_location="db/soundeffects.json",
+        commands_db_path=COMMANDS_DB_PATH,
+        users_db_path=USERS_DB_PATH,
         skip_validation=False,
     ):
         self.user = user
         self.command = command
         self.args = args
-        self.commands_db_path = db_location
-        self.table = _command_permissions_table(DEFAULT_DB_LOCATION)
+        self.commands_db_path = commands_db_path
         self.skip_validation = skip_validation
+        # self.users_db = db_table(users_db_path, "users")
+        # self.commands_db = db_table(commands_db_path, "commands")
 
     @classmethod
     def fetch_permissions(cls, user, args=[]):
@@ -89,14 +90,16 @@ class CommandPermissionCenter:
         if self.user in STREAM_LORDS:
             return [self.user]
 
-        if result := self.table.search(Query().command == self.command):
+        if result := self.commands_db.search(Query().command == self.command):
             return result[-1]["permitted_users"]
         else:
             return []
 
     def fetch_user_permissions(self):
         command_permissions = User(
-            self.user, commands_db_path=self.commands_db_path
+            self.user,
+            commands_db_path=self.commands_db_path,
+            users_db_path=USERS_DB_PATH,
         ).commands()
 
         if self._has_theme_song():

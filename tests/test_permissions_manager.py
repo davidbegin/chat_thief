@@ -7,14 +7,14 @@ from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.audio_command import AudioCommand
 from chat_thief.user import User
 
+commands_db_path = Path(__file__).parent.joinpath("db/commands.json")
+
 
 class TestPermissionsManager:
-    db_filepath = Path(__file__).parent.joinpath("db/test.json")
-
-    @classmethod
-    def setup_class(cls):
-        if cls.db_filepath.is_file():
-            cls.db_filepath.unlink()
+    @pytest.fixture(autouse=True)
+    def clear_db(self):
+        if commands_db_path.is_file():
+            commands_db_path.unlink()
 
     @pytest.fixture
     def permissions_manager(self):
@@ -23,7 +23,7 @@ class TestPermissionsManager:
                 user=user,
                 command=command,
                 args=args,
-                db_location=self.__class__.db_filepath,
+                commands_db_path=commands_db_path,
                 skip_validation=True,
             )
 
@@ -38,7 +38,7 @@ class TestPermissionsManager:
         )
 
         audio_command = AudioCommand(
-            command, skip_validation=True, db_location=self.__class__.db_filepath
+            command, skip_validation=True, commands_db_path=commands_db_path
         )
 
         initial_perms = audio_command.permitted_users()
@@ -55,19 +55,15 @@ class TestPermissionsManager:
 
         subject = permissions_manager(user=user, command=command, args=[command, user])
 
-        allowed_commands = User(
-            user, commands_db_path=self.__class__.db_filepath
-        ).commands()
+        allowed_commands = User(user, commands_db_path=commands_db_path).commands()
         assert allowed_commands == []
 
         audio_command = AudioCommand(
-            command, skip_validation=True, db_location=self.__class__.db_filepath
+            command, skip_validation=True, commands_db_path=commands_db_path
         )
 
         audio_command.allow_user(user)
 
-        allowed_commands = User(
-            user, commands_db_path=self.__class__.db_filepath
-        ).commands()
+        allowed_commands = User(user, commands_db_path=commands_db_path).commands()
         final_perms = audio_command.permitted_users()
         assert allowed_commands == [command]

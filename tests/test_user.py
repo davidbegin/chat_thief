@@ -26,7 +26,7 @@ class TestUser:
     def test_commands(self, user):
         subject = user("beginbot")
         assert subject.commands() == []
-        audio_command = AudioCommand("flacid", db_location=commands_db_path)
+        audio_command = AudioCommand("flacid", commands_db_path=commands_db_path)
         audio_command.allow_user("beginbot")
         assert audio_command.permitted_users() == ["beginbot"]
         assert subject.commands() == ["flacid"]
