@@ -55,7 +55,9 @@ class TestPermissionsManager:
 
         subject = permissions_manager(user=user, command=command, args=[command, user])
 
-        allowed_commands = User(user, db_location=self.__class__.db_filepath).commands()
+        allowed_commands = User(
+            user, commands_db_path=self.__class__.db_filepath
+        ).commands()
         assert allowed_commands == []
 
         audio_command = AudioCommand(
@@ -64,6 +66,8 @@ class TestPermissionsManager:
 
         audio_command.allow_user(user)
 
-        allowed_commands = User(user, db_location=self.__class__.db_filepath).commands()
+        allowed_commands = User(
+            user, commands_db_path=self.__class__.db_filepath
+        ).commands()
         final_perms = audio_command.permitted_users()
         assert allowed_commands == [command]

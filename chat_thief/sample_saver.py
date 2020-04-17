@@ -60,6 +60,7 @@ class SampleSaver:
         # When should we save
         self._save_command()
 
+        # TODO: We need some process around not actually saving during tests
         subprocess.call(
             [ADD_SOUND_EFFECT_PATH.resolve()] + self._add_soundeffect_args(),
             stderr=subprocess.DEVNULL,

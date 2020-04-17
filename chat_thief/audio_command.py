@@ -12,15 +12,28 @@ from chat_thief.stream_lords import STREAM_LORDS
 
 from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
 
+from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
+
 
 class AudioCommand:
-    def __init__(self, name, skip_validation=False, db_location=DEFAULT_DB_LOCATION):
+    def __init__(
+        self,
+        name,
+        skip_validation=False,
+        db_location=DEFAULT_DB_LOCATION,
+        users_db_path=USERS_DB_PATH,
+        commands_db_path=COMMANDS_DB_PATH,
+    ):
         self.name = name
         self.skip_validation = skip_validation
         self.db_location = db_location
         self.soundfile = SoundeffectsLibrary.find_sample(name)
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
-        self.table = _command_permissions_table(db_location)
+        # self.table = _command_permissions_table(db_location)
+        self.table = db_table(db_location, "commands")
+
+        self.users_db = db_table(users_db_path, "users")
+        self.commands_db = db_table(commands_db_path, "commands")
 
     def play_sample(self):
         AudioPlayer.play_sample(self.soundfile.resolve())
@@ -66,6 +79,7 @@ class AudioCommand:
                 def add_permitted_users():
                     def transform(doc):
                         doc["permitted_users"].append(target_user)
+
                     return transform
 
                 self.table.update(add_permitted_users(), Query().command == self.name)
