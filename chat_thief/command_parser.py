@@ -95,7 +95,7 @@ class CommandParser:
 
             self.try_soundeffect()
 
-    # This is back to free mode
+    # Set a 5 Minute Party Mode
     # if self.user in fetch_whitelisted_users():
     #     self.try_soundeffect(command, msg)
     def try_soundeffect(self) -> None:

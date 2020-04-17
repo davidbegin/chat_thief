@@ -33,10 +33,11 @@ class CommandPermissionCenter:
         self.user = user
         self.command = command
         self.args = args
-        self.commands_db_path = commands_db_path
         self.skip_validation = skip_validation
-        # self.users_db = db_table(users_db_path, "users")
-        # self.commands_db = db_table(commands_db_path, "commands")
+        self.commands_db_path = commands_db_path
+        self.users_db_path = users_db_path
+        self.users_db = db_table(users_db_path, "users")
+        self.commands_db = db_table(commands_db_path, "commands")
 
     @classmethod
     def fetch_permissions(cls, user, args=[]):
@@ -99,7 +100,7 @@ class CommandPermissionCenter:
         command_permissions = User(
             self.user,
             commands_db_path=self.commands_db_path,
-            users_db_path=USERS_DB_PATH,
+            users_db_path=self.users_db_path,
         ).commands()
 
         if self._has_theme_song():

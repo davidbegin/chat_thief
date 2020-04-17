@@ -23,6 +23,8 @@ PLAY_UPDATE_EFFECTS = True
 soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
 DB = TinyDB(soundeffects_db_path)
 
+from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
+
 
 class SampleSaver:
     def __init__(self, irc_msg: IrcMsg):
@@ -30,8 +32,14 @@ class SampleSaver:
         self.msg = irc_msg.msg
         self.command = irc_msg.command
         self.args = irc_msg.args
+        breakpoint()
+
         self.soundeffects_table = DB.table("soundeffects")
         self.command_permissions_table = DB.table("command_permissions")
+
+        self.users_db = db_table(users_db_path, "users")
+        self.commands_db = db_table(commands_db_path, "commands")
+
         self.youtube_id, self.name, self.start_time, self.end_time = self.args
         self.name = self.name.lower()
 

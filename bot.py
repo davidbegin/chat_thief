@@ -32,7 +32,7 @@ async def send_msg(server: socket.socket, msg: str) -> None:
 
 
 def irc_handshake(server: socket.socket) -> None:
-    logger.info(
+    logger.debug(
         json.dumps({"message": f"Connecting to #{config.channel} as {config.bot}"})
     )
     server.sendall(bytes("PASS " + config.token + "\r\n", ENCODING))

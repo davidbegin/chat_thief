@@ -7,11 +7,7 @@ from chat_thief.audio_player import AudioPlayer
 from chat_thief.models import CommandPermission
 from chat_thief.irc import send_twitch_msg
 from chat_thief.welcome_committee import WelcomeCommittee
-
 from chat_thief.stream_lords import STREAM_LORDS
-
-from chat_thief.models import _command_permissions_table, DEFAULT_DB_LOCATION
-
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 
 
@@ -93,22 +89,6 @@ class AudioCommand:
             )
             print(f"Creating New Command Permissions: {command_permission.__dict__}")
             self.commands_db.insert(command_permission.__dict__)
-            message = (
-                f"User @{target_user} created new permissions for command: {self.name}"
-            )
-            send_twitch_msg(f"New CommandPermission created: {self.name}")
+            message = f"User @{target_user} is the first person with access to the command: !{self.name}"
 
         return message
-
-    # def _validate_user(self, user):
-    #     if self.skip_validation:
-    #         print("Skipping Validation for adding user permissions")
-    #         return True
-    #     user_eligible_for_permissions = (
-    #         # user not in STREAM_LORDS
-    #         user in WelcomeCommittee.fetch_present_users()
-    #         and self.command not in SoundeffectsLibrary.fetch_theme_songs()
-    #     )
-    #     if not user_eligible_for_permissions:
-    #         print("This user is not eligible for permissions")
-    #     return user_eligible_for_permissions

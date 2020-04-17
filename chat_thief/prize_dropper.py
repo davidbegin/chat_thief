@@ -51,6 +51,13 @@ def dropreward():
     return drop_effect(user, soundeffect)
 
 
+def _is_int_between(potential_int):
+    try:
+        return int(potential_int) in range(1, 10)
+    except:
+        return False
+
+
 # This needs a stronger interface
 def drop_soundeffect(invoking_user, args=[]):
     if len(args) == 0:
@@ -64,3 +71,6 @@ def drop_soundeffect(invoking_user, args=[]):
             user = random_user()
             soundeffect = args[0]
             return drop_effect(user, soundeffect)
+        elif _is_int_between(args[0]):
+            for _ in range(0, int(args[0])):
+                drop_random_soundeffect_to_random_user()
