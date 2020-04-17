@@ -5,6 +5,10 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.audio_command import AudioCommand
+from chat_thief.irc import send_twitch_msg
+
+INVALID_USERS = ["nightbot", ".tim.twitch.tv"] + STREAM_LORDS
+CONNECTING_MSG = '{"message": "Connecting to #beginbot as beginbotbot"}'
 
 
 def random_soundeffect():
@@ -30,11 +34,6 @@ def drop_random_soundeffect_to_random_user():
     user = random_user()
     soundeffect = random_soundeffect()
     return drop_effect(user, soundeffect)
-
-
-INVALID_USERS = ["nightbot",] + STREAM_LORDS
-
-CONNECTING_MSG = '{"message": "Connecting to #beginbot as beginbotbot"}'
 
 
 def dropreward():
@@ -73,4 +72,4 @@ def drop_soundeffect(invoking_user, args=[]):
             return drop_effect(user, soundeffect)
         elif _is_int_between(args[0]):
             for _ in range(0, int(args[0])):
-                drop_random_soundeffect_to_random_user()
+                send_twitch_msg(drop_random_soundeffect_to_random_user())

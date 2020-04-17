@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 from tinydb import TinyDB, Query
 
 USERS_DB_PATH = "db/users.json"

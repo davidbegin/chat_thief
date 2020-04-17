@@ -15,7 +15,9 @@ class SoundeffectsLibrary:
         ]
         if samples:
             return samples[0]
-        raise ValueError("Not a Valid Sample")
+
+        # We should add a best guess
+        raise ValueError(f"Not a Valid Sample: {name}")
 
     @staticmethod
     def fetch_theme_songs():

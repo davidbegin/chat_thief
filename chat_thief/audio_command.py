@@ -37,9 +37,7 @@ class AudioCommand:
         if user in STREAM_LORDS:
             return True
 
-        command_permission = self.commands_db.search(Query().command == self.name)
-
-        if command_permission:
+        if command_permission := self.commands_db.search(Query().command == self.name):
             return user in command_permission[-1]["permitted_users"]
 
         return False
