@@ -1,4 +1,4 @@
-from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.request_saver import RequestSaver
 from chat_thief.sample_saver import SampleSaver
@@ -17,8 +17,14 @@ class AudioCommandCenter:
         self.args = irc_msg.args
 
     def add_command(self):
-        if self.user in STREAM_LORDS:
-            SampleSaver(self.irc_msg).save()
+        # Here are the two spots where we either
+        # Add a request or we save
+        # if we are saving
+        # We want extract the requester
+        if self.user in STREAM_GODS:
+            requester = RequestSaver(self.user, self.msg).requester()
+            print(f"\n\tREQUESTER: {requester}\n\n")
+            SampleSaver(self.irc_msg).save(requester)
         else:
             print("Not a Streamlord, so we are attempting to save you sample")
             RequestSaver(self.user, self.msg).save()

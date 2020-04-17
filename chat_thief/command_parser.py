@@ -9,7 +9,7 @@ from chat_thief.audio_command import AudioCommand
 from chat_thief.audio_command_center import AudioCommandCenter
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.command_permissions import CommandPermissionCenter
-from chat_thief.commands.leaderboard import leaderboard
+from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.irc import send_twitch_msg
@@ -62,13 +62,17 @@ class CommandParser:
             msg = self.msg.split()[0].lower()
             print(f"User: {self.user} | Command: {command}")
 
-            if self.command == "leaderboard":
+            if self.command in ["leaderboard", "forbes"]:
+                from chat_thief.commands.leaderboard import leaderboard
+
                 return leaderboard()
 
             if self.command == "peasants":
                 return ChatLogs().recent_stream_peasants()
 
             if self.command == "loserboard":
+                from chat_thief.commands.leaderboard import loserboard
+
                 return loserboard()
 
             # Drop randomeffect for new users

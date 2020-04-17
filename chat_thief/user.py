@@ -24,4 +24,34 @@ class User:
         return command_permissions
 
     def doc(self):
-        pass
+        return {
+            "name": self.name,
+            "street_cred": 0,
+            "cool_points": 0,
+        }
+
+    def _find_or_create_user(self):
+        user_result = self.users_db.search(Query().name == self.name)
+        if user_result:
+            print(f"WE GOT A USER: {user_result}")
+            user_result = user_result[0]
+            return user_result
+        else:
+            print(f"Creating New User: {self.doc()}")
+            self.users_db.insert(self.doc())
+            return self.doc()
+
+    def street_cred(self):
+        user = self._find_or_create_user()
+        return user["street_cred"]
+
+    def add_street_cred(self):
+        user = self._find_or_create_user()
+
+        def increase_cred():
+            def transform(doc):
+                doc["street_cred"] = doc["street_cred"] + 1
+
+            return transform
+
+        self.users_db.update(increase_cred(), Query().name == self.name)

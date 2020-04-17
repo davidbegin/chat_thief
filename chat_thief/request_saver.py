@@ -18,8 +18,6 @@ def begins_promise(user):
 
 
 # We need a method that deletes previous requests
-
-
 class RequestSaver:
     def __init__(self, user, msg):
         self.user = user
@@ -28,9 +26,19 @@ class RequestSaver:
         if not SOUNDEFFECT_REQUESTS_PATH.is_file():
             SOUNDEFFECT_REQUESTS_PATH.touch()
 
+    def requester(self):
+        previous_requests = RequestSaver.previous_requests()
+        print(f"{self.msg=}")
+        for request in previous_requests:
+            print(f"Request: {request}")
+            if self.msg in request:
+
+                return request.split(" ")[0]
+
     # TODO: Themes don't go to theme folder
     def save(self):
         previous_requests = RequestSaver.previous_requests()
+
         request_to_save = self.user + " " + self.msg
         print(f"\n\nPrevious Request: {previous_requests}")
         print(f"Saving Request: {request_to_save}")

@@ -14,7 +14,7 @@ class WelcomeCommittee:
         self.user = user
 
     def welcome_new_users(self):
-        drop_random_soundeffect_to_user(self.user)
+        # drop_random_soundeffect_to_user(self.user)
 
         if self.user not in WelcomeFile.present_users():
             print(f"\nNew User: {self.user}\n")

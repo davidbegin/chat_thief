@@ -7,7 +7,7 @@ from chat_thief.audio_player import AudioPlayer
 from chat_thief.models import CommandPermission
 from chat_thief.irc import send_twitch_msg
 from chat_thief.welcome_file import WelcomeFile
-from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 
 BEGINBOTS = ["beginbot", "beginbotbot"]
@@ -35,6 +35,9 @@ class AudioCommand:
     def allowed_to_play(self, user):
         if self.is_theme_song:
             return user == self.name
+
+        if user in STREAM_GODS:
+            return True
 
         # Sorry STREAM_LORDS
         # if user in STREAM_LORDS:

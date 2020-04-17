@@ -11,6 +11,7 @@ from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.audio_player import AudioPlayer
 from chat_thief.welcome_file import WelcomeFile
 from chat_thief.prize_dropper import random_user
+from chat_thief.audio_command import AudioCommand
 
 
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
@@ -32,13 +33,12 @@ class SampleSaver:
         self.msg = irc_msg.msg
         self.command = irc_msg.command
         self.args = irc_msg.args
-        breakpoint()
 
         self.soundeffects_table = DB.table("soundeffects")
         self.command_permissions_table = DB.table("command_permissions")
 
-        self.users_db = db_table(users_db_path, "users")
-        self.commands_db = db_table(commands_db_path, "commands")
+        # self.users_db = db_table(users_db_path, "users")
+        # self.commands_db = db_table(commands_db_path, "commands")
 
         self.youtube_id, self.name, self.start_time, self.end_time = self.args
         self.name = self.name.lower()
@@ -49,7 +49,7 @@ class SampleSaver:
             args = args + ["theme"]
         return args
 
-    def save(self):
+    def save(self, requester=None):
         regex = re.compile("^[a-zA-Z0-9_-]*$")
         if not regex.match(self.name):
             # Autotime out?
@@ -82,6 +82,9 @@ class SampleSaver:
             new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
             send_twitch_msg(f"New Sound Available: !{self.name}")
 
+        if requester:
+            AudioCommand(self.name).allow_user(requester)
+
         if PLAY_UPDATE_EFFECTS:
             AudioPlayer.play_sample(new_item)
 
@@ -103,6 +106,8 @@ class SampleSaver:
         command_permission = CommandPermission(
             user=self.user, command=self.name, permitted_users=[random_user()]
         )
+        # We need the name of the audio commmand
+        # AudioCommand(name).allow_user(requester)
         print(f"Saving in our DB! {sound.__dict__}")
         self.soundeffects_table.insert(sound.__dict__)
         self.command_permissions_table.insert(command_permission.__dict__)

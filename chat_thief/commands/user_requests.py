@@ -24,11 +24,6 @@ def _remove_completed_requests():
 
 
 def handle_user_requests():
-    try:
-        _remove_completed_requests()
-    except Exception as e:
-        print(f"Error Removing Message: {e}")
-
     previous_requests = [ request for request in SOUNDEFFECT_REQUESTS_PATH.read_text().split("\n") if request != "" ]
 
     print(f"Previous Requests: {previous_requests}")
@@ -39,3 +34,8 @@ def handle_user_requests():
                 send_twitch_msg("Request: @" + sound_request)
     else:
         send_twitch_msg("No Requests! Great Job STREAM_LORDS")
+
+    try:
+        _remove_completed_requests()
+    except Exception as e:
+        print(f"Error Removing Message: {e}")
