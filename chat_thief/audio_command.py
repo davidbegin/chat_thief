@@ -36,8 +36,9 @@ class AudioCommand:
         if self.is_theme_song:
             return user == self.name
 
-        if user in STREAM_LORDS:
-            return True
+        # Sorry STREAM_LORDS
+        # if user in STREAM_LORDS:
+        #     return True
 
         if command_permission := self.commands_db.search(Query().command == self.name):
             return user in command_permission[-1]["permitted_users"]
