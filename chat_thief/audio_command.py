@@ -6,10 +6,11 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.audio_player import AudioPlayer
 from chat_thief.models import CommandPermission
 from chat_thief.irc import send_twitch_msg
-from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.welcome_file import WelcomeFile
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 
+BEGINBOTS = ["beginbot", "beginbotbot"]
 
 class AudioCommand:
     def __init__(
@@ -49,15 +50,14 @@ class AudioCommand:
             return []
 
     def allow_user(self, target_user):
+        # if target_user in BEGINBOTS:
+        #     raise ValueError(f"Not a valid user: {target_user}")
+
         if not self.skip_validation:
-            if target_user not in WelcomeCommittee.fetch_present_users():
+            if target_user not in WelcomeFile.present_users():
                 raise ValueError(f"Not a valid user: {target_user}")
 
         command_permission = self.commands_db.search(Query().command == self.name)
-        print(
-            f"\n\nAudioCommand#allow_user @{target_user} command_permission: {command_permission}"
-        )
-
         if command_permission:
             command_permission = command_permission[-1]
 

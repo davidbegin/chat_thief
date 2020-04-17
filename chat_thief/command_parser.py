@@ -5,23 +5,24 @@ import os
 import subprocess
 import traceback
 
+from chat_thief.audio_command import AudioCommand
 from chat_thief.audio_command_center import AudioCommandCenter
+from chat_thief.chat_logs import ChatLogs
 from chat_thief.command_permissions import CommandPermissionCenter
-from chat_thief.permissions_manager import PermissionsManager
+from chat_thief.commands.leaderboard import leaderboard
 from chat_thief.commands.shoutout import shoutout
+from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.irc import send_twitch_msg
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.obs import OBS_COMMANDS
+from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
+
+from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.audio_command import AudioCommand
-from chat_thief.chat_logs import ChatLogs
-
-from chat_thief.request_saver import RequestSaver
-from chat_thief.commands.user_requests import handle_user_requests
-from chat_thief.commands.leaderboard import leaderboard
+from chat_thief.welcome_file import WelcomeFile
 
 BLACKLISTED_LOG_USERS = [
     "beginbotbot",
@@ -100,7 +101,7 @@ class CommandParser:
                 return HELP_MENU
 
             if self.command == "users":
-                return WelcomeCommittee.fetch_present_users()
+                return WelcomeFile.present_users()
 
             if self.command == "so":
                 return shoutout(self.msg)

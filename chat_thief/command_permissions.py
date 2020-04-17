@@ -8,7 +8,7 @@ from chat_thief.models import SoundEffect, CommandPermission
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.user import User
-from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.welcome_file import WelcomeFile
 
 
 def fetch_whitelisted_users():
@@ -46,13 +46,13 @@ class CommandPermissionCenter:
         if not args:
             title = f"@{user}'s"
             user_permissions = cls(user=user).fetch_user_permissions()
-        elif args[0] in WelcomeCommittee.fetch_present_users():
+        elif args[0] in WelcomeFile.present_users():
             title = f"@{args[0]}'s"
             user_permissions = cls(user=args[0]).fetch_user_permissions()
         elif args[0] in SoundeffectsLibrary.fetch_soundeffect_names():
             if len(args) > 1:
                 for arg in args[1:]:
-                    if arg in WelcomeCommittee.fetch_present_users():
+                    if arg in WelcomeFile.present_users():
                         title = f"@{arg}'s"
                         user_permissions = cls(
                             user=arg, command=args[0]

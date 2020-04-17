@@ -4,24 +4,19 @@ import traceback
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SAMPLES_PATH, ALLOWED_AUDIO_FORMATS
 from chat_thief.audio_player import AudioPlayer
+from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 
-WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
+from chat_thief.welcome_file import WelcomeFile, WELCOME_FILE
 
 
 class WelcomeCommittee:
-    @staticmethod
-    def fetch_present_users():
-        if WELCOME_FILE.is_file():
-            return WELCOME_FILE.read_text().split()
-        else:
-            WELCOME_FILE.touch()
-            return []
-
     def __init__(self, user):
         self.user = user
 
     def welcome_new_users(self):
-        if self.user not in WelcomeCommittee.fetch_present_users():
+        drop_random_soundeffect_to_user(self.user)
+
+        if self.user not in WelcomeFile.present_users():
             print(f"\nNew User: {self.user}\n")
             try:
                 self.welcome()

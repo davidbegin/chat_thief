@@ -1,13 +1,14 @@
 import random
 from pathlib import Path
 
-from chat_thief.soundeffects_library import SoundeffectsLibrary
-from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.audio_command import AudioCommand
 from chat_thief.irc import send_twitch_msg
+from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.welcome_file import WelcomeFile
+from chat_thief.chat_logs import ChatLogs
 
-INVALID_USERS = ["nightbot", ".tim.twitch.tv"] + STREAM_LORDS
+INVALID_USERS = ["nightbot", ".tim.twitch.tv"] + STREAM_GODS
 CONNECTING_MSG = '{"message": "Connecting to #beginbot as beginbotbot"}'
 
 
@@ -18,20 +19,28 @@ def random_soundeffect():
 def random_user():
     looking_for_user = True
     while looking_for_user:
-        user = random.sample(WelcomeCommittee.fetch_present_users(), 1)[0]
-        if user not in STREAM_LORDS and user != "nightbot":
+        users = ChatLogs().recent_stream_peasants()
+        user = random.sample(users, 1)[0]
+        if user not in INVALID_USERS:
             looking_for_user = False
     return user
 
 
 def drop_effect(user, soundeffect):
-    AudioCommand(soundeffect).allow_user(user)
-    msg = f"@{user} now has access to Sound Effect: !{soundeffect}"
-    return msg
+    if user not in INVALID_USERS:
+        print(f"\n\n\tDROPPING FOR: {user}\n")
+        AudioCommand(soundeffect).allow_user(user)
+
+        # We Skip validation, because this is users first command
+        # And are not yet in our system?
+        # AudioCommand(soundeffect, skip_validation=True).allow_user(user)
+        msg = f"@{user} now has access to Sound Effect: !{soundeffect}"
+        return msg
 
 
 def drop_random_soundeffect_to_random_user():
     user = random_user()
+    print(f"\n\tUSER: {user}\n")
     soundeffect = random_soundeffect()
     return drop_effect(user, soundeffect)
 
@@ -57,19 +66,27 @@ def _is_int_between(potential_int):
         return False
 
 
+def drop_random_soundeffect_to_user(user):
+    soundeffect = random_soundeffect()
+    return drop_effect(user, soundeffect)
+
+
 # This needs a stronger interface
 def drop_soundeffect(invoking_user, args=[]):
     if len(args) == 0:
+        print(f"Dropping Sound Effect since we got no args")
         return drop_random_soundeffect_to_random_user()
     else:
-        if args[0] in WelcomeCommittee.fetch_present_users():
+        if _is_int_between(args[0]):
+            for i in range(0, int(args[0])):
+                print(f"Dropping {i} Sound Effect")
+                send_twitch_msg(drop_random_soundeffect_to_random_user())
+        elif args[0] in WelcomeFile.present_users():
             user = args[0]
-            soundeffect = random_soundeffect()
-            return drop_effect(user, soundeffect)
+            print(f"Dropping a Sound Effect for: @{user}")
+            return drop_random_soundeffect_to_user(user)
         elif args[0] in SoundeffectsLibrary.fetch_soundeffect_names():
             user = random_user()
             soundeffect = args[0]
+            print(f"Dropping the Sound Effect: {soundeffect}")
             return drop_effect(user, soundeffect)
-        elif _is_int_between(args[0]):
-            for _ in range(0, int(args[0])):
-                send_twitch_msg(drop_random_soundeffect_to_random_user())

@@ -9,7 +9,7 @@ from chat_thief.models import SoundEffect, CommandPermission
 from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.audio_player import AudioPlayer
-from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.welcome_file import WelcomeFile
 from chat_thief.prize_dropper import random_user
 
 
@@ -45,7 +45,7 @@ class SampleSaver:
 
     def _add_soundeffect_args(self):
         args = [self.youtube_id, self.name, self.start_time, self.end_time]
-        if self.name in WelcomeCommittee.fetch_present_users():
+        if self.name in WelcomeFile.present_users():
             args = args + ["theme"]
         return args
 
