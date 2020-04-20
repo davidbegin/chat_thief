@@ -72,6 +72,10 @@ class CommandParser:
 
                 return leaderboard()
 
+            if self.command == "paperup":
+                if self.user in STREAM_GODS:
+                    return User(self.args[0]).paperup()
+
             if self.command == "me":
                 return User(self.user).stats()
 

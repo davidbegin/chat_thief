@@ -19,6 +19,11 @@ class User:
         # return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()} | Perms: {commands}"
         return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
+    def paperup(self):
+        self.add_street_cred()
+        self.add_cool_points()
+        return self.doc()
+
     # This doesn't iterate properly
     # the early returns will break multiple purchases
     def buy(self, args):

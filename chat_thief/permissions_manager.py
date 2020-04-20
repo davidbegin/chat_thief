@@ -15,7 +15,7 @@ class PermissionsManager:
     ):
         if len(args) < 2:
             print("you need more args: command user!")
-            raise ArgumentError
+            raise ValueError(f"You need more args {args}")
 
         self.user = user
         self.command = command

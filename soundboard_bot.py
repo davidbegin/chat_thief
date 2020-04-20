@@ -1,6 +1,5 @@
 from typing import List, Dict
 import json
-import asyncio
 import traceback
 import time
 
@@ -14,12 +13,11 @@ async def run_bot() -> None:
         try:
             PlaySoundeffectRequest("", "").pop_all_off()
             time.sleep(1)
-        except:
-            traceback.print_exc()
-
-
-async def main():
-    await asyncio.gather(run_bot())
+        except Exception as e:
+            if e is KeyboardInterrupt:
+                raise e
+            else:
+                traceback.print_exc()
 
 
 def sync_main():
@@ -29,5 +27,4 @@ def sync_main():
 
 
 if __name__ == "__main__":
-    # asyncio.run(main())
     sync_main()
