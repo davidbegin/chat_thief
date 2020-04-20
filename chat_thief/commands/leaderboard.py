@@ -40,5 +40,6 @@ def leaderboard():
         list(chain.from_iterable([command["permitted_users"] for command in result]))
     )
     # Most Common sorting alphabetically
+    print(f"\nLeader board: {counter}\n")
     for user, count in counter.most_common()[0:5]:
         send_twitch_msg(f"@{user} | {count} soundeffects")

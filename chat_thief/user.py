@@ -3,6 +3,7 @@ from tinydb import Query
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.prize_dropper import random_soundeffect
 from chat_thief.audio_command import AudioCommand
+from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 
 class User:
@@ -29,8 +30,14 @@ class User:
 
     # This doesn't iterate properly
     # the early returns will break multiple purchases
-    def buy(self, args):
+    def buy(self, args=[]):
         for effect in args:
+            if (
+                effect != "random"
+                and effect not in SoundeffectsLibrary.fetch_soundeffect_names()
+            ):
+                return f"Not a valid soundeffect: {effect}"
+
             if self.cool_points() > 0:
                 if effect == "random":
                     looking_for_effect = True
@@ -104,12 +111,12 @@ class User:
 
         self.users_db.update(decrease_cred(), Query().name == self.name)
 
-    def add_cool_points(self):
+    def add_cool_points(self, amount=1):
         user = self._find_or_create_user()
 
         def increase_cred():
             def transform(doc):
-                doc["cool_points"] = doc["cool_points"] + 1
+                doc["cool_points"] = doc["cool_points"] + amount
 
             return transform
 

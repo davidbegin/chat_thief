@@ -42,6 +42,7 @@ class SoundeffectRequest:
 
     def pop_all_off(self):
         results = self.sfx_requests_db.search(Query().approved == True)
+
         if results:
             print(f"\nResults: {results}")
 

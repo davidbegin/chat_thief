@@ -22,6 +22,8 @@ from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectReques
 from chat_thief.user import User
 from chat_thief.revolution import Revolution
 
+# from chat_thief.commands import ApproveAllRequests
+
 from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
@@ -130,6 +132,7 @@ class CommandParser:
                 cool_person = self.args[0]
                 if cool_person.startswith("@"):
                     cool_person = cool_person[1:]
+                cool_person = cool_person.lower()
 
                 if len(self.args) > 1:
                     amount = int(self.args[1])
@@ -164,6 +167,10 @@ class CommandParser:
 
             if self.command == "requests":
                 return handle_user_requests()
+
+            # if self.command == "approve_all_requests" and self.user == "beginbotbot":
+            #     request_user = self.args[0]
+            #     ApproveAllRequests.approve(request_user)
 
             # soundeffects saver bot
             # soundeffects player bot

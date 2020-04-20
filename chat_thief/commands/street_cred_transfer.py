@@ -14,8 +14,9 @@ class StreetCredTransfer:
 
         if transferrer.street_cred() >= self.amount:
             transferrer.remove_street_cred(self.amount)
+
             transferree = User(self.cool_person)
-            transferree.add_cool_points()
+            transferree.add_cool_points(self.amount)
             return f"{self.user} gave {self.amount} Street Cred (remaining: {transferrer.street_cred()}) to {self.cool_person}'s total of {transferree.cool_points()} Cool Points"
         else:
             return f"@{self.user} NOT ENOUGH STREET CRED!"
