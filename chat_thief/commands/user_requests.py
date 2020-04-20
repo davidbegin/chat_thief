@@ -5,6 +5,7 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.parent.joinpath("db/.requests")
 
+
 def _remove_completed_requests():
     soundeffect_names = SoundeffectsLibrary.fetch_soundeffect_names()
 
@@ -24,7 +25,11 @@ def _remove_completed_requests():
 
 
 def handle_user_requests():
-    previous_requests = [ request for request in SOUNDEFFECT_REQUESTS_PATH.read_text().split("\n") if request != "" ]
+    previous_requests = [
+        request
+        for request in SOUNDEFFECT_REQUESTS_PATH.read_text().split("\n")
+        if request != ""
+    ]
 
     print(f"Previous Requests: {previous_requests}")
 

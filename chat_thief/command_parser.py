@@ -19,6 +19,7 @@ from chat_thief.obs import OBS_COMMANDS
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.user import User
 
 from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
@@ -33,11 +34,13 @@ BLACKLISTED_LOG_USERS = [
 ]
 
 HELP_MENU = [
+    "!me - Info about your self",
     "!perms - Check what soundeffects you have access to",
     "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
     "!add_perm COMMAND USER_TO_GIVE_PERMS - give someone else access to a command you have access to",
     "!perms clap - See who is allowed to use the !clap command",
     "!perms beginbot - See what commands beginbot has access to",
+    "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
     "!leaderboard - See what users have the most commands",
 ]
 
@@ -69,6 +72,9 @@ class CommandParser:
 
                 return leaderboard()
 
+            if self.command == "me":
+                return User(self.user).stats()
+
             if self.command == "peasants":
                 return ChatLogs().recent_stream_peasants()
 
@@ -79,6 +85,9 @@ class CommandParser:
 
             # Drop randomeffect for new users
             # Weight For Powers
+
+            if self.command in ["buy"]:
+                return User(self.user).buy(self.args)
 
             if self.command == "dropeffect" and self.user in STREAM_GODS:
                 return drop_soundeffect(self.user, self.args)

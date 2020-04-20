@@ -1,11 +1,13 @@
 from chat_thief.user import User
 
+
 class StreetCredTransfer:
     def __init__(self, user, cool_person, amount=1):
         self.user = user
-        self.cool_person=cool_person
+        self.cool_person = cool_person
         self.amount = amount
-        # We need to find the user and the amount
+        if self.user == self.cool_person:
+            raise ValueError(f"Can't give yourself Cool Points @{self.user}!")
 
     def transfer(self):
         transferrer = User(self.user)

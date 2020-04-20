@@ -13,13 +13,14 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.database import db_table, COMMANDS_DB_PATH
 
+
 def loserboard():
     table = db_table(COMMANDS_DB_PATH, "commands")
-    result = table.search(
-        Query().permitted_users
-    )
+    result = table.search(Query().permitted_users)
 
-    counter = Counter(list(chain.from_iterable( [ command["permitted_users"] for command in result ])))
+    counter = Counter(
+        list(chain.from_iterable([command["permitted_users"] for command in result]))
+    )
 
     def sort_users(user_commands):
         used, count = user_commands
@@ -28,15 +29,16 @@ def loserboard():
     counter_values = counter.values()
     sorted_counter = sorted(counter.items(), key=sort_users)
     for user, count in sorted_counter[0:5]:
-       send_twitch_msg(f"@{user} | {count} soundeffects")
+        send_twitch_msg(f"@{user} | {count} soundeffects")
+
 
 def leaderboard():
     table = db_table(COMMANDS_DB_PATH, "commands")
-    result = table.search(
-        Query().permitted_users
-    )
+    result = table.search(Query().permitted_users)
 
-    counter = Counter(list(chain.from_iterable( [ command["permitted_users"] for command in result ])))
+    counter = Counter(
+        list(chain.from_iterable([command["permitted_users"] for command in result]))
+    )
     # Most Common sorting alphabetically
     for user, count in counter.most_common()[0:5]:
         send_twitch_msg(f"@{user} | {count} soundeffects")

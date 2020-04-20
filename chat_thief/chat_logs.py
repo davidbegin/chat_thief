@@ -21,12 +21,13 @@ class ChatLogs:
         return Counter(self.raw_users)
 
     def recent_stream_peasants(self):
-        lines = self._read_in_chat(line_count=DEFAULT_LINE_COUNT)
+        lines = self._read_in_chat(line_count=DEFAULT_LINE_COUNT, all_lines=False)
         users = [chat_msg.split(":")[0].strip() for chat_msg in lines]
-        peasants = [user for user in users if user not in STREAM_GODS]
-        # Not doing uniq rewards chatting
-        # return list(peasants)
-        return list(set(peasants))
+        # peasants = [user for user in users if user not in STREAM_GODS]
+        peasants = list(set([user for user in users if user not in STREAM_GODS]))
+
+        print(f"Recent Stream Peasants: {peasants}")
+        return peasants
 
     def _read_in_chat(self, line_count=DEFAULT_LINE_COUNT, all_lines=ALL_LINES):
         with Path(__file__).parent.parent.joinpath("logs/chat.log") as log:

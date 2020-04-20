@@ -37,10 +37,8 @@ class WelcomeCommittee:
         ]
 
         if sound_effect_files:
-            for effect in sound_effect_files:
-                PlaySoundeffectRequest(user=self.user, command=self.user).save()
-                # Save the effect here
-                # AudioPlayer.play_sample(effect.resolve())
+            effect = sound_effect_files[0]
+            PlaySoundeffectRequest(user=self.user, command=self.user).save()
         else:
             send_twitch_msg(f"You need a theme song! @{self.user}")
             send_twitch_msg(

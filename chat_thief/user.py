@@ -1,6 +1,7 @@
 from tinydb import Query
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
+from chat_thief.audio_command import AudioCommand
 
 
 class User:
@@ -10,6 +11,23 @@ class User:
         self.name = name
         self.users_db = db_table(users_db_path, "users")
         self.commands_db = db_table(commands_db_path, "commands")
+
+    def stats(self):
+        return f"{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
+
+    # This doesn't iterate properly
+    # the early returns will break multiple purchases
+    def buy(self, args):
+        for effect in args:
+            if self.cool_points() > 0:
+                if AudioCommand(effect).allowed_to_play(self.name):
+                    return f"@{self.name} already has access to !{effect}"
+                else:
+                    self.remove_cool_points()
+                    AudioCommand(effect, skip_validation=True).allow_user(self.name)
+            else:
+                return f"@{self.name} - Out of Cool Points to Purchase with"
+        return f"@{self.name} purchased: {' '.join(args)}"
 
     def commands(self):
         def in_permitted_users(permitted_users, current_user):

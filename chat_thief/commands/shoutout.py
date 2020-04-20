@@ -1,4 +1,3 @@
-
 def shoutout(msg) -> str:
     msg_segs = msg.split()
 
