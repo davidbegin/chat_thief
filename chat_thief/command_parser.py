@@ -20,6 +20,7 @@ from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.user import User
+from chat_thief.revolution import Revolution
 
 from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
@@ -72,6 +73,9 @@ class CommandParser:
 
                 return leaderboard()
 
+            if self.command == "revolution":
+                return Revolution(self.user).incite()
+
             if self.command == "paperup":
                 if self.user in STREAM_GODS:
                     return User(self.args[0]).paperup()
@@ -123,10 +127,12 @@ class CommandParser:
                 "endorse",
             ]:
                 cool_person = self.args[0]
+
                 if len(self.args) > 1:
                     amount = int(self.args[1])
                 else:
                     amount = 1
+                print(f"\n{self.user} Attempting to give {amount} Cool Points")
 
                 return StreetCredTransfer(
                     user=self.user, cool_person=cool_person, amount=amount

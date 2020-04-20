@@ -1,6 +1,7 @@
 from tinydb import Query
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
+from chat_thief.prize_dropper import random_soundeffect
 from chat_thief.audio_command import AudioCommand
 
 
@@ -12,7 +13,9 @@ class User:
         self.users_db = db_table(users_db_path, "users")
         self.commands_db = db_table(commands_db_path, "commands")
 
-    # We could also return perms
+    def purge(self):
+        return self.users_db.purge_table("users")
+
     def stats(self):
         # commands = ' '.join([ f'!{command}' for command in self.commands() ])
         # "| Perms: {commands}"
@@ -29,11 +32,23 @@ class User:
     def buy(self, args):
         for effect in args:
             if self.cool_points() > 0:
-                if AudioCommand(effect).allowed_to_play(self.name):
-                    return f"@{self.name} already has access to !{effect}"
+                if effect == "random":
+                    looking_for_effect = True
+                    while True:
+                        effect = random_soundeffect()
+
+                        if not AudioCommand(effect).allowed_to_play(self.name):
+                            looking_for_effect = False
+                            self.remove_cool_points()
+                            AudioCommand(effect, skip_validation=True).allow_user(
+                                self.name
+                            )
                 else:
-                    self.remove_cool_points()
-                    AudioCommand(effect, skip_validation=True).allow_user(self.name)
+                    if AudioCommand(effect).allowed_to_play(self.name):
+                        return f"@{self.name} already has access to !{effect}"
+                    else:
+                        self.remove_cool_points()
+                        AudioCommand(effect, skip_validation=True).allow_user(self.name)
             else:
                 return f"@{self.name} - Out of Cool Points to Purchase with"
         return f"@{self.name} purchased: {' '.join(args)}"
@@ -98,12 +113,12 @@ class User:
 
         self.users_db.update(increase_cred(), Query().name == self.name)
 
-    def remove_street_cred(self):
+    def remove_street_cred(self, amount=1):
         user = self._find_or_create_user()
 
         def decrease_cred():
             def transform(doc):
-                doc["street_cred"] = doc["street_cred"] - 1
+                doc["street_cred"] = doc["street_cred"] - amount
 
             return transform
 

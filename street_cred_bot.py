@@ -19,14 +19,16 @@ def sync_main():
             peasants = ChatLogs().recent_stream_peasants()
             result = drop_random_soundeffect_to_user(random.sample(peasants, 1)[0])
             send_twitch_msg(result)
-            send_twitch_msg(f"Enjoy your street cred: {peasants}")
+            formatted_peasants = [f"@{peasant}" for peasant in peasants]
+            send_twitch_msg(
+                f"Squid1 Enjoy your street cred: {' '.join(formatted_peasants)} Squid4"
+            )
 
             for peasant in peasants:
                 print(peasant)
                 user = User(peasant)
                 user.add_street_cred()
                 # if random.choice([0, 1]):
-                # send_twitch_msg(user.add_street_cred())
 
             # Every 5 minutes, all the chatters have a chance at some street cred
             # time.sleep(60)
