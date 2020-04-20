@@ -11,6 +11,7 @@ class StreetCredTransfer:
 
     def transfer(self):
         transferrer = User(self.user)
+
         if transferrer.street_cred() >= self.amount:
             transferrer.remove_street_cred(self.amount)
             transferree = User(self.cool_person)

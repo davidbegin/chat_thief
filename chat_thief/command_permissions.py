@@ -79,6 +79,9 @@ class CommandPermissionCenter:
         else:
             pass
 
+    def purge(self):
+        self.commands_db.purge()
+
     def fetch_command_permissions(self):
         print(f"Looking for command: {self.command}")
 

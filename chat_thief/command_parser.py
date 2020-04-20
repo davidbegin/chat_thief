@@ -107,7 +107,10 @@ class CommandParser:
                 perms = CommandPermissionCenter.fetch_permissions(
                     user=self.user, args=self.args,
                 )
-                return " ".join([f"!{command}" for command in perms])
+                if perms:
+                    return " ".join([f"!{command}" for command in perms])
+                else:
+                    return f"@{self.user} has no perms"
 
             if self.command in [
                 "give",
@@ -127,11 +130,16 @@ class CommandParser:
                 "endorse",
             ]:
                 cool_person = self.args[0]
+                if cool_person.startswith("@"):
+                    cool_person = cool_person[1:]
 
                 if len(self.args) > 1:
                     amount = int(self.args[1])
                 else:
                     amount = 1
+
+                if amount < 1:
+                    raise ValueError(f"Invalid Amount: {amount}")
                 print(f"\n{self.user} Attempting to give {amount} Cool Points")
 
                 return StreetCredTransfer(

@@ -14,7 +14,7 @@ class User:
         self.commands_db = db_table(commands_db_path, "commands")
 
     def purge(self):
-        return self.users_db.purge_table("users")
+        return self.users_db.purge()
 
     def stats(self):
         # commands = ' '.join([ f'!{command}' for command in self.commands() ])
@@ -34,7 +34,7 @@ class User:
             if self.cool_points() > 0:
                 if effect == "random":
                     looking_for_effect = True
-                    while True:
+                    while looking_for_effect:
                         effect = random_soundeffect()
 
                         if not AudioCommand(effect).allowed_to_play(self.name):
