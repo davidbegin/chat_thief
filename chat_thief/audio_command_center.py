@@ -3,6 +3,8 @@ from chat_thief.irc_msg import IrcMsg
 from chat_thief.request_saver import RequestSaver
 from chat_thief.sample_saver import SampleSaver
 
+from chat_thief.new_models.soundeffect_request import SoundeffectRequest
+
 
 class AudioCommandCenter:
     """
@@ -17,14 +19,28 @@ class AudioCommandCenter:
         self.args = irc_msg.args
 
     def add_command(self):
-        # Here are the two spots where we either
-        # Add a request or we save
-        # if we are saving
-        # We want extract the requester
-        if self.user in STREAM_GODS:
-            requester = RequestSaver(self.user, self.msg).requester()
-            print(f"\n\tREQUESTER: {requester}\n\n")
-            SampleSaver(self.irc_msg).save(requester)
-        else:
-            print("Not a Streamlord, so we are attempting to save you sample")
-            RequestSaver(self.user, self.msg).save()
+        youtube_id, command, start_time, end_time = self.args
+
+        sfx_request = SoundeffectRequest(
+            user=self.user,
+            youtube_id=youtube_id,
+            command=command,
+            start_time=start_time,
+            end_time=end_time,
+        ).save()
+
+    def process_approved_soundeffects(self):
+        results = self.sfx_requests_db.search(Query().approved)
+
+        # if self.user in STREAM_GODS:
+        #     requester = RequestSaver(self.user, self.msg).requester()
+        #     print(f"\tRequester: {requester}")
+        #     SampleSaver(
+        #         user = irc_msg.user,
+        #         msg = irc_msg.msg,
+        #         command = irc_msg.command,
+        #         args = irc_msg.args,
+        #     ).save(requester)
+        # else:
+        #     print("Not a Stream God, so we are saving your sample @{self.user}")
+        #     RequestSaver(self.user, self.msg).save()

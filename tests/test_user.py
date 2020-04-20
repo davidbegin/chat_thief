@@ -38,7 +38,6 @@ class TestUser:
         assert audio_command.permitted_users() == ["zerostheory"]
         assert subject.commands() == ["flacid"]
 
-    @pytest.mark.focus
     def test_add_street_cred(self, user):
         subject = user("zerostheory")
         assert subject.street_cred() == 0

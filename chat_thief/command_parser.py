@@ -17,6 +17,7 @@ from chat_thief.irc_msg import IrcMsg
 from chat_thief.obs import OBS_COMMANDS
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
+from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
 
 from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
@@ -121,11 +122,16 @@ class CommandParser:
 
             if self.command == "requests":
                 return handle_user_requests()
+
+            # soundeffects saver bot
+            # soundeffects player bot
+            # This should save somewhere
             if self.command == "soundeffect":
                 return AudioCommandCenter(self.irc_msg).add_command()
 
             self.try_soundeffect()
 
+    # This should Save somewhere
     # Set a 5 Minute Party Mode
     # if self.user in fetch_whitelisted_users():
     #     self.try_soundeffect(command, msg)
@@ -135,9 +141,4 @@ class CommandParser:
             os.system(f"so {self.command}")
             return
 
-        audio_command = AudioCommand(self.command)
-
-        if audio_command.allowed_to_play(self.user):
-            audio_command.play_sample()
-        else:
-            print(f"\n{self.user} is NOT allowed {self.command}")
+        PlaySoundeffectRequest(user=self.user, command=self.command).save()

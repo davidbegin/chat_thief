@@ -12,6 +12,7 @@ from chat_thief.audio_player import AudioPlayer
 from chat_thief.welcome_file import WelcomeFile
 from chat_thief.prize_dropper import random_user
 from chat_thief.audio_command import AudioCommand
+from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
 
 
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
@@ -28,11 +29,8 @@ from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 
 
 class SampleSaver:
-    def __init__(self, irc_msg: IrcMsg):
-        self.user = irc_msg.user
-        self.msg = irc_msg.msg
-        self.command = irc_msg.command
-        self.args = irc_msg.args
+    def __init__(self, user, youtube_id, command, start_time, end_time):
+        self.user = user
 
         self.soundeffects_table = DB.table("soundeffects")
         self.command_permissions_table = DB.table("command_permissions")
@@ -40,8 +38,10 @@ class SampleSaver:
         # self.users_db = db_table(users_db_path, "users")
         # self.commands_db = db_table(commands_db_path, "commands")
 
-        self.youtube_id, self.name, self.start_time, self.end_time = self.args
-        self.name = self.name.lower()
+        self.name = command.lower()
+        self.youtube_id = youtube_id
+        self.start_time = start_time
+        self.end_time = end_time
 
     def _add_soundeffect_args(self):
         args = [self.youtube_id, self.name, self.start_time, self.end_time]
@@ -56,7 +56,7 @@ class SampleSaver:
             print(f"THAT IS NOT A VALID NAME FOR A COMMAND: {self.name}")
             return
 
-        print(f"\n{self.user} is trying to add a command: {self.command}\n")
+        print(f"\n{self.user} is trying to add a command: {self.name}\n")
 
         sample_updated = False
         for sample in self._current_samples():
@@ -75,22 +75,27 @@ class SampleSaver:
             stdout=subprocess.DEVNULL,
         )
 
+        # This should be a simple save
+        # We could also play peoples sounds
         if sample_updated:
-            new_item = Path(SAMPLES_PATH).joinpath("update.opus")
+            PlaySoundeffectRequest(user="beginbot", command="update").save()
+
+            # new_item = Path(SAMPLES_PATH).joinpath("update.opus")
             send_twitch_msg(f"Updated Sound Available: !{self.name}")
         else:
-            new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
+            # new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
+            PlaySoundeffectRequest(user="beginbot", command="new_item").save()
+
             send_twitch_msg(f"New Sound Available: !{self.name}")
+        # if PLAY_UPDATE_EFFECTS:
+        #     AudioPlayer.play_sample(new_item)
 
         if requester:
             AudioCommand(self.name).allow_user(requester)
 
-        if PLAY_UPDATE_EFFECTS:
-            AudioPlayer.play_sample(new_item)
-
     def _current_samples(self):
         return [
-            Path(SAMPLES_PATH).joinpath(f"{self.args[1]}{suffix}")
+            Path(SAMPLES_PATH).joinpath(f"{self.name}{suffix}")
             for suffix in ALLOWED_AUDIO_FORMATS
         ]
 
