@@ -45,6 +45,43 @@ class User:
         user = self._find_or_create_user()
         return user["street_cred"]
 
+    def cool_points(self):
+        user = self._find_or_create_user()
+        return user["cool_points"]
+
+    def remove_cool_points(self):
+        user = self._find_or_create_user()
+
+        def decrease_cred():
+            def transform(doc):
+                doc["cool_points"] = doc["cool_points"] - 1
+
+            return transform
+
+        self.users_db.update(decrease_cred(), Query().name == self.name)
+
+    def add_cool_points(self):
+        user = self._find_or_create_user()
+
+        def increase_cred():
+            def transform(doc):
+                doc["cool_points"] = doc["cool_points"] + 1
+
+            return transform
+
+        self.users_db.update(increase_cred(), Query().name == self.name)
+
+    def remove_street_cred(self):
+        user = self._find_or_create_user()
+
+        def decrease_cred():
+            def transform(doc):
+                doc["street_cred"] = doc["street_cred"] - 1
+
+            return transform
+
+        self.users_db.update(decrease_cred(), Query().name == self.name)
+
     def add_street_cred(self):
         user = self._find_or_create_user()
 

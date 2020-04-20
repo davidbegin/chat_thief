@@ -42,7 +42,8 @@ class SoundeffectRequest:
 
     def pop_all_off(self):
         results = self.sfx_requests_db.search(Query().approved == True)
-        print(f"\nResults: {results}")
+        if results:
+            print(f"\nResults: {results}")
 
         doc_ids_to_delete = [ sfx.doc_id for sfx in results ]
         if doc_ids_to_delete:

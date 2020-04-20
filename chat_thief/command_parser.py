@@ -11,6 +11,7 @@ from chat_thief.chat_logs import ChatLogs
 from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.shoutout import shoutout
+from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.irc import send_twitch_msg
 from chat_thief.irc_msg import IrcMsg
@@ -101,6 +102,21 @@ class CommandParser:
                 return PermissionsManager(
                     user=self.user, command=self.command, args=self.args,
                 ).add_perm()
+
+            if self.command in [
+                "props",
+                "bigups",
+                "endorse",
+            ]:
+                cool_person = self.args[0]
+                if len(self.args) > 1:
+                    amount = int(self.args[1])
+                else:
+                    amount = 1
+
+                return StreetCredTransfer(
+                    user=self.user, cool_person=cool_person, amount=amount
+                ).transfer()
 
             if self.command == "help":
                 return HELP_MENU
