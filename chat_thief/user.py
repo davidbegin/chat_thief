@@ -43,6 +43,7 @@ class User:
                             AudioCommand(effect, skip_validation=True).allow_user(
                                 self.name
                             )
+                            return f"@{self.name} purchased: {effect}"
                 else:
                     if AudioCommand(effect).allowed_to_play(self.name):
                         return f"@{self.name} already has access to !{effect}"
@@ -51,6 +52,7 @@ class User:
                         AudioCommand(effect, skip_validation=True).allow_user(self.name)
             else:
                 return f"@{self.name} - Out of Cool Points to Purchase with"
+
         return f"@{self.name} purchased: {' '.join(args)}"
 
     def commands(self):

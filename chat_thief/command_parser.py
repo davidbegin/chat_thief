@@ -109,8 +109,6 @@ class CommandParser:
                 )
                 if perms:
                     return " ".join([f"!{command}" for command in perms])
-                else:
-                    return f"@{self.user} has no perms"
 
             if self.command in [
                 "give",
