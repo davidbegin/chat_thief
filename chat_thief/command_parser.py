@@ -21,6 +21,7 @@ from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.user import User
 from chat_thief.revolution import Revolution
+from chat_thief.commands.command_sharer import CommandSharer
 
 # from chat_thief.commands import ApproveAllRequests
 
@@ -120,9 +121,7 @@ class CommandParser:
                 "share_perm",
                 "share_perms",
             ]:
-                return PermissionsManager(
-                    user=self.user, command=self.command, args=self.args,
-                ).add_perm()
+                return CommandSharer(self.user, self.command, self.args[0]).share()
 
             if self.command in [
                 "props",
