@@ -12,8 +12,12 @@ class User:
         self.users_db = db_table(users_db_path, "users")
         self.commands_db = db_table(commands_db_path, "commands")
 
+    # We could also return perms
     def stats(self):
-        return f"{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
+        # commands = ' '.join([ f'!{command}' for command in self.commands() ])
+        # "| Perms: {commands}"
+        # return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()} | Perms: {commands}"
+        return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
     # This doesn't iterate properly
     # the early returns will break multiple purchases

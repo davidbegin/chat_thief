@@ -96,9 +96,10 @@ class CommandParser:
                 return dropreward()
 
             if self.command in ["permissions", "permission", "perms", "perm"]:
-                return CommandPermissionCenter.fetch_permissions(
+                perms = CommandPermissionCenter.fetch_permissions(
                     user=self.user, args=self.args,
                 )
+                return " ".join([f"!{command}" for command in perms])
 
             if self.command in [
                 "give",
