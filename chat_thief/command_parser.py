@@ -130,7 +130,7 @@ class CommandParser:
                 "share_perm",
                 "share_perms",
             ]:
-                return CommandSharer(self.user, self.command, self.args[0]).share()
+                return CommandSharer(self.user, self.args[0], self.args[1]).share()
 
             if self.command in [
                 "props",
