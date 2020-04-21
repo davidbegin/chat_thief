@@ -63,9 +63,10 @@ async def run_bot(server: socket.socket) -> None:
                     elif len(response) > MESSAGE_LIMIT:
                         # This is dumb!
                         await send_msg(server, f"{response[:500]}")
-                        await send_msg(server, f"{response[500:]}")
+                        await send_msg(server, f"{''.join(response[:500])}")
+                        # await send_msg(server, f"{response[500:]}")
                     else:
-                        await send_msg(server, f"{response[:500]}")
+                        await send_msg(server, f"{response}")
             except:
                 traceback.print_exc()
 

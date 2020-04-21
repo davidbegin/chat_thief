@@ -23,7 +23,7 @@ from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.revolution import Revolution
 from chat_thief.user import User
 
-# from chat_thief.commands import ApproveAllRequests
+from chat_thief.commands.approve_all_requests import ApproveAllRequests
 
 from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
@@ -176,9 +176,9 @@ class CommandParser:
             if self.command == "requests":
                 return handle_user_requests()
 
-            # if self.command == "approve_all_requests" and self.user == "beginbotbot":
-            #     request_user = self.args[0]
-            #     ApproveAllRequests.approve(request_user)
+            if self.command == "approve_all_requests" and self.user == "beginbotbot":
+                request_user = self.args[0]
+                ApproveAllRequests.approve(request_user)
 
             if self.command == "soundeffect":
                 sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)
