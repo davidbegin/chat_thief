@@ -7,20 +7,21 @@ import traceback
 
 from chat_thief.audio_command import AudioCommand
 from chat_thief.chat_logs import ChatLogs
+from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 from chat_thief.command_permissions import CommandPermissionCenter
+from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.irc import send_twitch_msg
 from chat_thief.irc_msg import IrcMsg
+from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.new_models.soundeffect_request import SoundeffectRequest
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
-from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
-from chat_thief.user import User
 from chat_thief.revolution import Revolution
-from chat_thief.commands.command_sharer import CommandSharer
-from chat_thief.new_models.soundeffect_request import SoundeffectRequest
+from chat_thief.user import User
 
 # from chat_thief.commands import ApproveAllRequests
 
@@ -179,18 +180,15 @@ class CommandParser:
             #     request_user = self.args[0]
             #     ApproveAllRequests.approve(request_user)
 
-            # soundeffects saver bot
-            # soundeffects player bot
-            # This should save somewhere
             if self.command == "soundeffect":
-                youtube_id, command, start_time, end_time = self.irc_msg.args
+                sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)
 
                 return SoundeffectRequest(
                     user=self.user,
-                    youtube_id=youtube_id,
-                    command=command,
-                    start_time=start_time,
-                    end_time=end_time,
+                    youtube_id=sfx_request.youtube_id,
+                    command=sfx_request.command,
+                    start_time=sfx_request.start_time,
+                    end_time=sfx_request.end_time,
                 ).save()
 
             self.try_soundeffect()
