@@ -1,80 +1,84 @@
 # What Is Going On
 
+There are over 300+ Soundeffects (added by users like you!), that area access
+through various commands, like: `!clap` or `!wow`
+
+When you join the stream you have access to no sounds (except your theme song,
+if you have one). To get access to soundeffects, you just need to participate in
+our New Economy!
+
 ## New Economy
 
-2 Types of Currency:
+**2 Types of Currency:**
 
-## Street Cred / Good Boi Points
+### Street Cred
 
-- You earn it from working (chatting)
-- You can only give it to other
+- You earn it from working (if you are chatting, you will earn street cred
+  automatically (note: this is different than Beginbux AKA channel points)
+- You can only give it to other viewer: `!props other_user`
+- You may also share one of your sounds with another viewer for 1 Street Cred:
+  `!give sound other_user`
 
-## Cool Points / Tendies
+### Cool Points
 
 - When someone gives you Street Cred, it becomes Cool Points
 - Cool Points are NOT transferable
-- Cool Points can be spent (to buy sounds)
+- Cool Points can be spent to buy sounds: `!`
 
-## The Goverment
+## The Government
 
 - We will not provide services to trade commands
   if you need that, then the market should supply it
+
+## Drops
+
+There are also random drops, when a random user is given a random sound, maybe
+it will be you! You will be notified in the chat, if you receive a random item.
 
 ## FAQ
 
 Q: How do you get street cred?
 A: Chatting
 
-## Hand of the Market
-
-- the more the chat, the more likley you are for drops
-- everyone gets on entry
-
----
-
-There are 300+ soundeffects on my computer that have been added by myself, but
-mostly viewers.
-
-Each command is accessible through a simple !<NAME_OF_COMMAND>
-
-However, We do not tell you what the commands are, you can guess, suggest you
-own, or trying and pick up clues from others.
-
-Also you do not have access to any commands by default, except !clap.
-This can be used to test that you can trigger soundeffects.
-
-Permissions for soundeffects work like this:
-
-There are Stream Lords who have access to every sound.
-They also have the power to add sounds, including your requests!
-
-A Stream Lord can give you access to an individual sound.
-Also any viewer who has access to a sound can give someone else access to that
-sound!
-
-There are also random drops, when a random user is given a random sound, maybe
-it will be you!
+## Theme Song
 
 Finally you can submit a theme song, and this is a sound that only you will have
 access to. It will also play everytime you join the chat for the first time each
 stream! The theme should be no more than 5 seconds from a youtube clip in the
 following format:
 
-`!soundeffect YOUTUBE_ID YOUR_FULL_TWITCHNAME_LOWERCASE 00:05 00:09`
+`!soundeffect YOUTUBE_ID your_twitch_user name 00:05 00:09`
 
 Once a Streamlord approves this, you and you alone will have access to your
-theme song.
+theme song. It will also play everytime you say something in the chat for the
+first time that stream!
+
+## Revolution
+
+If you accure 100 Cool Points, you can reset the entire econonmy with
+`!revolution`
 
 ## Some Useful Commands
 
 Check your own permissions
 `!perms`
 
+Check your Points:
+`!me`
+
 Check who is allowed to use !clap
 `!perms clap`
 
 Check beginbot's permissions
 `!perms beginbot`
+
+Give a command to another user
+`!give command other_user`
+OR
+`!share command other_user`
+
+Check the soundboard leaderboard
+`!leaderboard`
 
 Show the Streamlords
 `!streamlords`
