@@ -19,9 +19,6 @@ SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
 ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
 ADD_SOUND_EFFECT_PATH = Path(SAMPLES_PATH).joinpath("add_sound_effect")
 
-# Do you want the new item and update item sounds
-PLAY_UPDATE_EFFECTS = True
-
 soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
 DB = TinyDB(soundeffects_db_path)
 
@@ -35,15 +32,14 @@ class SampleSaver:
         self.soundeffects_table = DB.table("soundeffects")
         self.command_permissions_table = DB.table("command_permissions")
 
-        # self.users_db = db_table(users_db_path, "users")
-        # self.commands_db = db_table(commands_db_path, "commands")
-
         self.name = command.lower()
         self.youtube_id = youtube_id
         self.start_time = start_time
         self.end_time = end_time
 
     def _add_soundeffect_args(self):
+        # Who calls SampleSaver?
+        # Right here, are these args in the right order?
         args = [self.youtube_id, self.name, self.start_time, self.end_time]
         if self.name in WelcomeFile.present_users():
             args = args + ["theme"]
@@ -69,26 +65,17 @@ class SampleSaver:
         self._save_command()
 
         # TODO: We need some process around not actually saving during tests
-        subprocess.call(
-            [ADD_SOUND_EFFECT_PATH.resolve()] + self._add_soundeffect_args(),
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-        )
+        # We need to be doing this in python instead
 
-        # This should be a simple save
-        # We could also play peoples sounds
+        # more directly
+        self._save_with_youtube_dl()
+
         if sample_updated:
             PlaySoundeffectRequest(user="beginbot", command="update").save()
-
-            # new_item = Path(SAMPLES_PATH).joinpath("update.opus")
             send_twitch_msg(f"Updated Sound Available: !{self.name}")
         else:
-            # new_item = Path(SAMPLES_PATH).joinpath("new_item.wav")
             PlaySoundeffectRequest(user="beginbot", command="new_item").save()
-
             send_twitch_msg(f"New Sound Available: !{self.name}")
-        # if PLAY_UPDATE_EFFECTS:
-        #     AudioPlayer.play_sample(new_item)
 
         if requester:
             AudioCommand(self.name).allow_user(requester)
@@ -116,3 +103,28 @@ class SampleSaver:
         print(f"Saving in our DB! {sound.__dict__}")
         self.soundeffects_table.insert(sound.__dict__)
         self.command_permissions_table.insert(command_permission.__dict__)
+
+    def _save_with_youtube_dl(self):
+        """
+        if [[ -z "$5" ]]
+        then
+          SAMPLES_PATH="/home/begin/stream/Stream/Samples"
+        else
+          echo "ITS A THEME!"
+          SAMPLES_PATH="/home/begin/stream/Stream/Samples/theme_songs"
+        fi
+
+        if [[ -z "$3" && -z "$4" ]]
+        then
+          youtube-dl -x "$1" -o "$2.%(ext)s"
+        else
+          echo "Cutting from $3 to $4"
+          youtube-dl -x --postprocessor-args "-ss $3 -to $4" $1 -o "$SAMPLES_PATH/$2.%(ext)s"
+        fi
+        """
+        subprocess.call(
+            [ADD_SOUND_EFFECT_PATH.resolve()] + self._add_soundeffect_args(),
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+        )
+        pass

@@ -6,7 +6,6 @@ import subprocess
 import traceback
 
 from chat_thief.audio_command import AudioCommand
-from chat_thief.audio_command_center import AudioCommandCenter
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.commands.leaderboard import leaderboard, loserboard
@@ -22,6 +21,7 @@ from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectReques
 from chat_thief.user import User
 from chat_thief.revolution import Revolution
 from chat_thief.commands.command_sharer import CommandSharer
+from chat_thief.new_models.soundeffect_request import SoundeffectRequest
 
 # from chat_thief.commands import ApproveAllRequests
 
@@ -175,7 +175,15 @@ class CommandParser:
             # soundeffects player bot
             # This should save somewhere
             if self.command == "soundeffect":
-                return AudioCommandCenter(self.irc_msg).add_command()
+                youtube_id, command, start_time, end_time = self.irc_msg.args
+
+                return SoundeffectRequest(
+                    user=self.user,
+                    youtube_id=youtube_id,
+                    command=command,
+                    start_time=start_time,
+                    end_time=end_time,
+                ).save()
 
             self.try_soundeffect()
 
