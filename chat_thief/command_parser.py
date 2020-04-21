@@ -10,6 +10,7 @@ from chat_thief.chat_logs import ChatLogs
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.commands.command_sharer import CommandSharer
+from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
@@ -49,7 +50,8 @@ OBS_COMMANDS = [
 HELP_MENU = [
     "!me - Info about your self",
     "!perms - Check what soundeffects you have access to",
-    "!share COMMAND USER_TO_GIVE_PERMS - give someone else access to a command you have access to",
+    "!share COMMAND USER_TO_GIVE_PERMS - share someone else access to a command you have access to",
+    "!give COMMAND USER_TO_GIVE_PERMS - give your command to someone else, costs no cool points, but you lose access",
     "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
     "!perms clap - See who is allowed to use the !clap command",
     "!perms beginbot - See what commands beginbot has access to",
@@ -122,6 +124,19 @@ class CommandParser:
                 if perms:
                     return " ".join([f"!{command}" for command in perms])
 
+            if self.command in [
+                "give",
+            ]:
+                return CommandGiver(self.user, self.args[0], self.args[1]).share()
+
+            if self.command in [
+                "share",
+                "add_perm",
+                "add_perms",
+                "share_perm",
+                "share_perms",
+            ]:
+                return CommandSharer(self.user, self.args[0], self.args[1]).share()
             if self.command in [
                 "give",
                 "share",

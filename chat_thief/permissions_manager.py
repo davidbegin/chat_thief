@@ -29,6 +29,18 @@ class PermissionsManager:
             commands_db_path=commands_db_path,
         )
 
+    def swap_perm(self, loser):
+        permitted_users = self.audio_command.permitted_users()
+
+        if self.user in STREAM_GODS:
+            return "YOUR A STREAM GOD: YOU DON'T NEED TO SWAP PERMS"
+        else:
+            print(f"Permitted Users For: {self.target_command} {permitted_users}")
+
+            if self.user in permitted_users:
+                self.audio_command.allow_user(self.target_user)
+            return self.audio_command.unallow_user(loser)
+
     def add_perm(self):
         permitted_users = self.audio_command.permitted_users()
 

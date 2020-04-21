@@ -54,10 +54,25 @@ class AudioCommand:
         else:
             return []
 
-    def allow_user(self, target_user):
-        # if target_user in BEGINBOTS:
-        #     raise ValueError(f"Not a valid user: {target_user}")
+    def unallow_user(self, target_user):
+        command_permission = self.commands_db.search(Query().command == self.name)
+        if command_permission:
+            command_permission = command_permission[-1]
 
+            def remove_users():
+                def transform(doc):
+                    doc["permitted_users"].remove(target_user)
+
+                return transform
+
+            self.commands_db.update(remove_users(), Query().command == self.name)
+
+            return f"{target_user} no-longer allowed {self.name}"
+
+        else:
+            return f"No one had permission to {self.name}"
+
+    def allow_user(self, target_user):
         if not self.skip_validation:
             if target_user not in WelcomeFile.present_users():
                 raise ValueError(f"Not a valid user: {target_user}")
