@@ -22,8 +22,8 @@ class WelcomeCommittee:
             print(f"\nNew User: {self.user}\n")
             try:
                 self.welcome()
-            except Exception as e:
-                print(e, traceback.format_exc())
+            except:
+                traceback.print_exc()
 
             with open(WELCOME_FILE, "a") as f:
                 f.write(f"{self.user}\n")

@@ -14,7 +14,6 @@ from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.irc import send_twitch_msg
 from chat_thief.irc_msg import IrcMsg
-from chat_thief.obs import OBS_COMMANDS
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
@@ -35,6 +34,15 @@ BLACKLISTED_LOG_USERS = [
     "beginbotbot",
     "beginbot",
     "nightbot",
+]
+
+OBS_COMMANDS = [
+    "wyp",
+    "idk",
+    "jdi",
+    "brb",
+    "i_hate_that_thing",
+    "i_like_that_thing",
 ]
 
 HELP_MENU = [
