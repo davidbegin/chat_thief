@@ -94,7 +94,6 @@ class SampleSaver:
             start_time=self.start_time,
             end_time=self.end_time,
         )
-        # Lets grab a random user
         command_permission = CommandPermission(
             user=self.user, command=self.name, permitted_users=[random_user()]
         )

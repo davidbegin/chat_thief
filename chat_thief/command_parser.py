@@ -142,7 +142,7 @@ class CommandParser:
                     cool_person = cool_person[1:]
                 cool_person = cool_person.lower()
 
-                if len(self.args) > 1:
+                if len(self.args) > 1 and self.args[1] > 0:
                     amount = int(self.args[1])
                 else:
                     amount = 1
@@ -178,7 +178,7 @@ class CommandParser:
 
             if self.command == "approve_all_requests" and self.user == "beginbotbot":
                 request_user = self.args[0]
-                ApproveAllRequests.approve(request_user)
+                return ApproveAllRequests.approve(request_user)
 
             if self.command == "soundeffect":
                 sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)

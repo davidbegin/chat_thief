@@ -40,6 +40,32 @@ class SoundeffectRequest:
             "end_time": self.end_time,
         }
 
+    def approve_all_for_user(self, user):
+        results = self.sfx_requests_db.search(Query().requester == user)
+        return self._save_samples(results)
+
+    def _save_samples(self, results):
+        if results:
+            print(f"\nResults: {results}")
+
+        doc_ids_to_delete = [ sfx.doc_id for sfx in results ]
+        if doc_ids_to_delete:
+            print(f"Doc IDs being deleted: {doc_ids_to_delete}")
+        self.sfx_requests_db.remove(doc_ids=doc_ids_to_delete)
+
+        for sfx in results:
+            print(sfx)
+            # Pull out beginbotbot
+            sample_saver = SampleSaver(
+                    user="beginbotbot",
+                    command=sfx["command"],
+                    youtube_id=sfx["youtube_id"],
+                    start_time=sfx["start_time"],
+                    end_time=sfx["end_time"],
+            )
+            sample_saver.save(sfx["requester"])
+
+
     def pop_all_off(self):
         results = self.sfx_requests_db.search(Query().approved == True)
 

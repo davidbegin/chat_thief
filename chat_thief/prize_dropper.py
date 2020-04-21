@@ -1,5 +1,6 @@
 import random
 from pathlib import Path
+import traceback
 
 from chat_thief.audio_command import AudioCommand
 from chat_thief.irc import send_twitch_msg
@@ -17,13 +18,17 @@ def random_soundeffect():
 
 
 def random_user():
-    looking_for_user = True
-    while looking_for_user:
-        users = ChatLogs().recent_stream_peasants()
-        user = random.sample(users, 1)[0]
-        if user not in INVALID_USERS:
-            looking_for_user = False
-    return user
+    try:
+        looking_for_user = True
+        while looking_for_user:
+            users = ChatLogs().recent_stream_peasants()
+            user = random.sample(users, 1)[0]
+            if user not in INVALID_USERS:
+                looking_for_user = False
+        return user
+    except:
+        traceback.print_exc()
+        return None
 
 
 def drop_effect(user, soundeffect):

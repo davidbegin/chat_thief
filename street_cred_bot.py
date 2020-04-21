@@ -34,6 +34,7 @@ def sync_main():
             # time.sleep(60)
             time.sleep(300)
         except Exception as e:
+            time.sleep(30)
             if e is KeyboardInterrupt:
                 raise e
             else:
