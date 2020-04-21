@@ -41,7 +41,7 @@ our New Economy!
 
 - When someone gives you Street Cred, it becomes Cool Points
 - Cool Points are NOT transferable
-- Cool Points can be spent to buy sounds: `!`
+- Cool Points can be spent to buy sounds: `!buy clap`
 
 ## The Government
 

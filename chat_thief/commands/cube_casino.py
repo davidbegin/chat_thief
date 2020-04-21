@@ -11,22 +11,26 @@ class CubeCasino():
         self.user = user
         self.args = args
 
+    def all_bets(self):
+        return " | ".join([
+            f"@{result['gambler']} - {result['bet']}" for result in bets_db.all()
+        ])
+
     def closet_result(self, cube_time):
-        bets = bets_db.all()
-        result = {"bet": 1000000}
-        for user_bet in bets:
-            new_result = abs(user_bet['bet'] - cube_time)
-            if new_result < result["bet"]:
+        result = {"gambler": None, "bet": 1000000}
+
+        for user_bet in bets_db.all():
+            bet_diff = abs(user_bet['bet'] - cube_time)
+            print(f"{user_bet['gambler']} Diff: {bet_diff}")
+
+            if bet_diff < abs(result["bet"] - cube_time):
                 result = user_bet
 
-        difference = abs(result['bet'] - cube_time)
-        sfx_count = 10 - difference
+        sfx_count = 10 - abs(result['bet'] - cube_time)
+        msg = f"Closest User is: @{result['gambler']}, and they've earned: {sfx_count} commands"
 
-        msg = f"Closest User is: @{result['better']}, and they've earned: {sfx_count} commands"
-
-        if sfx_count > 0:
-            for _ in range(0, sfx_count):
-                send_twitch_msg(drop_random_soundeffect_to_user(result['better']))
+        for _ in range(0, sfx_count):
+            send_twitch_msg(drop_random_soundeffect_to_user(result['gambler']))
 
         print(msg)
         return msg
@@ -37,14 +41,22 @@ class CubeCasino():
         if self.user_bet < 1:
             raise ValueError("Cmon Beginbot can't solve a Cube in negative time....yet")
 
-        bets_db.insert(self.doc())
-        return self.doc()
+        old_bets = bets_db.search(
+            Query().gambler == self.user
+        )
+
+        if old_bets:
+            return f"@{self.user} you already bet!"
+        else:
+            bets_db.insert(self.doc())
+            return self.doc()
 
     def purge(self):
-        return bets_db.purge()
+        bets_db.purge()
+        return "Purged the Bets DB"
 
     def doc(self):
         return {
-                "better": self.user,
-                "bet": self.user_bet
-                }
+            "gambler": self.user,
+            "bet": self.user_bet
+        }

@@ -67,7 +67,7 @@ class AudioCommand:
 
             self.commands_db.update(remove_users(), Query().command == self.name)
 
-            return f"{target_user} no-longer allowed {self.name}"
+            return f"@{target_user} no longer allowed {self.name}"
 
         else:
             return f"No one had permission to {self.name}"
