@@ -9,8 +9,9 @@ from chat_thief.audio_command import AudioCommand
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 from chat_thief.command_permissions import CommandPermissionCenter
-from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.command_giver import CommandGiver
+from chat_thief.commands.command_sharer import CommandSharer
+from chat_thief.commands.cube_casino import CubeCasino
 from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
@@ -157,7 +158,7 @@ class CommandParser:
                     cool_person = cool_person[1:]
                 cool_person = cool_person.lower()
 
-                if len(self.args) > 1 and self.args[1] > 0:
+                if len(self.args) > 1 and int(self.args[1]) > 0:
                     amount = int(self.args[1])
                 else:
                     amount = 1
@@ -175,6 +176,16 @@ class CommandParser:
 
             if self.command == "users":
                 return WelcomeFile.present_users()
+
+            if self.command == "bet":
+                return CubeCasino(self.user, self.args).bet()
+
+            if self.command == "new_cube" and self.user == "beginbotbot":
+                return CubeCasino(self.user, self.args).purge()
+
+            if self.command == "cubed" and self.user == "beginbotbot":
+                cube_time = int(self.args[0])
+                return CubeCasino(self.user, self.args).closet_result(cube_time)
 
             if self.command == "so":
                 return shoutout(self.msg)
