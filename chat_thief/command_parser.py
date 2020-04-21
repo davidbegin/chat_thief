@@ -109,6 +109,11 @@ class CommandParser:
             # Drop randomeffect for new users
             # Weight For Powers
 
+            if self.command in ["economy"]:
+                # Print total Number of Cool Points
+                cool_points = User(self.user).total_cool_points()
+                return f"Total Cool Points in Market: {cool_points}"
+
             if self.command in ["buy"]:
                 return User(self.user).buy(self.args)
 

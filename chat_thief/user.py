@@ -14,6 +14,10 @@ class User:
         self.users_db = db_table(users_db_path, "users")
         self.commands_db = db_table(commands_db_path, "commands")
 
+    def total_cool_points(self):
+        users = self.users_db.all()
+        return sum([user["cool_points"] for user in users])
+
     def purge(self):
         return self.users_db.purge()
 
