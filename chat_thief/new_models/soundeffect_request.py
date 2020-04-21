@@ -1,6 +1,6 @@
 from tinydb import Query
 
-from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.audio_command import AudioCommand
@@ -23,7 +23,8 @@ class SoundeffectRequest:
         return self.doc()
 
     def is_auto_approved(self):
-        return self.user in STREAM_LORDS
+        return self.user in STREAM_GODS
+        # return self.user in STREAM_LORDS
 
     def auto_approver(self):
         if self.is_auto_approved():
@@ -40,11 +41,11 @@ class SoundeffectRequest:
             "end_time": self.end_time,
         }
 
-    def approve_all_for_user(self, user):
-        results = self.sfx_requests_db.search(Query().requester == user)
-        return self._save_samples(results)
+    def approve_all_for_user(self, approver, requester):
+        results = self.sfx_requests_db.search(Query().requester == requester)
+        return self._save_samples(results, approver)
 
-    def _save_samples(self, results):
+    def _save_samples(self, results, approver):
         if results:
             print(f"\nResults: {results}")
 
@@ -57,7 +58,7 @@ class SoundeffectRequest:
             print(sfx)
             # Pull out beginbotbot
             sample_saver = SampleSaver(
-                    user="beginbotbot",
+                    user=approver,
                     command=sfx["command"],
                     youtube_id=sfx["youtube_id"],
                     start_time=sfx["start_time"],

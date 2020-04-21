@@ -49,12 +49,12 @@ OBS_COMMANDS = [
 HELP_MENU = [
     "!me - Info about your self",
     "!perms - Check what soundeffects you have access to",
-    "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
-    "!add_perm COMMAND USER_TO_GIVE_PERMS - give someone else access to a command you have access to",
+    "!share COMMAND USER_TO_GIVE_PERMS - give someone else access to a command you have access to",
+    "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
     "!perms clap - See who is allowed to use the !clap command",
     "!perms beginbot - See what commands beginbot has access to",
-    "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
     "!leaderboard - See what users have the most commands",
+    "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
 ]
 
 
@@ -176,9 +176,12 @@ class CommandParser:
             if self.command == "requests":
                 return handle_user_requests()
 
-            if self.command == "approve_all_requests" and self.user == "beginbotbot":
-                request_user = self.args[0]
-                return ApproveAllRequests.approve(request_user)
+            if (
+                self.command in ["approve", "approve_all_requests"]
+                and self.user in STREAM_GODS
+            ):
+                request_user = self.args[0].lower()
+                return ApproveAllRequests.approve(self.user, request_user)
 
             if self.command == "soundeffect":
                 sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)
