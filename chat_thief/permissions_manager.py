@@ -39,5 +39,3 @@ class PermissionsManager:
 
             if self.user in permitted_users:
                 return self.audio_command.allow_user(self.target_user)
-            else:
-                print(f"{self.user} cannot add permissions")
