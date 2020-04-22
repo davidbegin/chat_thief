@@ -133,7 +133,7 @@ class CommandParser:
             if self.command in [
                 "give",
             ]:
-                return CommandGiver(self.user, self.args[0], self.args[1]).share()
+                return CommandGiver(self.user, self.args[0], self.args[1]).give()
 
             if self.command in [
                 "share",
@@ -212,7 +212,7 @@ class CommandParser:
 
             if (
                 self.command in ["approve", "approve_all_requests"]
-                and self.user in STREAM_GODS
+                and self.user in STREAM_LORDS
             ):
                 request_user = self.args[0].lower()
                 return ApproveAllRequests.approve(self.user, request_user)

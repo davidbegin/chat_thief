@@ -31,15 +31,15 @@ class TestUser:
         return _user
 
     def test_commands(self, user):
-        subject = user("zerostheory")
+        subject = user("artmattdank")
         assert subject.commands() == []
         audio_command = AudioCommand("flacid", commands_db_path=commands_db_path)
-        audio_command.allow_user("zerostheory")
-        assert audio_command.permitted_users() == ["zerostheory"]
+        audio_command.allow_user("artmattdank")
+        assert audio_command.permitted_users() == ["artmattdank"]
         assert subject.commands() == ["flacid"]
 
     def test_add_street_cred(self, user):
-        subject = user("zerostheory")
+        subject = user("artmattdank")
         assert subject.street_cred() == 0
         subject.add_street_cred()
         assert subject.street_cred() == 1

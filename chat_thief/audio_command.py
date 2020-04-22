@@ -4,7 +4,7 @@ from tinydb import TinyDB, Query
 
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.audio_player import AudioPlayer
-from chat_thief.models import CommandPermission
+from chat_thief.models.command_permission import CommandPermission
 from chat_thief.irc import send_twitch_msg
 from chat_thief.welcome_file import WelcomeFile
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
@@ -107,6 +107,6 @@ class AudioCommand:
             )
             print(f"Creating New Command Permissions: {command_permission.__dict__}")
             self.commands_db.insert(command_permission.__dict__)
-            message = f"User @{target_user} is the first person with access to the command: !{self.name}"
+            message = f"User @{target_user} is the first person wh access to the command: !{self.name}"
 
         return message

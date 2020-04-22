@@ -29,7 +29,7 @@ class PermissionsManager:
             commands_db_path=commands_db_path,
         )
 
-    def swap_perm(self, loser):
+    def swap_perm(self):
         permitted_users = self.audio_command.permitted_users()
 
         if self.user in STREAM_GODS:
@@ -39,7 +39,10 @@ class PermissionsManager:
 
             if self.user in permitted_users:
                 self.audio_command.allow_user(self.target_user)
-            return self.audio_command.unallow_user(loser)
+                # If you try and swap a command you don't own, you lose access
+                return self.audio_command.unallow_user(self.user)
+            else:
+                return f"{self.user} does not have permission to give: {self.target_command}"
 
     def add_perm(self):
         permitted_users = self.audio_command.permitted_users()

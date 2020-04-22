@@ -5,7 +5,8 @@ import subprocess
 from tinydb import TinyDB, Query
 
 from chat_thief.irc_msg import IrcMsg
-from chat_thief.models import SoundEffect, CommandPermission
+from chat_thief.models.soundeffect import SoundEffect
+from chat_thief.models.command_permission import CommandPermission
 from chat_thief.irc import send_twitch_msg
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.audio_player import AudioPlayer

@@ -4,7 +4,8 @@ from tinydb import Query
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.irc import send_twitch_msg
-from chat_thief.models import SoundEffect, CommandPermission
+from chat_thief.models.soundeffect import SoundEffect
+from chat_thief.models.command_permission import CommandPermission
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.user import User
