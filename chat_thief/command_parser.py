@@ -8,6 +8,7 @@ import traceback
 from chat_thief.audio_command import AudioCommand
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
+from chat_thief.chat_parsers.transfer_request_parser import TransferRequestParser
 from chat_thief.command_permissions import CommandPermissionCenter
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
@@ -137,11 +138,9 @@ class CommandParser:
                 "give",
                 "transfer",
             ]:
-                from chat_thief.chat_parsers.transfer_request_parser import (
-                    TransferRequestParser,
-                )
 
                 parser = TransferRequestParser(self.user, self.args).parse()
+
                 return CommandGiver(
                     parser.transferer, parser.target_command, parser.target_user
                 ).give()
@@ -153,16 +152,10 @@ class CommandParser:
                 "share_perm",
                 "share_perms",
             ]:
-                return CommandSharer(self.user, self.args[0], self.args[1]).share()
-            if self.command in [
-                "give",
-                "share",
-                "add_perm",
-                "add_perms",
-                "share_perm",
-                "share_perms",
-            ]:
-                return CommandSharer(self.user, self.args[0], self.args[1]).share()
+                parser = TransferRequestParser(self.user, self.args).parse()
+                return CommandSharer(
+                    self.user, parser.target_command, parser.target_user
+                ).share()
 
             if self.command in [
                 "props",
