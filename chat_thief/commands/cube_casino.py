@@ -1,3 +1,5 @@
+import subprocess
+
 from tinydb import Query
 from chat_thief.database import db_table
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
@@ -10,6 +12,14 @@ class CubeCasino():
     def __init__(self, user, args=[]):
         self.user = user
         self.args = args
+        if self._is_stopwatch_running():
+            raise Exception("YOU CAN'T BET WHILE THE BEGIN IS SOLVING")
+
+    def _is_stopwatch_running(self):
+        args = "ps -ef".split(" ")
+        processes = subprocess.run(args, capture_output=True).stdout
+        return "bash ./stopwatch" in str(processes)
+
 
     def all_bets(self):
         return " | ".join([
