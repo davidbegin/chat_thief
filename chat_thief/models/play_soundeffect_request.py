@@ -1,5 +1,6 @@
 import json
 import traceback
+
 from tinydb import Query
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
@@ -51,6 +52,6 @@ class PlaySoundeffectRequest:
             print(sfx)
             audio_command = AudioCommand(name=sfx["command"])
             if audio_command.allowed_to_play(sfx["user"]):
-                audio_command.play_sample()
+                audio_command.play_sample(remove_health=True)
             else:
                 print(f"{sfx['user']} not allowed to play: {sfx['command']}")
