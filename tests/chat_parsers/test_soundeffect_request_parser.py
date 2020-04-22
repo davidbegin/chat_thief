@@ -4,10 +4,8 @@ from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectReques
 
 class TestSoundeffectRequestParser:
 
-    @pytest.mark.focus
     def test_parse(self):
         user = "fake_user"
-
         args = ["RzBr6wof1mw", "nice", "00:01", "00:05"]
         subject = SoundeffectRequestParser(user, args)
         result = subject.parse()

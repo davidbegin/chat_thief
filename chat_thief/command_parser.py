@@ -52,7 +52,7 @@ HELP_MENU = [
     "!me - Info about your self",
     "!perms - Check what soundeffects you have access to",
     "!share COMMAND USER_TO_GIVE_PERMS - share someone else access to a command you have access to",
-    "!give COMMAND USER_TO_GIVE_PERMS - give your command to someone else, costs no cool points, but you lose access",
+    "!transfer COMMAND USER_TO_GIVE_PERMS - transfer your command to someone else, costs no cool points, but you lose access",
     "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
     "!perms clap - See who is allowed to use the !clap command",
     "!perms beginbot - See what commands beginbot has access to",
@@ -132,14 +132,16 @@ class CommandParser:
 
             if self.command in [
                 "give",
+                "transfer",
             ]:
-                cool_person = self.args[0]
-                if cool_person.startswith("@"):
-                    cool_person = cool_person[1:]
-                cool_person = cool_person.lower()
+                from chat_thief.chat_parsers.transfer_request_parser import (
+                    TransferRequestParser,
+                )
 
-                # We should make this more robust
-                return CommandGiver(self.user, cool_person, self.args[1]).give()
+                parser = TransferRequestParser(self.user, self.args).parse()
+                return CommandGiver(
+                    parser.transferer, parser.target_command, parser.target_user
+                ).give()
 
             if self.command in [
                 "share",

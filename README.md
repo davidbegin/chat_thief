@@ -35,7 +35,7 @@ our New Economy!
   automatically (note: this is different than Beginbux AKA channel points)
 - You can only give it to other viewer: `!props other_user`
 - You may also share one of your sounds with another viewer for 1 Street Cred:
-  `!give sound other_user`
+  `!share sound other_user`
 
 ### Cool Points
 
@@ -57,6 +57,14 @@ it will be you! You will be notified in the chat, if you receive a random item.
 
 Q: How do you get street cred?
 A: Chatting
+
+Q: What is the difference in transfer, share, endorse, buy,
+A:
+  - !transfer -> Transfer access to a soundeffect to another user (No Street
+    Cred Required)
+  - !share    -> Share a sound with a User for Street Cred
+  - !endorse  -> Give someone your Street Cred (it becomes Cool Points)
+  - !buy      -> Purchase access to a sound with Cool Points
 
 ## Theme Song
 

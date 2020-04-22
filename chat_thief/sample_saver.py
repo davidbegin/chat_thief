@@ -33,10 +33,17 @@ class SampleSaver:
         self.soundeffects_table = DB.table("soundeffects")
         self.command_permissions_table = DB.table("command_permissions")
 
-        self.name = command.lower()
+        self.name = self._sanitize_command(command)
         self.youtube_id = youtube_id
         self.start_time = start_time
         self.end_time = end_time
+
+    def _sanitize_command(self, command):
+        command = command.lower()
+
+        if command.startswith("@") or command.startswith("!"):
+            command = command[1:]
+        return command
 
     def _add_soundeffect_args(self):
         # Who calls SampleSaver?
