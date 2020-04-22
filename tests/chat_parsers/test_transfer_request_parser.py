@@ -4,7 +4,6 @@ from chat_thief.chat_parsers.transfer_request_parser import TransferRequestParse
 
 class TestTransferRequestParser:
 
-    @pytest.mark.focus
     def test_parse(self):
         user = "fake_user"
 
