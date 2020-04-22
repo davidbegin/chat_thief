@@ -18,8 +18,8 @@ from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.irc import send_twitch_msg
 from chat_thief.irc_msg import IrcMsg
-from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
-from chat_thief.new_models.soundeffect_request import SoundeffectRequest
+from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.revolution import Revolution
@@ -87,6 +87,9 @@ class CommandParser:
                 from chat_thief.commands.leaderboard import leaderboard
 
                 return leaderboard()
+
+            if self.command == "color" and self.user in STREAM_GODS:
+                subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 
             if self.command == "revolution":
                 return Revolution(self.user).incite()

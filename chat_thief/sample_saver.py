@@ -13,7 +13,7 @@ from chat_thief.audio_player import AudioPlayer
 from chat_thief.welcome_file import WelcomeFile
 from chat_thief.prize_dropper import random_user
 from chat_thief.audio_command import AudioCommand
-from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 
 
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"

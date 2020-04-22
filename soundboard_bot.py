@@ -2,7 +2,7 @@ import traceback
 import time
 
 from chat_thief.log import logger
-from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 
 
 def sync_main():

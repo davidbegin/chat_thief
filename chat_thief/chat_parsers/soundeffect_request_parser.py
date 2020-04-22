@@ -1,4 +1,4 @@
-from chat_thief.new_models.soundeffect_request import SoundeffectRequest
+from chat_thief.models.soundeffect_request import SoundeffectRequest
 
 
 class SoundeffectRequestParser:

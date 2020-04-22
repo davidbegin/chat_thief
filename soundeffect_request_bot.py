@@ -5,7 +5,7 @@ import time
 
 from chat_thief.log import logger
 from chat_thief.audio_command import AudioCommand
-from chat_thief.new_models.soundeffect_request import SoundeffectRequest
+from chat_thief.models.soundeffect_request import SoundeffectRequest
 
 
 def sync_main():

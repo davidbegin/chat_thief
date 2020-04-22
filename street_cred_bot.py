@@ -6,7 +6,7 @@ import time
 
 from chat_thief.log import logger
 from chat_thief.audio_command import AudioCommand
-from chat_thief.new_models.soundeffect_request import SoundeffectRequest
+from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.user import User
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user

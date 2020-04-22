@@ -1,4 +1,5 @@
-
+import json
+import traceback
 from tinydb import Query
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
@@ -14,12 +15,24 @@ class PlaySoundeffectRequest:
         self.play_sfx_db = db_table(play_soundeffect_requests_db_path, "play_soundeffects")
 
     def save(self):
-        print(f"Creating New Play SFX Request: {self.doc()}")
-        self.play_sfx_db.insert(self.doc())
-        return self.doc()
+        if self._is_valid_json():
+            print(f"Creating New Play SFX Request: {self.doc()}")
+            self.play_sfx_db.insert(self.doc())
+            return self.doc()
+        else:
+            return f"There was an issue with {self.doc()}"
 
     def command_count(self):
+        # We should check if this is valid json
         return len(self.play_sfx_db)
+
+    def _is_valid_json(self):
+        try:
+            json.dumps(self.doc())
+            return True
+        except:
+            traceback.print_exc()
+            return False
 
     def doc(self):
         return {
@@ -41,27 +54,3 @@ class PlaySoundeffectRequest:
                 audio_command.play_sample()
             else:
                 print(f"{sfx['user']} not allowed to play: {sfx['command']}")
-
-
-    # def commands(self):
-        # def in_permitted_users(permitted_users, current_user):
-        #     return current_user in permitted_users
-
-        # command_permissions = [
-        #     permission["command"]
-        #     for permission in self.commands_db.search(
-        #         Query().permitted_users.test(in_permitted_users, self.name)
-        #     )
-        # ]
-        # return command_permissions
-
-    # def add_street_cred(self):
-        # user = self._find_or_create_user()
-
-        # def increase_cred():
-        #     def transform(doc):
-        #         doc["street_cred"] = doc["street_cred"] + 1
-
-        #     return transform
-
-        # self.users_db.update(increase_cred(), Query().name == self.name)

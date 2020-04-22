@@ -1,6 +1,6 @@
 import pytest
 
-from chat_thief.new_models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.prize_dropper import random_soundeffect
 
 class TestPlaySoundeffectRequest:
