@@ -133,7 +133,13 @@ class CommandParser:
             if self.command in [
                 "give",
             ]:
-                return CommandGiver(self.user, self.args[0], self.args[1]).give()
+                cool_person = self.args[0]
+                if cool_person.startswith("@"):
+                    cool_person = cool_person[1:]
+                cool_person = cool_person.lower()
+
+                # We should make this more robust
+                return CommandGiver(self.user, cool_person, self.args[1]).give()
 
             if self.command in [
                 "share",
