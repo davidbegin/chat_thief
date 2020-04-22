@@ -3,17 +3,24 @@
 This started as a simple twitch chatbot, but has evolved into a Soundboard
 economy manager (More Details Below).
 
-Set the following environment variables:
-
-- TWITCH_OAUTH_TOKEN
-- TWITCH_CHANNEL
-- TWITCH_BOT_NAME
+## Bots in Action
 
 ```bash
+# Main Bot collect and responding to chat commands
 python bot.py
 
-# Or for testing
-python fake_bot.py
+# Bot that will read out soundeffect requests from a file
+# And try to make them available
+python soundeffect_request_bot.py
+
+# Bot that will read out soundeffects from a file and play them
+python soundboard_bot.py
+
+# Bot that runs and give active chatters Street Cred on a regular basis
+python street_cred_bot.py
+
+# For testing
+python fake_bot.py -m "\!clap" -u beginbotbot
 ```
 
 ## What Is Going On During Your Stream
@@ -33,15 +40,22 @@ our New Economy!
 
 - You earn it from working (if you are chatting, you will earn street cred
   automatically (note: this is different than Beginbux AKA channel points)
-- You can only give it to other viewer: `!props other_user`
+- You can only give it to other viewer:
+  `!props other_user`
+  `!endorse other_user`
+  `!bigups other_user`
 - You may also share one of your sounds with another viewer for 1 Street Cred:
   `!share sound other_user`
+- You can also transfer a soundeffect to another user, costing No Streed Cred:
+  `!transfer sound other_user`
 
 ### Cool Points
 
 - When someone gives you Street Cred, it becomes Cool Points
 - Cool Points are NOT transferable
-- Cool Points can be spent to buy sounds: `!buy clap`
+- Cool Points can be spent to buy sounds:
+  `!buy clap`
+  `!buy random`
 
 ## The Government
 
@@ -53,18 +67,21 @@ our New Economy!
 There are also random drops, when a random user is given a random sound, maybe
 it will be you! You will be notified in the chat, if you receive a random item.
 
+## Gambling
+
 ## FAQ
 
 Q: How do you get street cred?
 A: Chatting
 
-Q: What is the difference in transfer, share, endorse, buy,
+Q: What is the difference in transfer, share, endorse, buy?
 A:
-  - !transfer -> Transfer access to a soundeffect to another user (No Street
-    Cred Required)
-  - !share    -> Share a sound with a User for Street Cred
-  - !endorse  -> Give someone your Street Cred (it becomes Cool Points)
-  - !buy      -> Purchase access to a sound with Cool Points
+
+- !transfer -> Transfer access to a soundeffect to another user (No Street
+  Cred Required)
+- !share    -> Share a sound with a User for Street Cred
+- !endorse  -> Give someone your Street Cred (they become Cool Points)
+- !buy      -> Purchase access to a sound with Cool Points
 
 ## Theme Song
 
