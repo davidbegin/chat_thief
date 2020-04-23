@@ -7,18 +7,17 @@ class TestTransferRequestParser:
     def test_parse(self):
         user = "fake_user"
 
-        args = ["@IACCHUS", "clap"]
+        args = ["@artmattdank", "clap"]
         subject = TransferRequestParser(user, args)
         result = subject.parse()
-        assert result.target_user == "iacchus"
+        assert result.target_user == "artmattdank"
         assert result.target_command == "clap"
         assert result.transferer == user
 
 
-        args = ["!clap", "@IACCHUS"]
+        args = ["!clap", "@ARTMATTDANK"]
         subject = TransferRequestParser(user, args)
         result = subject.parse()
-        assert result.target_user == "iacchus"
+        assert result.target_user == "artmattdank"
         assert result.target_command == "clap"
         assert result.transferer == user
-        # args = ["clap", "@iacchus"]

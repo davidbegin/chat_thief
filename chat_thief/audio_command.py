@@ -30,6 +30,8 @@ class AudioCommand:
         self.commands_db = db_table(commands_db_path, "commands")
 
     def play_sample(self, remove_health=False):
+        AudioPlayer.play_sample(self.soundfile.resolve())
+
         # At this point, we think we have checked the permissions properly
         # So we need to check and remove Health
         if remove_health:
@@ -43,11 +45,13 @@ class AudioCommand:
                 return "NO Command found"
 
             if health > 0:
-                AudioPlayer.play_sample(self.soundfile.resolve())
+                # AudioPlayer.play_sample(self.soundfile.resolve())
+                print("I would have made a sound")
             else:
                 print(f"{self.name} is out of health")
         else:
-            AudioPlayer.play_sample(self.soundfile.resolve())
+            print("I would have made a sound")
+            # AudioPlayer.play_sample(self.soundfile.resolve())
 
     def allowed_to_play(self, user):
         if self.is_theme_song:

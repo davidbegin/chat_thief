@@ -10,6 +10,12 @@ class TransferRequest:
     transferer : str
 
 
+# We need rename this class
+# This is good for any command, that takes a user and a command, and needs to
+# parse
+#
+# Meaning this helps you create commands with users and soundeffects
+# in any order, with @ or !
 class TransferRequestParser:
     def __init__(self, user, args):
         self.transferer = user
@@ -40,6 +46,8 @@ class TransferRequestParser:
         if cool_person in WelcomeFile.present_users():
             self.target_user = cool_person
             self.target_command = self.args[0]
+
+        # What if the person ain't in the the Welcome File
 
     def _sanitize_arg(self, arg):
         if arg.startswith("@") or arg.startswith("!"):
