@@ -1,7 +1,6 @@
 import subprocess
 
 from tinydb import Query
-from tinyrecord import transaction
 
 from chat_thief.database import db_table
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
@@ -60,6 +59,7 @@ class CubeCasino():
         if old_bets:
             return f"@{self.user} you already bet!"
         else:
+            from tinyrecord import transaction
             with transaction(bets_db) as tr:
                 tr.insert(self.doc())
             return self.doc()

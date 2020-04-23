@@ -1,5 +1,4 @@
 from tinydb import Query
-from tinyrecord import transaction
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.prize_dropper import random_soundeffect
@@ -94,6 +93,8 @@ class User:
             return user_result
         else:
             print(f"Creating New User: {self.doc()}")
+            from tinyrecord import transaction
+
             with transaction(self.users_db) as tr:
                 tr.insert(self.doc())
             return self.doc()

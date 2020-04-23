@@ -175,6 +175,11 @@ class CommandParser:
                     cool_person = cool_person[1:]
                 cool_person = cool_person.lower()
 
+                if cool_person == "random":
+                    from chat_thief.prize_dropper import random_user
+
+                    cool_person = random_user()
+
                 if len(self.args) > 1 and int(self.args[1]) > 0:
                     amount = int(self.args[1])
                 else:

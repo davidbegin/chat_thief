@@ -2,7 +2,6 @@ import json
 import traceback
 
 from tinydb import Query
-from tinyrecord import transaction
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.audio_command import AudioCommand
@@ -20,6 +19,7 @@ class PlaySoundeffectRequest:
         if self._is_valid_json():
             print(f"Creating New Play SFX Request: {self.doc()}")
 
+            from tinyrecord import transaction
             with transaction(self.play_sfx_db) as tr:
                 print("Transaction Time")
                 tr.insert(self.doc())
@@ -51,8 +51,9 @@ class PlaySoundeffectRequest:
         doc_ids_to_delete = [ sfx.doc_id for sfx in all_effects ]
         if doc_ids_to_delete:
             print(f"Doc IDs being deleted: {doc_ids_to_delete}")
-        with transaction(self.play_sfx_db) as tr:
-            tr.remove(doc_ids=doc_ids_to_delete)
+            from tinyrecord import transaction
+            with transaction(self.play_sfx_db) as tr:
+                tr.remove(doc_ids=doc_ids_to_delete)
 
         for sfx in all_effects:
             print(sfx)
