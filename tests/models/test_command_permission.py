@@ -4,7 +4,6 @@ from chat_thief.models.command_permission import CommandPermission
 
 class TestCommandPermission:
 
-    @pytest.mark.focus
     def test_no_more_health(self):
         user = "fake_user"
         command = "clap"
