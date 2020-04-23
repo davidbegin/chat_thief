@@ -1,4 +1,5 @@
 from tinydb import Query
+from tinyrecord import transaction
 
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 
@@ -19,7 +20,8 @@ class SoundeffectRequest:
 
     def save(self):
         print(f"Creating New SFX Request: {self.doc()}")
-        self.sfx_requests_db.insert(self.doc())
+        with transaction(self.sfx_requests_db) as tr:
+            tr.insert(self.doc())
         return self.doc()
 
     def is_auto_approved(self):

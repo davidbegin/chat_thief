@@ -51,7 +51,6 @@ OBS_COMMANDS = [
 
 HELP_MENU = [
     "!me - Info about your self",
-    "!perms - Check what soundeffects you have access to",
     "!share COMMAND USER_TO_GIVE_PERMS - share someone else access to a command you have access to",
     "!transfer COMMAND USER_TO_GIVE_PERMS - transfer your command to someone else, costs no cool points, but you lose access",
     "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
@@ -99,8 +98,16 @@ class CommandParser:
                 if self.user in STREAM_GODS:
                     return User(self.args[0]).paperup()
 
-            if self.command == "me":
-                return User(self.user).stats()
+            if self.command in ["me", "permissions", "permission", "perms", "perm"]:
+                perms = CommandPermissionCenter.fetch_permissions(
+                    user=self.user, args=self.args,
+                )
+                stats = User(self.user).stats()
+                if perms:
+                    formatted_perms = " ".join([f"!{command}" for command in perms])
+                    return [stats, formatted_perms]
+                else:
+                    return stats
 
             if self.command == "peasants":
                 return ChatLogs().recent_stream_peasants()
@@ -127,18 +134,10 @@ class CommandParser:
             if self.command == "dropreward" and self.user in STREAM_GODS:
                 return dropreward()
 
-            if self.command in ["permissions", "permission", "perms", "perm"]:
-                perms = CommandPermissionCenter.fetch_permissions(
-                    user=self.user, args=self.args,
-                )
-                if perms:
-                    return " ".join([f"!{command}" for command in perms])
-
             if self.command in [
                 "give",
                 "transfer",
             ]:
-
                 parser = TransferRequestParser(self.user, self.args).parse()
 
                 return CommandGiver(

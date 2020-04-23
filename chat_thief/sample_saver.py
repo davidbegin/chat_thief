@@ -3,6 +3,7 @@ import re
 import subprocess
 
 from tinydb import TinyDB, Query
+from tinyrecord import transaction
 
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.models.soundeffect import SoundEffect
@@ -108,8 +109,11 @@ class SampleSaver:
         # We need the name of the audio commmand
         # AudioCommand(name).allow_user(requester)
         print(f"Saving in our DB! {sound.__dict__}")
-        self.soundeffects_table.insert(sound.__dict__)
-        self.command_permissions_table.insert(command_permission.__dict__)
+        with transaction(self.soundeffects_table) as tr:
+            tr.insert(sound.__dict__)
+
+        with transaction(self.command_permissions_table) as tr:
+            tr.insert(command_permission.__dict__)
 
     def _save_with_youtube_dl(self):
         """

@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from tinydb import TinyDB, Query
+from tinyrecord import transaction
 
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.audio_player import AudioPlayer
@@ -127,7 +128,8 @@ class AudioCommand:
                 user="beginbot", command=self.name, permitted_users=[target_user],
             )
             print(f"Creating New Command Permissions: {command_permission.__dict__}")
-            self.commands_db.insert(command_permission.__dict__)
+            with transaction(self.commands_db) as tr:
+                tr.insert(command_permission.__dict__)
             message = f"User @{target_user} is the first person wh access to the command: !{self.name}"
 
         return message

@@ -2,6 +2,7 @@ import json
 import traceback
 
 from tinydb import Query
+from tinyrecord import transaction
 
 from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.audio_command import AudioCommand
@@ -18,8 +19,12 @@ class PlaySoundeffectRequest:
     def save(self):
         if self._is_valid_json():
             print(f"Creating New Play SFX Request: {self.doc()}")
-            self.play_sfx_db.insert(self.doc())
+
+            with transaction(self.play_sfx_db) as tr:
+                print("Transaction Time")
+                tr.insert(self.doc())
             return self.doc()
+
         else:
             return f"There was an issue with {self.doc()}"
 

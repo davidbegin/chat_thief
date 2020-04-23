@@ -1,6 +1,8 @@
 import subprocess
 
 from tinydb import Query
+from tinyrecord import transaction
+
 from chat_thief.database import db_table
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 from chat_thief.irc import send_twitch_msg
@@ -58,7 +60,8 @@ class CubeCasino():
         if old_bets:
             return f"@{self.user} you already bet!"
         else:
-            bets_db.insert(self.doc())
+            with transaction(bets_db) as tr:
+                tr.insert(self.doc())
             return self.doc()
 
     def purge(self):
