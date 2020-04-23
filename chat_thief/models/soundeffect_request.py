@@ -54,7 +54,8 @@ class SoundeffectRequest:
         doc_ids_to_delete = [ sfx.doc_id for sfx in results ]
         if doc_ids_to_delete:
             print(f"Doc IDs being deleted: {doc_ids_to_delete}")
-        self.sfx_requests_db.remove(doc_ids=doc_ids_to_delete)
+        with transaction(self.sfx_requests_db) as tr:
+            tr.remove(doc_ids=doc_ids_to_delete)
 
         for sfx in results:
             print(sfx)

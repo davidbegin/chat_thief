@@ -51,7 +51,8 @@ class PlaySoundeffectRequest:
         doc_ids_to_delete = [ sfx.doc_id for sfx in all_effects ]
         if doc_ids_to_delete:
             print(f"Doc IDs being deleted: {doc_ids_to_delete}")
-        self.play_sfx_db.remove(doc_ids=doc_ids_to_delete)
+        with transaction(self.play_sfx_db) as tr:
+            tr.remove(doc_ids=doc_ids_to_delete)
 
         for sfx in all_effects:
             print(sfx)
