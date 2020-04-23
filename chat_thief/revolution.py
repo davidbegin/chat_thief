@@ -1,5 +1,5 @@
 from chat_thief.user import User
-from chat_thief.command_permissions import CommandPermissionCenter
+from chat_thief.permissions_fetcher import PermissionsFetcher
 
 
 class Revolution:
@@ -21,7 +21,7 @@ class Revolution:
         results = []
         result = self.user.purge()
         results.append(result)
-        permissions_manager = CommandPermissionCenter("beginbot")
+        permissions_manager = PermissionsFetcher("beginbot")
         result = permissions_manager.purge()
         results.append(result)
         return results

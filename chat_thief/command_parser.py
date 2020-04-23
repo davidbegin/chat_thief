@@ -9,7 +9,8 @@ from chat_thief.audio_command import AudioCommand
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 from chat_thief.chat_parsers.transfer_request_parser import TransferRequestParser
-from chat_thief.command_permissions import CommandPermissionCenter
+
+from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.cube_casino import CubeCasino
@@ -98,16 +99,24 @@ class CommandParser:
                 if self.user in STREAM_GODS:
                     return User(self.args[0]).paperup()
 
-            if self.command in ["me", "permissions", "permission", "perms", "perm"]:
-                perms = CommandPermissionCenter.fetch_permissions(
+            if self.command in ["me"]:
+                perms = PermissionsFetcher.fetch_permissions(
                     user=self.user, args=self.args,
                 )
                 stats = User(self.user).stats()
                 if perms:
-                    formatted_perms = " ".join([f"!{command}" for command in perms])
-                    return [stats, formatted_perms]
+                    return [stats, perms]
                 else:
                     return stats
+
+            if self.command in ["permissions", "permission", "perms", "perm"]:
+                perms = PermissionsFetcher.fetch_permissions(
+                    user=self.user, args=self.args,
+                )
+                if perms:
+                    return perms
+                else:
+                    return f"We found no permissions for {self.user} {self.args}"
 
             if self.command == "peasants":
                 return ChatLogs().recent_stream_peasants()
@@ -194,7 +203,7 @@ class CommandParser:
             if self.command == "new_cube" and self.user == "beginbotbot":
                 return CubeCasino(self.user, self.args).purge()
 
-            if self.command == "cubed" and self.user == "beginbotbot":
+            if self.command == "cubed" and self.user in ["beginbot", "beginbotbot"]:
                 cube_time = int(self.args[0])
                 return CubeCasino(self.user, self.args).closet_result(cube_time)
 
@@ -202,7 +211,7 @@ class CommandParser:
                 return shoutout(self.msg)
 
             if self.command == "whitelist":
-                return " ".join(CommandPermissionCenter.fetch_whitelisted_users())
+                return " ".join(PermissionsFetcher.fetch_whitelisted_users())
 
             if self.command == "streamlords":
                 return " ".join(STREAM_LORDS)

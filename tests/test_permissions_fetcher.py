@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from chat_thief.stream_lords import STREAM_LORDS
-from chat_thief.command_permissions import CommandPermissionCenter
+from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.audio_command import AudioCommand
 
 commands_db_path = Path(__file__).parent.joinpath("db/commands.json")
@@ -18,7 +18,7 @@ class TestCommandPermissions:
     @pytest.fixture
     def command_permission_center(self):
         def _command_permission_center(user, command, args=[]):
-            return CommandPermissionCenter(
+            return PermissionsFetcher(
                 user=user,
                 command=command,
                 args=args,

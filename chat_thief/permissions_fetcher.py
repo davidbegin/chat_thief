@@ -21,7 +21,7 @@ def fetch_whitelisted_users():
     )
 
 
-class CommandPermissionCenter:
+class PermissionsFetcher:
     def __init__(
         self,
         user,
@@ -65,20 +65,16 @@ class CommandPermissionCenter:
                 ).fetch_command_permissions()
 
                 if not user_permissions:
-                    title = "No One can use !{args[0]}"
+                    title = f"No One can use !{args[0]}"
         else:
             print("Not sure what to do!!!")
             return
 
         if user in STREAM_LORDS:
+            # we should check if this is a user or command permissions query
             title = f"Stream Lord: {title}"
 
-        # This is a hack
-        # user_permissions = list(set(user_permissions))
-        if user_permissions:
-            send_twitch_msg(f"{title} Permissions: {user_permissions}")
-        else:
-            pass
+        return f"{title} Permissions: {user_permissions}"
 
     def purge(self):
         self.commands_db.purge()
