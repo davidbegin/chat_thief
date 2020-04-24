@@ -29,21 +29,26 @@ class CubeCasino():
 
     def closet_result(self, cube_time):
         result = {"gambler": None, "bet": 1000000}
+        all_bets = bets_db.all()
 
-        for user_bet in bets_db.all():
+        for user_bet in all_bets:
             bet_diff = abs(user_bet['bet'] - cube_time)
             print(f"{user_bet['gambler']} Diff: {bet_diff}")
 
             if bet_diff < abs(result["bet"] - cube_time):
                 result = user_bet
 
+        winners = [bet for bet in all_bets if bet['bet'] == result['bet']]
         sfx_count = 10 - abs(result['bet'] - cube_time)
-        msg = f"Closest User is: @{result['gambler']}, and they've earned: {sfx_count} commands"
+        sfx_per_user = round(sfx_count / len(winners))
 
-        for _ in range(0, sfx_count):
-            send_twitch_msg(drop_random_soundeffect_to_user(result['gambler']))
+        msg = []
+        for winner in winners:
+            msg.append(f"Winner: @{winner['gambler']} Won {sfx_per_user} commands")
 
-        print(msg)
+            for _ in range(0, sfx_per_user):
+                send_twitch_msg(drop_random_soundeffect_to_user(winner['gambler']))
+
         return msg
 
 

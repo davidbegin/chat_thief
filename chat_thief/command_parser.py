@@ -209,7 +209,7 @@ class CommandParser:
             if self.command == "users":
                 return WelcomeFile.present_users()
 
-            if self.command == "all_bets":
+            if self.command in ["all_bets", "all_bet", "bets"]:
                 return CubeCasino(self.user, self.args).all_bets()
 
             if self.command == "bet":
