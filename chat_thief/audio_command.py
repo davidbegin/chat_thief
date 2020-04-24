@@ -88,7 +88,7 @@ class AudioCommand:
 
             self.commands_db.update(remove_users(), Query().command == self.name)
 
-            return f"@{target_user} no longer allowed {self.name}"
+            return f"@{target_user} Lost Access to !{self.name}"
 
         else:
             return f"No one had permission to {self.name}"
@@ -103,9 +103,6 @@ class AudioCommand:
             command_permission = command_permission[-1]
 
             if target_user not in command_permission["permitted_users"]:
-                print(
-                    f"Updating Previous Command Permissions {command_permission.__dict__}"
-                )
 
                 def add_permitted_users():
                     def transform(doc):
@@ -117,9 +114,7 @@ class AudioCommand:
                     add_permitted_users(), Query().command == self.name
                 )
 
-                message = (
-                    f"User @{target_user} updated permissions for command: {self.name}"
-                )
+                message = f"@{target_user} now has access to !{self.name}"
             else:
                 message = f"User @{target_user} is already in permitted_users for {self.name}!"
         else:

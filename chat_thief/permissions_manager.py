@@ -33,14 +33,14 @@ class PermissionsManager:
         permitted_users = self.audio_command.permitted_users()
 
         if self.user in STREAM_GODS:
-            return "YOUR A STREAM GOD: YOU DON'T NEED TO SWAP PERMS"
+            return f"YOUR A STREAM GOD @{self.user} YOU DON'T NEED TO SWAP PERMS"
         else:
             print(f"Permitted Users For: {self.target_command} {permitted_users}")
 
             if self.user in permitted_users:
-                self.audio_command.allow_user(self.target_user)
+                allow_msg = self.audio_command.allow_user(self.target_user)
                 # If you try and swap a command you don't own, you lose access
-                return self.audio_command.unallow_user(self.user)
+                return [allow_msg, self.audio_command.unallow_user(self.user)]
             else:
                 return f"{self.user} does not have permission to give: {self.target_command}"
 
@@ -50,7 +50,7 @@ class PermissionsManager:
         if self.user in STREAM_GODS:
             return self.audio_command.allow_user(self.target_user)
         else:
-            print(f"Permitted Users For: {self.target_command} {permitted_users}")
+            print(f"!{self.target_command} Permitted Users: {permitted_users}")
 
             if self.user in permitted_users:
                 return self.audio_command.allow_user(self.target_user)

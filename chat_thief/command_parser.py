@@ -9,6 +9,7 @@ from chat_thief.chat_logs import ChatLogs
 
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
+from chat_thief.chat_parsers.props_parser import PropsParser
 
 from chat_thief.commands.approve_all_requests import ApproveAllRequests
 from chat_thief.commands.command_giver import CommandGiver
@@ -29,7 +30,7 @@ from chat_thief.models.user import User
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.permissions_manager import PermissionsManager
 
-from chat_thief.prize_dropper import drop_soundeffect, dropreward
+from chat_thief.prize_dropper import drop_soundeffect, dropreward, random_soundeffect
 from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
@@ -142,7 +143,13 @@ class CommandParser:
                 return f"Total Cool Points in Market: {cool_points}"
 
             if self.command in ["buy"]:
-                parser = PermsParser(user=self.user, args=self.args).parse()
+                parser = PermsParser(
+                    user=self.user, args=self.args, random_command=True
+                ).parse()
+                if parser.target_command == "random":
+                    # It's a feature not a bug we don't
+                    # check if you already have the command
+                    parser.target_command = random_soundeffect()
                 return User(self.user).buy(parser.target_command)
 
             # These Need Chat Parsers
@@ -156,7 +163,7 @@ class CommandParser:
                 "give",
                 "transfer",
             ]:
-                parser = PropsParser(user=self.user, args=self.args).parse()
+                parser = PermsParser(user=self.user, args=self.args).parse()
 
                 return CommandGiver(
                     self.user, parser.target_command, parser.target_user
@@ -164,12 +171,20 @@ class CommandParser:
 
             if self.command in [
                 "share",
+                "clone",
                 "add_perm",
                 "add_perms",
                 "share_perm",
                 "share_perms",
             ]:
-                parser = PropsParser(user=self.user, args=self.args).parse()
+                # We can't allow random commands, but can allow random users
+                parser = PermsParser(
+                    user=self.user, args=self.args, random_user=True
+                ).parse()
+                if parser.target_user == "random":
+                    from chat_thief.prize_dropper import random_user
+
+                    parser.target_user = random_user()
                 return CommandSharer(
                     self.user, parser.target_command, parser.target_user
                 ).share()
@@ -180,6 +195,10 @@ class CommandParser:
                 "endorse",
             ]:
                 parser = PropsParser(user=self.user, args=self.args).parse()
+                if parser.target_user == "random":
+                    from chat_thief.prize_dropper import random_user
+
+                    parser.target_user = random_user()
                 return StreetCredTransfer(
                     user=self.user, cool_person=parser.target_user, amount=parser.amount
                 ).transfer()

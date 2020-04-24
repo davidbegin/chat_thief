@@ -14,9 +14,11 @@ class PermsRequest:
 
 
 class PermsParser:
-    def __init__(self, user, args=[]):
+    def __init__(self, user, args=[], random_user=False, random_command=False):
         self.user = user
         self.args = [ self._sanitize(arg) for arg in args ]
+        self.random_user = random_user
+        self.random_command = random_command
 
         self.target_user = None
         self.target_command = None
@@ -39,11 +41,19 @@ class PermsParser:
         elif self._is_command(arg):
             self.target_command = arg
 
+    # We do indeed allow random
+    # We need to choose it though!
     def _is_command(self, command):
-        return command in SoundeffectsLibrary.fetch_soundeffect_names() or command == "random"
+        if self.random_command:
+            return command in SoundeffectsLibrary.fetch_soundeffect_names() or command == "random"
+        else:
+            return command in SoundeffectsLibrary.fetch_soundeffect_names()
 
     def _is_user(self, user):
-        return user in WelcomeFile.present_users()
+        if self.random_user:
+            return user in WelcomeFile.present_users() or user == "random"
+        else:
+            return user in WelcomeFile.present_users()
 
     def _sanitize(self, item):
         if item.startswith("!") or item.startswith("@"):

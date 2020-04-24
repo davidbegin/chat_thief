@@ -47,9 +47,11 @@ class PermissionsFetcher:
         if not target_command and not target_user:
             title = f"@{user}'s"
             user_permissions = cls(user=user).fetch_user_permissions()
+            user_permissions = " ".join([f"!{perm}" for perm in user_permissions])
         elif target_user and not target_command:
             title = f"@{target_user}'s"
             user_permissions = cls(user=target_user).fetch_user_permissions()
+            user_permissions = " ".join([f"!{perm}" for perm in user_permissions])
         elif target_command and not target_user:
             title = f"!{target_command}'s"
             user_permissions = cls(
@@ -58,6 +60,7 @@ class PermissionsFetcher:
 
             if not user_permissions:
                 title = f"No One can use !{target_command}"
+            user_permissions = " ".join([f"@{perm}" for perm in user_permissions])
         elif target_command and target_user:
             title = f"@{target_user} !{target_command}"
             user_permissions = cls(
@@ -65,7 +68,7 @@ class PermissionsFetcher:
             ).fetch_user_permissions()
 
         if target_user in STREAM_LORDS or user in STREAM_LORDS:
-            title = f"Stream Lord: {title}"
+            title = f"👑 Stream Lord 👑: {title}"
 
         return f"{title} Permissions: {user_permissions}"
 
