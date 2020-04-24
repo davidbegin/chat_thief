@@ -5,7 +5,7 @@ format:
 	black **/*.py *.py
 
 t:
-	BLOCK_TWITCH_MSGS=true python -m pytest tests/*
+	BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief tests/*
 
 f:
-	BLOCK_TWITCH_MSGS=true python -m pytest tests/* -m focus
+	BLOCK_TWITCH_MSGS=true coverage run -m pytest tests/* -m focus

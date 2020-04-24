@@ -6,6 +6,7 @@ tests/db/*
 .whitelisted_users
 .welcome
 scripts/*
+.coverage
 
 __pycache__/
 *.py[cod]
