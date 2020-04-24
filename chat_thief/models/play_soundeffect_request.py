@@ -3,7 +3,7 @@ import traceback
 
 from tinydb import Query
 
-from chat_thief.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
+from chat_thief.models.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.audio_command import AudioCommand
 
 

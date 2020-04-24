@@ -2,7 +2,7 @@ import subprocess
 
 from tinydb import Query
 
-from chat_thief.database import db_table
+from chat_thief.models.database import db_table
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 from chat_thief.irc import send_twitch_msg
 
