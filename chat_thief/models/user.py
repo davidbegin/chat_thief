@@ -34,37 +34,31 @@ class User:
 
     # This doesn't iterate properly
     # the early returns will break multiple purchases
-    def buy(self, args=[]):
-        for effect in args:
-            if (
-                effect != "random"
-                and effect not in SoundeffectsLibrary.fetch_soundeffect_names()
-            ):
-                return f"Not a valid soundeffect: {effect}"
+    def buy(self, effect):
+        if self.cool_points() > 0:
+            # We should remove the random thang into the class
+            if effect == "random":
+                looking_for_effect = True
+                while looking_for_effect:
+                    effect = random_soundeffect()
 
-            if self.cool_points() > 0:
-                if effect == "random":
-                    looking_for_effect = True
-                    while looking_for_effect:
-                        effect = random_soundeffect()
-
-                        if not AudioCommand(effect).allowed_to_play(self.name):
-                            looking_for_effect = False
-                            self.remove_cool_points()
-                            AudioCommand(effect, skip_validation=True).allow_user(
-                                self.name
-                            )
-                            return f"@{self.name} purchased: {effect}"
-                else:
-                    if AudioCommand(effect).allowed_to_play(self.name):
-                        return f"@{self.name} already has access to !{effect}"
-                    else:
+                    if not AudioCommand(effect).allowed_to_play(self.name):
+                        looking_for_effect = False
                         self.remove_cool_points()
-                        AudioCommand(effect, skip_validation=True).allow_user(self.name)
+                        AudioCommand(effect, skip_validation=True).allow_user(
+                            self.name
+                        )
+                        return f"@{self.name} purchased: {effect}"
             else:
-                return f"@{self.name} - Out of Cool Points to Purchase with"
+                if AudioCommand(effect).allowed_to_play(self.name):
+                    return f"@{self.name} already has access to !{effect}"
+                else:
+                    self.remove_cool_points()
+                    AudioCommand(effect, skip_validation=True).allow_user(self.name)
+        else:
+            return f"@{self.name} - Out of Cool Points to Purchase with"
 
-        return f"@{self.name} purchased: {' '.join(args)}"
+        return f"@{self.name} purchased: !{effect}"
 
     def commands(self):
         def in_permitted_users(permitted_users, current_user):

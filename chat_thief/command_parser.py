@@ -139,13 +139,14 @@ class CommandParser:
             # Weight For Powers
 
             if self.command in ["economy"]:
-                # Print total Number of Cool Points
                 cool_points = User(self.user).total_cool_points()
                 return f"Total Cool Points in Market: {cool_points}"
 
             if self.command in ["buy"]:
-                return User(self.user).buy(self.args)
+                parser = PermsParser(user=self.user, args=self.args).parse()
+                return User(self.user).buy(parser.target_command)
 
+            # These Need Chat Parsers
             if self.command == "dropeffect" and self.user in STREAM_GODS:
                 return drop_soundeffect(self.user, self.args)
 
@@ -174,6 +175,7 @@ class CommandParser:
                     self.user, parser.target_command, parser.target_user
                 ).share()
 
+            # Props need a Parser
             if self.command in [
                 "props",
                 "bigups",

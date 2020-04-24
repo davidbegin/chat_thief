@@ -40,7 +40,7 @@ class PermsParser:
             self.target_command = arg
 
     def _is_command(self, command):
-        return command in SoundeffectsLibrary.fetch_soundeffect_names()
+        return command in SoundeffectsLibrary.fetch_soundeffect_names() or command == "random"
 
     def _is_user(self, user):
         return user in WelcomeFile.present_users()
