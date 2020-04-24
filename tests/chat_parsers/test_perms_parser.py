@@ -29,3 +29,21 @@ class TestPermsParser:
         assert result.target_user == "artmattdank"
         assert result.target_command == None
         assert result.requester == user
+
+        user = "beginbotbot"
+        args = ["!give", "@artmattDank", "random"]
+        subject = PermsParser(user, args, random_command=True)
+        result = subject.parse()
+        assert result.target_user == "artmattdank"
+        assert result.target_command != None
+        assert result.target_command != "random"
+        assert result.requester == user
+
+        user = "beginbotbot"
+        args = ["!give", "@artmattDank", "random"]
+        subject = PermsParser(user, args, random_command=True)
+        result = subject.parse()
+        assert result.target_user == "artmattdank"
+        assert result.target_command != None
+        assert result.target_command != "random"
+        assert result.requester == user

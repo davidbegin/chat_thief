@@ -1,9 +1,12 @@
+import random
 from typing import Optional
 
 from dataclasses import dataclass
 
-from chat_thief.welcome_file import WelcomeFile
+from chat_thief.prize_dropper import random_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.welcome_file import WelcomeFile
+from chat_thief.models.user import User
 
 
 @dataclass
@@ -25,6 +28,14 @@ class PermsParser:
         self._set_target_user_and_command()
 
     def parse(self):
+        if self.target_command == "random":
+            command = random.sample(User(self.user).commands(), 1)[0]
+            self.target_command = command
+
+        if self.target_user == "random":
+            from chat_thief.prize_dropper import random_user
+            self.target_user = random_user()
+
         return PermsRequest(
             target_user=self.target_user,
             target_command=self.target_command,
