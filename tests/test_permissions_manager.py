@@ -5,7 +5,7 @@ import pytest
 from chat_thief.stream_lords import STREAM_LORDS
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.audio_command import AudioCommand
-from chat_thief.user import User
+from chat_thief.models.user import User
 
 commands_db_path = Path(__file__).parent.joinpath("db/commands.json")
 

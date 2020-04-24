@@ -3,11 +3,11 @@ from pathlib import Path
 
 import pytest
 
-from chat_thief.user import User
+from chat_thief.models.user import User
 from chat_thief.audio_command import AudioCommand
 
-commands_db_path = Path(__file__).parent.joinpath("db/commands.json")
-users_db_path = Path(__file__).parent.joinpath("db/users.json")
+commands_db_path = Path(__file__).parent.parent.joinpath("db/commands.json")
+users_db_path = Path(__file__).parent.parent.joinpath("db/users.json")
 
 
 class TestUser:

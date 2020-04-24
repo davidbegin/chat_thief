@@ -25,7 +25,7 @@ from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.revolution import Revolution
-from chat_thief.user import User
+from chat_thief.models.user import User
 
 from chat_thief.commands.approve_all_requests import ApproveAllRequests
 

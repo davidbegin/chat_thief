@@ -1,4 +1,4 @@
-from chat_thief.user import User
+from chat_thief.models.user import User
 
 
 class StreetCredTransfer:

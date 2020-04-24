@@ -1,5 +1,5 @@
 from chat_thief.permissions_manager import PermissionsManager
-from chat_thief.user import User
+from chat_thief.models.user import User
 
 class CommandGiver:
     def __init__(self, user, command, friend):
