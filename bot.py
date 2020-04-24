@@ -5,7 +5,7 @@ import asyncio
 import traceback
 
 from chat_thief.log import logger
-from chat_thief.config import TwitchConfig
+from chat_thief.config.twitch import TwitchConfig
 from chat_thief.command_parser import CommandParser
 
 CONNECTION_DATA = ("irc.chat.twitch.tv", 6667)

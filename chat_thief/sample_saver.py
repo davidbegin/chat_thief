@@ -8,7 +8,7 @@ from chat_thief.irc_msg import IrcMsg
 from chat_thief.models.soundeffect import SoundEffect
 from chat_thief.models.command_permission import CommandPermission
 from chat_thief.irc import send_twitch_msg
-from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.config.stream_lords import STREAM_LORDS
 from chat_thief.audio_player import AudioPlayer
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.prize_dropper import random_user

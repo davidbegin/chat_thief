@@ -1,6 +1,6 @@
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.models.user import User
-from chat_thief.stream_lords import STREAM_GODS
+from chat_thief.config.stream_lords import STREAM_GODS
 
 class CommandSharer:
     def __init__(self, user, command, friend):

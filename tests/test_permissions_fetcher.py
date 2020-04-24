@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from chat_thief.stream_lords import STREAM_LORDS
+from chat_thief.config.stream_lords import STREAM_LORDS
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.audio_command import AudioCommand
 

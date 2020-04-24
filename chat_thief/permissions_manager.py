@@ -1,4 +1,4 @@
-from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.audio_command import AudioCommand
 from chat_thief.models.database import USERS_DB_PATH, COMMANDS_DB_PATH
 

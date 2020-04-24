@@ -33,7 +33,7 @@ from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.prize_dropper import drop_soundeffect, dropreward, random_soundeffect
 from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
-from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.welcome_committee import WelcomeCommittee
 
 BLACKLISTED_LOG_USERS = [

@@ -1,7 +1,7 @@
 from pathlib import Path
 from collections import Counter
 
-from chat_thief.stream_lords import STREAM_GODS
+from chat_thief.config.stream_lords import STREAM_GODS
 
 # Keeping to shorter number rewards more recent users,
 # ALL_LINES has to also be False

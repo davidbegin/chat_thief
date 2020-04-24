@@ -9,7 +9,7 @@ from chat_thief.irc import send_twitch_msg
 
 from chat_thief.welcome_committee import WelcomeCommittee
 
-from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.models.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 
 BEGINBOTS = ["beginbot", "beginbotbot"]

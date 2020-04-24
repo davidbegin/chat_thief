@@ -5,7 +5,7 @@ import socket
 
 
 from chat_thief.log import logger
-from chat_thief.config import TwitchConfig
+from chat_thief.config.twitch import TwitchConfig
 
 ENCODING = "utf-8"
 CHAT_MSG = "PRIVMSG"
