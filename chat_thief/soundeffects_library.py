@@ -46,3 +46,12 @@ class SoundeffectsLibrary:
             sound_file.name[: -len(sound_file.suffix)]
             for sound_file in SoundeffectsLibrary.fetch_soundeffect_samples()
         ]
+
+    @staticmethod
+    def find_soundeffect_files(name):
+        return [
+            p
+            for p in Path(SAMPLES_PATH).glob("**/*")
+            if p.suffix in ALLOWED_AUDIO_FORMATS
+            if p.name[: -len(p.suffix)] == name
+        ]
