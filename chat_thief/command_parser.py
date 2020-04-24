@@ -13,7 +13,6 @@ from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 
 from chat_thief.commands.approve_all_requests import ApproveAllRequests
-from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.cube_casino import CubeCasino
 from chat_thief.commands.leaderboard import leaderboard, loserboard
@@ -136,9 +135,6 @@ class CommandParser:
 
                 return loserboard()
 
-            # Drop randomeffect for new users
-            # Weight For Powers
-
             if self.command in ["economy"]:
                 cool_points = User(self.user).total_cool_points()
                 return f"Total Cool Points in Market: {cool_points}"
@@ -147,10 +143,6 @@ class CommandParser:
                 parser = PermsParser(
                     user=self.user, args=self.args, random_command=True, perm_type="buy"
                 ).parse()
-                if parser.target_command == "random":
-                    # It's a feature not a bug we don't
-                    # check if you already have the command
-                    parser.target_command = random_soundeffect()
                 return User(self.user).buy(parser.target_command)
 
             # These Need Chat Parsers
@@ -186,14 +178,9 @@ class CommandParser:
                 "share_perm",
                 "share_perms",
             ]:
-                # We can't allow random commands, but can allow random users
                 parser = PermsParser(
                     user=self.user, args=self.args, random_user=True
                 ).parse()
-                if parser.target_user == "random":
-                    from chat_thief.prize_dropper import random_user
-
-                    parser.target_user = random_user()
                 return CommandSharer(
                     self.user, parser.target_command, parser.target_user
                 ).share()

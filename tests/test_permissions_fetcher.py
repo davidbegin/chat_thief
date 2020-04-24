@@ -17,11 +17,10 @@ class TestCommandPermissions:
 
     @pytest.fixture
     def command_permission_center(self):
-        def _command_permission_center(user, command, args=[]):
+        def _command_permission_center(user, command):
             return PermissionsFetcher(
                 user=user,
                 command=command,
-                args=args,
                 commands_db_path=commands_db_path,
                 skip_validation=True,
             )
@@ -32,9 +31,7 @@ class TestCommandPermissions:
         user = "new_fakeuser"
         command = "wow"
 
-        subject = command_permission_center(
-            user=user, command=command, args=[command, user]
-        )
+        subject = command_permission_center(user=user, command=command)
 
         allowed_commands = subject.fetch_user_permissions()
         assert allowed_commands == []

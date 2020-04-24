@@ -26,14 +26,12 @@ class PermissionsFetcher:
         self,
         user,
         command=None,
-        args=[],
         commands_db_path=COMMANDS_DB_PATH,
         users_db_path=USERS_DB_PATH,
         skip_validation=False,
     ):
         self.user = user
         self.command = command
-        self.args = args
         self.skip_validation = skip_validation
         self.commands_db_path = commands_db_path
         self.users_db_path = users_db_path
