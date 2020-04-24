@@ -18,11 +18,12 @@ class TestPermissionsManager:
 
     @pytest.fixture
     def permissions_manager(self):
-        def _permissions_manager(user, command, args=[]):
+        def _permissions_manager(user, command, target_user, target_command):
             return PermissionsManager(
                 user=user,
                 command=command,
-                args=args,
+                target_user=target_user,
+                target_command=target_command,
                 commands_db_path=commands_db_path,
                 skip_validation=True,
             )
@@ -34,7 +35,7 @@ class TestPermissionsManager:
         command = "yaboi"
 
         subject = permissions_manager(
-            user="beginbot", command=command, args=[command, user]
+            user="beginbot", command=command, target_user=user, target_command=command
         )
 
         audio_command = AudioCommand(
@@ -45,7 +46,9 @@ class TestPermissionsManager:
 
         assert user not in initial_perms
         audio_command.allow_user(user)
-        subject = permissions_manager(user=user, command=command, args=[command, user])
+        subject = permissions_manager(
+            user=user, command=command, target_user=user, target_command=command
+        )
         final_perms = audio_command.permitted_users()
         assert user in final_perms
 
@@ -53,7 +56,9 @@ class TestPermissionsManager:
         user = "fakeuser_3"
         command = "damn"
 
-        subject = permissions_manager(user=user, command=command, args=[command, user])
+        subject = permissions_manager(
+            user=user, command=command, target_user=user, target_command=command
+        )
 
         allowed_commands = User(user, commands_db_path=commands_db_path).commands()
         assert allowed_commands == []

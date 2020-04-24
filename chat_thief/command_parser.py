@@ -145,7 +145,7 @@ class CommandParser:
 
             if self.command in ["buy"]:
                 parser = PermsParser(
-                    user=self.user, args=self.args, random_command=True
+                    user=self.user, args=self.args, random_command=True, perm_type="buy"
                 ).parse()
                 if parser.target_command == "random":
                     # It's a feature not a bug we don't
@@ -171,11 +171,12 @@ class CommandParser:
                     random_user=True,
                 ).parse()
 
-                return CommandGiver(
+                return PermissionsManager(
                     user=self.user,
-                    command=parser.target_command,
-                    friend=parser.target_user,
-                ).give()
+                    command=self.command,
+                    target_command=parser.target_command,
+                    target_user=parser.target_user,
+                ).swap_perm()
 
             if self.command in [
                 "share",

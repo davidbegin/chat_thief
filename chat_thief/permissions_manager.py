@@ -9,21 +9,18 @@ class PermissionsManager:
         self,
         user,
         command=None,
-        args=[],
+        target_command=None,
+        target_user=None,
         users_db_path=USERS_DB_PATH,
         commands_db_path=COMMANDS_DB_PATH,
         skip_validation=False,
     ):
-        if len(args) < 2:
-            print("you need more args: command user!")
-            raise ValueError(f"You need more args {args}")
-
         self.user = user
         self.command = command
         self.skip_validation = skip_validation
 
-        self.target_command = args[0].lower()
-        self.target_user = args[0].lower()
+        self.target_command = target_command
+        self.target_user = target_user
 
         self.audio_command = AudioCommand(
             self.target_command,

@@ -15,13 +15,15 @@ class PermsRequest:
     target_command: Optional[str]
     requester: str
 
-
+# Permission Type
 class PermsParser:
-    def __init__(self, user, args=[], random_user=False, random_command=False):
+    def __init__(self, user, args=[], random_user=False, random_command=False,
+            perm_type="give"):
         self.user = user
         self.args = [ self._sanitize(arg) for arg in args ]
         self.random_user = random_user
         self.random_command = random_command
+        self.perm_type = perm_type
 
         self.target_user = None
         self.target_command = None
@@ -29,7 +31,11 @@ class PermsParser:
 
     def parse(self):
         if self.target_command == "random":
-            command = random.sample(User(self.user).commands(), 1)[0]
+            if self.perm_type == "buy":
+                from chat_thief.prize_dropper import random_soundeffect
+                command = random_soundeffect()
+            elif self.perm_type in ["give", "transfer", "share"]:
+                command = random.sample(User(self.user).commands(), 1)[0]
             self.target_command = command
 
         if self.target_user == "random":
