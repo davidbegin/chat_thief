@@ -30,7 +30,7 @@ class User:
     def paperup(self):
         self.add_street_cred()
         self.add_cool_points()
-        return self.doc()
+        return f"{self.name} has been Papered Up"
 
     # This doesn't iterate properly
     # the early returns will break multiple purchases

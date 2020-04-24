@@ -1,3 +1,4 @@
+import random
 from pathlib import Path
 from typing import Dict, List, Optional
 import logging
@@ -163,10 +164,17 @@ class CommandParser:
                 "give",
                 "transfer",
             ]:
-                parser = PermsParser(user=self.user, args=self.args).parse()
+                parser = PermsParser(
+                    user=self.user,
+                    args=self.args,
+                    random_command=True,
+                    random_user=True,
+                ).parse()
 
                 return CommandGiver(
-                    self.user, parser.target_command, parser.target_user
+                    user=self.user,
+                    command=parser.target_command,
+                    friend=parser.target_user,
                 ).give()
 
             if self.command in [

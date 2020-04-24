@@ -3,6 +3,7 @@ from chat_thief.audio_command import AudioCommand
 from chat_thief.models.database import USERS_DB_PATH, COMMANDS_DB_PATH
 
 
+# We need to update this to not take args
 class PermissionsManager:
     def __init__(
         self,
@@ -22,7 +23,8 @@ class PermissionsManager:
         self.skip_validation = skip_validation
 
         self.target_command = args[0].lower()
-        self.target_user = args[1].lower()
+        self.target_user = args[0].lower()
+
         self.audio_command = AudioCommand(
             self.target_command,
             skip_validation=skip_validation,
@@ -33,7 +35,7 @@ class PermissionsManager:
         permitted_users = self.audio_command.permitted_users()
 
         if self.user in STREAM_GODS:
-            return f"YOUR A STREAM GOD @{self.user} YOU DON'T NEED TO SWAP PERMS"
+            return f"YOU'RE A STREAM GOD @{self.user} YOU DON'T NEED TO SWAP PERMS"
         else:
             print(f"Permitted Users For: {self.target_command} {permitted_users}")
 

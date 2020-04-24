@@ -38,16 +38,15 @@ class PermsParser:
     def _check_and_set(self, arg):
         if self._is_user(arg):
             self.target_user = arg
-        elif self._is_command(arg):
+
+        if self._is_command(arg):
             self.target_command = arg
 
-    # We do indeed allow random
-    # We need to choose it though!
     def _is_command(self, command):
         if self.random_command:
             return command in SoundeffectsLibrary.fetch_soundeffect_names() or command == "random"
         else:
-            return command in SoundeffectsLibrary.fetch_soundeffect_names()
+            return command in SoundeffectsLibrary.soundeffects_only()
 
     def _is_user(self, user):
         if self.random_user:

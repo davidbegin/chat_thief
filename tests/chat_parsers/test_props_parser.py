@@ -4,7 +4,6 @@ from chat_thief.chat_parsers.props_parser import PropsParser
 
 class TestPropsParser:
 
-    @pytest.mark.focus
     def test_parse(self):
         user = "fake_user"
         args = ["!props", "artmattDank"]
