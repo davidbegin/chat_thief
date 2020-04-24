@@ -3,44 +3,46 @@ import traceback
 
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SAMPLES_PATH, ALLOWED_AUDIO_FORMATS
-from chat_thief.audio_player import AudioPlayer
-from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 
 
-from chat_thief.welcome_file import WelcomeFile, WELCOME_FILE
+DEFAULT_WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
 
 
 class WelcomeCommittee:
-    def __init__(self, user):
-        self.user = user
+    def __init__(self, welcome_file=DEFAULT_WELCOME_FILE):
+        self.welcome_file = welcome_file
 
-    def welcome_new_users(self):
-        # drop_random_soundeffect_to_user(self.user)
+    def present_users(self):
+        if self.welcome_file.is_file():
+            return self.welcome_file.read_text().split()
+        else:
+            self.welcome_file.touch()
+            return []
 
-        if self.user not in WelcomeFile.present_users():
-            print(f"\nNew User: {self.user}\n")
+    def welcome_new_users(self, user):
+        if user not in self.present_users():
+            print(f"\nNew User: {user}\n")
             try:
                 self.welcome()
             except:
                 traceback.print_exc()
 
-            with open(WELCOME_FILE, "a") as f:
-                f.write(f"{self.user}\n")
+            with open(self.welcome_file, "a") as f:
+                f.write(f"{user}\n")
 
-    def welcome(self):
+    def welcome(self, user):
         sound_effect_files = [
             p
             for p in Path(SAMPLES_PATH).glob("**/*")
             if p.suffix in ALLOWED_AUDIO_FORMATS
-            if p.name[: -len(p.suffix)] == self.user
+            if p.name[: -len(p.suffix)] == user
         ]
 
         if sound_effect_files:
             effect = sound_effect_files[0]
-            PlaySoundeffectRequest(user=self.user, command=self.user).save()
+            PlaySoundeffectRequest(user=user, command=user).save()
         else:
-            send_twitch_msg(f"You need a theme song! @{self.user}")
             send_twitch_msg(
-                "Format: !soundeffect YOUTUBE-ID INSERT_USERNAME 00:03 00:07"
+                f"You need a Theme song (max 5 secs): !soundeffect YOUTUBE-ID @{user} 00:03 00:07"
             )

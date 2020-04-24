@@ -35,7 +35,6 @@ from chat_thief.request_saver import RequestSaver
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.welcome_file import WelcomeFile
 
 BLACKLISTED_LOG_USERS = [
     "beginbotbot",
@@ -77,7 +76,7 @@ class CommandParser:
     def build_response(self) -> Optional[str]:
         if self.user not in BLACKLISTED_LOG_USERS:
             self._logger.info(f"{self.user}: {self.msg}")
-            WelcomeCommittee(self.user).welcome_new_users()
+            WelcomeCommittee().welcome_new_users(self.user)
         else:
             print(f"{self.user}: {self.msg}")
 
@@ -203,7 +202,7 @@ class CommandParser:
                 return HELP_MENU
 
             if self.command == "users":
-                return WelcomeFile.present_users()
+                return WelcomeCommittee().present_users()
 
             if self.command in ["all_bets", "all_bet", "bets"]:
                 return CubeCasino(self.user, self.args).all_bets()

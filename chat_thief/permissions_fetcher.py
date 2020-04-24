@@ -9,7 +9,6 @@ from chat_thief.models.command_permission import CommandPermission
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.models.user import User
-from chat_thief.welcome_file import WelcomeFile
 
 
 def fetch_whitelisted_users():

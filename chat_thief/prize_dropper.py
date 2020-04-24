@@ -6,7 +6,7 @@ from chat_thief.audio_command import AudioCommand
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
-from chat_thief.welcome_file import WelcomeFile
+from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.chat_logs import ChatLogs
 
 INVALID_USERS = ["nightbot", ".tim.twitch.tv"] + STREAM_GODS
@@ -86,7 +86,7 @@ def drop_soundeffect(invoking_user, args=[]):
             for i in range(0, int(args[0])):
                 print(f"Dropping {i} Sound Effect")
                 send_twitch_msg(drop_random_soundeffect_to_random_user())
-        elif args[0] in WelcomeFile.present_users():
+        elif args[0] in WelcomeCommittee().present_users():
             user = args[0]
             print(f"Dropping a Sound Effect for: @{user}")
             return drop_random_soundeffect_to_user(user)

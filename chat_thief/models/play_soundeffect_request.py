@@ -3,13 +3,12 @@ import traceback
 
 from tinydb import Query
 
-from chat_thief.models.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
-from chat_thief.audio_command import AudioCommand
+from chat_thief.models.database import db_table
 
 
 class PlaySoundeffectRequest:
 
-    def __init__(self, user, command):
+    def __init__(self, user=None, command=None):
         self.user = user
         self.command = command
         play_soundeffect_requests_db_path="db/play_soundeffects.json"
@@ -54,11 +53,6 @@ class PlaySoundeffectRequest:
             from tinyrecord import transaction
             with transaction(self.play_sfx_db) as tr:
                 tr.remove(doc_ids=doc_ids_to_delete)
-
-        for sfx in all_effects:
-            print(sfx)
-            audio_command = AudioCommand(name=sfx["command"])
-            if audio_command.allowed_to_play(sfx["user"]):
-                audio_command.play_sample(remove_health=True)
-            else:
-                print(f"{sfx['user']} not allowed to play: {sfx['command']}")
+            return all_effects
+        else:
+            return []

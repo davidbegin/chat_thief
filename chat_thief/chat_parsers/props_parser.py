@@ -3,7 +3,7 @@ from typing import Optional
 
 from dataclasses import dataclass
 
-from chat_thief.welcome_file import WelcomeFile
+from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 
@@ -41,7 +41,7 @@ class PropsParser:
             self.amount = int(arg)
 
     def _is_user(self, user):
-        return user in WelcomeFile.present_users() or user == "random"
+        return user in WelcomeCommittee().present_users() or user == "random"
 
     def _is_valid_amount(self, val):
         try:

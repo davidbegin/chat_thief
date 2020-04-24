@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 from chat_thief.prize_dropper import random_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
-from chat_thief.welcome_file import WelcomeFile
+from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.models.user import User
 
 
@@ -67,9 +67,9 @@ class PermsParser:
 
     def _is_user(self, user):
         if self.random_user:
-            return user in WelcomeFile.present_users() or user == "random"
+            return user in WelcomeCommittee().present_users() or user == "random"
         else:
-            return user in WelcomeFile.present_users()
+            return user in WelcomeCommittee().present_users()
 
     def _sanitize(self, item):
         if item.startswith("!") or item.startswith("@"):
