@@ -8,7 +8,6 @@ import traceback
 from chat_thief.chat_logs import ChatLogs
 
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
-from chat_thief.chat_parsers.transfer_request_parser import TransferRequestParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
 
 from chat_thief.commands.approve_all_requests import ApproveAllRequests
@@ -157,10 +156,10 @@ class CommandParser:
                 "give",
                 "transfer",
             ]:
-                parser = TransferRequestParser(self.user, self.args).parse()
+                parser = PropsParser(user=self.user, args=self.args).parse()
 
                 return CommandGiver(
-                    parser.transferer, parser.target_command, parser.target_user
+                    self.user, parser.target_command, parser.target_user
                 ).give()
 
             if self.command in [
@@ -170,39 +169,19 @@ class CommandParser:
                 "share_perm",
                 "share_perms",
             ]:
-                parser = TransferRequestParser(self.user, self.args).parse()
+                parser = PropsParser(user=self.user, args=self.args).parse()
                 return CommandSharer(
                     self.user, parser.target_command, parser.target_user
                 ).share()
 
-            # Props need a Parser
             if self.command in [
                 "props",
                 "bigups",
                 "endorse",
             ]:
-                # props_parser
-                cool_person = self.args[0]
-                if cool_person.startswith("@"):
-                    cool_person = cool_person[1:]
-                cool_person = cool_person.lower()
-
-                if cool_person == "random":
-                    from chat_thief.prize_dropper import random_user
-
-                    cool_person = random_user()
-
-                if len(self.args) > 1 and int(self.args[1]) > 0:
-                    amount = int(self.args[1])
-                else:
-                    amount = 1
-
-                if amount < 1:
-                    raise ValueError(f"Invalid Amount: {amount}")
-                print(f"\n{self.user} Attempting to give {amount} Cool Points")
-
+                parser = PropsParser(user=self.user, args=self.args).parse()
                 return StreetCredTransfer(
-                    user=self.user, cool_person=cool_person, amount=amount
+                    user=self.user, cool_person=parser.target_user, amount=parser.amount
                 ).transfer()
 
             if self.command == "help":
