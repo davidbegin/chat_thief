@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from chat_thief.log import logger
+from chat_thief.config.log import logger
 from chat_thief.command_parser import CommandParser
 
 # DEFAULT_MSG = "!clap"

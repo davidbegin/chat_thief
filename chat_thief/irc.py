@@ -4,7 +4,7 @@ import os
 import socket
 
 
-from chat_thief.log import logger
+from chat_thief.config.log import logger
 from chat_thief.config.twitch import TwitchConfig
 
 ENCODING = "utf-8"

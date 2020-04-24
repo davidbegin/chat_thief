@@ -4,7 +4,7 @@ import socket
 import asyncio
 import traceback
 
-from chat_thief.log import logger
+from chat_thief.config.log import logger
 from chat_thief.config.twitch import TwitchConfig
 from chat_thief.command_parser import CommandParser
 

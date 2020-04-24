@@ -4,8 +4,6 @@ from chat_thief.irc import send_twitch_msg
 
 
 BLACKLISTED_REQUESTERS = []
-# BLACKLISTED_REQUESTERS = ["beginbotbot"]
-
 SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.joinpath("db/.requests")
 
 
