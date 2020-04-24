@@ -18,6 +18,7 @@ from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.user_requests import handle_user_requests
+from chat_thief.commands.revolution import Revolution
 
 from chat_thief.irc_msg import IrcMsg
 
@@ -30,7 +31,6 @@ from chat_thief.permissions_manager import PermissionsManager
 
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.request_saver import RequestSaver
-from chat_thief.revolution import Revolution
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.welcome_committee import WelcomeCommittee
