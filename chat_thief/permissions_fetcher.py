@@ -41,37 +41,30 @@ class PermissionsFetcher:
         self.commands_db = db_table(commands_db_path, "commands")
 
     @classmethod
-    def fetch_permissions(cls, user, args=[]):
+    def fetch_permissions(cls, user, target_command, target_user):
         user_permissions = []
 
-        if not args:
+        if not target_command and not target_user:
             title = f"@{user}'s"
             user_permissions = cls(user=user).fetch_user_permissions()
-        elif args[0] in WelcomeFile.present_users():
-            title = f"@{args[0]}'s"
-            user_permissions = cls(user=args[0]).fetch_user_permissions()
-        elif args[0] in SoundeffectsLibrary.fetch_soundeffect_names():
-            if len(args) > 1:
-                for arg in args[1:]:
-                    if arg in WelcomeFile.present_users():
-                        title = f"@{arg}'s"
-                        user_permissions = cls(
-                            user=arg, command=args[0]
-                        ).fetch_user_permissions()
-            else:
-                title = f"!{args[0]}'s"
-                user_permissions = cls(
-                    user=None, command=args[0]
-                ).fetch_command_permissions()
+        elif target_user and not target_command:
+            title = f"@{target_user}'s"
+            user_permissions = cls(user=target_user).fetch_user_permissions()
+        elif target_command and not target_user:
+            title = f"!{target_command}'s"
+            user_permissions = cls(
+                user=None, command=target_command
+            ).fetch_command_permissions()
 
-                if not user_permissions:
-                    title = f"No One can use !{args[0]}"
-        else:
-            print("Not sure what to do!!!")
-            return
+            if not user_permissions:
+                title = f"No One can use !{target_command}"
+        elif target_command and target_user:
+            title = f"@{target_user} !{target_command}"
+            user_permissions = cls(
+                user=target_user, command=target_command
+            ).fetch_user_permissions()
 
-        if user in STREAM_LORDS:
-            # we should check if this is a user or command permissions query
+        if target_user in STREAM_LORDS or user in STREAM_LORDS:
             title = f"Stream Lord: {title}"
 
         return f"{title} Permissions: {user_permissions}"

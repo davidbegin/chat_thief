@@ -8,19 +8,24 @@ class TestPermsParser:
     def test_parse(self):
         user = "fake_user"
         args = ["!perms", "clap"]
-
         subject = PermsParser(user, args)
         result = subject.parse()
         assert result.target_user == None
         assert result.target_command == "clap"
+        assert result.requester == user
 
+        user = "fake_user"
+        args = ["!perms", "!clap"]
+        subject = PermsParser(user, args)
+        result = subject.parse()
+        assert result.target_user == None
+        assert result.target_command == "clap"
+        assert result.requester == user
 
-        # ["!perms", "artmattdank"]
-        # ["!perms", "!clap"]
-        # ["!perms", "@artmattdank"]
-        # args = ["!clap", "@ARTMATTDANK"]
-        # subject = TransferRequestParser(user, args)
-        # result = subject.parse()
-        # assert result.target_user == "artmattdank"
-        # assert result.target_command == "clap"
-        # assert result.transferer == user
+        user = "fake_user"
+        args = ["!perms", "@artmattDank"]
+        subject = PermsParser(user, args)
+        result = subject.parse()
+        assert result.target_user == "artmattdank"
+        assert result.target_command == None
+        assert result.requester == user
