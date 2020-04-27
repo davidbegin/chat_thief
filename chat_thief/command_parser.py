@@ -96,13 +96,18 @@ class CommandParser:
             if self.command == "revolution":
                 return Revolution(self.user).incite()
 
-            if self.command == "paperup":
-                return User(self.args[0]).paperup()
+            if self.command == "facts" and self.user in STREAM_GODS:
+                from chat_thief.economist.facts import Facts
 
-                # if self.user in STREAM_GODS:
-                #     return User(self.args[0]).paperup()
-                # else:
-                #     return
+                Facts().available_sounds()
+
+            if self.command == "paperup":
+                # return User(self.args[0]).paperup()
+
+                if self.user in STREAM_GODS:
+                    return User(self.args[0]).paperup()
+                else:
+                    return
 
             if self.command in ["me"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()

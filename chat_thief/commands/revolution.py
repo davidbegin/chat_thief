@@ -11,7 +11,8 @@ class Revolution:
     def incite(self):
         if self.user_name == "beginbot" or self.cool_points > 99:
             self._revolution()
-        elif self.user.total_cool_points() > 60:
+        elif self.user.total_cool_points() > 40:
+            # Theres too many cool points
             return "COMING SOON A NEW JOINT REVOLUTION"
             # We want to remove all permissions and points
         else:

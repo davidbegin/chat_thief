@@ -40,7 +40,6 @@ def leaderboard():
     counter = Counter(
         list(chain.from_iterable([command["permitted_users"] for command in result]))
     )
-    breakpoint()
     # Most Common sorting alphabetically
     print(f"\nLeader board: {counter}\n")
     for user, count in counter.most_common()[0:5]:

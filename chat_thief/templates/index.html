@@ -6,11 +6,16 @@
     <meta http-equiv="refresh" content="5">
 </head>
 
-<h3>Total Cool Points: {{ facts.cool_points }} </h3>
+Total Cool Pointz: {{ facts.cool_points }}
+<br />
+Street Cred: {{ facts.street_cred }}
+<br />
+Available Sounds: {{ facts.available_sounds }}
+<br />
+Unavailable Sounds: {{ facts.unavailable_sounds }}
 
 <ul>
-  Top Users:
   {% for user, sfx_count in facts.top_users %}
-  <li>{{ user }} : {{ sfx_count }}</li>
+    <li>{{ user }} : {{ sfx_count }} Soundeffects</li>
   {% endfor %}
 </ul>

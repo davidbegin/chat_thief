@@ -20,7 +20,6 @@ class TestWelcomeCommittee:
 
         return _subject
 
-    @pytest.mark.focus
     def test_fetch_present_users(self, welcome_committee):
         subject = welcome_committee()
         with open(welcome_file, "w") as wf:
@@ -29,7 +28,6 @@ class TestWelcomeCommittee:
         result = subject.present_users()
         assert "thugga" in result
 
-    @pytest.mark.focus
     def test_welcome_new_user(self, welcome_committee):
         subject = welcome_committee()
         result = subject.present_users()

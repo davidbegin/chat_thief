@@ -11,14 +11,16 @@ class CommandSharer:
     def share(self):
         if self.user in STREAM_GODS:
            return PermissionsManager(
-                user=self.user, command=self.command, args=[self.command, self.friend],
+                user=self.user, command=self.command,
+                target_command=self.command, target_user=self.friend
             ).add_perm()
+
         elif User(self.user).street_cred() > 0:
             print(f"\n{self.user} has enough street_cred!")
 
-            # We are using permissions manager wrong
             perm_result = PermissionsManager(
-                user=self.user, command=self.command, args=[self.command, self.friend],
+                user=self.user, command=self.command,
+                target_command=self.command, target_user=self.friend
             ).add_perm()
 
             if perm_result:
