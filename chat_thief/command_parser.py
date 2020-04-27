@@ -91,14 +91,18 @@ class CommandParser:
                 return leaderboard()
 
             if self.command == "color" and self.user in STREAM_GODS:
-                subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
+                return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 
             if self.command == "revolution":
                 return Revolution(self.user).incite()
 
             if self.command == "paperup":
-                if self.user in STREAM_GODS:
-                    return User(self.args[0]).paperup()
+                return User(self.args[0]).paperup()
+
+                # if self.user in STREAM_GODS:
+                #     return User(self.args[0]).paperup()
+                # else:
+                #     return
 
             if self.command in ["me"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()

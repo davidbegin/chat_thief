@@ -1,0 +1,17 @@
+body {
+  /* background-color: none..class{ */
+  background:rgba(0,0,0,0.5);
+  color: white;
+  font-size: 2em;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  color: white;
+  font-family: futura;
+  font-style: bold;
+}

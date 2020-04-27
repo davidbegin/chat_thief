@@ -1,0 +1,16 @@
+<!doctype html>
+<title>Beginland</title>
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <meta http-equiv="refresh" content="5">
+</head>
+
+<h3>Total Cool Points: {{ facts.cool_points }} </h3>
+
+<ul>
+  Top Users:
+  {% for user, sfx_count in facts.top_users %}
+  <li>{{ user }} : {{ sfx_count }}</li>
+  {% endfor %}
+</ul>

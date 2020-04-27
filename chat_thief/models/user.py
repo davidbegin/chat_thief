@@ -22,9 +22,6 @@ class User:
         return self.users_db.purge()
 
     def stats(self):
-        # commands = ' '.join([ f'!{command}' for command in self.commands() ])
-        # "| Perms: {commands}"
-        # return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()} | Perms: {commands}"
         return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
     def paperup(self):
@@ -35,6 +32,8 @@ class User:
     # This doesn't iterate properly
     # the early returns will break multiple purchases
     def buy(self, effect):
+
+
         if self.cool_points() > 0:
             # We should remove the random thang into the class
             if effect == "random":
