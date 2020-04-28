@@ -14,6 +14,9 @@ class User:
         self.users_db = db_table(users_db_path, "users")
         self.commands_db = db_table(commands_db_path, "commands")
 
+    def total_users(self):
+        return len(self.users_db.all())
+
     def total_street_cred(self):
         users = self.users_db.all()
         return sum([user["street_cred"] for user in users])

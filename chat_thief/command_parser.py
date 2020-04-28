@@ -22,6 +22,7 @@ from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.commands.revolution import Revolution
 
+
 from chat_thief.irc_msg import IrcMsg
 
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
@@ -94,15 +95,15 @@ class CommandParser:
             if self.command == "color" and self.user in STREAM_GODS:
                 return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 
-            # Any person can trigger a Coup
-            # This will start a timer, where everyone can vote: 10 mins
-            # for !peace of !revolution
-            # After 10 mins, if it's revolution:
-            # everyone who voted for revolution, will lose all sounds except 1
-            # all people who voted who voted for peace will lose all
-
             if self.command == "coup":
-                # return Revolution(self.user).incite()
+                threshold = int(User(self.user).total_users() / 2)
+
+                result = Vote(user=self.user).have_tables_turned(threshold)
+
+                if result in ["peace", "revolution"]:
+                    return f"{result} COMING SOON"
+                else:
+                    return f"The Will of the People have not chosen: {threshold} votes must be cast"
                 pass
 
             if self.command == "revolution":
