@@ -13,6 +13,12 @@ Street Cred: {{ facts.street_cred }}
 Available Sounds: {{ facts.available_sounds }}
 <br />
 Unavailable Sounds: {{ facts.unavailable_sounds }}
+<br />
+Total Votes: {{ facts.total_votes }}
+<br />
+Peace Votes: {{ facts.peace_count }}
+<br />
+Revolution Votes: {{ facts.revolution_count }}
 
 <ul>
   {% for user, sfx_count in facts.top_users %}

@@ -8,9 +8,22 @@ from tinydb import TinyDB, Query
 from chat_thief.models.database import db_table, COMMANDS_DB_PATH
 from chat_thief.models.user import User
 from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.models.vote import Vote
 
 
 class Facts:
+
+    def peace_count(self):
+        vote = Vote("beginbot")
+        return vote.peace_count()
+
+    def revolution_count(self):
+        vote = Vote("beginbot")
+        return vote.revolution_count()
+
+    def total_votes(self):
+        return Vote("beginbot").vote_count()
+
     def available_sounds(self):
         table = db_table(COMMANDS_DB_PATH, "commands")
         commands = table.all()

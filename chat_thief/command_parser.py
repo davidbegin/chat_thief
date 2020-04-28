@@ -11,6 +11,7 @@ from chat_thief.chat_logs import ChatLogs
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
+from chat_thief.models.vote import Vote
 
 from chat_thief.commands.approve_all_requests import ApproveAllRequests
 from chat_thief.commands.command_sharer import CommandSharer
@@ -93,8 +94,22 @@ class CommandParser:
             if self.command == "color" and self.user in STREAM_GODS:
                 return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 
+            # Any person can trigger a Coup
+            # This will start a timer, where everyone can vote: 10 mins
+            # for !peace of !revolution
+            # After 10 mins, if it's revolution:
+            # everyone who voted for revolution, will lose all sounds except 1
+            # all people who voted who voted for peace will lose all
+
+            if self.command == "coup":
+                # return Revolution(self.user).incite()
+                pass
+
             if self.command == "revolution":
-                return Revolution(self.user).incite()
+                return Vote(user=self.user).vote("revolution")
+
+            if self.command == "peace":
+                return Vote(user=self.user).vote("peace")
 
             if self.command == "facts" and self.user in STREAM_GODS:
                 from chat_thief.economist.facts import Facts
