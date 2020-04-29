@@ -8,7 +8,7 @@ SFXVote.database_folder = "tests/"
 db_path = Path(__file__).parent.parent.joinpath(SFXVote.database_path)
 
 
-class TestChatModerator:
+class TestSFXVote:
     @pytest.fixture(autouse=True)
     def destroy_db(self):
         if db_path.is_file():
