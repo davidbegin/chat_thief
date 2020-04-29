@@ -17,13 +17,13 @@ def random_soundeffect():
     return random.sample(SoundeffectsLibrary.soundeffects_only(), 1)[0]
 
 
-def random_user():
+def random_user(blacklisted_users=[]):
     try:
         looking_for_user = True
         while looking_for_user:
             users = ChatLogs().recent_stream_peasants()
             user = random.sample(users, 1)[0]
-            if user not in INVALID_USERS:
+            if user not in INVALID_USERS + blacklisted_users:
                 looking_for_user = False
         return user
     except:

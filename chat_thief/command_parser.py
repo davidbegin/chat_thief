@@ -96,11 +96,13 @@ class CommandParser:
                 return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 
             if self.command == "coup":
-                threshold = int(User(self.user).total_users() / 2)
-
+                threshold = int(User(self.user).total_users() / 8)
+                # threshold = int(User(self.user).total_users() / 2)
                 result = Vote(user=self.user).have_tables_turned(threshold)
+                print(f"The Result of have_tables_turned: {result}")
 
                 if result in ["peace", "revolution"]:
+                    Revolution(tide=result).turn_the_tides()
                     return f"{result} COMING SOON"
                 else:
                     return f"The Will of the People have not chosen: {threshold} votes must be cast"
@@ -218,7 +220,7 @@ class CommandParser:
                 if parser.target_user == "random":
                     from chat_thief.prize_dropper import random_user
 
-                    parser.target_user = random_user()
+                    parser.target_user = random_user(blacklisted_users=[self.user])
                 return StreetCredTransfer(
                     user=self.user, cool_person=parser.target_user, amount=parser.amount
                 ).transfer()

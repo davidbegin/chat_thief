@@ -28,7 +28,6 @@ class TestVote:
         return user
 
 
-    @pytest.mark.focus
     def test_the_tipping_point(self):
         thugga = self._create_user("youngthug")
         bbot = self._create_user("beginbot")

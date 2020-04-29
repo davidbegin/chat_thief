@@ -8,6 +8,18 @@ class Vote:
         self.votes_db = db_table(votes_db_path, "votes")
         self.user = user
 
+    def peace_keepers(self):
+        return [
+            vote["user"] for vote in
+            self.votes_db.search(Query().vote == "peace")
+        ]
+
+    def revolutionaries(self):
+        return [
+            freedom_fighter["user"] for freedom_fighter in
+            self.votes_db.search(Query().vote == "revolution")
+        ]
+
     # When theres a certain percentage of users
     # We are going to create 3 Users
     # Then we are going to vote, 2 times
@@ -26,11 +38,10 @@ class Vote:
         return len(self.votes_db.all())
 
     def revolution_count(self):
-        return len(self.votes_db.search(Query().vote == "revolution"))
+        return len(self.revolutionaries())
 
     def peace_count(self):
-        # this Query is being cached??
-        return len(self.votes_db.search(Query().vote == "peace"))
+        return len(self.peace_keepers())
 
     def vote(self, vote):
         user = self._find_user()

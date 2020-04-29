@@ -9,3 +9,11 @@ t:
 
 f:
 	BLOCK_TWITCH_MSGS=true python -m pytest tests/* -m focus -s
+
+backup:
+	cp db/users.json db/backups/users.json
+	cp db/commands.json db/backups/commands.json
+
+restore:
+	cp db/backups/users.json db/users.json
+	cp db/backups/commands.json db/commands.json

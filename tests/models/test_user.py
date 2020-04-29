@@ -43,3 +43,15 @@ class TestUser:
         assert subject.street_cred() == 0
         subject.add_street_cred()
         assert subject.street_cred() == 1
+
+    @pytest.mark.focus
+    def test_remove_all_commands(self, user):
+        subject = user("artmattdank")
+        assert subject.commands() == []
+        audio_command = AudioCommand("flacid", commands_db_path=commands_db_path)
+        audio_command.allow_user("artmattdank")
+        assert audio_command.permitted_users() == ["artmattdank"]
+        assert subject.commands() == ["flacid"]
+        subject.remove_all_commands()
+        assert subject.commands() == []
+        assert audio_command.permitted_users() == []
