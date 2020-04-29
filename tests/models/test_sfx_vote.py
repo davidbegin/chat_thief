@@ -2,8 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from chat_thief.chat_moderator import ChatModerator
-from chat_thief.chat_moderator import SFXVote
+from chat_thief.models.sfx_vote import SFXVote
 
 SFXVote.database_folder = "tests/"
 db_path = Path(__file__).parent.parent.joinpath(SFXVote.database_path)
@@ -26,6 +25,8 @@ class TestChatModerator:
         SFXVote.count() == 1
         assert subject.supporter_count() == 1
         assert subject.detractor_count() == 0
+        assert subject.is_enabled()
         subject.detract("bill")
         assert subject.detractor_count() == 1
         SFXVote.count() == 1
+        assert not subject.is_enabled()

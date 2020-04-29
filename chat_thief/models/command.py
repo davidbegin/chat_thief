@@ -3,6 +3,7 @@ from tinydb import Query
 from chat_thief.models.database import db_table
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.stream_lords import STREAM_GODS
+from chat_thief.models.sfx_vote import SFXVote
 
 
 class Command:
@@ -33,6 +34,9 @@ class Command:
         return len(cls.db().all())
 
     def allowed_to_play(self, user):
+        if not SFXVote(self.name).is_enabled():
+            return False
+
         if self.is_theme_song:
             return user == self.name
 

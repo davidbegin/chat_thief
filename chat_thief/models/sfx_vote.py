@@ -10,6 +10,12 @@ class SFXVote:
     database_folder = ""
     database_path = "db/sfx_votes.json"
 
+    def is_enabled(self):
+        if self.supporter_count() == 0 and self.detractor_count() == 0:
+            return True
+
+        return self.supporter_count() > self.detractor_count()
+
     def __init__(self, command, supporters=[], detractors=[]):
         self.command = command
         self.supporters = supporters
@@ -36,6 +42,7 @@ class SFXVote:
             return transform
 
         self.db().update(show_support(supporter), Query().command == self.command)
+        return self._find_or_create_vote()
 
     def detract(self, detractor):
         vote = self._find_or_create_vote()

@@ -82,6 +82,7 @@ class User:
             "name": self.name,
             "street_cred": 0,
             "cool_points": 0,
+            "health": 5,
         }
 
     def _find_or_create_user(self):

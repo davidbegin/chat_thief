@@ -92,13 +92,27 @@ class CommandParser:
 
                 return leaderboard()
 
-            if self.command == "remove":
+            if self.command in ["hate", "detract"]:
+                from chat_thief.models.sfx_vote import SFXVote
                 parser = PermsParser(user=self.user, args=self.args).parse()
 
-                return ChatModerator(self.user).remove(
-                    target_user=parser.target_user,
-                    target_command=parser.target_command
-                )
+                if parser.target_command and not parser.target_user:
+                    return SFXVote(parser.target_command).detract(self.user)
+
+
+            if self.command in ["support"]:
+                from chat_thief.models.sfx_vote import SFXVote
+                parser = PermsParser(user=self.user, args=self.args).parse()
+
+                if parser.target_command and not parser.target_user:
+                    return SFXVote(parser.target_command).support(self.user)
+
+                # !support @user
+                # !support !clap
+                # SFX Vote is for a Command!
+                # SFXVote(self.user).support(
+                #     # l
+                # )
 
             if self.command == "color" and self.user in STREAM_GODS:
                 return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])

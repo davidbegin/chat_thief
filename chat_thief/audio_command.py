@@ -56,6 +56,9 @@ class AudioCommand:
             # AudioPlayer.play_sample(self.soundfile.resolve())
 
     def allowed_to_play(self, user):
+        if user  == "hordead":
+            return False
+
         if self.is_theme_song:
             return user == self.name
 

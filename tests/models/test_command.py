@@ -3,10 +3,14 @@ from pathlib import Path
 import pytest
 
 from chat_thief.models.command import Command
+from chat_thief.models.sfx_vote import SFXVote
 
 
-Command.database_folder = "tests/"
 db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
+sfx_votes_db = Path(__file__).parent.parent.joinpath("db/sfx_votes.json")
+
+SFXVote.database_folder = "tests/"
+Command.database_folder = "tests/"
 
 
 class TestCommand:
@@ -14,6 +18,8 @@ class TestCommand:
     def destroy_db(self):
         if db_path.is_file():
             db_path.unlink()
+        if sfx_votes_db.is_file():
+            sfx_votes_db.unlink()
         yield
 
     def test_count(self):
