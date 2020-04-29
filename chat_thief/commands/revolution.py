@@ -44,26 +44,28 @@ class Revolution:
         print(f"Sounds: {peace_keeper_sounds}\n")
 
         if self.tide == "peace":
-            self._transfer_power(
-                cycle(peace_keepers), revolutionaries, revolutionary_sounds
+            return self._transfer_power(
+                peace_keepers, revolutionaries, revolutionary_sounds
             )
-            return "Congrats Peace Keepers"
 
         if self.tide == "revolution":
-            self._transfer_power(
-                cycle(revolutionaries), peace_keepers, peace_keeper_sounds
+            return self._transfer_power(
+                revolutionaries, peace_keepers, peace_keeper_sounds
             )
-            return f"Congrats Revolutionaries {' '.join([ f'@{user}' for user in revolutionaries])}"
 
     def _transfer_power(self, power_users, weaklings, bounty):
+        the_cycle_of_power_users = cycle(power_users)
+
         for user in weaklings:
             print(f"Removing All Commands for {user}")
             User(user).remove_all_commands()
 
         for sfx in bounty:
-            user = next(power_users)
+            user = next(the_cycle_of_power_users)
             print(f"Giving {user} SFX: {sfx}")
             Command(sfx).allow_user(user)
+
+        return f"Power Transferred: {power_users} | {weaklings} | {bounty}"
 
     # It should cost to coup
     def _revolution(self):

@@ -95,7 +95,7 @@ class CommandParser:
             if self.command == "color" and self.user in STREAM_GODS:
                 return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 
-            if self.command == "coup":
+            if self.command == "coup" and self.user == "beginbotbot":
                 threshold = int(User(self.user).total_users() / 8)
                 # threshold = int(User(self.user).total_users() / 2)
                 result = Vote(user=self.user).have_tables_turned(threshold)

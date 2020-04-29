@@ -93,7 +93,6 @@ class SampleSaver:
         ]
 
     def _save_command(self):
-        print(f"Saving in our DB! {sound.__dict__}")
         from tinyrecord import transaction
 
         sound = SoundEffect(
@@ -105,6 +104,7 @@ class SampleSaver:
         )
         with transaction(self.soundeffects_table) as tr:
             tr.insert(sound.__dict__)
+        print(f"Saving in our DB! {sound.__dict__}")
 
         command_permission = CommandPermission(
             user=self.user, command=self.name, permitted_users=[random_user()]
