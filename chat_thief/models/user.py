@@ -7,6 +7,7 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 
 class User:
+    # I want to pass in class configuration
     def __init__(
         self, name, users_db_path=USERS_DB_PATH, commands_db_path=COMMANDS_DB_PATH
     ):
@@ -39,8 +40,6 @@ class User:
     # This doesn't iterate properly
     # the early returns will break multiple purchases
     def buy(self, effect):
-
-
         if self.cool_points() > 0:
             # We should remove the random thang into the class
             if effect == "random":
@@ -51,6 +50,8 @@ class User:
                     if not AudioCommand(effect).allowed_to_play(self.name):
                         looking_for_effect = False
                         self.remove_cool_points()
+
+                        # Ahh We are skipping validation for some reason
                         AudioCommand(effect, skip_validation=True).allow_user(
                             self.name
                         )

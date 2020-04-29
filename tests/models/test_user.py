@@ -44,7 +44,6 @@ class TestUser:
         subject.add_street_cred()
         assert subject.street_cred() == 1
 
-    @pytest.mark.focus
     def test_remove_all_commands(self, user):
         subject = user("artmattdank")
         assert subject.commands() == []
