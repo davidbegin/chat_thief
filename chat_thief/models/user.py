@@ -2,7 +2,6 @@ from tinydb import Query
 
 from chat_thief.models.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
 from chat_thief.prize_dropper import random_soundeffect
-from chat_thief.audio_command import AudioCommand
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 from chat_thief.models.command import Command
@@ -53,18 +52,14 @@ class User:
                         looking_for_effect = False
                         self.remove_cool_points()
 
-                        # we should replace the AudioCommand here
-                        AudioCommand(effect, skip_validation=True).allow_user(
-                            self.name
-                        )
+                        Command(effect).allow_user(self.name)
                         return f"@{self.name} purchased: {effect}"
             else:
                 if Command(effect).allowed_to_play(self.name):
                     return f"@{self.name} already has access to !{effect}"
                 else:
                     self.remove_cool_points()
-                    # we should replace the AudioCommand here
-                    AudioCommand(effect).allow_user(self.name)
+                    Command(effect).allow_user(self.name)
         else:
             return f"@{self.name} - Out of Cool Points to Purchase with"
 

@@ -34,44 +34,14 @@ class TestCommand:
     @pytest.mark.focus
     def test_allow_user(self):
         subject = Command("clap")
+        other_subject = Command("damn")
         assert not subject.allowed_to_play("spfar")
+        assert not subject.allowed_to_play("rando")
+        assert not other_subject.allowed_to_play("spfar")
+        assert not other_subject.allowed_to_play("rando")
         subject.allow_user("spfar")
-        # assert subject.allowed_to_play("spfar")
-
-
-    # def test_permitted_users(self, audio_command):
-    #     subject = audio_command("ha")
-    #     assert subject.permitted_users() == []
-    #     subject.allow_user("beginbot")
-    #     assert subject.permitted_users() == ["beginbot"]
-    #     subject.allow_user("beginbot")
-    #     subject.allow_user("some_rando")
-    #     assert subject.permitted_users() == ["beginbot", "some_rando"]
-
-    # def test_allow_users_bug(self, audio_command):
-    #     subject = audio_command("i3")
-    #     assert subject.permitted_users() == []
-    #     subject.allow_user("beginbot")
-    #     subject.allow_user("beginbot")
-    #     assert subject.permitted_users() == ["beginbot"]
-    #     subject.allow_user("fakeuser")
-    #     other_command = audio_command("arch")
-    #     other_command.allow_user("fakeuser")
-    #     assert other_command.permitted_users() == ["fakeuser"]
-    #     assert subject.permitted_users() == ["beginbot", "fakeuser"]
-    #     subject.allow_user("billgates")
-    #     assert subject.permitted_users() == ["beginbot", "fakeuser", "billgates"]
-
-    # def test_allow_users(self, audio_command):
-    #     subject = audio_command("i3")
-    #     subject.allow_user("beginbot")
-
-    #     subject.allow_user("fakeuser")
-    #     other_command = audio_command("arch")
-    #     other_command.allow_user("fakeuser")
-
-    #     # Because of this of fakeuser having a permission
-    #     # in both i3 and arch, adding a new user of bill gates, creates 2 i3
-    #     # commands!
-    #     subject.allow_user("billgates")
-    #     # Now we have 2 i3 commands
+        other_subject.allow_user("rando")
+        assert subject.allowed_to_play("spfar")
+        assert not subject.allowed_to_play("rando")
+        assert not other_subject.allowed_to_play("spfar")
+        assert other_subject.allowed_to_play("rando")
