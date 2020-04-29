@@ -5,7 +5,6 @@ from chat_thief.welcome_committee import WelcomeCommittee
 
 
 class TestPropsParser:
-    @pytest.mark.focus
     def test_parse(self, monkeypatch):
         def fakeusers(self):
             return ["artmattdank"]

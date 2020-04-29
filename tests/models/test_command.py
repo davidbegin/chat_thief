@@ -18,8 +18,6 @@ class TestCommand:
 
     def test_count(self):
         assert Command.count() == 0
-        # subject = Command("help")
-        # assert Command.count() == 1
 
     def test_allowed_to_play(self):
         subject = Command("help")
@@ -30,7 +28,6 @@ class TestCommand:
         assert subject.allowed_to_play("artmattdank")
         assert not subject.allowed_to_play("beginbot")
 
-    @pytest.mark.focus
     def test_allow_user(self):
         subject = Command("clap")
         other_subject = Command("damn")
@@ -46,3 +43,14 @@ class TestCommand:
         assert other_subject.allowed_to_play("rando")
         subject.allow_user("rando")
         assert subject.allowed_to_play("rando")
+
+    @pytest.mark.focus
+    def test_unallow(self):
+        subject = Command("clap")
+        other_subject = Command("damn")
+        subject.allow_user("spfar")
+        other_subject.allow_user("rando")
+
+        assert subject.allowed_to_play("spfar")
+        subject.unallow_user("spfar")
+        assert not subject.allowed_to_play("spfar")

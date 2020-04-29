@@ -44,6 +44,15 @@ class Command:
 
         return False
 
+    def unallow_user(self, target_user):
+        command = self.db().get(Query().command == self.name)
+
+        if command:
+            self._remove_user(target_user)
+            return f"@{target_user} lost access to !{self.name}"
+        else:
+            return f"No One has accesss to !{self.name}"
+
     def allow_user(self, target_user):
         command = self.db().get(Query().command == self.name)
 
@@ -77,6 +86,15 @@ class Command:
             return transform
 
         self.db().update(add_permitted_users(), Query().command == self.name)
+
+    def _remove_user(self, target_user):
+        def remove_permitted_users():
+            def transform(doc):
+                doc["permitted_users"].remove(target_user)
+
+            return transform
+
+        self.db().update(remove_permitted_users(), Query().command == self.name)
 
     def _user_has_chatted(self):
         # if not self.skip_validation:

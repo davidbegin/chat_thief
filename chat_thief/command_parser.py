@@ -92,6 +92,14 @@ class CommandParser:
 
                 return leaderboard()
 
+            if self.command == "remove":
+                parser = PermsParser(user=self.user, args=self.args).parse()
+
+                return ChatModerator(self.user).remove(
+                    target_user=parser.target_user,
+                    target_command=parser.target_command
+                )
+
             if self.command == "color" and self.user in STREAM_GODS:
                 return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 

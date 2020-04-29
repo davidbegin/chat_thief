@@ -53,6 +53,7 @@ class Revolution:
                 revolutionaries, peace_keepers, peace_keeper_sounds
             )
 
+    #  Transferring power is Different
     def _transfer_power(self, power_users, weaklings, bounty):
         the_cycle_of_power_users = cycle(power_users)
 
