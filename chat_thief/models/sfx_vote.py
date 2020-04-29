@@ -57,6 +57,7 @@ class SFXVote:
             return transform
 
         self.db().update(detract_support(detractor), Query().command == self.command)
+        return self._find_or_create_vote()
 
     def supporter_count(self):
         vote = self._find_or_create_vote()

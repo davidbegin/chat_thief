@@ -97,7 +97,10 @@ class CommandParser:
                 parser = PermsParser(user=self.user, args=self.args).parse()
 
                 if parser.target_command and not parser.target_user:
+                    print(f"Attempting to detract: {parser.target_command}")
                     return SFXVote(parser.target_command).detract(self.user)
+                else:
+                    print("Doing Nothing")
 
 
             if self.command in ["support"]:
