@@ -102,8 +102,8 @@ class CommandParser:
                 print(f"The Result of have_tables_turned: {result}")
 
                 if result in ["peace", "revolution"]:
-                    Revolution(tide=result).turn_the_tides()
-                    return f"{result} COMING SOON"
+                    # return f"{result} COMING SOON"
+                    return Revolution(tide=result).turn_the_tides()
                 else:
                     return f"The Will of the People have not chosen: {threshold} votes must be cast"
                 pass

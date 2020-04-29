@@ -35,7 +35,7 @@ def drop_effect(user, soundeffect):
     if user not in INVALID_USERS:
         print(f"\n\n\tDROPPING FOR: {user}\n")
         Command(soundeffect).allow_user(user)
-        return "@{user} now has access to Sound Effect: !{soundeffect}"
+        return f"@{user} now has access to Sound Effect: !{soundeffect}"
 
 
 def drop_random_soundeffect_to_random_user():

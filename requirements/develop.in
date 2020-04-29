@@ -1,3 +1,4 @@
 pytest
 mypy
 pytest-cov
+pytest-mock

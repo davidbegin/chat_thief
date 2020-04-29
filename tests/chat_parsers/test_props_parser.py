@@ -1,10 +1,17 @@
 import pytest
 
 from chat_thief.chat_parsers.props_parser import PropsParser
+from chat_thief.welcome_committee import WelcomeCommittee
 
 
 class TestPropsParser:
-    def test_parse(self):
+    @pytest.mark.focus
+    def test_parse(self, monkeypatch):
+        def fakeusers(self):
+            return ["artmattdank"]
+
+        monkeypatch.setattr(WelcomeCommittee, "present_users", fakeusers)
+
         user = "fake_user"
         args = ["!props", "artmattDank"]
         subject = PropsParser(user, args)

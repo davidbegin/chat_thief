@@ -47,11 +47,13 @@ class Revolution:
             self._transfer_power(
                 cycle(peace_keepers), revolutionaries, revolutionary_sounds
             )
+            return "Congrats Peace Keepers"
 
         if self.tide == "revolution":
             self._transfer_power(
                 cycle(revolutionaries), peace_keepers, peace_keeper_sounds
             )
+            return f"Congrats Revolutionaries {' '.join([ f'@{user}' for user in revolutionaries])}"
 
     def _transfer_power(self, power_users, weaklings, bounty):
         for user in weaklings:

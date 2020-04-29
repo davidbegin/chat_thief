@@ -38,6 +38,8 @@ class PermsParser:
 
                 command = random_soundeffect()
             elif self.perm_type in ["give", "transfer", "share"]:
+                # If someone tries to give a a random sample
+                # they need a sample
                 command = random.sample(User(self.user).commands(), 1)[0]
             self.target_command = command
 
