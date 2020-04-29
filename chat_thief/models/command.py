@@ -52,10 +52,16 @@ class Command:
                 self._add_user(target_user)
                 return f"@{target_user} now has access to !{self.name}"
             else:
-                return f"User @{target_user} is already in permitted_users for {self.name}!"
+                return f"@{target_user} already allowed !{self.name}"
         else:
             self._create_new_command(target_user)
-            return f"User @{target_user} is the first person wh access to the command: !{self.name}"
+            return f"@{target_user} is the 1st person with access to: !{self.name}"
+
+    def users(self):
+        if command := self.db().get(Query().command == self.name):
+            return command["permitted_users"]
+        else:
+            return None
 
     def _create_new_command(self, target_user):
         from tinyrecord import transaction

@@ -4,10 +4,12 @@ from pathlib import Path
 import pytest
 
 from chat_thief.models.user import User
-from chat_thief.audio_command import AudioCommand
+from chat_thief.models.command import Command
 
 commands_db_path = Path(__file__).parent.parent.joinpath("db/commands.json")
 users_db_path = Path(__file__).parent.parent.joinpath("db/users.json")
+
+Command.database_folder = "tests/"
 
 
 class TestUser:
@@ -33,9 +35,9 @@ class TestUser:
     def test_commands(self, user):
         subject = user("artmattdank")
         assert subject.commands() == []
-        audio_command = AudioCommand("flacid", commands_db_path=commands_db_path)
-        audio_command.allow_user("artmattdank")
-        assert audio_command.permitted_users() == ["artmattdank"]
+        command = Command("flacid")
+        command.allow_user("artmattdank")
+        assert command.users() == ["artmattdank"]
         assert subject.commands() == ["flacid"]
 
     def test_add_street_cred(self, user):
@@ -48,10 +50,10 @@ class TestUser:
     def test_remove_all_commands(self, user):
         subject = user("artmattdank")
         assert subject.commands() == []
-        audio_command = AudioCommand("flacid", commands_db_path=commands_db_path)
-        audio_command.allow_user("artmattdank")
-        assert audio_command.permitted_users() == ["artmattdank"]
+        command = Command("flacid")
+        command.allow_user("artmattdank")
+        assert command.permitted_users() == ["artmattdank"]
         assert subject.commands() == ["flacid"]
         subject.remove_all_commands()
         assert subject.commands() == []
-        assert audio_command.permitted_users() == []
+        assert command.permitted_users() == []
