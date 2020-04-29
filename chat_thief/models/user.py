@@ -5,6 +5,8 @@ from chat_thief.prize_dropper import random_soundeffect
 from chat_thief.audio_command import AudioCommand
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 
+from chat_thief.models.command import Command
+
 
 class User:
     # I want to pass in class configuration
@@ -32,9 +34,9 @@ class User:
     def stats(self):
         return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
-    def paperup(self):
-        self.add_street_cred()
-        self.add_cool_points()
+    def paperup(self, amount=100):
+        self.add_street_cred(amount)
+        self.add_cool_points(amount)
         return f"{self.name} has been Papered Up"
 
     # This doesn't iterate properly
@@ -47,21 +49,22 @@ class User:
                 while looking_for_effect:
                     effect = random_soundeffect()
 
-                    if not AudioCommand(effect).allowed_to_play(self.name):
+                    if not Command(effect).allowed_to_play(self.name):
                         looking_for_effect = False
                         self.remove_cool_points()
 
-                        # Ahh We are skipping validation for some reason
+                        # we should replace the AudioCommand here
                         AudioCommand(effect, skip_validation=True).allow_user(
                             self.name
                         )
                         return f"@{self.name} purchased: {effect}"
             else:
-                if AudioCommand(effect).allowed_to_play(self.name):
+                if Command(effect).allowed_to_play(self.name):
                     return f"@{self.name} already has access to !{effect}"
                 else:
                     self.remove_cool_points()
-                    AudioCommand(effect, skip_validation=True).allow_user(self.name)
+                    # we should replace the AudioCommand here
+                    AudioCommand(effect).allow_user(self.name)
         else:
             return f"@{self.name} - Out of Cool Points to Purchase with"
 
@@ -141,12 +144,12 @@ class User:
 
         self.users_db.update(decrease_cred(), Query().name == self.name)
 
-    def add_street_cred(self):
+    def add_street_cred(self, amount=1):
         user = self._find_or_create_user()
 
         def increase_cred():
             def transform(doc):
-                doc["street_cred"] = doc["street_cred"] + 1
+                doc["street_cred"] = doc["street_cred"] + amount
 
             return transform
 

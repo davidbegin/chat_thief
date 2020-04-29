@@ -120,8 +120,6 @@ class CommandParser:
                 Facts().available_sounds()
 
             if self.command == "paperup":
-                # return User(self.args[0]).paperup()
-
                 if self.user in STREAM_GODS:
                     return User(self.args[0]).paperup()
                 else:

@@ -23,3 +23,16 @@ class TestCommand:
     @pytest.mark.focus
     def test_count(self):
         assert Command.count() == 0
+
+    # What are the main methods we want to move
+    # from AudioCommand?
+    @pytest.mark.focus
+    def test_allowed_to_play(self):
+        subject = Command("help")
+        assert subject.allowed_to_play("beginbot")
+
+    @pytest.mark.focus
+    def test_not_allowed_to_play_others_themes(self):
+        subject = Command("artmattdank")
+        assert subject.allowed_to_play("artmattdank")
+        assert not subject.allowed_to_play("beginbot")

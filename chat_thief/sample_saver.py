@@ -93,6 +93,11 @@ class SampleSaver:
         ]
 
     def _save_command(self):
+        # We need the name of the audio commmand
+        # AudioCommand(name).allow_user(requester)
+        print(f"Saving in our DB! {sound.__dict__}")
+        from tinyrecord import transaction
+
         sound = SoundEffect(
             user=self.user,
             youtube_id=self.youtube_id,
@@ -100,17 +105,12 @@ class SampleSaver:
             start_time=self.start_time,
             end_time=self.end_time,
         )
-        command_permission = CommandPermission(
-            user=self.user, command=self.name, permitted_users=[random_user()]
-        )
-        # We need the name of the audio commmand
-        # AudioCommand(name).allow_user(requester)
-        print(f"Saving in our DB! {sound.__dict__}")
-        from tinyrecord import transaction
-
         with transaction(self.soundeffects_table) as tr:
             tr.insert(sound.__dict__)
 
+        command_permission = CommandPermission(
+            user=self.user, command=self.name, permitted_users=[random_user()]
+        )
         with transaction(self.command_permissions_table) as tr:
             tr.insert(command_permission.__dict__)
 
