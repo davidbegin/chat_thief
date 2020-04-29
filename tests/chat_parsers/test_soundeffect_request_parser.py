@@ -2,8 +2,8 @@ import pytest
 
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 
-class TestSoundeffectRequestParser:
 
+class TestSoundeffectRequestParser:
     def test_parse(self):
         user = "fake_user"
         args = ["RzBr6wof1mw", "nice", "00:01", "00:05"]
@@ -21,7 +21,6 @@ class TestSoundeffectRequestParser:
         assert result.command == "nice"
         assert result.start_time == "00:04"
         assert result.end_time == "00:08"
-
 
         args = ["nice", "RzBr6wof1mw"]
         subject = SoundeffectRequestParser(user, args)

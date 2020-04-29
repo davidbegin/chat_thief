@@ -1,8 +1,10 @@
 from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.audio_command import AudioCommand
+from chat_thief.models.command import Command
 from chat_thief.models.database import COMMANDS_DB_PATH
 
 
+# PermissionsManager is the merger of User with Command!!!
 class PermissionsManager:
     def __init__(
         self,
@@ -24,6 +26,7 @@ class PermissionsManager:
             skip_validation=skip_validation,
             commands_db_path=commands_db_path,
         )
+        self.command = Command(name=self.target_command)
 
     def swap_perm(self):
         permitted_users = self.audio_command.permitted_users()
@@ -33,8 +36,7 @@ class PermissionsManager:
         else:
             print(f"Permitted Users For: !{self.target_command} {permitted_users}")
             if self.user in permitted_users:
-                allow_msg = self.audio_command.allow_user(self.target_user)
-                # If you try and swap a command you don't own, you lose access
+                allow_msg = self.command.allow_user(self.target_user)
                 return [allow_msg, self.audio_command.unallow_user(self.user)]
             else:
                 return f"@{self.user} does not have permission to give: {self.target_command}"
@@ -43,8 +45,8 @@ class PermissionsManager:
         permitted_users = self.audio_command.permitted_users()
 
         if self.user in STREAM_GODS:
-            return self.audio_command.allow_user(self.target_user)
+            return self.command.allow_user(self.target_user)
         else:
             print(f"!{self.target_command} Permitted Users: {permitted_users}")
             if self.user in permitted_users:
-                return self.audio_command.allow_user(self.target_user)
+                return self.command.allow_user(self.target_user)

@@ -152,16 +152,17 @@ class User:
 
     def remove_all_commands(self):
         user = self._find_or_create_user()
+
         def _remove_all_commands(user):
             def transform(doc):
                 new_users = list(set(doc["permitted_users"]) - set(user))
                 doc["permitted_users"] = new_users
+
             return transform
 
         # how do I put something on a new line
         # without going to insert
         for command in self.commands():
             self.commands_db.update(
-                _remove_all_commands(user),
-                Query().command == command
+                _remove_all_commands(user), Query().command == command
             )

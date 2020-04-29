@@ -2,7 +2,8 @@ types:
 	mypy --disallow-untyped-defs *.py
 
 format:
-	black **/*.py *.py
+	black chat_thief/**/*.py *.py
+	black tests/**/*.py *.py
 
 t:
 	BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief tests/*

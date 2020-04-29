@@ -15,12 +15,14 @@ class PermsRequest:
     target_command: Optional[str]
     requester: str
 
+
 # Permission Type
 class PermsParser:
-    def __init__(self, user, args=[], random_user=False, random_command=False,
-            perm_type="give"):
+    def __init__(
+        self, user, args=[], random_user=False, random_command=False, perm_type="give"
+    ):
         self.user = user
-        self.args = [ self._sanitize(arg) for arg in args ]
+        self.args = [self._sanitize(arg) for arg in args]
         self.random_user = random_user
         self.random_command = random_command
         self.perm_type = perm_type
@@ -33,6 +35,7 @@ class PermsParser:
         if self.target_command == "random":
             if self.perm_type == "buy":
                 from chat_thief.prize_dropper import random_soundeffect
+
                 command = random_soundeffect()
             elif self.perm_type in ["give", "transfer", "share"]:
                 command = random.sample(User(self.user).commands(), 1)[0]
@@ -40,12 +43,13 @@ class PermsParser:
 
         if self.target_user == "random":
             from chat_thief.prize_dropper import random_user
+
             self.target_user = random_user()
 
         return PermsRequest(
             target_user=self.target_user,
             target_command=self.target_command,
-            requester=self.user
+            requester=self.user,
         )
 
     def _set_target_user_and_command(self):
@@ -61,7 +65,10 @@ class PermsParser:
 
     def _is_command(self, command):
         if self.random_command:
-            return command in SoundeffectsLibrary.fetch_soundeffect_names() or command == "random"
+            return (
+                command in SoundeffectsLibrary.fetch_soundeffect_names()
+                or command == "random"
+            )
         else:
             return command in SoundeffectsLibrary.soundeffects_only()
 

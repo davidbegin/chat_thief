@@ -2,7 +2,7 @@ import random
 from pathlib import Path
 import traceback
 
-from chat_thief.audio_command import AudioCommand
+from chat_thief.models.command import Command
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
@@ -34,13 +34,8 @@ def random_user(blacklisted_users=[]):
 def drop_effect(user, soundeffect):
     if user not in INVALID_USERS:
         print(f"\n\n\tDROPPING FOR: {user}\n")
-        AudioCommand(soundeffect).allow_user(user)
-
-        # We Skip validation, because this is users first command
-        # And are not yet in our system?
-        # AudioCommand(soundeffect, skip_validation=True).allow_user(user)
-        msg = f"@{user} now has access to Sound Effect: !{soundeffect}"
-        return msg
+        Command(soundeffect).allow_user(user)
+        return "@{user} now has access to Sound Effect: !{soundeffect}"
 
 
 def drop_random_soundeffect_to_random_user():

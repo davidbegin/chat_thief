@@ -2,8 +2,8 @@ import pytest
 
 from chat_thief.chat_parsers.perms_parser import PermsParser
 
-class TestPermsParser:
 
+class TestPermsParser:
     def test_parse(self):
         user = "fake_user"
         args = ["!perms", "clap"]

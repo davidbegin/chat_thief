@@ -10,7 +10,7 @@ from chat_thief.models.command_permission import CommandPermission
 from chat_thief.irc import send_twitch_msg
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.prize_dropper import random_user
-from chat_thief.audio_command import AudioCommand
+from chat_thief.models.command import Command
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 
 
@@ -84,7 +84,7 @@ class SampleSaver:
             send_twitch_msg(f"New Sound Available: !{self.name}")
 
         if requester:
-            AudioCommand(self.name).allow_user(requester)
+            Command(self.name).allow_user(requester)
 
     def _current_samples(self):
         return [
@@ -93,8 +93,6 @@ class SampleSaver:
         ]
 
     def _save_command(self):
-        # We need the name of the audio commmand
-        # AudioCommand(name).allow_user(requester)
         print(f"Saving in our DB! {sound.__dict__}")
         from tinyrecord import transaction
 

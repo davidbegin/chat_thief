@@ -25,9 +25,9 @@ class CommandPermission:
         return self.database_path
         # return True
 
+
 # def commands_table():
 #     return db_table(COMMANDS_DB_PATH)
 
 # def db_table(db_location, table_name):
 #     return TinyDB(Path(__file__).parent.parent.parent.joinpath(db_location)).table(table_name, cache_size=0)
-

@@ -7,7 +7,6 @@ from itertools import chain
 from tinydb import TinyDB, Query
 
 from chat_thief.models.soundeffect import SoundEffect
-from chat_thief.models.command_permission import CommandPermission
 
 from chat_thief.config.stream_lords import STREAM_LORDS
 from chat_thief.irc import send_twitch_msg

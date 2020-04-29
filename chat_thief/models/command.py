@@ -21,7 +21,7 @@ class Command:
             "command": self.name,
             "user": "beginbot",
             "permitted_users": permitted_users,
-            "health": self.health
+            "health": self.health,
         }
 
     @classmethod
@@ -44,32 +44,33 @@ class Command:
 
         return False
 
-
     def allow_user(self, target_user):
-        command_permission = self.db().search(Query().command == self.name)
+        command = self.db().get(Query().command == self.name)
 
-        if command_permission:
-            command_permission = command_permission[-1]
-
-            if target_user not in command_permission["permitted_users"]:
-                def add_permitted_users():
-                    def transform(doc):
-                        doc["permitted_users"].append(target_user)
-                    return transform
-                self.commands_db.update(
-                    add_permitted_users(), Query().command == self.name
-                )
-                message = f"@{target_user} now has access to !{self.name}"
+        if command:
+            if target_user not in command["permitted_users"]:
+                self._add_user(target_user)
+                return f"@{target_user} now has access to !{self.name}"
             else:
-                message = f"User @{target_user} is already in permitted_users for {self.name}!"
+                return f"User @{target_user} is already in permitted_users for {self.name}!"
         else:
-            from tinyrecord import transaction
-            with transaction(self.db()) as tr:
-                tr.insert(self._new_command(permitted_users=[target_user]))
-            message = f"User @{target_user} is the first person wh access to the command: !{self.name}"
-        return message
+            self._create_new_command(target_user)
+            return f"User @{target_user} is the first person wh access to the command: !{self.name}"
 
+    def _create_new_command(self, target_user):
+        from tinyrecord import transaction
 
+        with transaction(self.db()) as tr:
+            tr.insert(self._new_command(permitted_users=[target_user]))
+
+    def _add_user(self, target_user):
+        def add_permitted_users():
+            def transform(doc):
+                doc["permitted_users"].append(target_user)
+
+            return transform
+
+        self.db().update(add_permitted_users(), Query().command == self.name)
 
     def _user_has_chatted(self):
         # if not self.skip_validation:

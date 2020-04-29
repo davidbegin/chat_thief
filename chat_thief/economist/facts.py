@@ -12,7 +12,6 @@ from chat_thief.models.vote import Vote
 
 
 class Facts:
-
     def peace_count(self):
         vote = Vote("beginbot")
         return vote.peace_count()
@@ -46,7 +45,9 @@ class Facts:
         result = table.search(Query().permitted_users)
 
         counter = Counter(
-            list(chain.from_iterable([command["permitted_users"] for command in result]))
+            list(
+                chain.from_iterable([command["permitted_users"] for command in result])
+            )
         )
         return counter.most_common()[0:5]
         # [('blueredbrackets', 35), ('whatsinmyopsec', 13), ('zerostheory', 13), ('stupac62', 11), ('zanuss', 10)]

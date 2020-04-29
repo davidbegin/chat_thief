@@ -3,21 +3,19 @@ from chat_thief.models.database import db_table
 
 from tinydb import Query
 
+
 class Vote:
     def __init__(self, user, votes_db_path=DEFAULT_VOTES_DB_PATH):
         self.votes_db = db_table(votes_db_path, "votes")
         self.user = user
 
     def peace_keepers(self):
-        return [
-            vote["user"] for vote in
-            self.votes_db.search(Query().vote == "peace")
-        ]
+        return [vote["user"] for vote in self.votes_db.search(Query().vote == "peace")]
 
     def revolutionaries(self):
         return [
-            freedom_fighter["user"] for freedom_fighter in
-            self.votes_db.search(Query().vote == "revolution")
+            freedom_fighter["user"]
+            for freedom_fighter in self.votes_db.search(Query().vote == "revolution")
         ]
 
     # When theres a certain percentage of users
@@ -32,7 +30,6 @@ class Vote:
             return "peace"
 
         return False
-
 
     def vote_count(self):
         return len(self.votes_db.all())
@@ -49,6 +46,7 @@ class Vote:
         def user_vote(new_vote):
             def transform(doc):
                 doc["vote"] = new_vote
+
             return transform
 
         if user:
@@ -57,19 +55,15 @@ class Vote:
         else:
             print(f"NO Previous Vote for User {self.user}!")
             from tinyrecord import transaction
+
             with transaction(self.votes_db) as tr:
                 tr.insert(self.doc(vote))
             self.doc(vote)
 
         return {"Revolution": self.revolution_count(), "Peace": self.peace_count()}
 
-
     def doc(self, vote):
-        return {
-            "user": self.user,
-            "vote": vote
-        }
-
+        return {"user": self.user, "vote": vote}
 
     def _find_user(self):
         user = self.votes_db.search(Query().user == self.user)

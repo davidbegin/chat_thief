@@ -10,7 +10,6 @@ db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
 
 
 class TestCommand:
-
     @pytest.fixture(autouse=True)
     def destroy_db(self):
         if db_path.is_file():
@@ -45,3 +44,5 @@ class TestCommand:
         assert not subject.allowed_to_play("rando")
         assert not other_subject.allowed_to_play("spfar")
         assert other_subject.allowed_to_play("rando")
+        subject.allow_user("rando")
+        assert subject.allowed_to_play("rando")

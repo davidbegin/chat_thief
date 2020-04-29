@@ -17,7 +17,7 @@ class PropsRequest:
 class PropsParser:
     def __init__(self, user, args=[]):
         self.user = user
-        self.args = [ self._sanitize(arg) for arg in args ]
+        self.args = [self._sanitize(arg) for arg in args]
 
         self.target_user = None
         self.amount = 1
@@ -25,9 +25,7 @@ class PropsParser:
 
     def parse(self):
         return PropsRequest(
-            target_user=self.target_user,
-            amount=self.amount,
-            requester=self.user
+            target_user=self.target_user, amount=self.amount, requester=self.user
         )
 
     def _set_target_user_and_amount(self):

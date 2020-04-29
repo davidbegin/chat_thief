@@ -3,6 +3,7 @@ import random
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.models.user import User
 
+
 class CommandGiver:
     def __init__(self, user, command, friend):
         self.user = user
