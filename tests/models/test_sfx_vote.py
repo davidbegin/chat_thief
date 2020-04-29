@@ -18,7 +18,6 @@ class TestSFXVote:
     def test_sfx_vote(self):
         SFXVote.count() == 0
 
-    @pytest.mark.focus
     def test_create_sfx_vote(self):
         subject = SFXVote(command="clap")
         subject.support("thugga")

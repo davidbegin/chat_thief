@@ -50,7 +50,6 @@ class TestCommand:
         subject.allow_user("rando")
         assert subject.allowed_to_play("rando")
 
-    @pytest.mark.focus
     def test_unallow(self):
         subject = Command("clap")
         other_subject = Command("damn")

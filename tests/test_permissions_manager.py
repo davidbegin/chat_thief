@@ -5,6 +5,7 @@ import pytest
 from chat_thief.config.stream_lords import STREAM_LORDS
 from chat_thief.permissions_manager import PermissionsManager
 from chat_thief.audio_command import AudioCommand
+from chat_thief.models.command import Command
 from chat_thief.models.user import User
 
 commands_db_path = Path(__file__).parent.joinpath("db/commands.json")
@@ -45,7 +46,7 @@ class TestPermissionsManager:
         initial_perms = audio_command.permitted_users()
 
         assert user not in initial_perms
-        audio_command.allow_user(user)
+        Command(command).allow_user(user)
         subject = permissions_manager(
             user=user, command=command, target_user=user, target_command=command
         )
@@ -67,7 +68,7 @@ class TestPermissionsManager:
             command, skip_validation=True, commands_db_path=commands_db_path
         )
 
-        audio_command.allow_user(user)
+        Command(command).allow_user(user)
 
         allowed_commands = User(user, commands_db_path=commands_db_path).commands()
         final_perms = audio_command.permitted_users()
