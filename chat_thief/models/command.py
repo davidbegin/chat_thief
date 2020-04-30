@@ -40,6 +40,7 @@ class Command:
 
     def allowed_to_play(self, user):
         if not SFXVote(self.name).is_enabled():
+            print(f"{self.name} is not currently enabled")
             return False
 
         if self.is_theme_song:

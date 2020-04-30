@@ -14,7 +14,7 @@ class SFXVote:
         if self.supporter_count() == 0 and self.detractor_count() == 0:
             return True
 
-        return self.supporter_count() > self.detractor_count()
+        return self.supporter_count() >= self.detractor_count()
 
     def __init__(self, command, supporters=[], detractors=[]):
         self.command = command
@@ -58,6 +58,12 @@ class SFXVote:
 
         self.db().update(detract_support(detractor), Query().command == self.command)
         return self._find_or_create_vote()
+
+    def like_to_hate_ratio(self):
+        if self.detractor_count() < 1:
+            return 100
+        total = self.supporter_count() + self.detractor_count()
+        return (self.supporter_count() / total) * 100
 
     def supporter_count(self):
         vote = self._find_or_create_vote()

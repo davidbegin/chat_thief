@@ -18,6 +18,7 @@ class TestSFXVote(DatabaseConfig):
         assert subject.detractor_count() == 0
         assert subject.is_enabled()
         subject.detract("bill")
-        assert subject.detractor_count() == 1
-        SFXVote.count() == 1
+        subject.detract("dennis")
+        assert subject.detractor_count() == 2
+        SFXVote.count() == 3
         assert not subject.is_enabled()

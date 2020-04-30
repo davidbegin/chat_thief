@@ -22,4 +22,7 @@ class PermissionsFetcher:
         if target_command and not target_user:
             command = Command(target_command)
             user_permissions = " ".join([f"@{perm}" for perm in command.users() ])
-            return f"!{target_command} | Cost: {command.cost()}: {user_permissions}"
+
+            from chat_thief.models.sfx_vote import SFXVote
+            like_ratio = SFXVote(target_command).like_to_hate_ratio()
+            return f"!{target_command} | Cost: {command.cost()} | Like Ratio {round(like_ratio)}% | {user_permissions}"

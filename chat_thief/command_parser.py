@@ -220,7 +220,7 @@ class CommandParser:
                 "endorse",
             ]:
                 parser = PropsParser(user=self.user, args=self.args).parse()
-                if parser.target_user == "random":
+                if parser.target_user == "random" or not parser.target_user:
                     from chat_thief.prize_dropper import random_user
                     parser.target_user = random_user(blacklisted_users=[self.user])
 
