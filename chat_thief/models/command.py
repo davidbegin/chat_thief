@@ -15,6 +15,7 @@ class Command:
         self.name = name
         self.permitted_users = []
         self.health = 5
+        self.inital_cost = 1
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
     @classmethod
@@ -52,6 +53,25 @@ class Command:
 
         return False
 
+    def cost(self):
+        if command := self.db().get(Query().command == self.name):
+            return command["cost"]
+        else:
+            return 1
+
+    def increase_cost(self, amount=1):
+        if command := self.db().get(Query().command == self.name):
+            self._increase_cost(amount)
+
+    def _increase_cost(self, amount):
+        def _db_increase_cost():
+            def transform(doc):
+                doc["cost"] = int(doc["cost"]) + int(amount)
+
+            return transform
+
+        self.db().update(_db_increase_cost(), Query().command == self.name)
+
     def unallow_user(self, target_user):
         command = self.db().get(Query().command == self.name)
 
@@ -83,11 +103,31 @@ class Command:
         else:
             return []
 
+    def save(self):
+        from tinyrecord import transaction
+
+        with transaction(self.db()) as tr:
+            tr.insert(self._new_command(permitted_users=[target_user]))
+
     def _create_new_command(self, target_user):
         from tinyrecord import transaction
 
         with transaction(self.db()) as tr:
             tr.insert(self._new_command(permitted_users=[target_user]))
+
+    def save(self):
+        from tinyrecord import transaction
+
+        with transaction(self.db()) as tr:
+            tr.insert(
+                {
+                    "command": self.name,
+                    "user": "beginbot",
+                    "permitted_users": self.permitted_users,
+                    "health": self.health,
+                    "cost": self.inital_cost,
+                }
+            )
 
     def _add_user(self, target_user):
         def add_permitted_users():
@@ -113,6 +153,7 @@ class Command:
             "user": "beginbot",
             "permitted_users": permitted_users,
             "health": self.health,
+            "cost": self.inital_cost,
         }
 
     # def _user_has_chatted(self):

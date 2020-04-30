@@ -13,6 +13,7 @@ from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.revolution import Revolution
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
+from chat_thief.commands.command_stealer import CommandStealer
 
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.soundeffect_request import SoundeffectRequest
@@ -78,6 +79,10 @@ class CommandParser:
                 from chat_thief.commands.leaderboard import leaderboard
 
                 return leaderboard()
+
+            if self.command in ["steal"]:
+                parser = PermsParser(user=self.user, args=self.args).parse()
+                return CommandStealer(thief=self.user, victim=parser.target_user, command=parser.target_command).steal()
 
             if self.command in ["hate", "detract"]:
                 from chat_thief.models.sfx_vote import SFXVote

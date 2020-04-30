@@ -61,7 +61,7 @@ def dropreward():
 
 def _is_int_between(potential_int):
     try:
-        return int(potential_int) in range(1, 10)
+        return int(potential_int) in range(1, 100)
     except:
         return False
 
