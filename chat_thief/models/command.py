@@ -78,7 +78,7 @@ class Command:
         if command := self.db().get(Query().command == self.name):
             return command["permitted_users"]
         else:
-            return None
+            return []
 
     def _create_new_command(self, target_user):
         from tinyrecord import transaction

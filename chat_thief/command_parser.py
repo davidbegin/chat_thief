@@ -22,7 +22,6 @@ from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.user_requests import handle_user_requests
 from chat_thief.commands.revolution import Revolution
 
-
 from chat_thief.irc_msg import IrcMsg
 
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
@@ -60,7 +59,6 @@ HELP_MENU = [
     "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
     "!perms clap - See who is allowed to use the !clap command",
     "!perms beginbot - See what commands beginbot has access to",
-    "!leaderboard - See what users have the most commands",
     "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
 ]
 
@@ -109,16 +107,8 @@ class CommandParser:
 
                 if parser.target_command and not parser.target_user:
                     return SFXVote(parser.target_command).support(self.user)
-
-                # !support @user
-                # !support !clap
-                # SFX Vote is for a Command!
-                # SFXVote(self.user).support(
-                #     # l
-                # )
-
-            if self.command == "color" and self.user in STREAM_GODS:
-                return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
+                else:
+                    return None
 
             if self.command == "coup" and self.user == "beginbotbot":
                 threshold = int(User(self.user).total_users() / 8)
@@ -131,7 +121,6 @@ class CommandParser:
                     return Revolution(tide=result).turn_the_tides()
                 else:
                     return f"The Will of the People have not chosen: {threshold} votes must be cast"
-                pass
 
             if self.command == "revolution":
                 return Vote(user=self.user).vote("revolution")
@@ -142,7 +131,7 @@ class CommandParser:
             if self.command == "facts" and self.user in STREAM_GODS:
                 from chat_thief.economist.facts import Facts
 
-                Facts().available_sounds()
+                return Facts().available_sounds()
 
             if self.command == "paperup":
                 if self.user in STREAM_GODS:
@@ -163,18 +152,15 @@ class CommandParser:
                 else:
                     return stats
 
+
             if self.command in ["permissions", "permission", "perms", "perm"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()
 
-                perms = PermissionsFetcher.fetch_permissions(
+                return PermissionsFetcher.fetch_permissions(
                     user=self.user,
                     target_user=parser.target_user,
                     target_command=parser.target_command,
                 )
-                if perms:
-                    return perms
-                else:
-                    return f"We found no permissions for {self.user} {self.args}"
 
             if self.command == "peasants":
                 return ChatLogs().recent_stream_peasants()
@@ -242,8 +228,8 @@ class CommandParser:
                 parser = PropsParser(user=self.user, args=self.args).parse()
                 if parser.target_user == "random":
                     from chat_thief.prize_dropper import random_user
-
                     parser.target_user = random_user(blacklisted_users=[self.user])
+
                 return StreetCredTransfer(
                     user=self.user, cool_person=parser.target_user, amount=parser.amount
                 ).transfer()
@@ -270,17 +256,14 @@ class CommandParser:
             if self.command == "so":
                 return shoutout(self.msg)
 
-            if self.command == "whitelist":
-                return " ".join(PermissionsFetcher.fetch_whitelisted_users())
-
             if self.command == "streamlords":
                 return " ".join(STREAM_LORDS)
 
             if self.command == "streamgods":
                 return " ".join(STREAM_GODS)
 
-            if self.command == "requests":
-                return handle_user_requests()
+            # if self.command == "requests":
+            #     return handle_user_requests()
 
             if (
                 self.command in ["approve", "approve_all_requests"]
@@ -288,6 +271,9 @@ class CommandParser:
             ):
                 request_user = self.args[0].lower()
                 return ApproveAllRequests.approve(self.user, request_user)
+
+            # if self.command == "color" and self.user in STREAM_GODS:
+            #     return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 
             if self.command == "soundeffect":
                 sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)

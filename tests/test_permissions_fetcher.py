@@ -19,9 +19,7 @@ class TestPermissionsFetcher:
     def command_permission_center(self):
         def _command_permission_center(user, command):
             return PermissionsFetcher(
-                user=user,
-                command=command,
-                skip_validation=True,
+                user=user
             )
 
         return _command_permission_center
@@ -32,10 +30,6 @@ class TestPermissionsFetcher:
         command = "wow"
 
         subject = command_permission_center(user=user, command=command)
-
-        allowed_commands = subject.fetch_user_permissions()
-        assert allowed_commands == []
-
         # This will work once we have DB setup working correctly
         # Command(command).allow_user(user)
         # allowed_commands = subject.fetch_user_permissions()
