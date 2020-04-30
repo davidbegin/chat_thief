@@ -2,7 +2,7 @@ from tinydb import Query
 
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 
-from chat_thief.models.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
+from chat_thief.models.database import db_table
 from chat_thief.sample_saver import SampleSaver
 
 

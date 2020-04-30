@@ -11,12 +11,13 @@ from chat_thief.models.soundeffect import SoundEffect
 from chat_thief.config.stream_lords import STREAM_LORDS
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
-from chat_thief.models.database import db_table, COMMANDS_DB_PATH
+from chat_thief.models.database import db_table
+
+from chat_thief.models.command import Command
 
 
 def loserboard():
-    table = db_table(COMMANDS_DB_PATH, "commands")
-    result = table.search(Query().permitted_users)
+    result = Command.db().all()
 
     counter = Counter(
         list(chain.from_iterable([command["permitted_users"] for command in result]))
@@ -33,8 +34,7 @@ def loserboard():
 
 
 def leaderboard():
-    table = db_table(COMMANDS_DB_PATH, "commands")
-    result = table.search(Query().permitted_users)
+    result = Command.db().all()
 
     counter = Counter(
         list(chain.from_iterable([command["permitted_users"] for command in result]))

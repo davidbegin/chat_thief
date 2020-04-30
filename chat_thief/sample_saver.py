@@ -20,7 +20,7 @@ ADD_SOUND_EFFECT_PATH = Path(SAMPLES_PATH).joinpath("add_sound_effect")
 soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
 DB = TinyDB(soundeffects_db_path)
 
-from chat_thief.models.database import db_table, USERS_DB_PATH, COMMANDS_DB_PATH
+from chat_thief.models.database import db_table
 
 
 class SampleSaver:

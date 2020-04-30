@@ -42,6 +42,7 @@ class SFXVote:
             return transform
 
         self.db().update(show_support(supporter), Query().command == self.command)
+        # We are returning Dict
         return self._find_or_create_vote()
 
     def detract(self, detractor):

@@ -100,7 +100,8 @@ class CommandParser:
                 parser = PermsParser(user=self.user, args=self.args).parse()
 
                 if parser.target_command and not parser.target_user:
-                    return SFXVote(parser.target_command).support(self.user)
+                    result = SFXVote(parser.target_command).support(self.user)
+                    return "!{parser.target_command} supporters: {len(result['supporters']} | detractors {len(result['detractors])}"
                 else:
                     return None
 
@@ -168,6 +169,11 @@ class CommandParser:
                 parser = PermsParser(
                     user=self.user, args=self.args, random_command=True, perm_type="buy"
                 ).parse()
+
+                if parser.target_command:
+                    command = parser.target_command
+                else:
+                    command = "random"
                 return User(self.user).buy(parser.target_command)
 
             # These Need Chat Parsers

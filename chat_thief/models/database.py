@@ -1,13 +1,6 @@
 from pathlib import Path
 
-from tinydb import TinyDB, Query
-
-USERS_DB_PATH = "db/users.json"
-COMMANDS_DB_PATH = "db/commands.json"
-
-
-def commands_table():
-    return db_table(COMMANDS_DB_PATH)
+from tinydb import TinyDB
 
 
 def db_table(db_location, table_name):
