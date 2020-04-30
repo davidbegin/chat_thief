@@ -2,6 +2,8 @@ from chat_thief.models.user import User
 from chat_thief.models.command import Command
 from chat_thief.config.stream_lords import STREAM_GODS
 
+from chat_thief.soundeffects_library import SoundeffectsLibrary
+
 
 class CommandSharer:
     def __init__(self, user, command, friend):
@@ -10,6 +12,9 @@ class CommandSharer:
         self.friend = friend
 
     def share(self):
+        if not self.command in SoundeffectsLibrary.fetch_soundeffect_names():
+            raise ValueError(f"!{self.command} invalid command")
+
         command = Command(name=self.command)
 
         if self.user in STREAM_GODS:
