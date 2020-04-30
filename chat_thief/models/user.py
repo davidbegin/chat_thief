@@ -60,6 +60,12 @@ class User:
         return command
 
     def buy(self, effect):
+        if (
+            effect != "random"
+            and effect not in SoundeffectsLibrary.fetch_soundeffect_names()
+        ):
+            raise ValueError(f"Invalid Effect: {effect}")
+
         if self.cool_points() > 0:
             if effect == "random":
                 command = self._find_affordable_random_command()

@@ -143,10 +143,10 @@ class CommandParser:
                 else:
                     return stats
 
-
             if self.command in ["permissions", "permission", "perms", "perm"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()
-
+                if len(self.args) > 0 and not parser.target_command and not parser.target_user:
+                    raise ValueError(f"Could not find user or command: {' '.join(self.args)}")
                 return PermissionsFetcher.fetch_permissions(
                     user=self.user,
                     target_user=parser.target_user,
@@ -174,7 +174,7 @@ class CommandParser:
                     command = parser.target_command
                 else:
                     command = "random"
-                return User(self.user).buy(parser.target_command)
+                return User(self.user).buy(command)
 
             # These Need Chat Parsers
             if self.command == "dropeffect" and self.user in STREAM_GODS:
