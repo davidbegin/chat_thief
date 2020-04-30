@@ -3,6 +3,7 @@ from typing import Optional
 
 from dataclasses import dataclass
 
+from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.prize_dropper import random_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
@@ -75,7 +76,9 @@ class PermsParser:
             return command in SoundeffectsLibrary.soundeffects_only()
 
     def _is_user(self, user):
-        if self.random_user:
+        if user in STREAM_GODS:
+            return True
+        elif self.random_user:
             return user in WelcomeCommittee().present_users() or user == "random"
         else:
             return user in WelcomeCommittee().present_users()

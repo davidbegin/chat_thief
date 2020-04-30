@@ -65,10 +65,13 @@ class Command:
         command = self.db().get(Query().command == self.name)
 
         if command:
+            # What if we are none
             if target_user not in command["permitted_users"]:
                 self._add_user(target_user)
                 return f"@{target_user} now has access to !{self.name}"
             else:
+                # Sooooooooooo
+                # So here it is none
                 return f"@{target_user} already allowed !{self.name}"
         else:
             self._create_new_command(target_user)

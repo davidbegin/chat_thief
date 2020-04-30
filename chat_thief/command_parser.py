@@ -204,6 +204,7 @@ class CommandParser:
                 parser = PermsParser(
                     user=self.user, args=self.args, random_user=True
                 ).parse()
+
                 return CommandSharer(
                     self.user, parser.target_command, parser.target_user
                 ).share()

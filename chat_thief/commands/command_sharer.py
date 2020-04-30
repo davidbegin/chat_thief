@@ -1,4 +1,5 @@
 from chat_thief.models.user import User
+from chat_thief.models.command import Command
 from chat_thief.config.stream_lords import STREAM_GODS
 
 
@@ -9,12 +10,12 @@ class CommandSharer:
         self.friend = friend
 
     def share(self):
+        command = Command(name=self.command)
+
         if self.user in STREAM_GODS:
-            command = Command(name=self.command)
-            return self.command.allow_user(self.friend)
+            return command.allow_user(self.friend)
         elif User(self.user).street_cred() > 0:
-            command = Command(name=self.command)
-            perm_result = self.command.allow_user(self.friend)
+            perm_result = command.allow_user(self.friend)
 
             if perm_result:
                 print("\nWe have a Perm Result")

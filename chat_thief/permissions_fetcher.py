@@ -1,18 +1,15 @@
 from chat_thief.models.user import User
-
 from chat_thief.models.command import Command
 
 
 class PermissionsFetcher:
-    def __init__( self, user):
-        self.user = user
 
     @classmethod
     def fetch_permissions(cls, user, target_command, target_user):
         # Personal Permissions
         if not target_command and not target_user:
             title = f"@{user}'s"
-            user_permissions = " ".join([f"!{perm}" for perm in User(self.user).commands() ])
+            user_permissions = " ".join([f"!{perm}" for perm in User(user).commands() ])
             return f"{title} Permissions: {user_permissions}"
 
         # User Permissions
