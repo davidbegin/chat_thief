@@ -9,7 +9,7 @@ from chat_thief.models.command import Command
 commands_db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
 Command.database_folder = "tests/"
 
-class TestCommandPermissions:
+class TestPermissionsFetcher:
     @pytest.fixture(autouse=True)
     def clear_db(cls):
         if commands_db_path.is_file():

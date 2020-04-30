@@ -54,11 +54,9 @@ class User:
                 looking_for_effect = True
                 while looking_for_effect:
                     effect = random_soundeffect()
-
                     if not Command(effect).allowed_to_play(self.name):
                         looking_for_effect = False
                         self.remove_cool_points()
-
                         Command(effect).allow_user(self.name)
                         return f"@{self.name} purchased: {effect}"
             else:

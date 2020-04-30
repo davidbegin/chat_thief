@@ -6,7 +6,6 @@ from tinydb import TinyDB, Query
 
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.models.soundeffect import SoundEffect
-from chat_thief.models.command_permission import CommandPermission
 from chat_thief.irc import send_twitch_msg
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.prize_dropper import random_user
@@ -106,11 +105,8 @@ class SampleSaver:
             tr.insert(sound.__dict__)
         print(f"Saving in our DB! {sound.__dict__}")
 
-        command_permission = CommandPermission(
-            user=self.user, command=self.name, permitted_users=[random_user()]
-        )
-        with transaction(self.command_permissions_table) as tr:
-            tr.insert(command_permission.__dict__)
+        command = Command( name=self.name)
+        command._create_new_command(random_user())
 
     def _save_with_youtube_dl(self):
         """
