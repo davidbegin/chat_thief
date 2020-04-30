@@ -1,10 +1,6 @@
-from pathlib import Path
 from typing import Dict, List, Optional
 import logging
 import os
-import random
-import subprocess
-import traceback
 
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
@@ -17,7 +13,6 @@ from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.revolution import Revolution
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
-from chat_thief.commands.user_requests import handle_user_requests
 
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.soundeffect_request import SoundeffectRequest
@@ -28,9 +23,7 @@ from chat_thief.chat_logs import ChatLogs
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.permissions_fetcher import PermissionsFetcher
-from chat_thief.prize_dropper import drop_soundeffect, dropreward, random_soundeffect
-from chat_thief.request_saver import RequestSaver
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.welcome_committee import WelcomeCommittee
 
 BLACKLISTED_LOG_USERS = [
@@ -257,18 +250,12 @@ class CommandParser:
             if self.command == "streamgods":
                 return " ".join(STREAM_GODS)
 
-            # if self.command == "requests":
-            #     return handle_user_requests()
-
             if (
                 self.command in ["approve", "approve_all_requests"]
                 and self.user in STREAM_LORDS
             ):
                 request_user = self.args[0].lower()
                 return ApproveAllRequests.approve(self.user, request_user)
-
-            # if self.command == "color" and self.user in STREAM_GODS:
-            #     return subprocess.call(["/usr/bin/wal", "--theme", "random_dark"])
 
             if self.command == "soundeffect":
                 sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)
