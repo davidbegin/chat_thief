@@ -2,9 +2,9 @@ import pytest
 
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.irc_msg import IrcMsg
+from tests.support.database_setup import DatabaseConfig
 
-
-class TestSoundEffectRequest:
+class TestSoundEffectRequest(DatabaseConfig):
     @pytest.mark.parametrize(
         "user, soundeffect_request,expected",
         [

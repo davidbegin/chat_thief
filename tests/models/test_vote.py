@@ -4,26 +4,9 @@ from pathlib import Path
 from chat_thief.models.vote import Vote
 from chat_thief.models.user import User
 from chat_thief.models.user import Command
+from tests.support.database_setup import DatabaseConfig
 
-Command.database_folder = "tests/"
-User.database_folder = "tests/"
-Vote.database_folder = "tests/"
-
-votes_db_path = Path(__file__).parent.parent.joinpath(Vote.database_path)
-users_db_path = Path(__file__).parent.parent.joinpath(User.database_path)
-commands_db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
-
-
-class TestVote:
-    @pytest.fixture(autouse=True)
-    def destroy_db(self):
-        if votes_db_path.is_file():
-            votes_db_path.unlink()
-        if users_db_path.is_file():
-            users_db_path.unlink()
-        if commands_db_path.is_file():
-            commands_db_path.unlink()
-        yield
+class TestVote(DatabaseConfig):
 
     def _create_user(self, name):
         user = User(name=name)

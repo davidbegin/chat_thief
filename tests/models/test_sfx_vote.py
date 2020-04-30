@@ -3,17 +3,9 @@ from pathlib import Path
 import pytest
 
 from chat_thief.models.sfx_vote import SFXVote
+from tests.support.database_setup import DatabaseConfig
 
-SFXVote.database_folder = "tests/"
-db_path = Path(__file__).parent.parent.joinpath(SFXVote.database_path)
-
-
-class TestSFXVote:
-    @pytest.fixture(autouse=True)
-    def destroy_db(self):
-        if db_path.is_file():
-            db_path.unlink()
-        yield
+class TestSFXVote(DatabaseConfig):
 
     def test_sfx_vote(self):
         SFXVote.count() == 0

@@ -2,9 +2,10 @@ import pytest
 
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.prize_dropper import random_soundeffect
+from tests.support.database_setup import DatabaseConfig
 
 
-class TestPlaySoundeffectRequest:
+class TestPlaySoundeffectRequest(DatabaseConfig):
     def test_requester(self):
         pass
         # assert subject.user == "youngthug"

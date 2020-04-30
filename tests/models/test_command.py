@@ -5,22 +5,9 @@ import pytest
 from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 
+from tests.support.database_setup import DatabaseConfig
 
-SFXVote.database_folder = "tests/"
-Command.database_folder = "tests/"
-
-db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
-sfx_votes_db = Path(__file__).parent.parent.joinpath("db/sfx_votes.json")
-
-
-class TestCommand:
-    @pytest.fixture(autouse=True)
-    def destroy_db(self):
-        if db_path.is_file():
-            db_path.unlink()
-        if sfx_votes_db.is_file():
-            sfx_votes_db.unlink()
-        yield
+class TestCommand(DatabaseConfig):
 
     def test_count(self):
         assert Command.count() == 0
