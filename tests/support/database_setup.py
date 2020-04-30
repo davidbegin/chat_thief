@@ -13,7 +13,7 @@ Vote.database_folder = "tests/"
 
 commands_db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
 users_db_path = Path(__file__).parent.parent.joinpath(User.database_path)
-sfx_votes_db = Path(__file__).parent.parent.joinpath("db/sfx_votes.json")
+sfx_votes_db = Path(__file__).parent.parent.joinpath(SFXVote.database_path)
 votes_db_path = Path(__file__).parent.parent.joinpath(Vote.database_path)
 
 

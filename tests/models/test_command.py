@@ -7,8 +7,8 @@ from chat_thief.models.sfx_vote import SFXVote
 
 from tests.support.database_setup import DatabaseConfig
 
-class TestCommand(DatabaseConfig):
 
+class TestCommand(DatabaseConfig):
     def test_count(self):
         assert Command.count() == 0
 

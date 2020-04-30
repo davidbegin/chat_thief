@@ -6,8 +6,8 @@ from chat_thief.models.user import User
 from chat_thief.models.user import Command
 from tests.support.database_setup import DatabaseConfig
 
-class TestVote(DatabaseConfig):
 
+class TestVote(DatabaseConfig):
     def _create_user(self, name):
         user = User(name=name)
         user._find_or_create_user()

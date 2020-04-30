@@ -8,8 +8,8 @@ from chat_thief.models.sfx_vote import SFXVote
 
 from tests.support.database_setup import DatabaseConfig
 
-class TestUser(DatabaseConfig):
 
+class TestUser(DatabaseConfig):
     @pytest.fixture
     def user(self):
         def _user(name):

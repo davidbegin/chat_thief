@@ -5,8 +5,8 @@ import pytest
 from chat_thief.models.sfx_vote import SFXVote
 from tests.support.database_setup import DatabaseConfig
 
-class TestSFXVote(DatabaseConfig):
 
+class TestSFXVote(DatabaseConfig):
     def test_sfx_vote(self):
         SFXVote.count() == 0
 
