@@ -77,20 +77,20 @@ class AudioCommand:
         else:
             return []
 
-    def unallow_user(self, target_user):
-        command_permission = self.commands_db.search(Query().command == self.name)
-        if command_permission:
-            command_permission = command_permission[-1]
+    # def unallow_user(self, target_user):
+    #     command_permission = self.commands_db.search(Query().command == self.name)
+    #     if command_permission:
+    #         command_permission = command_permission[-1]
 
-            def remove_users():
-                def transform(doc):
-                    doc["permitted_users"].remove(target_user)
+    #         def remove_users():
+    #             def transform(doc):
+    #                 doc["permitted_users"].remove(target_user)
 
-                return transform
+    #             return transform
 
-            self.commands_db.update(remove_users(), Query().command == self.name)
+    #         self.commands_db.update(remove_users(), Query().command == self.name)
 
-            return f"@{target_user} Lost Access to !{self.name}"
+    #         return f"@{target_user} Lost Access to !{self.name}"
 
-        else:
-            return f"No one had permission to {self.name}"
+    #     else:
+    #         return f"No one had permission to {self.name}"
