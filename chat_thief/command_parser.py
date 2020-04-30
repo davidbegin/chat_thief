@@ -42,19 +42,17 @@ OBS_COMMANDS = [
     "i_like_that_thing",
 ]
 
-HELP_MENU = [
-    "!me - Info about your self",
-    "!love COMMAND - Show support for a command (Unmutes if theres Haters)",
-    "!hate COMMAND - Vote to silence a command",
-    "!steal COMMAND USER - steal a command from someone elses, cost Cool Points"
-    "!share COMMAND USER - share someone else access to a command you have access to",
-    "!transfer COMMAND USER - transfer your command to someone else, costs no cool points, but you lose access",
-    "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
-    "!perms clap - See who is allowed to use the !clap command",
-    "!perms beginbot - See what commands beginbot has access to",
-    "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
-]
-
+HELP_COMMANDS = {
+        "me": "Info about yourself",
+        "love": "!love USER COMMAND - Show support for a command (Unmutes if theres Haters)",
+        "hate": "!hate USER COMMAND - Vote to silence a command",
+        "steal": "!steal COMMAND USER - steal a command from someone elses, cost Cool Points",
+        "share": "!share COMMAND USER - share access to a command",
+        "transfer": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
+        "props": "!props @beginbot (AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
+        "perms": "!perms !clap OR !perms @beginbot - See who is allowed to use the !clap command",
+        "soundeffect":"!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
+}
 
 class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
@@ -231,7 +229,14 @@ class CommandParser:
                 ).transfer()
 
             if self.command == "help":
-                return HELP_MENU
+                if len(self.args) > 0:
+                    command = self.args[0]
+                    if command.startswith("!"):
+                        command = command[1:]
+                    return HELP_COMMANDS[command]
+                else:
+                    options = ' '.join([ f"!{command}" for command in HELP_COMMANDS.keys() ])
+                    return f"Call !help with a specfic command for more details: {options}"
 
             if self.command == "users":
                 return WelcomeCommittee().present_users()
