@@ -95,8 +95,6 @@ class PermissionsFetcher:
     def fetch_user_permissions(self):
         command_permissions = User(
             self.user,
-            commands_db_path=self.commands_db_path,
-            users_db_path=self.users_db_path,
         ).commands()
 
         if self._has_theme_song():

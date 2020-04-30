@@ -29,11 +29,7 @@ class TestUser:
     @pytest.fixture
     def user(self):
         def _user(name):
-            return User(
-                name=name,
-                users_db_path=users_db_path,
-                commands_db_path=commands_db_path,
-            )
+            return User(name=name,)
 
         return _user
 

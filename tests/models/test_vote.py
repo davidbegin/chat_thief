@@ -2,12 +2,16 @@ import pytest
 from pathlib import Path
 
 from chat_thief.models.vote import Vote
-
-votes_db_path = Path(__file__).parent.parent.joinpath("db/votes.json")
 from chat_thief.models.user import User
+from chat_thief.models.user import Command
 
-users_db_path = Path(__file__).parent.parent.joinpath("db/users.json")
-commands_db_path = Path(__file__).parent.parent.joinpath("db/commands.json")
+Command.database_folder = "tests/"
+User.database_folder = "tests/"
+Vote.database_folder = "tests/"
+
+votes_db_path = Path(__file__).parent.parent.joinpath(Vote.database_path)
+users_db_path = Path(__file__).parent.parent.joinpath(User.database_path)
+commands_db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
 
 
 class TestVote:
@@ -17,12 +21,12 @@ class TestVote:
             votes_db_path.unlink()
         if users_db_path.is_file():
             users_db_path.unlink()
+        if commands_db_path.is_file():
+            commands_db_path.unlink()
         yield
 
     def _create_user(self, name):
-        user = User(
-            name=name, users_db_path=users_db_path, commands_db_path=commands_db_path,
-        )
+        user = User(name=name)
         user._find_or_create_user()
         return user
 
@@ -32,19 +36,19 @@ class TestVote:
         monster = self._create_user("beginbotsmonster")
         assert monster.total_users() == 3
 
-        subject = Vote(user=thugga.name, votes_db_path=votes_db_path)
+        subject = Vote(user=thugga.name)
         threshold = int(thugga.total_users() / 2)
 
-        Vote(user=thugga.name, votes_db_path=votes_db_path).vote("revolution")
+        Vote(user=thugga.name).vote("revolution")
         assert not subject.have_tables_turned(threshold)
-        Vote(user=monster.name, votes_db_path=votes_db_path).vote("peace")
+        Vote(user=monster.name).vote("peace")
         assert not subject.have_tables_turned(threshold)
-        Vote(user=bbot.name, votes_db_path=votes_db_path).vote("revolution")
+        Vote(user=bbot.name).vote("revolution")
         assert subject.have_tables_turned(threshold) == "revolution"
 
     def test_create_vote(self):
         user = "fake_user"
-        subject = Vote(user=user, votes_db_path=votes_db_path)
+        subject = Vote(user=user)
 
         assert subject.revolution_count() == 0
         assert subject.peace_count() == 0
@@ -59,13 +63,13 @@ class TestVote:
         assert subject.peace_count() == 1
         assert subject.revolution_count() == 0
         assert subject.vote_count() == 1
-        subject = Vote(user="new_user", votes_db_path=votes_db_path)
+        subject = Vote(user="new_user")
         subject.vote("revolution")
         assert subject.peace_count() == 1
         assert subject.revolution_count() == 1
         assert subject.vote_count() == 2
 
-        subject = Vote(user="new_user2", votes_db_path=votes_db_path)
+        subject = Vote(user="new_user2")
         subject.vote("revolution")
         assert subject.revolution_count() == 2
         assert subject.vote_count() == 3

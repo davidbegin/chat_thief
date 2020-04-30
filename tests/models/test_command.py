@@ -6,11 +6,11 @@ from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 
 
-db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
-sfx_votes_db = Path(__file__).parent.parent.joinpath("db/sfx_votes.json")
-
 SFXVote.database_folder = "tests/"
 Command.database_folder = "tests/"
+
+db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
+sfx_votes_db = Path(__file__).parent.parent.joinpath("db/sfx_votes.json")
 
 
 class TestCommand:

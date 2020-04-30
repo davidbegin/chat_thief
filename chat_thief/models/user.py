@@ -8,27 +8,34 @@ from chat_thief.models.command import Command
 
 
 class User:
-    # I want to pass in class configuration
-    def __init__(
-        self, name, users_db_path=USERS_DB_PATH, commands_db_path=COMMANDS_DB_PATH
-    ):
+    table_name = "users"
+    database_folder = ""
+    database_path = "db/users.json"
+
+    @classmethod
+    def db(cls):
+        return db_table(cls.database_folder + cls.database_path, cls.table_name)
+
+    @classmethod
+    def count(cls):
+        return len(cls.db().all())
+
+    def __init__(self, name):
         self.name = name
-        self.users_db = db_table(users_db_path, "users")
-        self.commands_db = db_table(commands_db_path, "commands")
 
     def total_users(self):
-        return len(self.users_db.all())
+        return len(self.db().all())
 
     def total_street_cred(self):
-        users = self.users_db.all()
+        users = self.db().all()
         return sum([user["street_cred"] for user in users])
 
     def total_cool_points(self):
-        users = self.users_db.all()
+        users = self.db().all()
         return sum([user["cool_points"] for user in users])
 
     def purge(self):
-        return self.users_db.purge()
+        return self.db().purge()
 
     def stats(self):
         return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
@@ -66,16 +73,7 @@ class User:
         return f"@{self.name} purchased: !{effect}"
 
     def commands(self):
-        def in_permitted_users(permitted_users, current_user):
-            return current_user in permitted_users
-
-        command_permissions = [
-            permission["command"]
-            for permission in self.commands_db.search(
-                Query().permitted_users.test(in_permitted_users, self.name)
-            )
-        ]
-        return command_permissions
+        return Command.for_user(self.name)
 
     def doc(self):
         return {
@@ -86,7 +84,7 @@ class User:
         }
 
     def _find_or_create_user(self):
-        user_result = self.users_db.search(Query().name == self.name)
+        user_result = self.db().search(Query().name == self.name)
         if user_result:
             print(f"WE GOT A USER: {user_result}")
             user_result = user_result[0]
@@ -95,7 +93,7 @@ class User:
             print(f"Creating New User: {self.doc()}")
             from tinyrecord import transaction
 
-            with transaction(self.users_db) as tr:
+            with transaction(self.db()) as tr:
                 tr.insert(self.doc())
             return self.doc()
 
@@ -116,7 +114,7 @@ class User:
 
             return transform
 
-        self.users_db.update(decrease_cred(), Query().name == self.name)
+        self.db().update(decrease_cred(), Query().name == self.name)
 
     def add_cool_points(self, amount=1):
         user = self._find_or_create_user()
@@ -127,7 +125,7 @@ class User:
 
             return transform
 
-        self.users_db.update(increase_cred(), Query().name == self.name)
+        self.db().update(increase_cred(), Query().name == self.name)
 
     def remove_street_cred(self, amount=1):
         user = self._find_or_create_user()
@@ -138,7 +136,7 @@ class User:
 
             return transform
 
-        self.users_db.update(decrease_cred(), Query().name == self.name)
+        self.db().update(decrease_cred(), Query().name == self.name)
 
     def add_street_cred(self, amount=1):
         user = self._find_or_create_user()
@@ -149,21 +147,9 @@ class User:
 
             return transform
 
-        self.users_db.update(increase_cred(), Query().name == self.name)
+        self.db().update(increase_cred(), Query().name == self.name)
 
     def remove_all_commands(self):
         user = self._find_or_create_user()
-
-        def _remove_all_commands(user):
-            def transform(doc):
-                new_users = list(set(doc["permitted_users"]) - set(user))
-                doc["permitted_users"] = new_users
-
-            return transform
-
-        # how do I put something on a new line
-        # without going to insert
         for command in self.commands():
-            self.commands_db.update(
-                _remove_all_commands(user), Query().command == command
-            )
+            Command(command).unallow_user(user)

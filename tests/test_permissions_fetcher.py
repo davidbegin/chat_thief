@@ -21,7 +21,6 @@ class TestCommandPermissions:
             return PermissionsFetcher(
                 user=user,
                 command=command,
-                commands_db_path=commands_db_path,
                 skip_validation=True,
             )
 

@@ -17,13 +17,17 @@ class Command:
         self.health = 5
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
-    def _new_command(self, permitted_users=[]):
-        return {
-            "command": self.name,
-            "user": "beginbot",
-            "permitted_users": permitted_users,
-            "health": self.health,
-        }
+    @classmethod
+    def for_user(cls, user):
+        def in_permitted_users(permitted_users, current_user):
+            return current_user in permitted_users
+
+        return [
+            permission["command"]
+            for permission in cls.db().search(
+                Query().permitted_users.test(in_permitted_users, user)
+            )
+        ]
 
     @classmethod
     def db(cls):
@@ -100,8 +104,15 @@ class Command:
 
         self.db().update(remove_permitted_users(), Query().command == self.name)
 
-    def _user_has_chatted(self):
-        # if not self.skip_validation:
-        #     if target_user not in WelcomeCommittee().present_users():
-        #         raise ValueError(f"Not a valid user: {target_user}")
-        pass
+    def _new_command(self, permitted_users=[]):
+        return {
+            "command": self.name,
+            "user": "beginbot",
+            "permitted_users": permitted_users,
+            "health": self.health,
+        }
+
+    # def _user_has_chatted(self):
+    #     if not self.skip_validation:
+    #         if target_user not in WelcomeCommittee().present_users():
+    #             raise ValueError(f"Not a valid user: {target_user}")
