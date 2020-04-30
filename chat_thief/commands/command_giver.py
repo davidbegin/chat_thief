@@ -1,7 +1,4 @@
-import random
-
-from chat_thief.permissions_manager import PermissionsManager
-from chat_thief.models.user import User
+from chat_thief.models.user import Command
 
 
 class CommandGiver:
@@ -11,6 +8,14 @@ class CommandGiver:
         self.friend = friend
 
     def give(self):
-        return PermissionsManager(
-            user=self.user, command=self.command, args=[self.command, self.friend],
-        ).swap_perm()
+        permitted_users = Command(name=self.command).users()
+
+        if self.user in STREAM_GODS:
+            return f"YOU'RE A STREAM GOD @{self.user} YOU DON'T NEED TO SWAP PERMS"
+        else:
+            print(f"Permitted Users For: !{self.command} {permitted_users}")
+            if self.user in permitted_users:
+                allow_msg = self.command.allow_user(self.friend)
+                return [allow_msg, self.command.unallow_user(self.user)]
+            else:
+                return f"@{self.user} does not have permission to give: {self.command}"

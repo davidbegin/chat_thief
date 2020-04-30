@@ -16,19 +16,6 @@ class PermissionsManager:
         self.target_user = target_user
         self.command = Command(name=self.target_command)
 
-    def swap_perm(self):
-        permitted_users = self.command.users()
-
-        if self.user in STREAM_GODS:
-            return f"YOU'RE A STREAM GOD @{self.user} YOU DON'T NEED TO SWAP PERMS"
-        else:
-            print(f"Permitted Users For: !{self.target_command} {permitted_users}")
-            if self.user in permitted_users:
-                allow_msg = self.command.allow_user(self.target_user)
-                return [allow_msg, self.command.unallow_user(self.user)]
-            else:
-                return f"@{self.user} does not have permission to give: {self.target_command}"
-
     def add_perm(self):
         permitted_users = self.command.users()
 

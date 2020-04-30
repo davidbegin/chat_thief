@@ -16,8 +16,6 @@ class SoundeffectsLibrary:
         if samples:
             return samples[0]
 
-        # We should add a best guess
-
     @staticmethod
     def fetch_theme_songs():
         return [

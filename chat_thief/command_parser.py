@@ -198,11 +198,10 @@ class CommandParser:
                     random_user=True,
                 ).parse()
 
-                return PermissionsManager(
+                return CommandGiver(
                     user=self.user,
-                    command=self.command,
-                    target_command=parser.target_command,
-                    target_user=parser.target_user,
+                    command=parser.target_command,
+                    friend=parser.target_user,
                 ).swap_perm()
 
             if self.command in [
