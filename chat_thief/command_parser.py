@@ -90,8 +90,8 @@ class CommandParser:
                 parser = PermsParser(user=self.user, args=self.args).parse()
 
                 if parser.target_command and not parser.target_user:
-                    print(f"Attempting to detract: {parser.target_command}")
-                    return SFXVote(parser.target_command).detract(self.user)
+                    result = SFXVote(parser.target_command).detract(self.user)
+                    return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
                 else:
                     print("Doing Nothing")
 
@@ -101,7 +101,7 @@ class CommandParser:
 
                 if parser.target_command and not parser.target_user:
                     result = SFXVote(parser.target_command).support(self.user)
-                    return "!{parser.target_command} supporters: {len(result['supporters']} | detractors {len(result['detractors])}"
+                    return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
                 else:
                     return None
 
