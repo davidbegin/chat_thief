@@ -1,3 +1,6 @@
+from collections import Counter
+from itertools import chain
+
 from tinydb import Query
 
 from chat_thief.models.database import db_table
@@ -28,6 +31,15 @@ class Command:
             for permission in cls.db().search(
                 Query().permitted_users.test(in_permitted_users, user)
             )
+        ]
+
+    @classmethod
+    def most_popular(cls):
+        result = cls.db().all()
+        sorted_commands = sorted(result, key=lambda command: command["cost"])
+        return [
+            f"{command['command']}: {command['cost']}"
+            for command in sorted_commands[-5:]
         ]
 
     @classmethod

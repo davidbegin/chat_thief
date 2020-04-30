@@ -4,7 +4,7 @@
 
 STREAM_GODS = [
     "beginbot",
-    "beginbotbot",
+    # "beginbotbot",
     "stupac62",
     "artmattdank",
 ]

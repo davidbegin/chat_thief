@@ -14,11 +14,13 @@ from chat_thief.commands.revolution import Revolution
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.command_stealer import CommandStealer
+from chat_thief.commands.command_giver import CommandGiver
 
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
+from chat_thief.models.command import Command
 
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
@@ -81,6 +83,9 @@ class CommandParser:
                 from chat_thief.commands.leaderboard import leaderboard
 
                 return leaderboard()
+
+            if self.command == "most_popular":
+                return ' | '.join(Command.most_popular())
 
             if self.command in ["steal"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()
@@ -191,8 +196,8 @@ class CommandParser:
                 parser = PermsParser(
                     user=self.user,
                     args=self.args,
-                    random_command=True,
-                    random_user=True,
+                    # random_command=True,
+                    # random_user=True,
                 ).parse()
 
                 return CommandGiver(
