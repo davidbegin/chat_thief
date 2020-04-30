@@ -1,6 +1,5 @@
 from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.models.command import Command
-from chat_thief.models.database import COMMANDS_DB_PATH
 
 
 # PermissionsManager is the merger of User with Command!!!
@@ -11,12 +10,8 @@ class PermissionsManager:
         command=None,
         target_command=None,
         target_user=None,
-        commands_db_path=COMMANDS_DB_PATH,
-        skip_validation=False,
     ):
         self.user = user
-        self.command = command
-        self.skip_validation = skip_validation
         self.target_command = target_command
         self.target_user = target_user
         self.command = Command(name=self.target_command)

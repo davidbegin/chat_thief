@@ -25,8 +25,6 @@ class TestPermissionsManager:
                 command=command,
                 target_user=target_user,
                 target_command=target_command,
-                commands_db_path=commands_db_path,
-                skip_validation=True,
             )
 
         return _permissions_manager
