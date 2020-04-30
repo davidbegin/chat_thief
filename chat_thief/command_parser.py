@@ -44,8 +44,11 @@ OBS_COMMANDS = [
 
 HELP_MENU = [
     "!me - Info about your self",
-    "!share COMMAND USER_TO_GIVE_PERMS - share someone else access to a command you have access to",
-    "!transfer COMMAND USER_TO_GIVE_PERMS - transfer your command to someone else, costs no cool points, but you lose access",
+    "!love COMMAND - Show support for a command (Unmutes if theres Haters)",
+    "!hate COMMAND - Vote to silence a command",
+    "!steal COMMAND USER - steal a command from someone elses, cost Cool Points"
+    "!share COMMAND USER - share someone else access to a command you have access to",
+    "!transfer COMMAND USER - transfer your command to someone else, costs no cool points, but you lose access",
     "!props beginbot (OPTIONAL_AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
     "!perms clap - See who is allowed to use the !clap command",
     "!perms beginbot - See what commands beginbot has access to",
@@ -84,7 +87,7 @@ class CommandParser:
                 parser = PermsParser(user=self.user, args=self.args).parse()
                 return CommandStealer(thief=self.user, victim=parser.target_user, command=parser.target_command).steal()
 
-            if self.command in ["hate", "detract"]:
+            if self.command in ["dislike", "hate", "detract"]:
                 from chat_thief.models.sfx_vote import SFXVote
                 parser = PermsParser(user=self.user, args=self.args).parse()
 
@@ -94,8 +97,7 @@ class CommandParser:
                 else:
                     print("Doing Nothing")
 
-
-            if self.command in ["support"]:
+            if self.command in ["support", "love", "like"]:
                 from chat_thief.models.sfx_vote import SFXVote
                 parser = PermsParser(user=self.user, args=self.args).parse()
 

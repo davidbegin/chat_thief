@@ -45,30 +45,43 @@ class User:
         self.add_cool_points(amount)
         return f"{self.name} has been Papered Up"
 
-    # This doesn't iterate properly
-    # the early returns will break multiple purchases
+    def _find_affordable_random_command(self, cost):
+        looking_for_effect = True
+
+        while looking_for_effect:
+            # Should we update this query to take cost parameter?
+            effect = random_soundeffect()
+            # We need to check the cost
+            command = Command(effect)
+            if self.cool_points >= command.cost() and not command.allowed_to_play(
+                self.name
+            ):
+                looking_for_effect = False
+        return command
+
     def buy(self, effect):
         if self.cool_points() > 0:
-            # We should remove the random thang into the class
             if effect == "random":
-                looking_for_effect = True
-                while looking_for_effect:
-                    effect = random_soundeffect()
-                    if not Command(effect).allowed_to_play(self.name):
-                        looking_for_effect = False
-                        self.remove_cool_points()
-                        Command(effect).allow_user(self.name)
-                        return f"@{self.name} purchased: {effect}"
+                command = self._find_affordable_random_command()
+                self.remove_cool_points(command.cost())
+                command.allow_user(self.name)
+                command.increase_cost()
+                return f"@{self.name} purchased: {command.name}"
             else:
                 if Command(effect).allowed_to_play(self.name):
                     return f"@{self.name} already has access to !{effect}"
                 else:
-                    self.remove_cool_points()
-                    Command(effect).allow_user(self.name)
+                    command = Command(effect)
+
+                    if self.cool_points() >= command.cost():
+                        self.remove_cool_points(command.cost())
+                        command.allow_user(self.name)
+                        command.increase_cost()
+                        return f"@{self.name} bought !{effect}"
+                    else:
+                        return f"@{self.name} IS TOO BROKE TO AFFORD !{effect}"
         else:
             return f"@{self.name} - Out of Cool Points to Purchase with"
-
-        return f"@{self.name} purchased: !{effect}"
 
     def commands(self):
         return Command.for_user(self.name)
@@ -103,12 +116,12 @@ class User:
         user = self._find_or_create_user()
         return user["cool_points"]
 
-    def remove_cool_points(self):
+    def remove_cool_points(self, amount=1):
         user = self._find_or_create_user()
 
         def decrease_cred():
             def transform(doc):
-                doc["cool_points"] = doc["cool_points"] - 1
+                doc["cool_points"] = doc["cool_points"] - amount
 
             return transform
 
