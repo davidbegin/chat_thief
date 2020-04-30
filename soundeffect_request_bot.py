@@ -4,7 +4,6 @@ import traceback
 import time
 
 from chat_thief.config.log import logger
-from chat_thief.audio_command import AudioCommand
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 
 

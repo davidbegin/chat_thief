@@ -3,8 +3,8 @@ import time
 
 from chat_thief.config.log import logger
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
-from chat_thief.audio_command import AudioCommand
 from chat_thief.models.command import Command
+from chat_thief.audio_player import AudioPlayer
 
 
 def sync_main():
@@ -13,9 +13,9 @@ def sync_main():
             all_effects = PlaySoundeffectRequest().pop_all_off()
             for sfx in all_effects:
                 print(sfx)
-                audio_command = AudioCommand(name=sfx["command"])
                 if Command(sfx["command"]).allowed_to_play(sfx["user"]):
-                    audio_command.play_sample(remove_health=True)
+                    soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
+                    AudioPlayer.play_sample(soundfile.resolve())
                 else:
                     print(f"{sfx['user']} not allowed to play: {sfx['command']}")
             time.sleep(1)
