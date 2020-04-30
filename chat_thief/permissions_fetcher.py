@@ -1,12 +1,10 @@
 from chat_thief.models.user import User
+
 from chat_thief.models.command import Command
 
 
 class PermissionsFetcher:
-    def __init__(
-        self,
-        user,
-    ):
+    def __init__( self, user):
         self.user = user
 
     @classmethod
