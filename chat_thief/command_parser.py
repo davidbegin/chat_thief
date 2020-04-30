@@ -44,6 +44,7 @@ OBS_COMMANDS = [
 
 HELP_COMMANDS = {
         "me": "Info about yourself",
+        "buy": "!buy COMMAND or !buy random - Buy a Command with Cool Points",
         "love": "!love USER COMMAND - Show support for a command (Unmutes if theres Haters)",
         "hate": "!hate USER COMMAND - Vote to silence a command",
         "steal": "!steal COMMAND USER - steal a command from someone elses, cost Cool Points",
