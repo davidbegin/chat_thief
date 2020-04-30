@@ -20,6 +20,6 @@ class PermissionsFetcher:
 
         # Command Permissions
         if target_command and not target_user:
-            title = f"!{target_command}'s"
-            user_permissions = " ".join([f"@{perm}" for perm in Command(target_command).users() ])
-            return f"{title} Permissions: {user_permissions}"
+            command = Command(target_command)
+            user_permissions = " ".join([f"@{perm}" for perm in command.users() ])
+            return f"!{target_command} | Cost: {command.cost()}: {user_permissions}"

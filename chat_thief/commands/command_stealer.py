@@ -12,10 +12,10 @@ class CommandStealer:
         command = Command(self.command)
         cool_points = User(self.thief).cool_points()
 
-        if cool_points >= command.cost:
-            # We also need to increase the price
+        if cool_points >= command.cost():
             command.allow_user(self.thief)
             command.unallow_user(self.victim)
+            command.increase_cost()
             return f"@{self.thief} stole from @{self.victim}"
         else:
             return f"@{self.thief} BROKE BOI!"
