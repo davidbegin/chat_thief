@@ -8,9 +8,10 @@ class PermissionsFetcher:
     def fetch_permissions(cls, user, target_command, target_user):
         # Personal Permissions
         if not target_command and not target_user:
-            title = f"@{user}'s"
-            user_permissions = " ".join([f"!{perm}" for perm in User(user).commands() ])
-            return f"{title} Permissions: {user_permissions}"
+            user = User(self.user)
+            stats = user.stats()
+            user_permissions = " ".join([f"!{perm}" for perm in user.commands() ])
+            return f"{stats} | {user_permissions}"
 
         # User Permissions
         if target_user and not target_command:

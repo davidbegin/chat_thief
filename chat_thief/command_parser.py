@@ -135,14 +135,10 @@ class CommandParser:
 
             if self.command in ["me"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()
-                perms = PermissionsFetcher.fetch_permissions(
-                    user=self.user,
-                    target_user=parser.target_user,
-                    target_command=parser.target_command,
-                )
+                user_permissions = " ".join([f"!{perm}" for perm in User(self.user).commands() ])
                 stats = User(self.user).stats()
-                if perms:
-                    return [stats, perms]
+                if user_permissions:
+                    return f"{stats} | {user_permissions}"
                 else:
                     return stats
 
