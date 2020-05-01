@@ -1,8 +1,7 @@
 from pathlib import Path
 import re
+import os
 import subprocess
-
-from tinydb import TinyDB, Query
 
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.models.soundeffect import SoundEffect
@@ -17,23 +16,49 @@ SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
 ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
 ADD_SOUND_EFFECT_PATH = Path(SAMPLES_PATH).joinpath("add_sound_effect")
 
-soundeffects_db_path = Path(__file__).parent.parent.joinpath("db/soundeffects.json")
-DB = TinyDB(soundeffects_db_path)
-
-from chat_thief.models.database import db_table
-
-
 class SampleSaver:
     def __init__(self, user, youtube_id, command, start_time, end_time):
         self.user = user
-
-        self.soundeffects_table = DB.table("soundeffects")
-        self.command_permissions_table = DB.table("command_permissions")
-
-        self.name = self._sanitize_command(command)
         self.youtube_id = youtube_id
         self.start_time = start_time
         self.end_time = end_time
+        self.name = self._sanitize_command(command)
+
+    def save(self, requester=None):
+        print(f"\n{self.user} is trying to add a command: {self.name}\n")
+        self._validate_sample_name()
+
+        # Testing Logic in production code???!  #😞
+        if "TEST_MODE" not in os.environ:
+            sample_updated = self._delete_old_sample()
+            self._save_with_youtube_dl()
+            self._notify(sample_updated)
+
+        command = Command(name=self.name)
+        if command.exists:
+            command.allow_user(random_user())
+        else:
+            command._create_new_command(random_user())
+
+        if requester:
+            command.allow_user(requester)
+
+    def _notify(self, sample_updated):
+        if sample_updated:
+            PlaySoundeffectRequest(user="beginbot", command="update").save()
+            send_twitch_msg(f"Updated Sound Available: !{self.name}")
+        else:
+            PlaySoundeffectRequest(user="beginbot", command="new_item").save()
+            send_twitch_msg(f"New Sound Available: !{self.name}")
+
+    def _delete_old_sample(self):
+        sample_updated = False
+        for sample in self._current_samples():
+            print(f"Deleting Previous {sample}")
+            if sample.is_file():
+                sample.unlink()
+                sample_updated = True
+        return sample_updated
 
     def _sanitize_command(self, command):
         command = command.lower()
@@ -42,93 +67,29 @@ class SampleSaver:
             command = command[1:]
         return command
 
-    def _add_soundeffect_args(self):
-        # Who calls SampleSaver?
-        # Right here, are these args in the right order?
-        args = [self.youtube_id, self.name, self.start_time, self.end_time]
-        if self.name in WelcomeCommittee().present_users():
-            args = args + ["theme"]
-        return args
-
-    def save(self, requester=None):
-        regex = re.compile("^[a-zA-Z0-9_-]*$")
-        if not regex.match(self.name):
-            # Autotime out?
-            print(f"THAT IS NOT A VALID NAME FOR A COMMAND: {self.name}")
-            return
-
-        print(f"\n{self.user} is trying to add a command: {self.name}\n")
-
-        sample_updated = False
-        for sample in self._current_samples():
-            print(f"Deleting Previous {sample}")
-            if sample.is_file():
-                sample.unlink()
-                sample_updated = True
-
-        # When should we save
-        self._save_command()
-
-        # TODO: We need some process around not actually saving during tests
-        # We need to be doing this in python instead
-
-        # more directly
-        self._save_with_youtube_dl()
-
-        if sample_updated:
-            PlaySoundeffectRequest(user="beginbot", command="update").save()
-            send_twitch_msg(f"Updated Sound Available: !{self.name}")
-        else:
-            PlaySoundeffectRequest(user="beginbot", command="new_item").save()
-            send_twitch_msg(f"New Sound Available: !{self.name}")
-
-        if requester:
-            Command(self.name).allow_user(requester)
-
+    # Maybe: This belongs in the soundeffects library
     def _current_samples(self):
         return [
             Path(SAMPLES_PATH).joinpath(f"{self.name}{suffix}")
             for suffix in ALLOWED_AUDIO_FORMATS
         ]
 
-    def _save_command(self):
-        from tinyrecord import transaction
-
-        sound = SoundEffect(
-            user=self.user,
-            youtube_id=self.youtube_id,
-            name=self.name,
-            start_time=self.start_time,
-            end_time=self.end_time,
-        )
-        with transaction(self.soundeffects_table) as tr:
-            tr.insert(sound.__dict__)
-        print(f"Saving in our DB! {sound.__dict__}")
-
-        command = Command( name=self.name)
-        command._create_new_command(random_user())
-
+    # We need to be doing this in python instead
     def _save_with_youtube_dl(self):
-        """
-        if [[ -z "$5" ]]
-        then
-          SAMPLES_PATH="/home/begin/stream/Stream/Samples"
-        else
-          echo "ITS A THEME!"
-          SAMPLES_PATH="/home/begin/stream/Stream/Samples/theme_songs"
-        fi
-
-        if [[ -z "$3" && -z "$4" ]]
-        then
-          youtube-dl -x "$1" -o "$2.%(ext)s"
-        else
-          echo "Cutting from $3 to $4"
-          youtube-dl -x --postprocessor-args "-ss $3 -to $4" $1 -o "$SAMPLES_PATH/$2.%(ext)s"
-        fi
-        """
         subprocess.call(
             [ADD_SOUND_EFFECT_PATH.resolve()] + self._add_soundeffect_args(),
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
         )
-        pass
+
+    def _add_soundeffect_args(self):
+        args = [self.youtube_id, self.name, self.start_time, self.end_time]
+        if self.name in WelcomeCommittee().present_users():
+            args = args + ["theme"]
+        return args
+
+    def _validate_sample_name(self):
+        regex = re.compile("^[a-zA-Z0-9_-]*$")
+        if not regex.match(self.name):
+            raise ValueError(f"THAT IS NOT A VALID NAME FOR A COMMAND: {self.name}")
+

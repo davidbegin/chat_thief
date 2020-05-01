@@ -7,10 +7,10 @@ format:
 	black tests/**/*.py *.py
 
 t:
-	BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief tests/*
+	TEST_MODE=true BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief tests/*
 
 f:
-	BLOCK_TWITCH_MSGS=true python -m pytest tests/* -m focus -s
+	TEST_MODE=true BLOCK_TWITCH_MSGS=true python -m pytest tests/* -m focus -s
 
 backup:
 	cp db/users.json db/backups/users.json

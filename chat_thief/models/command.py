@@ -22,6 +22,15 @@ class Command:
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
     @classmethod
+    def find_or_create(cls, name):
+        found_command = cls.db().get(Query().command == name)
+
+        if found_command:
+            return found_command
+        else:
+            return cls(name)._create_new_command()
+
+    @classmethod
     def for_user(cls, user):
         def in_permitted_users(permitted_users, current_user):
             return current_user in permitted_users
@@ -49,6 +58,9 @@ class Command:
     @classmethod
     def count(cls):
         return len(cls.db().all())
+
+    def exists(self):
+        return cls.db().get(Query().command == name) is not None
 
     def allowed_to_play(self, user):
         if not SFXVote(self.name).is_enabled():
@@ -107,7 +119,7 @@ class Command:
                 # So here it is none
                 return f"@{target_user} already allowed !{self.name}"
         else:
-            self._create_new_command(target_user)
+            self._create_new_command([target_user])
             return f"@{target_user} is the 1st person with access to: !{self.name}"
 
     def users(self):
@@ -116,17 +128,13 @@ class Command:
         else:
             return []
 
-    def save(self):
+    def _create_new_command(self, target_users=[]):
         from tinyrecord import transaction
 
+        new_command = self._new_command(permitted_users=target_users)
         with transaction(self.db()) as tr:
-            tr.insert(self._new_command(permitted_users=[target_user]))
-
-    def _create_new_command(self, target_user):
-        from tinyrecord import transaction
-
-        with transaction(self.db()) as tr:
-            tr.insert(self._new_command(permitted_users=[target_user]))
+            tr.insert(new_command)
+        return new_command
 
     def save(self):
         from tinyrecord import transaction

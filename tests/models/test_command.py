@@ -47,10 +47,16 @@ class TestCommand(DatabaseConfig):
         subject.unallow_user("spfar")
         assert not subject.allowed_to_play("spfar")
 
-    @pytest.mark.focus
     def test_cost(self):
         subject = Command("clap")
         subject.save()
         assert subject.cost() == 1
         subject.increase_cost()
         assert subject.cost() == 2
+
+    def test_find_or_create(self):
+        assert Command.count() == 0
+        command = Command.find_or_create("clap")
+        assert Command.count() == 1
+        command = Command.find_or_create("clap")
+        assert Command.count() == 1
