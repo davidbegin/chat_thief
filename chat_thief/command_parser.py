@@ -54,6 +54,7 @@ HELP_COMMANDS = {
         "transfer": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
         "props": "!props @beginbot (AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
         "perms": "!perms !clap OR !perms @beginbot - See who is allowed to use the !clap command",
+        "most_popular": "!most_popular - Shows the most coveted commands",
         "soundeffect":"!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
 }
 
@@ -196,9 +197,13 @@ class CommandParser:
                 parser = PermsParser(
                     user=self.user,
                     args=self.args,
-                    # random_command=True,
+                    random_command=True,
                     # random_user=True,
                 ).parse()
+
+                if parser.target_command == "random":
+                    parser.target_command = random.choice(User(self.user).commands(), 1)[0]
+                    print(f"Choosing Random Command: {parser.target_command}")
 
                 return CommandGiver(
                     user=self.user,
