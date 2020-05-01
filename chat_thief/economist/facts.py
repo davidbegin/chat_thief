@@ -5,10 +5,10 @@ from itertools import chain
 
 from tinydb import TinyDB, Query
 
-from chat_thief.models.database import db_table, COMMANDS_DB_PATH
 from chat_thief.models.user import User
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.vote import Vote
+from chat_thief.models.command import Command
 
 
 class Facts:
@@ -24,9 +24,7 @@ class Facts:
         return Vote("beginbot").vote_count()
 
     def available_sounds(self):
-        table = db_table(COMMANDS_DB_PATH, "commands")
-        commands = table.all()
-        return len(commands)
+        return Command.count()
 
     def unavailable_sounds(self):
         total_sfx = len(SoundeffectsLibrary.soundeffects_only())
@@ -41,8 +39,7 @@ class Facts:
         return total_street_cred
 
     def top_users(self):
-        table = db_table(COMMANDS_DB_PATH, "commands")
-        result = table.search(Query().permitted_users)
+        result = Command.db().all()
 
         counter = Counter(
             list(
@@ -50,4 +47,3 @@ class Facts:
             )
         )
         return counter.most_common()[0:5]
-        # [('blueredbrackets', 35), ('whatsinmyopsec', 13), ('zerostheory', 13), ('stupac62', 11), ('zanuss', 10)]

@@ -3,6 +3,7 @@ types:
 
 format:
 	black chat_thief/**/*.py *.py
+	black chat_thief/**/*.py
 	black tests/**/*.py *.py
 
 t:
