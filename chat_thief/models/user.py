@@ -45,7 +45,7 @@ class User:
         self.add_cool_points(amount)
         return f"{self.name} has been Papered Up"
 
-    def _find_affordable_random_command(self, cost):
+    def _find_affordable_random_command(self):
         looking_for_effect = True
 
         while looking_for_effect:
@@ -53,7 +53,7 @@ class User:
             effect = random_soundeffect()
             # We need to check the cost
             command = Command(effect)
-            if self.cool_points >= command.cost() and not command.allowed_to_play(
+            if self.cool_points() >= command.cost() and not command.allowed_to_play(
                 self.name
             ):
                 looking_for_effect = False

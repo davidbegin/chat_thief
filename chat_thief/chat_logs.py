@@ -26,7 +26,6 @@ class ChatLogs:
         # peasants = [user for user in users if user not in STREAM_GODS]
         peasants = list(set([user for user in users if user not in STREAM_GODS]))
 
-        print(f"Recent Stream Peasants: {peasants}")
         return peasants
 
     def _read_in_chat(self, line_count=DEFAULT_LINE_COUNT, all_lines=ALL_LINES):

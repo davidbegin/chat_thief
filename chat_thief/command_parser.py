@@ -2,6 +2,7 @@ from typing import Dict, List, Optional
 import logging
 import os
 
+from chat_thief.prize_dropper import random_user as find_random_user
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
@@ -25,6 +26,7 @@ from chat_thief.models.command import Command
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc_msg import IrcMsg
+from chat_thief.irc import send_twitch_msg
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.welcome_committee import WelcomeCommittee
@@ -72,6 +74,19 @@ class CommandParser:
             command = self.msg[1:].split()[0]
             msg = self.msg.split()[0].lower()
             print(f"User: {self.user} | Command: {command}")
+
+            if self.command == "donate":
+
+                results = { }
+                for command in User(self.user).commands():
+                    command = Command(command)
+                    new_user = find_random_user(blacklisted_users=command.users())
+                    if new_user:
+                        donated_commands = results.get(new_user, [])
+                        results[new_user] = donated_commands + [command.name]
+                        command.allow_user(new_user)
+                        command.unallow_user(self.user)
+                return [ f"@{user} was gifted {' '.join([f'!{command}' for command in commands])}" for user, commands in results.items()]
 
             if self.command in ["leaderboard", "forbes"]:
                 from chat_thief.commands.leaderboard import leaderboard
@@ -129,10 +144,9 @@ class CommandParser:
                 return Facts().available_sounds()
 
             if self.command == "paperup":
+                parser = PermsParser(user=self.user, args=self.args).parse()
                 if self.user in STREAM_GODS:
-                    return User(self.args[0]).paperup()
-                else:
-                    return
+                    return User(parser.target_user).paperup()
 
             if self.command in ["me"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()
@@ -174,7 +188,15 @@ class CommandParser:
                     command = parser.target_command
                 else:
                     command = "random"
-                return User(self.user).buy(command)
+
+                if len(self.args) > 1:
+                    results  = []
+                    for _ in range(0, int(self.args[1])):
+                        command = "random"
+                        results.append(User(self.user).buy(command))
+                    return f'@{self.user}' + ' '.join([ '!' + command[len("@{self.user} purchased:"):] for command in results ])
+                else:
+                    return User(self.user).buy(command)
 
             # These Need Chat Parsers
             if self.command == "dropeffect" and self.user in STREAM_GODS:
