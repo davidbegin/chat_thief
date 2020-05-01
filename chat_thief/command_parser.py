@@ -98,8 +98,23 @@ class CommandParser:
                 return ' | '.join(Command.most_popular())
 
             if self.command in ["steal"]:
-                parser = PermsParser(user=self.user, args=self.args).parse()
-                return CommandStealer(thief=self.user, victim=parser.target_user, command=parser.target_command).steal()
+                parser = PermsParser(
+                        user=self.user,
+                        args=self.args,
+                        random_command=True,
+                        random_user=True,
+                ).parse()
+
+                if parser.target_user == "random" and parser.target_command == "random":
+                    parser.target_user = random_user(blacklisted_users=[self.user ])
+                    command = random.sample(User(parser.target_user).commands(), 1)[0]
+
+                # if parser.target_command == "command":
+
+                return CommandStealer(
+                        thief=self.user,
+                        victim=parser.target_user,
+                        command=parser.target_command).steal()
 
             if self.command in ["dislike", "hate", "detract"]:
                 from chat_thief.models.sfx_vote import SFXVote
