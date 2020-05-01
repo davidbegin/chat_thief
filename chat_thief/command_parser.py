@@ -28,20 +28,13 @@ from chat_thief.irc_msg import IrcMsg
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.config.commands_config import OBS_COMMANDS
+
 
 BLACKLISTED_LOG_USERS = [
     "beginbotbot",
     "beginbot",
     "nightbot",
-]
-
-OBS_COMMANDS = [
-    "wyp",
-    "idk",
-    "jdi",
-    "brb",
-    "i_hate_that_thing",
-    "i_like_that_thing",
 ]
 
 HELP_COMMANDS = {
@@ -296,14 +289,9 @@ class CommandParser:
 
             self.try_soundeffect()
 
-    # This should Save somewhere
-    # Set a 5 Minute Party Mode
-    # if self.user in fetch_whitelisted_users():
-    #     self.try_soundeffect(command, msg)
     def try_soundeffect(self) -> None:
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")
-            os.system(f"so {self.command}")
-            return
+            return os.system(f"so {self.command}")
 
         PlaySoundeffectRequest(user=self.user, command=self.command).save()
