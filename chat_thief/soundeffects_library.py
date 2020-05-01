@@ -23,6 +23,13 @@ class SoundeffectsLibrary:
             for theme in Path(THEME_SONGS_PATH).glob("*")
         ]
 
+    # @staticmethod
+    # def soundeffect_names_only():
+    #     return [
+    #         sound_file.name[: -len(sound_file.suffix)]
+    #         for sound_file in SoundeffectsLibrary.soundeffects_only()
+    #     ]
+
     @staticmethod
     def soundeffects_only():
         return set(SoundeffectsLibrary.fetch_soundeffect_names()) - set(

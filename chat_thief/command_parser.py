@@ -213,18 +213,27 @@ class CommandParser:
                     user=self.user,
                     args=self.args,
                     random_command=True,
-                    # random_user=True,
+                    random_user=True,
                 ).parse()
 
                 if parser.target_command == "random":
                     parser.target_command = random.choice(User(self.user).commands(), 1)[0]
                     print(f"Choosing Random Command: {parser.target_command}")
 
+                if parser.target_command == "random":
+                    command = Command(parser.target_command)
+                    parser.target_user = random_user(blacklisted_users=[command.users()])
+
+                if parser.target_user is None:
+                    raise ValueError("We didn't find a user to give to")
+
+                print(f"Attempting to give: !{parser.target_command} @{parser.target_user}")
+
                 return CommandGiver(
                     user=self.user,
                     command=parser.target_command,
                     friend=parser.target_user,
-                ).swap_perm()
+                ).give()
 
             if self.command in [
                 "share",

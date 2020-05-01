@@ -39,7 +39,7 @@ class PermsParser:
 
                 command = random_soundeffect()
             elif self.perm_type in ["give", "transfer", "share"]:
-                # If someone tries to give a a random sample
+                # If someone tries to give a random sample
                 # they need a sample
                 command = random.sample(User(self.user).commands(), 1)[0]
             self.target_command = command
@@ -67,13 +67,13 @@ class PermsParser:
             self.target_command = arg
 
     def _is_command(self, command):
-        if self.random_command:
-            return (
-                command in SoundeffectsLibrary.fetch_soundeffect_names()
-                or command == "random"
-            )
-        else:
+        if self.random_command and command == "random":
+            return True
+
+        if self.perm_type == "give":
             return command in SoundeffectsLibrary.soundeffects_only()
+
+        return command in SoundeffectsLibrary.fetch_soundeffect_names()
 
     def _is_user(self, user):
         if user in STREAM_GODS:

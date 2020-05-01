@@ -37,10 +37,6 @@ class TestPermsParser:
         subject = PermsParser(user, args)
         result = subject.parse()
 
-        # This isn't
-        # mocker.patch("WelcomeCommittee.present_users")
-        # mocker.patch("chat_thief.welcome_committee")
-
         assert result.target_user == "artmattdank"
         assert result.target_command == None
         assert result.requester == user
@@ -62,3 +58,18 @@ class TestPermsParser:
         assert result.target_command != None
         assert result.target_command != "random"
         assert result.requester == user
+
+    @pytest.mark.focus
+    def test_give_parse(self):
+        user = "fake_user"
+        args = ["!give", "unusual", "baldclap"]
+        subject = PermsParser(user, args, random_command=True, random_user=True,)
+        result = subject.parse()
+        assert result.target_command == "unusual"
+        assert result.target_user == "baldclap"
+
+        args = ["!give", "baldclap", "unusual"]
+        subject = PermsParser(user, args)
+        result = subject.parse()
+        assert result.target_command == "unusual"
+        assert result.target_user == "baldclap"
