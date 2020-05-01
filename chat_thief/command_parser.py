@@ -49,6 +49,7 @@ HELP_COMMANDS = {
         "transfer": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
         "props": "!props @beginbot (AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
         "perms": "!perms !clap OR !perms @beginbot - See who is allowed to use the !clap command",
+        "donate": "!donate give away all your commands to random users",
         "most_popular": "!most_popular - Shows the most coveted commands",
         "soundeffect":"!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
 }
@@ -127,7 +128,6 @@ class CommandParser:
                 print(f"The Result of have_tables_turned: {result}")
 
                 if result in ["peace", "revolution"]:
-                    # return f"{result} COMING SOON"
                     return Revolution(tide=result).turn_the_tides()
                 else:
                     return f"The Will of the People have not chosen: {threshold} votes must be cast"
