@@ -103,7 +103,6 @@ class User:
     def _find_or_create_user(self):
         user_result = self.db().search(Query().name == self.name)
         if user_result:
-            print(f"WE GOT A USER: {user_result}")
             user_result = user_result[0]
             return user_result
         else:
