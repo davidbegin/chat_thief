@@ -7,6 +7,7 @@ from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 
+from chat_thief.economist.facts import Facts
 from chat_thief.commands.approve_all_requests import ApproveAllRequests
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.cube_casino import CubeCasino
@@ -23,6 +24,7 @@ from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
 from chat_thief.models.command import Command
+from chat_thief.models.sfx_vote import SFXVote
 
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
@@ -56,11 +58,20 @@ HELP_COMMANDS = {
 }
 
 
+# So What Do We do
+
+COMMANDS = {
+    "give": {
+        "aliases": ["transfer"],
+        "help": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
+    }
+}
+
+
 class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
         self._logger = logger
         self.irc_msg = IrcMsg(irc_msg)
-
         self.user = self.irc_msg.user
         self.msg = self.irc_msg.msg
         self.command = self.irc_msg.command
@@ -82,64 +93,6 @@ class CommandParser:
         if self.command == "donate":
             return Donator(self.user).donate()
 
-        if self.command in ["leaderboard", "forbes"]:
-            from chat_thief.commands.leaderboard import leaderboard
-
-            return leaderboard()
-
-        if self.command == "most_popular":
-            return " | ".join(Command.most_popular())
-
-        if self.command in ["steal"]:
-            parser = PermsParser(
-                user=self.user, args=self.args, random_command=True, random_user=True,
-            ).parse()
-
-            if parser.target_user == "random" and parser.target_command == "random":
-                parser.target_user = random_user(blacklisted_users=[self.user])
-                command = random.sample(User(parser.target_user).commands(), 1)[0]
-
-            # if parser.target_command == "command":
-
-            return CommandStealer(
-                thief=self.user,
-                victim=parser.target_user,
-                command=parser.target_command,
-            ).steal()
-
-        if self.command in ["dislike", "hate", "detract"]:
-            from chat_thief.models.sfx_vote import SFXVote
-
-            parser = PermsParser(user=self.user, args=self.args).parse()
-
-            if parser.target_command and not parser.target_user:
-                result = SFXVote(parser.target_command).detract(self.user)
-                return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
-            else:
-                print("Doing Nothing")
-
-        if self.command in ["support", "love", "like"]:
-            from chat_thief.models.sfx_vote import SFXVote
-
-            parser = PermsParser(user=self.user, args=self.args).parse()
-
-            if parser.target_command and not parser.target_user:
-                result = SFXVote(parser.target_command).support(self.user)
-                return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
-            else:
-                return None
-
-        if self.command == "coup" and self.user == "beginbotbot":
-            threshold = int(User(self.user).total_users() / 8)
-            # threshold = int(User(self.user).total_users() / 2)
-            result = Vote(user=self.user).have_tables_turned(threshold)
-            print(f"The Result of have_tables_turned: {result}")
-
-            if result in ["peace", "revolution"]:
-                return Revolution(tide=result).turn_the_tides()
-            else:
-                return f"The Will of the People have not chosen: {threshold} votes must be cast"
-
         if self.command == "revolution":
             return Vote(user=self.user).vote("revolution")
 
@@ -147,14 +100,62 @@ class CommandParser:
             return Vote(user=self.user).vote("peace")
 
         if self.command == "facts" and self.user in STREAM_GODS:
-            from chat_thief.economist.facts import Facts
-
             return Facts().available_sounds()
 
-        if self.command == "paperup":
-            parser = PermsParser(user=self.user, args=self.args).parse()
-            if self.user in STREAM_GODS:
-                return User(parser.target_user).paperup()
+        if self.command in ["leaderboard", "forbes"]:
+            return leaderboard()
+
+        if self.command == "loserboard":
+            return loserboard()
+
+        if self.command == "most_popular":
+            return " | ".join(Command.most_popular())
+
+        if self.command == "peasants":
+            return ChatLogs().recent_stream_peasants()
+
+        if self.command in ["economy"]:
+            cool_points = User(self.user).total_cool_points()
+            return f"Total Cool Points in Market: {cool_points}"
+
+        if self.command == "users":
+            return WelcomeCommittee().present_users()
+
+        if self.command in ["all_bets", "all_bet", "bets"]:
+            return CubeCasino(self.user, self.args).all_bets()
+
+        if self.command == "bet":
+            return CubeCasino(self.user, self.args).bet()
+
+        if self.command == "new_cube" and self.user == "beginbotbot":
+            return CubeCasino(self.user, self.args).purge()
+
+        if self.command == "cubed" and self.user in ["beginbot", "beginbotbot"]:
+            cube_time = int(self.args[0])
+            return CubeCasino(self.user, self.args).closet_result(cube_time)
+
+        if self.command == "so":
+            return shoutout(self.msg)
+
+        if self.command == "streamlords":
+            return " ".join(STREAM_LORDS)
+
+        if self.command == "streamgods":
+            return " ".join(STREAM_GODS)
+
+        if self.command == "coup" and self.user == "beginbotbot":
+            threshold = int(User(self.user).total_users() / 8)
+            # threshold = int(User(self.user).total_users() / 2)
+            print(f"The Result of have_tables_turned: {result}")
+
+            if result in ["peace", "revolution"]:
+                return Revolution(tide=result).turn_the_tides()
+            else:
+                return f"The Will of the People have not chosen: {threshold} votes must be cast"
+
+        # -------------------------------------------------------------------------
+
+        # No Random Command or User
 
         if self.command in ["me"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
@@ -166,6 +167,72 @@ class CommandParser:
                 return f"{stats} | {user_permissions}"
             else:
                 return stats
+
+        # -------------------------------------------------------------------------
+
+        # Takes a User
+
+        if self.command == "paperup":
+            parser = PermsParser(user=self.user, args=self.args).parse()
+            if self.user in STREAM_GODS:
+                return User(parser.target_user).paperup()
+
+        if (
+            self.command in ["approve", "approve_all_requests"]
+            and self.user in STREAM_LORDS
+        ):
+            request_user = self.args[0].lower()
+            return ApproveAllRequests.approve(self.user, request_user)
+
+        # -------------------------------------------------------------------------
+
+        # Takes a Command
+
+        if self.command == "help":
+            if len(self.args) > 0:
+                command = self.args[0]
+                if command.startswith("!"):
+                    command = command[1:]
+                return HELP_COMMANDS[command]
+            else:
+                options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
+                return f"Call !help with a specfic command for more details: {options}"
+
+        if self.command in ["dislike", "hate", "detract"]:
+            parser = PermsParser(user=self.user, args=self.args).parse()
+
+            if parser.target_command and not parser.target_user:
+                result = SFXVote(parser.target_command).detract(self.user)
+                return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
+            else:
+                print("Doing Nothing")
+
+        if self.command in ["support", "love", "like"]:
+            parser = PermsParser(user=self.user, args=self.args).parse()
+
+            if parser.target_command and not parser.target_user:
+                result = SFXVote(parser.target_command).support(self.user)
+                return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
+            else:
+                return None
+        # -------------------------------------------------------------------------
+
+        # Other
+
+        if self.command == "soundeffect":
+            sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)
+
+            return SoundeffectRequest(
+                user=self.user,
+                youtube_id=sfx_request.youtube_id,
+                command=sfx_request.command,
+                start_time=sfx_request.start_time,
+                end_time=sfx_request.end_time,
+            ).save()
+
+        # -------------------------------------------------------------------------
+
+        # Takes a User OR a Command
 
         if self.command in ["permissions", "permission", "perms", "perm"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
@@ -183,17 +250,26 @@ class CommandParser:
                 target_command=parser.target_command,
             )
 
-        if self.command == "peasants":
-            return ChatLogs().recent_stream_peasants()
+        # -------------------------------------------------------------------------
 
-        if self.command == "loserboard":
-            from chat_thief.commands.leaderboard import loserboard
+        # Random User
 
-            return loserboard()
+        if self.command in [
+            "props",
+            "bigups",
+            "endorse",
+        ]:
+            parser = PropsParser(user=self.user, args=self.args).parse()
+            if parser.target_user == "random" or not parser.target_user:
+                parser.target_user = find_random_user(blacklisted_users=[self.user])
 
-        if self.command in ["economy"]:
-            cool_points = User(self.user).total_cool_points()
-            return f"Total Cool Points in Market: {cool_points}"
+            return StreetCredTransfer(
+                user=self.user, cool_person=parser.target_user, amount=parser.amount
+            ).transfer()
+
+        # -------------------------------------------------------------------------
+
+        # Random Command
 
         if self.command in ["buy"]:
             parser = PermsParser(
@@ -219,17 +295,26 @@ class CommandParser:
             else:
                 return User(self.user).buy(command)
 
-        # These Need Chat Parsers
-        if self.command == "dropeffect" and self.user in STREAM_GODS:
-            return drop_soundeffect(self.user, self.args)
+        # -------------------------------------------------------------------------
 
-        if self.command == "dropreward" and self.user in STREAM_GODS:
-            return dropreward()
+        # Random Command and Random User
 
-        if self.command in [
-            "give",
-            "transfer",
-        ]:
+        if self.command in ["steal"]:
+            parser = PermsParser(
+                user=self.user, args=self.args, random_command=True, random_user=True,
+            ).parse()
+
+            if parser.target_user == "random" and parser.target_command == "random":
+                parser.target_user = find_random_user(blacklisted_users=[self.user])
+                command = random.sample(User(parser.target_user).commands(), 1)[0]
+
+            return CommandStealer(
+                thief=self.user,
+                victim=parser.target_user,
+                command=parser.target_command,
+            ).steal()
+
+        if self.command in COMMANDS["give"]["aliases"]:
             parser = PermsParser(
                 user=self.user, args=self.args, random_command=True, random_user=True,
             ).parse()
@@ -240,7 +325,9 @@ class CommandParser:
 
             if parser.target_command == "random":
                 command = Command(parser.target_command)
-                parser.target_user = random_user(blacklisted_users=[command.users()])
+                parser.target_user = find_random_user(
+                    blacklisted_users=[command.users()]
+                )
 
             if parser.target_user is None:
                 raise ValueError("We didn't find a user to give to")
@@ -269,77 +356,19 @@ class CommandParser:
                 self.user, parser.target_command, parser.target_user
             ).share()
 
-        if self.command in [
-            "props",
-            "bigups",
-            "endorse",
-        ]:
-            parser = PropsParser(user=self.user, args=self.args).parse()
-            if parser.target_user == "random" or not parser.target_user:
-                from chat_thief.prize_dropper import random_user
+        # -------------------------------------------------------------------------
 
-                parser.target_user = random_user(blacklisted_users=[self.user])
+        # Stream Gods
 
-            return StreetCredTransfer(
-                user=self.user, cool_person=parser.target_user, amount=parser.amount
-            ).transfer()
+        # These Need Chat Parsers
+        if self.command == "dropeffect" and self.user in STREAM_GODS:
+            return drop_soundeffect(self.user, self.args)
 
-        if self.command == "help":
-            if len(self.args) > 0:
-                command = self.args[0]
-                if command.startswith("!"):
-                    command = command[1:]
-                return HELP_COMMANDS[command]
-            else:
-                options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
-                return f"Call !help with a specfic command for more details: {options}"
+        if self.command == "dropreward" and self.user in STREAM_GODS:
+            return dropreward()
 
-        if self.command == "users":
-            return WelcomeCommittee().present_users()
+        # --------------------------------------------------------------------------------
 
-        if self.command in ["all_bets", "all_bet", "bets"]:
-            return CubeCasino(self.user, self.args).all_bets()
-
-        if self.command == "bet":
-            return CubeCasino(self.user, self.args).bet()
-
-        if self.command == "new_cube" and self.user == "beginbotbot":
-            return CubeCasino(self.user, self.args).purge()
-
-        if self.command == "cubed" and self.user in ["beginbot", "beginbotbot"]:
-            cube_time = int(self.args[0])
-            return CubeCasino(self.user, self.args).closet_result(cube_time)
-
-        if self.command == "so":
-            return shoutout(self.msg)
-
-        if self.command == "streamlords":
-            return " ".join(STREAM_LORDS)
-
-        if self.command == "streamgods":
-            return " ".join(STREAM_GODS)
-
-        if (
-            self.command in ["approve", "approve_all_requests"]
-            and self.user in STREAM_LORDS
-        ):
-            request_user = self.args[0].lower()
-            return ApproveAllRequests.approve(self.user, request_user)
-
-        if self.command == "soundeffect":
-            sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)
-
-            return SoundeffectRequest(
-                user=self.user,
-                youtube_id=sfx_request.youtube_id,
-                command=sfx_request.command,
-                start_time=sfx_request.start_time,
-                end_time=sfx_request.end_time,
-            ).save()
-
-        self.try_soundeffect()
-
-    def try_soundeffect(self) -> None:
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")
             return os.system(f"so {self.command}")
