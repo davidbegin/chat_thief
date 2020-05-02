@@ -7,6 +7,7 @@ from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.models.command import Command
 from tests.support.database_setup import DatabaseConfig
 
+
 class TestPermissionsFetcher(DatabaseConfig):
     def test_checking_user_permissions(self):
         user = "new_fakeuser"

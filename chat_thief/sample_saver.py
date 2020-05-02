@@ -16,6 +16,7 @@ SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
 ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
 ADD_SOUND_EFFECT_PATH = Path(SAMPLES_PATH).joinpath("add_sound_effect")
 
+
 class SampleSaver:
     def __init__(self, user, youtube_id, command, start_time, end_time):
         self.user = user
@@ -92,4 +93,3 @@ class SampleSaver:
         regex = re.compile("^[a-zA-Z0-9_-]*$")
         if not regex.match(self.name):
             raise ValueError(f"THAT IS NOT A VALID NAME FOR A COMMAND: {self.name}")
-

@@ -40,19 +40,20 @@ BLACKLISTED_LOG_USERS = [
 ]
 
 HELP_COMMANDS = {
-        "me": "Info about yourself",
-        "buy": "!buy COMMAND or !buy random - Buy a Command with Cool Points",
-        "love": "!love USER COMMAND - Show support for a command (Unmutes if theres Haters)",
-        "hate": "!hate USER COMMAND - Vote to silence a command",
-        "steal": "!steal COMMAND USER - steal a command from someone elses, cost Cool Points",
-        "share": "!share COMMAND USER - share access to a command",
-        "transfer": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
-        "props": "!props @beginbot (AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
-        "perms": "!perms !clap OR !perms @beginbot - See who is allowed to use the !clap command",
-        "donate": "!donate give away all your commands to random users",
-        "most_popular": "!most_popular - Shows the most coveted commands",
-        "soundeffect":"!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
+    "me": "Info about yourself",
+    "buy": "!buy COMMAND or !buy random - Buy a Command with Cool Points",
+    "love": "!love USER COMMAND - Show support for a command (Unmutes if theres Haters)",
+    "hate": "!hate USER COMMAND - Vote to silence a command",
+    "steal": "!steal COMMAND USER - steal a command from someone elses, cost Cool Points",
+    "share": "!share COMMAND USER - share access to a command",
+    "transfer": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
+    "props": "!props @beginbot (AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
+    "perms": "!perms !clap OR !perms @beginbot - See who is allowed to use the !clap command",
+    "donate": "!donate give away all your commands to random users",
+    "most_popular": "!most_popular - Shows the most coveted commands",
+    "soundeffect": "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
 }
+
 
 class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
@@ -78,7 +79,7 @@ class CommandParser:
 
             if self.command == "donate":
 
-                results = { }
+                results = {}
                 for command in User(self.user).commands():
                     command = Command(command)
                     new_user = find_random_user(blacklisted_users=command.users())
@@ -87,7 +88,10 @@ class CommandParser:
                         results[new_user] = donated_commands + [command.name]
                         command.allow_user(new_user)
                         command.unallow_user(self.user)
-                return [ f"@{user} was gifted {' '.join([f'!{command}' for command in commands])}" for user, commands in results.items()]
+                return [
+                    f"@{user} was gifted {' '.join([f'!{command}' for command in commands])}"
+                    for user, commands in results.items()
+                ]
 
             if self.command in ["leaderboard", "forbes"]:
                 from chat_thief.commands.leaderboard import leaderboard
@@ -95,29 +99,31 @@ class CommandParser:
                 return leaderboard()
 
             if self.command == "most_popular":
-                return ' | '.join(Command.most_popular())
+                return " | ".join(Command.most_popular())
 
             if self.command in ["steal"]:
                 parser = PermsParser(
-                        user=self.user,
-                        args=self.args,
-                        random_command=True,
-                        random_user=True,
+                    user=self.user,
+                    args=self.args,
+                    random_command=True,
+                    random_user=True,
                 ).parse()
 
                 if parser.target_user == "random" and parser.target_command == "random":
-                    parser.target_user = random_user(blacklisted_users=[self.user ])
+                    parser.target_user = random_user(blacklisted_users=[self.user])
                     command = random.sample(User(parser.target_user).commands(), 1)[0]
 
                 # if parser.target_command == "command":
 
                 return CommandStealer(
-                        thief=self.user,
-                        victim=parser.target_user,
-                        command=parser.target_command).steal()
+                    thief=self.user,
+                    victim=parser.target_user,
+                    command=parser.target_command,
+                ).steal()
 
             if self.command in ["dislike", "hate", "detract"]:
                 from chat_thief.models.sfx_vote import SFXVote
+
                 parser = PermsParser(user=self.user, args=self.args).parse()
 
                 if parser.target_command and not parser.target_user:
@@ -128,6 +134,7 @@ class CommandParser:
 
             if self.command in ["support", "love", "like"]:
                 from chat_thief.models.sfx_vote import SFXVote
+
                 parser = PermsParser(user=self.user, args=self.args).parse()
 
                 if parser.target_command and not parser.target_user:
@@ -165,7 +172,9 @@ class CommandParser:
 
             if self.command in ["me"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()
-                user_permissions = " ".join([f"!{perm}" for perm in User(self.user).commands() ])
+                user_permissions = " ".join(
+                    [f"!{perm}" for perm in User(self.user).commands()]
+                )
                 stats = User(self.user).stats()
                 if user_permissions:
                     return f"{stats} | {user_permissions}"
@@ -174,8 +183,14 @@ class CommandParser:
 
             if self.command in ["permissions", "permission", "perms", "perm"]:
                 parser = PermsParser(user=self.user, args=self.args).parse()
-                if len(self.args) > 0 and not parser.target_command and not parser.target_user:
-                    raise ValueError(f"Could not find user or command: {' '.join(self.args)}")
+                if (
+                    len(self.args) > 0
+                    and not parser.target_command
+                    and not parser.target_user
+                ):
+                    raise ValueError(
+                        f"Could not find user or command: {' '.join(self.args)}"
+                    )
                 return PermissionsFetcher.fetch_permissions(
                     user=self.user,
                     target_user=parser.target_user,
@@ -205,11 +220,16 @@ class CommandParser:
                     command = "random"
 
                 if len(self.args) > 1:
-                    results  = []
+                    results = []
                     for _ in range(0, int(self.args[1])):
                         command = "random"
                         results.append(User(self.user).buy(command))
-                    return f'@{self.user}' + ' '.join([ '!' + command[len("@{self.user} purchased:"):] for command in results ])
+                    return f"@{self.user}" + " ".join(
+                        [
+                            "!" + command[len("@{self.user} purchased:") :]
+                            for command in results
+                        ]
+                    )
                 else:
                     return User(self.user).buy(command)
 
@@ -232,17 +252,23 @@ class CommandParser:
                 ).parse()
 
                 if parser.target_command == "random":
-                    parser.target_command = random.choice(User(self.user).commands(), 1)[0]
+                    parser.target_command = random.choice(
+                        User(self.user).commands(), 1
+                    )[0]
                     print(f"Choosing Random Command: {parser.target_command}")
 
                 if parser.target_command == "random":
                     command = Command(parser.target_command)
-                    parser.target_user = random_user(blacklisted_users=[command.users()])
+                    parser.target_user = random_user(
+                        blacklisted_users=[command.users()]
+                    )
 
                 if parser.target_user is None:
                     raise ValueError("We didn't find a user to give to")
 
-                print(f"Attempting to give: !{parser.target_command} @{parser.target_user}")
+                print(
+                    f"Attempting to give: !{parser.target_command} @{parser.target_user}"
+                )
 
                 return CommandGiver(
                     user=self.user,
@@ -274,6 +300,7 @@ class CommandParser:
                 parser = PropsParser(user=self.user, args=self.args).parse()
                 if parser.target_user == "random" or not parser.target_user:
                     from chat_thief.prize_dropper import random_user
+
                     parser.target_user = random_user(blacklisted_users=[self.user])
 
                 return StreetCredTransfer(
@@ -287,8 +314,12 @@ class CommandParser:
                         command = command[1:]
                     return HELP_COMMANDS[command]
                 else:
-                    options = ' '.join([ f"!{command}" for command in HELP_COMMANDS.keys() ])
-                    return f"Call !help with a specfic command for more details: {options}"
+                    options = " ".join(
+                        [f"!{command}" for command in HELP_COMMANDS.keys()]
+                    )
+                    return (
+                        f"Call !help with a specfic command for more details: {options}"
+                    )
 
             if self.command == "users":
                 return WelcomeCommittee().present_users()
