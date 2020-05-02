@@ -267,6 +267,23 @@ class CommandParser:
                 user=self.user, cool_person=parser.target_user, amount=parser.amount
             ).transfer()
 
+
+        if self.command in [
+            "share",
+            "clone",
+            "add_perm",
+            "add_perms",
+            "share_perm",
+            "share_perms",
+        ]:
+            parser = PermsParser(
+                user=self.user, args=self.args, random_user=True
+            ).parse()
+
+            return CommandSharer(
+                self.user, parser.target_command, parser.target_user
+            ).share()
+
         # -------------------------------------------------------------------------
 
         # Random Command
@@ -299,11 +316,11 @@ class CommandParser:
 
         # Random Command and Random User
 
-        if self.command in ["steal"]:
-            parser = PermsParser(
-                user=self.user, args=self.args, random_command=True, random_user=True,
-            ).parse()
+        parser = PermsParser(
+            user=self.user, args=self.args, random_command=True, random_user=True,
+        ).parse()
 
+        if self.command in ["steal"]:
             if parser.target_user == "random" and parser.target_command == "random":
                 parser.target_user = find_random_user(blacklisted_users=[self.user])
                 command = random.sample(User(parser.target_user).commands(), 1)[0]
@@ -315,10 +332,6 @@ class CommandParser:
             ).steal()
 
         if self.command in COMMANDS["give"]["aliases"]:
-            parser = PermsParser(
-                user=self.user, args=self.args, random_command=True, random_user=True,
-            ).parse()
-
             if parser.target_command == "random":
                 parser.target_command = random.choice(User(self.user).commands(), 1)[0]
                 print(f"Choosing Random Command: {parser.target_command}")
@@ -339,22 +352,6 @@ class CommandParser:
                 command=parser.target_command,
                 friend=parser.target_user,
             ).give()
-
-        if self.command in [
-            "share",
-            "clone",
-            "add_perm",
-            "add_perms",
-            "share_perm",
-            "share_perms",
-        ]:
-            parser = PermsParser(
-                user=self.user, args=self.args, random_user=True
-            ).parse()
-
-            return CommandSharer(
-                self.user, parser.target_command, parser.target_user
-            ).share()
 
         # -------------------------------------------------------------------------
 
