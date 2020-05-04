@@ -59,7 +59,6 @@ class TestPermsParser:
         assert result.target_command != "random"
         assert result.requester == user
 
-    @pytest.mark.focus
     def test_give_parse(self):
         user = "fake_user"
         args = ["!give", "unusual", "baldclap"]

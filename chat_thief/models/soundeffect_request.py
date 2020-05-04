@@ -64,7 +64,6 @@ class SoundeffectRequest:
 
         doc_ids_to_delete = [sfx.doc_id for sfx in results]
         if doc_ids_to_delete:
-            print(f"Doc IDs being deleted: {doc_ids_to_delete}")
             from tinyrecord import transaction
 
             with transaction(self.sfx_requests_db) as tr:
@@ -90,8 +89,8 @@ class SoundeffectRequest:
 
         doc_ids_to_delete = [sfx.doc_id for sfx in results]
         if doc_ids_to_delete:
-            print(f"Doc IDs being deleted: {doc_ids_to_delete}")
-        self.sfx_requests_db.remove(doc_ids=doc_ids_to_delete)
+            # This needs to be in a transaction
+            self.sfx_requests_db.remove(doc_ids=doc_ids_to_delete)
 
         for sfx in results:
             print(sfx)

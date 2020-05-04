@@ -267,7 +267,6 @@ class CommandParser:
                 user=self.user, cool_person=parser.target_user, amount=parser.amount
             ).transfer()
 
-
         if self.command in [
             "share",
             "clone",
