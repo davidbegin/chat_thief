@@ -53,7 +53,7 @@ Examples:
 !share !clap @artmattdank
 ```
 
-There are 450+ Soundeffects (and always climbing thanks to submissions from
+There are 500+ Soundeffects (and always climbing thanks to submissions from
 viewers like yourself), which you can gain access to. However, we do not publize
 the full list of soundeffects, you can always buy random, to get a random one,
 or learn what soundeffects you want from participating in the stream and seeing

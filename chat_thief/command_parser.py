@@ -8,7 +8,6 @@ from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 
 from chat_thief.economist.facts import Facts
-from chat_thief.commands.approve_all_requests import ApproveAllRequests
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.cube_casino import CubeCasino
 from chat_thief.commands.leaderboard import leaderboard, loserboard
@@ -105,11 +104,15 @@ class CommandParser:
         if self.command == "loserboard":
             return loserboard()
 
+        if self.command == "requests":
+            return f"Unpproved Requests: {SoundeffectRequest.stats()}"
+
         if self.command == "most_popular":
             return " | ".join(Command.most_popular())
 
-        if self.command == "peasants":
-            return ChatLogs().recent_stream_peasants()
+        # TODO: on one line plz
+        # if self.command == "peasants":
+        #     return ChatLogs().recent_stream_peasants()
 
         if self.command in ["economy"]:
             cool_points = User(self.user).total_cool_points()
@@ -179,7 +182,9 @@ class CommandParser:
             and self.user in STREAM_LORDS
         ):
             request_user = self.args[0].lower()
-            return ApproveAllRequests.approve(self.user, request_user)
+
+            requests = SoundeffectRequest.approve_all_for_user(approver, requester)
+            return requests
 
         # ---------------
         # Takes a Command

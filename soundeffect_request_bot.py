@@ -10,7 +10,7 @@ from chat_thief.models.soundeffect_request import SoundeffectRequest
 def sync_main():
     while True:
         try:
-            SoundeffectRequest("", "", "", "", "").pop_all_off()
+            SoundeffectRequest.pop_all_off()
             time.sleep(1)
         except Exception as e:
             if e is KeyboardInterrupt:
