@@ -19,6 +19,7 @@ class FactsView:
     cool_points: int
     street_cred: int
     top_users: List
+    most_popular: List
 
 
 app = Flask(__name__)
@@ -30,6 +31,9 @@ def facts(name=None):
     while True:
         facts = Facts()
 
+        most_popular = facts.most_popular()
+        most_popular.reverse()
+
         facts_view = FactsView(
             total_votes=facts.total_votes(),
             available_sounds=facts.available_sounds(),
@@ -39,6 +43,7 @@ def facts(name=None):
             cool_points=facts.cool_points(),
             top_users=facts.top_users(),
             street_cred=facts.street_cred(),
+            most_popular=most_popular,
         )
 
         return render_template("index.html", facts=facts_view)

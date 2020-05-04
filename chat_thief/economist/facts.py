@@ -12,6 +12,9 @@ from chat_thief.models.command import Command
 
 
 class Facts:
+    def most_popular(self):
+        return Command.most_popular()
+
     def peace_count(self):
         vote = Vote("beginbot")
         return vote.peace_count()

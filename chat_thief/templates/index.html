@@ -5,11 +5,14 @@
     <meta http-equiv="refresh" content="5">
 </head>
 
-Cool Points: {{ facts.cool_points }} |
-Street Cred: {{ facts.street_cred }} |
-Found Sounds: {{ facts.available_sounds }} |
-Unfound Sounds: {{ facts.unavailable_sounds }} |
+🤠 Street Cred: {{ facts.street_cred }} |
+😎 Cool Points: {{ facts.cool_points }} |
+Found 🔊  : {{ facts.available_sounds }} / {{ facts.unavailable_sounds }} |
 
+{% for user, sfx_count in facts.top_users %}
+  @{{ user }} : {{ sfx_count }} 🔊 |
+{% endfor %}
 
-<!-- Peace Votes: {{ facts.peace_count }} | -->
-<!-- Revolution Votes: {{ facts.revolution_count }} -->
+{% for effect in facts.most_popular %}
+  !{{ effect }} 💸 |
+{% endfor %}
