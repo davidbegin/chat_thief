@@ -57,9 +57,6 @@ HELP_COMMANDS = {
     "soundeffect": "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
 }
 
-
-# So What Do We do
-
 COMMANDS = {
     "give": {
         "aliases": ["transfer"],
@@ -153,9 +150,9 @@ class CommandParser:
             else:
                 return f"The Will of the People have not chosen: {threshold} votes must be cast"
 
-        # -------------------------------------------------------------------------
-
+        # -------------------------
         # No Random Command or User
+        # -------------------------
 
         if self.command in ["me"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
@@ -168,9 +165,9 @@ class CommandParser:
             else:
                 return stats
 
-        # -------------------------------------------------------------------------
-
+        # ------------
         # Takes a User
+        # ------------
 
         if self.command == "paperup":
             parser = PermsParser(user=self.user, args=self.args).parse()
@@ -184,9 +181,9 @@ class CommandParser:
             request_user = self.args[0].lower()
             return ApproveAllRequests.approve(self.user, request_user)
 
-        # -------------------------------------------------------------------------
-
+        # ---------------
         # Takes a Command
+        # ---------------
 
         if self.command == "help":
             if len(self.args) > 0:
@@ -215,9 +212,10 @@ class CommandParser:
                 return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
             else:
                 return None
-        # -------------------------------------------------------------------------
 
+        # -----
         # Other
+        # -----
 
         if self.command == "soundeffect":
             sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)
@@ -230,9 +228,9 @@ class CommandParser:
                 end_time=sfx_request.end_time,
             ).save()
 
-        # -------------------------------------------------------------------------
-
+        # -------------------------
         # Takes a User OR a Command
+        # -------------------------
 
         if self.command in ["permissions", "permission", "perms", "perm"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
@@ -250,9 +248,9 @@ class CommandParser:
                 target_command=parser.target_command,
             )
 
-        # -------------------------------------------------------------------------
-
+        # -----------
         # Random User
+        # -----------
 
         if self.command in [
             "props",
@@ -283,9 +281,9 @@ class CommandParser:
                 self.user, parser.target_command, parser.target_user
             ).share()
 
-        # -------------------------------------------------------------------------
-
+        # --------------
         # Random Command
+        # --------------
 
         if self.command in ["buy"]:
             parser = PermsParser(
@@ -311,9 +309,9 @@ class CommandParser:
             else:
                 return User(self.user).buy(command)
 
-        # -------------------------------------------------------------------------
-
+        # ------------------------------
         # Random Command and Random User
+        # ------------------------------
 
         parser = PermsParser(
             user=self.user, args=self.args, random_command=True, random_user=True,
@@ -352,9 +350,9 @@ class CommandParser:
                 friend=parser.target_user,
             ).give()
 
-        # -------------------------------------------------------------------------
-
-        # Stream Gods
+        # -------------------
+        # Stream God Commands
+        # -------------------
 
         # These Need Chat Parsers
         if self.command == "dropeffect" and self.user in STREAM_GODS:
@@ -363,7 +361,9 @@ class CommandParser:
         if self.command == "dropreward" and self.user in STREAM_GODS:
             return dropreward()
 
-        # --------------------------------------------------------------------------------
+        # ------------------
+        # OBS or Soundeffect
+        # ------------------
 
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")

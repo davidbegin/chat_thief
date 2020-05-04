@@ -17,12 +17,11 @@ class PlaySoundeffectRequest:
 
     def save(self):
         if self._is_valid_json():
-            print(f"Creating New Play SFX Request: {self.doc()}")
+            print(f"Play SFX Request: {self.doc()}")
 
             from tinyrecord import transaction
 
             with transaction(self.play_sfx_db) as tr:
-                print("Transaction Time")
                 tr.insert(self.doc())
             return self.doc()
 
