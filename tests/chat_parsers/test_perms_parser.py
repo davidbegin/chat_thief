@@ -6,16 +6,18 @@ from chat_thief.models.user import User
 
 
 class TestPermsParser:
-    def test_parse(self, monkeypatch):
-        def mockreturn(self):
-            return ["artmattdank"]
+    @pytest.fixture(autouse=True)
+    def mock_present_users(self, monkeypatch):
+        def _mock_present_users(self):
+            return ["artmattdank", "fake_viewer"]
 
-        def fakecommands(self):
+        def _mock_fake_commands(self):
             return ["clap"]
 
-        monkeypatch.setattr(WelcomeCommittee, "present_users", mockreturn)
-        monkeypatch.setattr(User, "commands", fakecommands)
+        monkeypatch.setattr(WelcomeCommittee, "present_users", _mock_present_users)
+        monkeypatch.setattr(User, "commands", _mock_fake_commands)
 
+    def test_parse(self):
         user = "fake_user"
         args = ["!perms", "clap"]
         subject = PermsParser(user, args)
@@ -61,14 +63,14 @@ class TestPermsParser:
 
     def test_give_parse(self):
         user = "fake_user"
-        args = ["!give", "unusual", "baldclap"]
+        args = ["!give", "unusual", "fake_viewer"]
         subject = PermsParser(user, args, random_command=True, random_user=True,)
         result = subject.parse()
         assert result.target_command == "unusual"
-        assert result.target_user == "baldclap"
+        assert result.target_user == "fake_viewer"
 
-        args = ["!give", "baldclap", "unusual"]
+        args = ["!give", "fake_viewer", "unusual"]
         subject = PermsParser(user, args)
         result = subject.parse()
         assert result.target_command == "unusual"
-        assert result.target_user == "baldclap"
+        assert result.target_user == "fake_viewer"
