@@ -115,8 +115,6 @@ class Command:
                 self._add_user(target_user)
                 return f"@{target_user} now has access to !{self.name}"
             else:
-                # Sooooooooooo
-                # So here it is none
                 return f"@{target_user} already allowed !{self.name}"
         else:
             self._create_new_command([target_user])

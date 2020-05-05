@@ -296,8 +296,15 @@ class CommandParser:
             "share_perms",
         ]:
             parser = PermsParser(
-                user=self.user, args=self.args, random_user=True
+                user=self.user, args=self.args, random_user=True, random_command=True
             ).parse()
+
+            if parser.target_command == "random":
+                commands = User(self.user).commands()
+                parser.target_command = random.sample(commands, 1)[0]
+
+            if parser.target_user == "random":
+                parser.target_user = find_random_user(blacklisted_users=Command(command).users())
 
             return CommandSharer(
                 self.user, parser.target_command, parser.target_user

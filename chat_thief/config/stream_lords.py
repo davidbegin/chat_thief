@@ -34,4 +34,5 @@ STREAM_LORDS = [
     "usuallyhigh",
     "vivax3794",
     "zerostheory",
+    "andrelamus",
 ] + STREAM_GODS

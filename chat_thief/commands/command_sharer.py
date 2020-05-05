@@ -18,14 +18,17 @@ class CommandSharer:
         command = Command(name=self.command)
 
         if self.user in STREAM_GODS:
-            return command.allow_user(self.friend)
+            perm_result = command.allow_user(self.friend)
+            return f"{self.user} shared {perm_result}"
         elif User(self.user).street_cred() > 0:
             perm_result = command.allow_user(self.friend)
-
             if perm_result:
                 print("\nWe have a Perm Result")
                 User(self.user).remove_street_cred()
-                return perm_result
+                # sharing and stealing both should double
+                command.increase_cost(command.amount() * 2)
+                # We Need to increase the cost
+                return f"{self.user} shared {perm_result}"
             else:
                 print("\nWe NOOOOO have a Perm Result")
                 return f"{self.user} cannot add permissions"
