@@ -7,6 +7,15 @@ from chat_thief.irc_msg import IrcMsg
 from tests.support.database_setup import DatabaseConfig
 
 
+class FakeTinyDbResult:
+    def __init__(self, data):
+        self._data = data
+        self.doc_id = self._data["doc_id"]
+
+    def __getitem__(self, key):
+        return self._data[key]
+
+
 @dataclass
 class FakeSoundeffectRequestParser:
     user: str
@@ -92,4 +101,80 @@ class TestSoundEffectRequest(DatabaseConfig):
 
         subject.save()
         assert not subject.approved
-        assert SoundeffectRequest.unapproved_count() == 1
+
+    def test_stats(self, monkeypatch):
+        # See Our Object is annoying!!!
+        # We need a better way of saving these requests!
+        unapproved = [
+            FakeTinyDbResult(
+                {
+                    "requester": "c4tfive",
+                    "approver": None,
+                    "approved": False,
+                    "youtube_id": "qs7f3ssuEjA",
+                    "command": "tootsie",
+                    "start_time": "00:02",
+                    "end_time": "00:6",
+                    "doc_id": 3,
+                }
+            ),
+            FakeTinyDbResult(
+                {
+                    "requester": "kevinsjoberg",
+                    "approver": None,
+                    "approved": False,
+                    "youtube_id": "b1E9ucBTHsg",
+                    "command": "@kevinsjoberg",
+                    "start_time": "00:48",
+                    "end_time": "00:53",
+                    "doc_id": 2,
+                }
+            ),
+            FakeTinyDbResult(
+                {
+                    "requester": "whatsinmyopsec",
+                    "approver": None,
+                    "approved": False,
+                    "youtube_id": "sYPrBZFGkMM",
+                    "command": "bullyme",
+                    "start_time": "0:04",
+                    "end_time": "0:09",
+                    "doc_id": 1,
+                }
+            ),
+        ]
+
+        monkeypatch.setattr(SoundeffectRequest, "unapproved", lambda: unapproved)
+        result = SoundeffectRequest.stats()
+
+        expected = {
+            "whatsinmyopsec": {1: "bullyme"},
+            "kevinsjoberg": {2: "@kevinsjoberg",},
+            "c4tfive": {3: "tootsie"},
+        }
+
+        expected = {
+            "kevinsjoberg": {
+                2: {
+                    "name": "@kevinsjoberg",
+                    "youtube": "https://youtu.be/b1E9ucBTHsg?t=48",
+                    "time": "00:48 - 00:53",
+                }
+            },
+            "c4tfive": {
+                3: {
+                    "name": "tootsie",
+                    "youtube": "https://youtu.be/qs7f3ssuEjA?t=2",
+                    "time": "00:02 - 00:6",
+                }
+            },
+            "whatsinmyopsec": {
+                1: {
+                    "name": "bullyme",
+                    "youtube": "https://youtu.be/sYPrBZFGkMM?t=4",
+                    "time": "0:04 - 0:09",
+                }
+            },
+        }
+
+        assert result == expected

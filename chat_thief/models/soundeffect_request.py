@@ -26,8 +26,26 @@ class SoundeffectRequest:
 
     @classmethod
     def stats(cls):
-        results = cls.unapproved()
-        user_stats = Counter([request["requester"] for request in results])
+        requests = cls.unapproved()
+        stat_dict = {}
+        for request in requests:
+            stat_dict[request["requester"]] = {
+                request.doc_id: {
+                    "name": request["command"],
+                    "youtube": SoundeffectRequest.youtube_url(request),
+                    "time": f"{request['start_time']} - {request['end_time']}",
+                }
+            }
+
+        return stat_dict
+
+    @staticmethod
+    def youtube_url(request):
+        from datetime import datetime
+
+        pt = datetime.strptime(request["start_time"], "%M:%S")
+        total_seconds = pt.second + pt.minute * 60
+        return f"https://youtu.be/{request['youtube_id']}?t={total_seconds}"
 
     @classmethod
     def count(cls):

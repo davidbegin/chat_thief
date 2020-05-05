@@ -105,14 +105,24 @@ class CommandParser:
             return loserboard()
 
         if self.command == "requests":
-            return f"Unpproved Requests: {SoundeffectRequest.stats()}"
+            stats = SoundeffectRequest.stats()
+
+            return [
+                (
+                    f"@{user}"
+                    + " - Doc ID: "
+                    + " ".join(
+                        [
+                            f'{doc_id} - !{values["name"]} {values["youtube"]} {values["time"]}'
+                            for (doc_id, values) in values.items()
+                        ]
+                    )
+                )
+                for (user, values) in stats.items()
+            ]
 
         if self.command == "most_popular":
             return " | ".join(Command.most_popular())
-
-        # TODO: on one line plz
-        # if self.command == "peasants":
-        #     return ChatLogs().recent_stream_peasants()
 
         if self.command in ["economy"]:
             cool_points = User(self.user).total_cool_points()
