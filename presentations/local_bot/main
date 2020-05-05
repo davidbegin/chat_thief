@@ -1,0 +1,39 @@
+Running Bots Locally
+
+5 Separate Bots:
+
+
+bot.py
+One Bot for collecting the chat and process commands
+
+soundboard_bot.py
+Plays sounds from a Queue
+
+soundeffect_request_bot.py
+Save Samples from Youtube and Twitch
+
+Hand of the Market Bot
+gives chatters street cred and sounds
+
+Stock Ticker Bot
+  - Flask
+
+No Dependencies:
+
+- TinyDB -> Small lil ORM to use JSON as a Database
+- TinyRecord -> Transactions for TinyDB
+
+
+How Bots are Run
+```
+def bot():
+  while True:
+      try:
+          # Do Some stuff
+          time.sleep(1)
+      except Exception as e:
+          if e is KeyboardInterrupt:
+              raise e
+          else:
+              traceback.print_exc()
+```
