@@ -42,7 +42,6 @@ class SoundeffectRequest:
 
     @classmethod
     def formatted_stats(cls):
-        raw_stats = cls.stats()
         return [
             (
                 f"@{user}"
@@ -54,7 +53,7 @@ class SoundeffectRequest:
                     ]
                 )
             )
-            for (user, values) in raw_stats.items()
+            for (user, values) in cls.stats().items()
         ]
 
     @staticmethod

@@ -106,7 +106,10 @@ class CommandParser:
             return loserboard()
 
         if self.command == "requests":
-            return SoundeffectRequest.formatted_stats()
+            stats = SoundeffectRequest.formatted_stats()
+            if not stats:
+                stats = "Excellent Job Stream Lords No Requests!"
+            return stats
 
         if self.command == "most_popular":
             return " | ".join(Command.most_popular())
