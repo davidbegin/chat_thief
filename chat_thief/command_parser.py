@@ -90,11 +90,11 @@ class CommandParser:
         if self.command == "donate":
             return Donator(self.user).donate()
 
-        if self.command == "revolution":
-            return Vote(user=self.user).vote("revolution")
-
-        if self.command == "peace":
-            return Vote(user=self.user).vote("peace")
+        if self.command in ["peace", "revolution"]:
+            threshold = int(User(self.user).total_users() / 2)
+            vote_count = Vote.count()
+            Vote(user=self.user).vote(self.command)
+            return f"{vote_count} of {threshold} Votes Needed"
 
         if self.command == "facts" and self.user in STREAM_GODS:
             return Facts().available_sounds()
@@ -143,9 +143,12 @@ class CommandParser:
         if self.command == "streamgods":
             return " ".join(STREAM_GODS)
 
-        if self.command == "coup" and self.user == "beginbotbot":
-            threshold = int(User(self.user).total_users() / 8)
-            # threshold = int(User(self.user).total_users() / 2)
+        # if self.command == "coup" and self.user == "beginbotbot":
+        if self.command == "coup":
+            viva_la_revolution = Revolution(self.user)
+
+            threshold = int(User(self.user).total_users() / 2)
+            result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")
 
             if result in ["peace", "revolution"]:
@@ -304,7 +307,9 @@ class CommandParser:
                 parser.target_command = random.sample(commands, 1)[0]
 
             if parser.target_user == "random":
-                parser.target_user = find_random_user(blacklisted_users=Command(command).users())
+                parser.target_user = find_random_user(
+                    blacklisted_users=Command(command).users()
+                )
 
             return CommandSharer(
                 self.user, parser.target_command, parser.target_user

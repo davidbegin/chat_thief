@@ -9,9 +9,6 @@ class Vote:
     database_folder = ""
     database_path = "db/votes.json"
 
-    def __init__(self, user):
-        self.user = user
-
     @classmethod
     def db(cls):
         return db_table(cls.database_folder + cls.database_path, cls.table_name)
@@ -20,36 +17,45 @@ class Vote:
     def count(cls):
         return len(cls.db().all())
 
-    def peace_keepers(self):
-        return [vote["user"] for vote in self.db().search(Query().vote == "peace")]
+    @classmethod
+    def peace_keepers(cls):
+        return [vote["user"] for vote in cls.db().search(Query().vote == "peace")]
 
-    def revolutionaries(self):
+    @classmethod
+    def revolutionaries(cls):
         return [
             freedom_fighter["user"]
-            for freedom_fighter in self.db().search(Query().vote == "revolution")
+            for freedom_fighter in cls.db().search(Query().vote == "revolution")
         ]
 
     # When theres a certain percentage of users
     # We are going to create 3 Users
     # Then we are going to vote, 2 times
     # and make sure the 2nd time triggers resolution
-    def have_tables_turned(self, threshold):
-        if self.revolution_count() > threshold:
+    @classmethod
+    def have_tables_turned(cls, threshold):
+        if cls.revolution_count() > threshold:
             return "revolution"
 
-        if self.peace_count() > threshold:
+        if cls.peace_count() > threshold:
             return "peace"
 
         return False
 
-    def vote_count(self):
-        return len(self.db().all())
+    @classmethod
+    def vote_count(cls):
+        return len(cls.db().all())
 
-    def revolution_count(self):
-        return len(self.revolutionaries())
+    @classmethod
+    def revolution_count(cls):
+        return len(cls.revolutionaries())
 
-    def peace_count(self):
-        return len(self.peace_keepers())
+    @classmethod
+    def peace_count(cls):
+        return len(cls.peace_keepers())
+
+    def __init__(self, user):
+        self.user = user
 
     def vote(self, vote):
         user = self._find_user()
@@ -69,7 +75,7 @@ class Vote:
 
             with transaction(self.db()) as tr:
                 tr.insert(self.doc(vote))
-            self.doc(vote)
+            # self.doc(vote)
 
         return {"Revolution": self.revolution_count(), "Peace": self.peace_count()}
 

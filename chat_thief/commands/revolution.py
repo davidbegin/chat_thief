@@ -20,10 +20,27 @@ from chat_thief.models.command import Command
 
 
 class Revolution:
-    def __init__(self, tide):
-        self.tide = tide
+    # Where should I pass in the user?
+    def __init__(self, revolutionary):
+        self.revolutionary = revolutionary
+        self.coup = Command("coup")
 
-    def turn_the_tides(self):
+    def attempt_coup(self, tide):
+        user = User(self.revolutionary)
+
+        if user.cool_points() >= self.coup.cost():
+            print("WE HAVE ENOUGH FOR A REVOLUTION")
+            # user.remove_cool_points(self.coup.cost())
+            # self.coup.increase_cost(self.coup.cost() * 2)
+            # self._turn_the_tides(tide)
+        else:
+            print("YOU CAN'T TRIGGER A REVOLUTION")
+            # return self._punish_revolutionary()
+
+    def _punish_revolutionary(self):
+        return User(self.revolutionary).bankrupt()
+
+    def _turn_the_tides(self, tide):
         user = User("beginbot")
         vote = Vote("beginbot")
 
@@ -43,12 +60,12 @@ class Revolution:
         print(f"Peace Keepers: {peace_keepers}")
         print(f"Sounds: {peace_keeper_sounds}\n")
 
-        if self.tide == "peace":
+        if tide == "peace":
             return self._transfer_power(
                 peace_keepers, revolutionaries, revolutionary_sounds
             )
 
-        if self.tide == "revolution":
+        if tide == "revolution":
             return self._transfer_power(
                 revolutionaries, peace_keepers, peace_keeper_sounds
             )

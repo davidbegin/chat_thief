@@ -169,3 +169,8 @@ class User:
         user = self._find_or_create_user()
         for command in self.commands():
             Command(command).unallow_user(user)
+
+    def bankrupt(self):
+        self.remove_street_cred(self.street_cred())
+        self.remove_cool_points(self.cool_points())
+        return f"{self.name} is now Bankrupt"

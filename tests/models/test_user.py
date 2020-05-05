@@ -42,3 +42,13 @@ class TestUser(DatabaseConfig):
         subject.remove_all_commands()
         assert subject.commands() == []
         assert command.permitted_users() == []
+
+    def test_bankrupt(self, user):
+        subject = user("artmattdank")
+        subject.add_street_cred(10)
+        subject.add_cool_points(10)
+        assert subject.cool_points() == 10
+        assert subject.street_cred() == 10
+        subject.bankrupt()
+        assert subject.cool_points() == 0
+        assert subject.street_cred() == 0
