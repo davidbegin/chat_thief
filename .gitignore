@@ -1,6 +1,7 @@
 logs/*
 venv/*
 db/*
+tmp/*
 tests/db/*
 .mypy_cache/*
 .whitelisted_users

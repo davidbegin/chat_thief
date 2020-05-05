@@ -3,6 +3,7 @@ import logging
 import os
 
 from chat_thief.prize_dropper import random_user as find_random_user
+from chat_thief.chat_parsers.request_approver_parser import RequestApproverParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
@@ -105,21 +106,7 @@ class CommandParser:
             return loserboard()
 
         if self.command == "requests":
-            stats = SoundeffectRequest.stats()
-
-            return [
-                (
-                    f"@{user}"
-                    + " - Doc ID: "
-                    + " ".join(
-                        [
-                            f'{doc_id} - !{values["name"]} {values["youtube"]} {values["time"]}'
-                            for (doc_id, values) in values.items()
-                        ]
-                    )
-                )
-                for (user, values) in stats.items()
-            ]
+            return SoundeffectRequest.formatted_stats()
 
         if self.command == "most_popular":
             return " | ".join(Command.most_popular())
@@ -188,13 +175,30 @@ class CommandParser:
                 return User(parser.target_user).paperup()
 
         if (
-            self.command in ["approve", "approve_all_requests"]
-            and self.user in STREAM_LORDS
+            self.command
+            in ["approve", "approve_all_requests"]
+            # and self.user in STREAM_LORDS
         ):
-            request_user = self.args[0].lower()
 
-            requests = SoundeffectRequest.approve_all_for_user(approver, requester)
-            return requests
+            # # This should take a parser and act accordingly
+            # "!approve all"
+            # "!approve 1"
+            # "!approve @artmattdank"
+            # "!approve !new_command"
+            parser = RequestApproverParser(user=self.user, args=self.args).parse()
+
+            if parser.target_user:
+                return SoundeffectRequest.approve_user(self.user, parser.target_user)
+            elif parser.target_command:
+                return SoundeffectRequest.approve_command(
+                    self.user, parser.target_command
+                )
+            elif parser.doc_id:
+                return SoundeffectRequest.approve_doc_id(self.user, parser.doc_id)
+            else:
+                return "Not Sure What to Approve"
+            # elif parser.approve_all:
+            #     return SoundeffectRequest.approve_all(approver=self.user)
 
         # ---------------
         # Takes a Command

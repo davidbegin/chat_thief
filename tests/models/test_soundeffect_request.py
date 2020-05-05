@@ -178,3 +178,22 @@ class TestSoundEffectRequest(DatabaseConfig):
         }
 
         assert result == expected
+
+    def test_approve_all(self):
+        user = "fake_user"
+        results = SoundeffectRequest.approve_all(approver=user)
+
+    def test_approve_command(self):
+        command = "fake_command"
+        user = "fake_user"
+        results = SoundeffectRequest.approve_command(user, command)
+
+    def test_approve_user(self):
+        user = "fake_user"
+        target_user = "other_user"
+        results = SoundeffectRequest.approve_user(user, target_user)
+
+    def test_approve_doc_id(self):
+        user = "fake_user"
+        doc_id = 1
+        SoundeffectRequest.approve_doc_id(user, doc_id)

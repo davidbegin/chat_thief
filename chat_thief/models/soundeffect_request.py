@@ -24,6 +24,7 @@ class SoundeffectRequest:
     def unapproved(cls):
         return cls.db().search(Query().approved == False)
 
+    # This is the wrong data structure
     @classmethod
     def stats(cls):
         requests = cls.unapproved()
@@ -38,6 +39,23 @@ class SoundeffectRequest:
             }
 
         return stat_dict
+
+    @classmethod
+    def formatted_stats(cls):
+        raw_stats = cls.stats()
+        return [
+            (
+                f"@{user}"
+                + " - Doc ID: "
+                + " ".join(
+                    [
+                        f'{doc_id} - !{values["name"]} {values["youtube"]} {values["time"]}'
+                        for (doc_id, values) in values.items()
+                    ]
+                )
+            )
+            for (user, values) in raw_stats.items()
+        ]
 
     @staticmethod
     def youtube_url(request):
@@ -62,12 +80,36 @@ class SoundeffectRequest:
         return cls._save_samples(results, approver)
 
     @classmethod
+    def approve_all(cls, approver):
+        results = cls.db().all()
+        return cls._save_samples(results, approver)
+
+    @classmethod
+    def approve_command(cls, approver, command):
+        results = cls.db().search(Query().command == command)
+        return cls._save_samples(results, approver)
+
+    @classmethod
+    def approve_user(cls, approver, user):
+        results = cls.db().search(Query().requester == user)
+        return cls._save_samples(results, approver)
+
+    @classmethod
+    def approve_doc_id(cls, approver, doc_id):
+        result = cls.db().get(doc_id=doc_id)
+        if result:
+            return cls._save_samples([result], approver)
+        else:
+            return f"Did not find Doc ID: {doc_id} to approve"
+
+    @classmethod
     def _save_samples(cls, results, approver):
         if results:
             print(f"\nResults: {results}")
 
         doc_ids_to_delete = [sfx.doc_id for sfx in results]
         if doc_ids_to_delete:
+            print(f"Deleting the following IDs: {doc_ids_to_delete}")
             from tinyrecord import transaction
 
             with transaction(cls.db()) as tr:
