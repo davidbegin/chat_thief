@@ -17,17 +17,16 @@ class TestVote(DatabaseConfig):
         thugga = self._create_user("youngthug")
         bbot = self._create_user("beginbot")
         monster = self._create_user("beginbotsmonster")
-        assert monster.total_users() == 3
+        assert User.count() == 3
 
-        subject = Vote(user=thugga.name)
-        threshold = int(thugga.total_users() / 2)
-
+        threshold = int(User.count() / 2)
+        assert not Vote.have_tables_turned(threshold)
         Vote(user=thugga.name).vote("revolution")
-        assert not subject.have_tables_turned(threshold)
+        assert Vote.have_tables_turned(threshold) == "revolution"
         Vote(user=monster.name).vote("peace")
-        assert not subject.have_tables_turned(threshold)
-        Vote(user=bbot.name).vote("revolution")
-        assert subject.have_tables_turned(threshold) == "revolution"
+        assert not Vote.have_tables_turned(threshold)
+        Vote(user=bbot.name).vote("peace")
+        assert Vote.have_tables_turned(threshold) == "peace"
 
     def test_create_vote(self):
         user = "fake_user"

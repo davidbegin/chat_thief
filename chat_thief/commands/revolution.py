@@ -34,7 +34,7 @@ class Revolution:
             print("WE HAVE ENOUGH FOR A REVOLUTION")
             user.remove_cool_points(self.coup.cost())
             self.coup.increase_cost(self.coup.cost() * 2)
-            self._turn_the_tides(tide)
+            return self._turn_the_tides(tide)
         else:
             print("YOU CAN'T TRIGGER A REVOLUTION")
             return self._punish_revolutionary()

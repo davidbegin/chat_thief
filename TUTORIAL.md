@@ -49,7 +49,9 @@ Examples:
 !buy !clap
 !buy damn
 !buy random
+
 !steal clap beginbotbot
+
 !share !clap @artmattdank
 ```
 
@@ -77,9 +79,8 @@ You can steal a command from someone else as well, and they will lose access
 
 !give
 !transfer
+
 !donate
-!love
-!hate
 
 ### Love and Hate
 

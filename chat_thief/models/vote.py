@@ -37,11 +37,12 @@ class Vote:
         rev_count = cls.revolution_count()
         peace_count = cls.peace_count()
 
-        if rev_count >= peace_count:
+        if rev_count > peace_count:
             if rev_count >= threshold:
                 return "revolution"
-        elif peace_count >= threshold:
-            return "peace"
+        if peace_count > rev_count:
+            if peace_count >= threshold:
+                return "peace"
 
         return False
 

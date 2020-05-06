@@ -107,11 +107,11 @@ class CommandParser:
                 [f"{stat[0]}: {stat[1]}" for stat in reversed(User.richest())]
             )
 
-        if self.command in ["leaderboard", "forbes"]:
-            return leaderboard()
+        # if self.command in ["leaderboard", "forbes"]:
+        #     return leaderboard()
 
-        if self.command == "loserboard":
-            return loserboard()
+        # if self.command == "loserboard":
+        #     return loserboard()
 
         if self.command == "requests":
             stats = SoundeffectRequest.formatted_stats()

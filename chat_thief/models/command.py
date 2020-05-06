@@ -1,4 +1,5 @@
 import traceback
+import os
 from collections import Counter
 from itertools import chain
 
@@ -107,8 +108,9 @@ class Command:
                 return f"@{target_user} lost access to !{self.name}"
             else:
                 return f"No One has accesss to !{self.name}"
-        except:
-            traceback.print_exc()
+        except ValueError:
+            if "TEST_MODE" in os.environ:
+                traceback.print_exc()
 
     def allow_user(self, target_user):
         command = self.db().get(Query().command == self.name)
@@ -164,7 +166,8 @@ class Command:
     def _remove_user(self, target_user):
         def remove_permitted_users():
             def transform(doc):
-                doc["permitted_users"].remove(target_user)
+                if target_user in doc["permitted_users"]:
+                    doc["permitted_users"].remove(target_user)
 
             return transform
 

@@ -172,8 +172,9 @@ class User:
 
     def remove_all_commands(self):
         user = self._find_or_create_user()
+        print(user)
         for command in self.commands():
-            Command(command).unallow_user(user)
+            Command(command).unallow_user(user["name"])
 
     def bankrupt(self):
         self.remove_street_cred(self.street_cred())

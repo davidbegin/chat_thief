@@ -31,7 +31,7 @@ def sync_main():
 
             # Every 5 minutes, all the chatters have a chance at some street cred
             # time.sleep(60)
-            time.sleep(300)
+            time.sleep(600)
         except Exception as e:
             time.sleep(30)
             if e is KeyboardInterrupt:

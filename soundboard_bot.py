@@ -19,6 +19,7 @@ def sync_main():
                     AudioPlayer.play_sample(soundfile.resolve())
                 else:
                     print(f"{sfx['user']} not allowed to play: {sfx['command']}")
+            # time.sleep(15)
             time.sleep(1)
         except Exception as e:
             if e is KeyboardInterrupt:
