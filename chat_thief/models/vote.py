@@ -34,10 +34,13 @@ class Vote:
     # and make sure the 2nd time triggers resolution
     @classmethod
     def have_tables_turned(cls, threshold):
-        if cls.revolution_count() > threshold:
-            return "revolution"
+        rev_count = cls.revolution_count()
+        peace_count = cls.peace_count()
 
-        if cls.peace_count() > threshold:
+        if rev_count >= peace_count:
+            if rev_count >= threshold:
+                return "revolution"
+        elif peace_count >= threshold:
             return "peace"
 
         return False

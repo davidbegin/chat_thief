@@ -26,7 +26,7 @@ class CommandSharer:
                 print("\nWe have a Perm Result")
                 User(self.user).remove_street_cred()
                 # sharing and stealing both should double
-                command.increase_cost(command.amount() * 2)
+                command.increase_cost(command.cost() * 2)
                 # We Need to increase the cost
                 return f"{self.user} shared {perm_result}"
             else:

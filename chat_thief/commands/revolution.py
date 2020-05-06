@@ -28,14 +28,16 @@ class Revolution:
     def attempt_coup(self, tide):
         user = User(self.revolutionary)
 
+        print(f"Cool Points: {user.cool_points()} | Coup Cost: {self.coup.cost()}")
+
         if user.cool_points() >= self.coup.cost():
             print("WE HAVE ENOUGH FOR A REVOLUTION")
-            # user.remove_cool_points(self.coup.cost())
-            # self.coup.increase_cost(self.coup.cost() * 2)
-            # self._turn_the_tides(tide)
+            user.remove_cool_points(self.coup.cost())
+            self.coup.increase_cost(self.coup.cost() * 2)
+            self._turn_the_tides(tide)
         else:
             print("YOU CAN'T TRIGGER A REVOLUTION")
-            # return self._punish_revolutionary()
+            return self._punish_revolutionary()
 
     def _punish_revolutionary(self):
         return User(self.revolutionary).bankrupt()

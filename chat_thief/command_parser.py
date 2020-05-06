@@ -99,6 +99,14 @@ class CommandParser:
         if self.command == "facts" and self.user in STREAM_GODS:
             return Facts().available_sounds()
 
+        if self.command == "coup_cost" and self.user == "beginbotbot":
+            Command("coup").increase_cost(-4)
+
+        if self.command == "richest":
+            return " | ".join(
+                [f"{stat[0]}: {stat[1]}" for stat in reversed(User.richest())]
+            )
+
         if self.command in ["leaderboard", "forbes"]:
             return leaderboard()
 
@@ -143,18 +151,17 @@ class CommandParser:
         if self.command == "streamgods":
             return " ".join(STREAM_GODS)
 
-        # if self.command == "coup" and self.user == "beginbotbot":
         if self.command == "coup":
             viva_la_revolution = Revolution(self.user)
 
-            threshold = int(User(self.user).total_users() / 2)
+            threshold = int(User(self.user).total_users() / 1100)
             result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")
 
             if result in ["peace", "revolution"]:
-                return Revolution(tide=result).turn_the_tides()
+                return Revolution(self.user).attempt_coup(result)
             else:
-                return f"The Will of the People have not chosen: {threshold} votes must be cast"
+                return f"The Will of the People have not chosen: {threshold} votes must be cast for either Peace or Revolution"
 
         # -------------------------
         # No Random Command or User

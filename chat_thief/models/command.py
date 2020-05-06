@@ -1,3 +1,4 @@
+import traceback
 from collections import Counter
 from itertools import chain
 
@@ -98,13 +99,16 @@ class Command:
         self.db().update(_db_increase_cost(), Query().command == self.name)
 
     def unallow_user(self, target_user):
-        command = self.db().get(Query().command == self.name)
+        try:
+            command = self.db().get(Query().command == self.name)
 
-        if command:
-            self._remove_user(target_user)
-            return f"@{target_user} lost access to !{self.name}"
-        else:
-            return f"No One has accesss to !{self.name}"
+            if command:
+                self._remove_user(target_user)
+                return f"@{target_user} lost access to !{self.name}"
+            else:
+                return f"No One has accesss to !{self.name}"
+        except:
+            traceback.print_exc()
 
     def allow_user(self, target_user):
         command = self.db().get(Query().command == self.name)

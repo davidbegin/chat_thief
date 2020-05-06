@@ -34,6 +34,11 @@ class User:
         users = self.db().all()
         return sum([user["cool_points"] for user in users])
 
+    @classmethod
+    def richest(cls):
+        users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
+        return sorted(users, key=lambda user: user[1])
+
     def purge(self):
         return self.db().purge()
 
