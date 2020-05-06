@@ -36,7 +36,7 @@ class Revolution:
             self.coup.increase_cost(self.coup.cost() * 2)
             return self._turn_the_tides(tide)
         else:
-            print("YOU CAN'T TRIGGER A REVOLUTION")
+            print(f"YOU CAN'T TRIGGER A REVOLUTION: self.coup.cost()")
             return self._punish_revolutionary()
 
     def _punish_revolutionary(self):
@@ -67,14 +67,24 @@ class Revolution:
         print(f"Sounds: {peace_keeper_sounds}\n")
 
         if tide == "peace":
-            return self._transfer_power(
-                peace_keepers, revolutionaries, revolutionary_sounds
-            )
+            power_users = peace_keepers
+            weaklings = revolutionaries
+            self._transfer_power(peace_keepers, revolutionaries, revolutionary_sounds)
+            return [
+                f"Power Users: { ' '.join(power_users)}",
+                f"Weaklings: { ' '.join(weaklings)}",
+                f"Fence Sitters: { ' '.join(fence_sitters)}",
+            ]
 
         if tide == "revolution":
-            return self._transfer_power(
-                revolutionaries, peace_keepers, peace_keeper_sounds
-            )
+            power_users = revolutionaries
+            weaklings = peace_keepers
+            self._transfer_power(revolutionaries, peace_keepers, peace_keeper_sounds)
+            return [
+                f"Power Users: { ' '.join(power_users)}",
+                f"Weaklings: { ' '.join(weaklings)}",
+                f"Fence Sitters: { ' '.join(fence_sitters)}",
+            ]
 
     #  Transferring power is Different
     def _transfer_power(self, power_users, weaklings, bounty):

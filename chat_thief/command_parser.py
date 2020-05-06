@@ -99,8 +99,8 @@ class CommandParser:
         if self.command == "facts" and self.user in STREAM_GODS:
             return Facts().available_sounds()
 
-        if self.command == "coup_cost" and self.user == "beginbotbot":
-            Command("coup").increase_cost(-4)
+        if self.command == "coup_cost" and self.user in STREAM_GODS:
+            return Command("coup").increase_cost(-3)
 
         if self.command == "richest":
             return " | ".join(
