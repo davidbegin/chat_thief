@@ -1,5 +1,6 @@
 DEFAULT_VOTES_DB_PATH = "db/votes.json"
 from chat_thief.models.database import db_table
+from chat_thief.models.user import User
 
 from tinydb import Query
 
@@ -27,6 +28,16 @@ class Vote:
             freedom_fighter["user"]
             for freedom_fighter in cls.db().search(Query().vote == "revolution")
         ]
+
+    @classmethod
+    def voters(cls):
+        return [vote["user"] for vote in cls.db().all()]
+
+    @classmethod
+    def fence_sitters(cls):
+        all_users = [user["name"] for user in User.all()]
+        patriots = cls.voters()
+        return list(set(all_users) - set(patriots))
 
     # When theres a certain percentage of users
     # We are going to create 3 Users

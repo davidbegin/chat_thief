@@ -44,18 +44,24 @@ class TestRevolution(DatabaseConfig):
         assert self.coup.cost() == 33
 
     def test_peace_keeper_losing_it_all(self):
-        damn_command = Command("damn")
-        peace_keeper = "picakhu"
-        damn_command.allow_user(peace_keeper)
-        Vote(peace_keeper).vote("peace")
-        assert peace_keeper in damn_command.users()
+        fence_sitter = User("CoolCat")
+        fence_sitter.save()
+        clap = Command("clap")
+        clap.allow_user(fence_sitter.name)
 
-        revolutionary = "beginbot"
-        user = User(revolutionary)
-        Vote(revolutionary).vote("revolution")
-        user.add_cool_points(11)
-        subject = Revolution(revolutionary)
+        damn_command = Command("damn")
+        peace_keeper = User("picakhu")
+        damn_command.allow_user(peace_keeper.name)
+        Vote(peace_keeper.name).vote("peace")
+        assert peace_keeper.name in damn_command.users()
+
+        revolutionary = User("beginbot")
+        Vote(revolutionary.name).vote("revolution")
+        revolutionary.add_cool_points(11)
+        subject = Revolution(revolutionary.name)
         subject.attempt_coup("revolution")
 
-        assert peace_keeper not in damn_command.users()
-        assert revolutionary in damn_command.users()
+        assert peace_keeper.name not in damn_command.users()
+        assert revolutionary.name in damn_command.users()
+        assert "damn" not in fence_sitter.commands()
+        assert fence_sitter.name not in clap.users()

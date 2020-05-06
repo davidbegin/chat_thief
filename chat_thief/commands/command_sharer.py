@@ -24,10 +24,8 @@ class CommandSharer:
             perm_result = command.allow_user(self.friend)
             if perm_result:
                 print("\nWe have a Perm Result")
-                User(self.user).remove_street_cred()
-                # sharing and stealing both should double
+                User(self.user).remove_cool_points(command.cost())
                 command.increase_cost(command.cost() * 2)
-                # We Need to increase the cost
                 return f"{self.user} shared {perm_result}"
             else:
                 print("\nWe NOOOOO have a Perm Result")

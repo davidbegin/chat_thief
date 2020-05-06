@@ -18,7 +18,11 @@ class User:
 
     @classmethod
     def count(cls):
-        return len(cls.db().all())
+        return len(cls.all())
+
+    @classmethod
+    def all(cls):
+        return cls.db().all()
 
     def __init__(self, name):
         self.name = name
@@ -105,6 +109,9 @@ class User:
             "health": 5,
         }
 
+    def save(self):
+        return self._find_or_create_user()
+
     def _find_or_create_user(self):
         user_result = self.db().search(Query().name == self.name)
         if user_result:
@@ -172,7 +179,6 @@ class User:
 
     def remove_all_commands(self):
         user = self._find_or_create_user()
-        print(user)
         for command in self.commands():
             Command(command).unallow_user(user["name"])
 

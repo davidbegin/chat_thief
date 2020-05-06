@@ -55,3 +55,14 @@ class TestVote(DatabaseConfig):
         subject.vote("revolution")
         assert subject.revolution_count() == 2
         assert subject.vote_count() == 3
+
+    def test_fence_sitters(self):
+        revolutionary = User("beginbot")
+        peace_keeper = User("beginbotsmonster")
+        fence_sitter = User("picakhu")
+        fence_sitter.save()
+
+        Vote(revolutionary.name).vote("revolution")
+        Vote(peace_keeper.name).vote("peace")
+
+        assert Vote.fence_sitters() == ["picakhu"]

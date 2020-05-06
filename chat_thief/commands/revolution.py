@@ -43,8 +43,12 @@ class Revolution:
         return User(self.revolutionary).bankrupt()
 
     def _turn_the_tides(self, tide):
+        fence_sitters = Vote.fence_sitters()
         user = User("beginbot")
         vote = Vote("beginbot")
+
+        for user in fence_sitters:
+            User(user).remove_all_commands()
 
         revolutionaries = vote.revolutionaries()
         peace_keepers = vote.peace_keepers()
@@ -78,7 +82,9 @@ class Revolution:
 
         for user in weaklings:
             print(f"Removing All Commands for {user}")
-            User(user).remove_all_commands()
+            poor_sap = User(user)
+            poor_sap.remove_all_commands()
+            poor_sap.bankrupt()
 
         for sfx in bounty:
             user = next(the_cycle_of_power_users)
