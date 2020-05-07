@@ -24,7 +24,7 @@ class CommandSharer:
             perm_result = command.allow_user(self.friend)
             if perm_result:
                 print("\nWe have a Perm Result")
-                User(self.user).remove_cool_points(command.cost())
+                User(self.user).update_cool_points(-command.cost())
                 command.increase_cost(command.cost() * 2)
                 return f"{self.user} shared {perm_result}"
             else:

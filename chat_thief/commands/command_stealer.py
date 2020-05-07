@@ -14,7 +14,7 @@ class CommandStealer:
         cool_points = user.cool_points()
 
         if cool_points >= command.cost():
-            user.remove_cool_points(command.cost())
+            user.update_cool_points(-command.cost())
             command.allow_user(self.thief)
             command.unallow_user(self.victim)
             command.increase_cost(command.cost() * 2)

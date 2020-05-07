@@ -143,7 +143,9 @@ class CommandParser:
 
         if self.command == "cubed" and self.user in ["beginbot", "beginbotbot"]:
             cube_time = int(self.args[0])
-            return CubeCasino(self.user, self.args).closet_result(cube_time)
+            result = CubeCasino(self.user, self.args).closet_result(cube_time)
+            CubeCasino(self.user, self.args).purge()
+            return result
 
         if self.command == "so":
             return shoutout(self.msg)

@@ -6,6 +6,15 @@ from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectReques
 class TestSoundeffectRequestParser:
     def test_parse(self):
         user = "fake_user"
+        args = ["https://youtu.be/j_QLzthSkfM", "nice", "00:01", "00:05"]
+        subject = SoundeffectRequestParser(user, args)
+        assert result.youtube_id == "https://youtu.be/j_QLzthSkfM"
+        assert result.command == "nice"
+        assert result.start_time == "00:01"
+        assert result.end_time == "00:05"
+
+    def test_parse(self):
+        user = "fake_user"
         args = ["RzBr6wof1mw", "nice", "00:01", "00:05"]
         subject = SoundeffectRequestParser(user, args)
         result = subject.parse()

@@ -105,7 +105,7 @@ class User:
         if self.cool_points() > 0:
             if effect == "random":
                 command = self._find_affordable_random_command()
-                self.remove_cool_points(command.cost())
+                self.update_cool_points(-command.cost())
                 command.allow_user(self.name)
                 command.increase_cost()
                 return f"@{self.name} purchased: {command.name}"
@@ -116,7 +116,7 @@ class User:
                     command = Command(effect)
 
                     if self.cool_points() >= command.cost():
-                        self.remove_cool_points(command.cost())
+                        self.update_cool_points(-command.cost())
                         command.allow_user(self.name)
                         command.increase_cost()
                         return f"@{self.name} bought !{effect}"
