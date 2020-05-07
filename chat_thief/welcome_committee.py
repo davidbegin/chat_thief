@@ -4,6 +4,7 @@ import traceback
 from chat_thief.irc import send_twitch_msg
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.models.command import Command
 
 
 DEFAULT_WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
@@ -32,6 +33,8 @@ class WelcomeCommittee:
 
         if sound_effect_files:
             effect = sound_effect_files[0]
+            command = Command(user)
+            command.update_health(1)
             PlaySoundeffectRequest(user=user, command=user).save()
         else:
             send_twitch_msg(

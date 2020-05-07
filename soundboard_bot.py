@@ -24,7 +24,8 @@ def sync_main():
                 command = Command(sfx["command"])
                 user = User(sfx["user"])
 
-                command_health = command.health()
+                # command_health = command.health()
+                command_health = 5
                 user_health = user.health()
                 user_allowed_to_play = command.allowed_to_play(user.name)
 

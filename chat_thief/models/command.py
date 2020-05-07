@@ -97,6 +97,15 @@ class Command:
         else:
             return 1
 
+    def update_health(self, amount):
+        def _update_health():
+            def transform(doc):
+                doc["health"] = doc["health"] + int(amount)
+
+            return transform
+
+        return self.update(_update_health)
+
     def revive(self):
         def _update_health():
             def transform(doc):

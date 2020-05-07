@@ -13,7 +13,7 @@ class StreetCredTransfer:
         transferrer = User(self.user)
 
         if transferrer.street_cred() >= self.amount:
-            transferrer.remove_street_cred(self.amount)
+            transferrer.update_street_cred(-self.amount)
 
             transferree = User(self.cool_person)
             transferree.update_cool_points(self.amount)

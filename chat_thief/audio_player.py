@@ -1,7 +1,7 @@
 import subprocess
 import traceback
 
-MPLAYER_VOL_NORM = "0.55"
+MPLAYER_VOL_NORM = "0.50"
 
 
 class AudioPlayer:
