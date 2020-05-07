@@ -1,5 +1,6 @@
-import traceback
+import subprocess
 import time
+import traceback
 
 from chat_thief.config.log import logger
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
@@ -14,6 +15,9 @@ def sync_main():
         try:
             # This deletes them from the DB
             all_effects = PlaySoundeffectRequest().pop_all_off()
+
+            if all_effects:
+                subprocess.call("clear")
 
             for sfx in all_effects:
                 print(sfx)

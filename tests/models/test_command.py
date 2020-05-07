@@ -61,9 +61,11 @@ class TestCommand(DatabaseConfig):
         command = Command.find_or_create("clap")
         assert Command.count() == 1
 
-    def test_silence(self):
+    def test_silence_and_revive(self):
         subject = Command("damn")
         subject.save()
         assert subject.health() == 5
-        # result = subject.doc()
-        # assert subject.health == 0
+        subject.silence()
+        assert subject.health() == 0
+        subject.revive()
+        assert subject.health() == 5

@@ -75,6 +75,9 @@ class CommandParser:
         self.args = self.irc_msg.args
 
     def build_response(self) -> Optional[str]:
+        if self.user == "nightbot":
+            return
+
         if self.user not in BLACKLISTED_LOG_USERS:
             self._logger.info(f"{self.user}: {self.msg}")
             WelcomeCommittee().welcome_new_users(self.user)
@@ -216,6 +219,12 @@ class CommandParser:
         # ---------------
         # Takes a Command
         # ---------------
+
+        if self.command == "revive" and self.user in STREAM_GODS:
+            parser = PermsParser(user=self.user, args=self.args).parse()
+            print(f"We are attempting to revive: !{parser.target_command}")
+            Command.find_or_create(parser.target_command)
+            return Command(parser.target_command).revive()
 
         if self.command == "silence" and self.user in STREAM_GODS:
             print("We are attempting to silence")

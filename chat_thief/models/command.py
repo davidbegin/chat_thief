@@ -60,6 +60,12 @@ class Command:
     def count(cls):
         return len(cls.db().all())
 
+    def update(self, update_func):
+        from tinyrecord import transaction
+
+        with transaction(self.db()) as tr:
+            return tr.update_callable(update_func(), Query().name == self.name)
+
     def exists(self):
         return cls.db().get(Query().name == name) is not None
 
@@ -91,12 +97,23 @@ class Command:
         else:
             return 1
 
+    def revive(self):
+        def _update_health():
+            def transform(doc):
+                doc["health"] = 5
+
+            return transform
+
+        return self.update(_update_health)
+
     def silence(self):
-        def _db_remove_health():
+        def _update_health():
             def transform(doc):
                 doc["health"] = 0
 
-        return self.db().update(_db_remove_health(), Query().name == self.name)
+            return transform
+
+        return self.update(_update_health)
 
     def increase_cost(self, amount=1):
         if command := self.db().get(Query().name == self.name):
@@ -109,7 +126,7 @@ class Command:
 
             return transform
 
-        self.db().update(_db_increase_cost(), Query().name == self.name)
+        self.update(_db_increase_cost)
 
     def unallow_user(self, target_user):
         try:
@@ -173,7 +190,7 @@ class Command:
 
             return transform
 
-        self.db().update(add_permitted_users(), Query().name == self.name)
+        self.update(add_permitted_users)
 
     def _remove_user(self, target_user):
         def remove_permitted_users():
@@ -183,7 +200,7 @@ class Command:
 
             return transform
 
-        self.db().update(remove_permitted_users(), Query().name == self.name)
+        self.update(remove_permitted_users)
 
     def _new_command(self, permitted_users=[]):
         return {
