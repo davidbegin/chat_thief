@@ -28,4 +28,7 @@ class PermissionsFetcher:
             from chat_thief.models.sfx_vote import SFXVote
 
             like_ratio = SFXVote(target_command).like_to_hate_ratio()
-            return f"!{target_command} | Cost: {command.cost()} | Like Ratio {round(like_ratio)}% | {user_permissions}"
+            stats = f"!{target_command} | Cost: {command.cost()} | Health: {command.health()} | Like Ratio {round(like_ratio)}%"
+            if user_permissions:
+                stats += f" | {user_permissions}"
+            return stats
