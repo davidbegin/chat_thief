@@ -35,9 +35,7 @@ class Vote:
 
     @classmethod
     def fence_sitters(cls):
-        all_users = [user["name"] for user in User.all()]
-        patriots = cls.voters()
-        return list(set(all_users) - set(patriots))
+        return list(set(User.all()) - set(cls.voters()))
 
     # When theres a certain percentage of users
     # We are going to create 3 Users

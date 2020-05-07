@@ -49,8 +49,7 @@ class Command:
         result = cls.db().all()
         sorted_commands = sorted(result, key=lambda command: command["cost"])
         return [
-            f"{command['name']}: {command['cost']}"
-            for command in sorted_commands[-5:]
+            f"{command['name']}: {command['cost']}" for command in sorted_commands[-5:]
         ]
 
     @classmethod

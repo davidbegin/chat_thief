@@ -13,7 +13,7 @@ class TestUser(DatabaseConfig):
     @pytest.fixture
     def user(self):
         def _user(name):
-            return User(name=name,)
+            return User(name=name)
 
         return _user
 
@@ -53,13 +53,25 @@ class TestUser(DatabaseConfig):
         assert subject.cool_points() == 0
         assert subject.street_cred() == 0
 
+    def test_count(self, user):
+        subject = user("artmattdank")
+        assert User.count() == 0
+        subject.save()
+        assert User.count() == 1
+
+    def test_all(self, user):
+        assert User.all() == []
+        user("artmattdank").save()
+        assert User.all() == ["artmattdank"]
+        user("shiva").save()
+        assert User.all() == ["artmattdank", "shiva"]
+
     def test_richest(self, user):
         subject = user("artmattdank")
         subject.add_cool_points(10)
         thugga = user("thugga")
         thugga.add_cool_points(3)
         otheruser = user("otheruser")
-
         otheruser.add_cool_points(5)
         result = User.richest()
         expected = [["thugga", 3], ["otheruser", 5], ["artmattdank", 10]]

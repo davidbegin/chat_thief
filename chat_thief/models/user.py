@@ -22,11 +22,14 @@ class User:
 
     @classmethod
     def all(cls):
-        return cls.db().all()
+        return [user["name"] for user in cls.db().all()]
 
-    def __init__(self, name):
-        self.name = name
+    @classmethod
+    def richest(cls):
+        users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
+        return sorted(users, key=lambda user: user[1])
 
+    # DUMB
     def total_users(self):
         return len(self.db().all())
 
@@ -38,13 +41,11 @@ class User:
         users = self.db().all()
         return sum([user["cool_points"] for user in users])
 
-    @classmethod
-    def richest(cls):
-        users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
-        return sorted(users, key=lambda user: user[1])
-
     def purge(self):
         return self.db().purge()
+
+    def __init__(self, name):
+        self.name = name
 
     def stats(self):
         return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
@@ -101,6 +102,7 @@ class User:
     def commands(self):
         return Command.for_user(self.name)
 
+    # This is initial doc
     def doc(self):
         return {
             "name": self.name,
