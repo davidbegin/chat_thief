@@ -64,6 +64,6 @@ class TestCommand(DatabaseConfig):
     def test_silence(self):
         subject = Command("damn")
         subject.save()
-        assert subject.health == 5
+        assert subject.health() == 5
         # result = subject.doc()
         # assert subject.health == 0

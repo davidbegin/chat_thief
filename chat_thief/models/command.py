@@ -19,7 +19,7 @@ class Command:
     def __init__(self, name):
         self.name = name
         self.permitted_users = []
-        self.health = 5
+        self.inital_health = 5
         self.inital_cost = 1
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
@@ -78,6 +78,12 @@ class Command:
             return user in command["permitted_users"]
 
         return False
+
+    def health(self):
+        if command := self.db().get(Query().name == self.name):
+            return command["health"]
+        else:
+            return 0
 
     def cost(self):
         if command := self.db().get(Query().name == self.name):
@@ -155,7 +161,7 @@ class Command:
                     "name": self.name,
                     "user": "beginbot",
                     "permitted_users": self.permitted_users,
-                    "health": self.health,
+                    "health": self.inital_health,
                     "cost": self.inital_cost,
                 }
             )
@@ -184,6 +190,6 @@ class Command:
             "name": self.name,
             "user": "beginbot",
             "permitted_users": permitted_users,
-            "health": self.health,
+            "health": self.inital_health,
             "cost": self.inital_cost,
         }

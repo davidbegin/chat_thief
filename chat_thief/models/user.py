@@ -66,6 +66,16 @@ class User:
     def cool_points(self):
         return self.user()["cool_points"]
 
+    def health(self):
+        return self.user()["health"]
+
+    def kill(self):
+        return self._update_value("health", -self.health())
+
+    def revive(self):
+        # What is the default health
+        return self._update_value("health", 5)
+
     def paperup(self, amount=100):
         self.update_street_cred(amount)
         self.update_cool_points(amount)
