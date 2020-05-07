@@ -71,13 +71,6 @@ class User:
         self.update_cool_points(amount)
         return f"{self.name} has been Papered Up"
 
-
-
-
-
-
-
-
     def _find_affordable_random_command(self):
         looking_for_effect = True
 
@@ -142,18 +135,10 @@ class User:
         else:
             print(f"Creating New User: {self.doc()}")
             from tinyrecord import transaction
+
             with transaction(self.db()) as tr:
                 tr.insert(self.doc())
             return self.doc()
-
-
-
-
-
-
-
-
-
 
     def update_cool_points(self, amount=1):
         self._update_value("cool_points", amount)
@@ -165,9 +150,11 @@ class User:
         def _update_that_value():
             def transform(doc):
                 doc[field] = doc[field] + amount
+
             return transform
 
         from tinyrecord import transaction
+
         with transaction(self.db()) as tr:
             tr.update_callable(_update_that_value(), Query().name == self.name)
 
@@ -183,4 +170,3 @@ class User:
         self.update_street_cred(-self.street_cred())
         self.update_cool_points(-self.cool_points())
         return f"{self.name} is now Bankrupt"
-
