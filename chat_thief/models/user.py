@@ -37,15 +37,32 @@ class User:
     def total_cool_points(self):
         return sum([user["cool_points"] for user in self.db().all()])
 
-    def purge(self):
-        return self.db().purge()
+    @classmethod
+    def purge(cls):
+        return cls.db().purge()
+
+    # ====================================================================
 
     # We should set self.user here
     def __init__(self, name):
         self.name = name
+        self._raw_user = self._find_or_create_user()
+
+    # So this means, when we call, we find or init, thats fine!
+    def user(self):
+        return self._find_or_create_user()
 
     def stats(self):
         return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
+
+    def commands(self):
+        return Command.for_user(self.name)
+
+    def street_cred(self):
+        return self.user()["street_cred"]
+
+    def cool_points(self):
+        return self.user()["cool_points"]
 
     def paperup(self, amount=100):
         self.add_street_cred(amount)
@@ -96,9 +113,6 @@ class User:
         else:
             return f"@{self.name} - Out of Cool Points to Purchase with"
 
-    def commands(self):
-        return Command.for_user(self.name)
-
     # This is initial doc
     def doc(self):
         return {
@@ -124,14 +138,6 @@ class User:
                 tr.insert(self.doc())
             return self.doc()
 
-    def street_cred(self):
-        user = self._find_or_create_user()
-        return user["street_cred"]
-
-    def cool_points(self):
-        user = self._find_or_create_user()
-        return user["cool_points"]
-
     def remove_cool_points(self, amount=1):
         user = self._find_or_create_user()
 
@@ -154,6 +160,9 @@ class User:
 
         self.db().update(increase_cred(), Query().name == self.name)
 
+    # and probably in a generic class
+    # should be one command!!!
+    # and way nicer
     def remove_street_cred(self, amount=1):
         user = self._find_or_create_user()
 
@@ -166,15 +175,17 @@ class User:
         self.db().update(decrease_cred(), Query().name == self.name)
 
     def add_street_cred(self, amount=1):
-        user = self._find_or_create_user()
-
         def increase_cred():
             def transform(doc):
-                doc["street_cred"] = doc["street_cred"] + amount
+                doc["street_cred"] = int(doc["street_cred"]) + int(amount)
 
             return transform
 
         self.db().update(increase_cred(), Query().name == self.name)
+
+    # ===========
+    # Punishments
+    # ===========
 
     def remove_all_commands(self):
         user = self._find_or_create_user()
