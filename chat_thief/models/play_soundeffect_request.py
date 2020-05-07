@@ -47,12 +47,12 @@ class PlaySoundeffectRequest:
         }
 
     def pop_all_off(self):
+        from tinyrecord import transaction
+
         all_effects = self.play_sfx_db.all()
+
         doc_ids_to_delete = [sfx.doc_id for sfx in all_effects]
         if doc_ids_to_delete:
-            print(f"Doc IDs being deleted: {doc_ids_to_delete}")
-            from tinyrecord import transaction
-
             with transaction(self.play_sfx_db) as tr:
                 tr.remove(doc_ids=doc_ids_to_delete)
             return all_effects

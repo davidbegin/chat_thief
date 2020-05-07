@@ -3,7 +3,7 @@
 # Move this to a file
 
 STREAM_GODS = [
-    "beginbot",
+    # "beginbot",
     "beginbotbot",
     "stupac62",
     "artmattdank",

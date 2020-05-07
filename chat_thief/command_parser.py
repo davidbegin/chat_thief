@@ -220,17 +220,6 @@ class CommandParser:
         # Takes a Command
         # ---------------
 
-        if self.command == "revive" and self.user in STREAM_GODS:
-            parser = PermsParser(user=self.user, args=self.args).parse()
-            print(f"We are attempting to revive: !{parser.target_command}")
-            Command.find_or_create(parser.target_command)
-            return Command(parser.target_command).revive()
-
-        if self.command == "silence" and self.user in STREAM_GODS:
-            print("We are attempting to silence")
-            parser = PermsParser(user=self.user, args=self.args).parse()
-            return Command(parser.target_command).silence()
-
         if self.command == "help":
             if len(self.args) > 0:
                 command = self.args[0]
@@ -277,6 +266,29 @@ class CommandParser:
         # -------------------------
         # Takes a User OR a Command
         # -------------------------
+
+        if self.command == "revive" and self.user in STREAM_GODS:
+            parser = PermsParser(user=self.user, args=self.args).parse()
+
+            if parser.target_command:
+                print(f"We are attempting to revive: !{parser.target_command}")
+                Command.find_or_create(parser.target_command)
+                return Command(parser.target_command).revive()
+            elif parser.target_user:
+                return User(parser.target_user).revive()
+            else:
+                print(f"Not Sure who or what to silence: {self.args}")
+
+        if self.command == "silence" and self.user in STREAM_GODS:
+            parser = PermsParser(user=self.user, args=self.args).parse()
+
+            if parser.target_command:
+                print("We are attempting to silence")
+                return Command(parser.target_command).silence()
+            elif parser.target_user:
+                return User(parser.target_user).kill()
+            else:
+                print(f"Not Sure who or what to silence: {self.args}")
 
         if self.command in ["permissions", "permission", "perms", "perm"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
@@ -332,9 +344,12 @@ class CommandParser:
                     blacklisted_users=Command(command).users()
                 )
 
-            return CommandSharer(
-                self.user, parser.target_command, parser.target_user
-            ).share()
+            if parser.target_user and parser.target_command:
+                return CommandSharer(
+                    self.user, parser.target_command, parser.target_user
+                ).share()
+            else:
+                return f"Error Sharing - Command: {parser.target_command} | User: {parser.target_user}"
 
         # --------------
         # Random Command

@@ -16,11 +16,10 @@ def sync_main():
             # This deletes them from the DB
             all_effects = PlaySoundeffectRequest().pop_all_off()
 
-            if all_effects:
-                subprocess.call("clear")
+            # if all_effects:
+            #     subprocess.call("clear")
 
             for sfx in all_effects:
-                print(sfx)
 
                 command = Command(sfx["command"])
                 user = User(sfx["user"])
@@ -37,7 +36,7 @@ def sync_main():
                     # We could also remove health from the command right now
                 else:
                     print(
-                        f"Not Playing: !{command.name} for @{user.name} | Allowed: {user_allowed_to_play}"
+                        f"\nNot Playing: !{command.name} for @{user.name} | Allowed: {user_allowed_to_play}"
                     )
                     print(
                         f"\tUser Health {user_health} | Command Health {command_health}"

@@ -76,7 +76,9 @@ class PermsParser:
         return command in SoundeffectsLibrary.fetch_soundeffect_names()
 
     def _is_user(self, user):
-        if user in STREAM_GODS:
+        if user in ["beginbot", "beginbotbot"]:
+            return True
+        elif user in STREAM_GODS:
             return True
         elif self.random_user:
             return user in WelcomeCommittee().present_users() or user == "random"

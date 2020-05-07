@@ -14,7 +14,7 @@ class TestCommand(DatabaseConfig):
 
     def test_allowed_to_play(self):
         subject = Command("help")
-        assert subject.allowed_to_play("beginbot")
+        assert subject.allowed_to_play("beginbotbot")
 
     def test_not_allowed_to_play_others_themes(self):
         subject = Command("artmattdank")
