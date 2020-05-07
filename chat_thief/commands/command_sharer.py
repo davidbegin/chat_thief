@@ -16,19 +16,22 @@ class CommandSharer:
             raise ValueError(f"!{self.command} invalid command")
 
         command = Command(name=self.command)
+        command_cost = command.cost()
 
         if self.user in STREAM_GODS:
             perm_result = command.allow_user(self.friend)
             return f"{self.user} shared {perm_result}"
-        elif User(self.user).street_cred() > 0:
+
+        elif User(self.user).cool_points() >= command_cost:
             perm_result = command.allow_user(self.friend)
             if perm_result:
                 print("\nWe have a Perm Result")
-                User(self.user).update_cool_points(-command.cost())
-                command.increase_cost(command.cost() * 2)
+                User(self.user).update_cool_points(-command_cost)
+                command.increase_cost(command_cost * 2)
                 return f"{self.user} shared {perm_result}"
             else:
                 print("\nWe NOOOOO have a Perm Result")
                 return f"{self.user} cannot add permissions"
+
         else:
             return f"@{self.user} Not enough street_cred to share !{self.command} with @{self.friend}"
