@@ -25,7 +25,7 @@ class Command:
 
     @classmethod
     def find_or_create(cls, name):
-        found_command = cls.db().get(Query().command == name)
+        found_command = cls.db().get(Query().name == name)
 
         if found_command:
             return found_command
@@ -38,7 +38,7 @@ class Command:
             return current_user in permitted_users
 
         return [
-            permission["command"]
+            permission["name"]
             for permission in cls.db().search(
                 Query().permitted_users.test(in_permitted_users, user)
             )
@@ -49,7 +49,7 @@ class Command:
         result = cls.db().all()
         sorted_commands = sorted(result, key=lambda command: command["cost"])
         return [
-            f"{command['command']}: {command['cost']}"
+            f"{command['name']}: {command['cost']}"
             for command in sorted_commands[-5:]
         ]
 
@@ -62,7 +62,7 @@ class Command:
         return len(cls.db().all())
 
     def exists(self):
-        return cls.db().get(Query().command == name) is not None
+        return cls.db().get(Query().name == name) is not None
 
     def allowed_to_play(self, user):
         if not SFXVote(self.name).is_enabled():
@@ -75,13 +75,13 @@ class Command:
         if user in STREAM_GODS:
             return True
 
-        if command := self.db().get(Query().command == self.name):
+        if command := self.db().get(Query().name == self.name):
             return user in command["permitted_users"]
 
         return False
 
     def cost(self):
-        if command := self.db().get(Query().command == self.name):
+        if command := self.db().get(Query().name == self.name):
             return command["cost"]
         else:
             return 1
@@ -91,10 +91,10 @@ class Command:
             def transform(doc):
                 doc["health"] = 0
 
-        return self.db().update(_db_remove_health(), Query().command == self.name)
+        return self.db().update(_db_remove_health(), Query().name == self.name)
 
     def increase_cost(self, amount=1):
-        if command := self.db().get(Query().command == self.name):
+        if command := self.db().get(Query().name == self.name):
             self._increase_cost(amount)
 
     def _increase_cost(self, amount):
@@ -104,11 +104,11 @@ class Command:
 
             return transform
 
-        self.db().update(_db_increase_cost(), Query().command == self.name)
+        self.db().update(_db_increase_cost(), Query().name == self.name)
 
     def unallow_user(self, target_user):
         try:
-            command = self.db().get(Query().command == self.name)
+            command = self.db().get(Query().name == self.name)
 
             if command:
                 self._remove_user(target_user)
@@ -120,7 +120,7 @@ class Command:
                 traceback.print_exc()
 
     def allow_user(self, target_user):
-        command = self.db().get(Query().command == self.name)
+        command = self.db().get(Query().name == self.name)
 
         if command:
             # What if we are none
@@ -134,7 +134,7 @@ class Command:
             return f"@{target_user} is the 1st person with access to: !{self.name}"
 
     def users(self):
-        if command := self.db().get(Query().command == self.name):
+        if command := self.db().get(Query().name == self.name):
             return command["permitted_users"]
         else:
             return []
@@ -153,7 +153,7 @@ class Command:
         with transaction(self.db()) as tr:
             tr.insert(
                 {
-                    "command": self.name,
+                    "name": self.name,
                     "user": "beginbot",
                     "permitted_users": self.permitted_users,
                     "health": self.health,
@@ -168,7 +168,7 @@ class Command:
 
             return transform
 
-        self.db().update(add_permitted_users(), Query().command == self.name)
+        self.db().update(add_permitted_users(), Query().name == self.name)
 
     def _remove_user(self, target_user):
         def remove_permitted_users():
@@ -178,11 +178,11 @@ class Command:
 
             return transform
 
-        self.db().update(remove_permitted_users(), Query().command == self.name)
+        self.db().update(remove_permitted_users(), Query().name == self.name)
 
     def _new_command(self, permitted_users=[]):
         return {
-            "command": self.name,
+            "name": self.name,
             "user": "beginbot",
             "permitted_users": permitted_users,
             "health": self.health,
