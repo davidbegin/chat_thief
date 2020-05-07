@@ -73,8 +73,10 @@ class User:
         return self._update_value("health", -self.health())
 
     def revive(self):
-        # What is the default health
-        return self._update_value("health", 5)
+        return self._set_value("health", 5)
+
+    def update_health(self, amount):
+        return self._update_value("health", amount)
 
     def paperup(self, amount=100):
         self.update_street_cred(amount)
@@ -160,6 +162,18 @@ class User:
         def _update_that_value():
             def transform(doc):
                 doc[field] = doc[field] + amount
+
+            return transform
+
+        from tinyrecord import transaction
+
+        with transaction(self.db()) as tr:
+            tr.update_callable(_update_that_value(), Query().name == self.name)
+
+    def _set_value(self, field, value):
+        def _update_that_value():
+            def transform(doc):
+                doc[field] = value
 
             return transform
 

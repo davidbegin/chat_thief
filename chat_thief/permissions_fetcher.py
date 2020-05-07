@@ -18,7 +18,9 @@ class PermissionsFetcher:
             user_permissions = " ".join(
                 [f"!{perm}" for perm in User(target_user).commands()]
             )
-            return f"{title} Permissions: {user_permissions}"
+
+            stats = User(target_user).stats()
+            return f"{title} {stats} | Permissions: {user_permissions}"
 
         # Command Permissions
         if target_command and not target_user:

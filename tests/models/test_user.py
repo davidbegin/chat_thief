@@ -119,3 +119,8 @@ class TestUser(DatabaseConfig):
         assert subject.health() == 0
         subject.revive()
         assert subject.health() == 5
+        subject.update_health(-1)
+        assert subject.health() == 4
+
+        subject.revive()
+        assert subject.health() == 5
