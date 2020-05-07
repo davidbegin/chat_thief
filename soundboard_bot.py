@@ -8,6 +8,7 @@ from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from chat_thief.audio_player import AudioPlayer
 from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.config.stream_lords import STREAM_GODS
 
 
 def sync_main():
@@ -29,8 +30,12 @@ def sync_main():
                 user_health = user.health()
                 user_allowed_to_play = command.allowed_to_play(user.name)
 
-                if user_allowed_to_play and command_health > 0 and user_health > 0:
-                    # At this point we have to remove street cred
+                if user.name in STREAM_GODS:
+                    soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
+                    if soundfile:
+                        AudioPlayer.play_sample(soundfile.resolve())
+
+                elif user_allowed_to_play and command_health > 0 and user_health > 0:
                     soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
                     if soundfile:
                         AudioPlayer.play_sample(soundfile.resolve())
@@ -38,7 +43,6 @@ def sync_main():
                         user.update_health(-1)
                     else:
                         print(f"Couldn't find soundfile for {sfx['command']}")
-                    # We could also remove health from the command right now
                 else:
                     print(
                         f"\nNot Playing: !{command.name} for @{user.name} | Allowed: {user_allowed_to_play}"
