@@ -25,10 +25,10 @@ class TestUser(DatabaseConfig):
         assert command.users() == ["artmattdank"]
         assert subject.commands() == ["flacid"]
 
-    def test_add_street_cred(self, user):
+    def test_update_street_cred(self, user):
         subject = user("artmattdank")
         assert subject.street_cred() == 0
-        subject.add_street_cred()
+        subject.update_street_cred(1)
         assert subject.street_cred() == 1
 
     @pytest.mark.skip
@@ -45,8 +45,8 @@ class TestUser(DatabaseConfig):
 
     def test_bankrupt(self, user):
         subject = user("artmattdank")
-        subject.add_street_cred(10)
-        subject.add_cool_points(10)
+        subject.update_street_cred(10)
+        subject.update_cool_points(10)
         assert subject.cool_points() == 10
         assert subject.street_cred() == 10
         # subject.bankrupt()
@@ -67,30 +67,47 @@ class TestUser(DatabaseConfig):
 
     def test_richest(self, user):
         subject = user("artmattdank")
-        subject.add_cool_points(10)
+        subject.update_cool_points(10)
         thugga = user("thugga")
-        thugga.add_cool_points(3)
+        thugga.update_cool_points(3)
         otheruser = user("otheruser")
-        otheruser.add_cool_points(5)
+        otheruser.update_cool_points(5)
         result = User.richest()
         expected = [["thugga", 3], ["otheruser", 5], ["artmattdank", 10]]
         assert result == expected
 
     def test_total_cool_points(self, user):
         assert User.total_cool_points() == 0
-        user("artmattdank").add_cool_points(10)
+        user("artmattdank").update_cool_points(10)
         assert User.total_cool_points() == 10
-        user("artmattdank").add_cool_points(3)
+        user("artmattdank").update_cool_points(3)
         assert User.total_cool_points() == 13
-        user("brianeno").add_cool_points(420)
+        user("brianeno").update_cool_points(420)
         assert User.total_cool_points() == 433
 
     def test_total_street_cred(self, user):
-        User.count()
         assert User.total_street_cred() == 0
-        user("artmattdank").add_street_cred(10)
+        user("artmattdank").update_street_cred(10)
         assert User.total_street_cred() == 10
-        user("artmattdank").add_street_cred(3)
+        user("artmattdank").update_street_cred(3)
         assert User.total_street_cred() == 13
-        user("brianeno").add_street_cred(420)
+        user("brianeno").update_street_cred(420)
         assert User.total_street_cred() == 433
+
+    def test_total_cool_points(self, user):
+        assert User.total_cool_points() == 0
+        user("artmattdank").update_cool_points(-10)
+        assert User.total_cool_points() == -10
+        user("artmattdank").update_cool_points(-3)
+        assert User.total_cool_points() == -13
+        user("brianeno").update_cool_points(-420)
+        assert User.total_cool_points() == -433
+
+    def test_removing_street_cred(self, user):
+        assert User.total_street_cred() == 0
+        user("artmattdank").update_street_cred(-10)
+        assert User.total_street_cred() == -10
+        user("artmattdank").update_street_cred(-3)
+        assert User.total_street_cred() == -13
+        user("brianeno").update_street_cred(-420)
+        assert User.total_street_cred() == -433

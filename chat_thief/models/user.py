@@ -55,9 +55,11 @@ class User:
     def stats(self):
         return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
+    # hmmm seems wierd
     def commands(self):
         return Command.for_user(self.name)
 
+    # Seems like it should be factored away
     def street_cred(self):
         return self.user()["street_cred"]
 
@@ -65,8 +67,8 @@ class User:
         return self.user()["cool_points"]
 
     def paperup(self, amount=100):
-        self.add_street_cred(amount)
-        self.add_cool_points(amount)
+        self.update_street_cred(amount)
+        self.update_cool_points(amount)
         return f"{self.name} has been Papered Up"
 
     def _find_affordable_random_command(self):
@@ -138,20 +140,7 @@ class User:
                 tr.insert(self.doc())
             return self.doc()
 
-    def remove_cool_points(self, amount=1):
-        user = self._find_or_create_user()
-
-        def decrease_cred():
-            def transform(doc):
-                doc["cool_points"] = doc["cool_points"] - amount
-
-            return transform
-
-        self.db().update(decrease_cred(), Query().name == self.name)
-
-    def add_cool_points(self, amount=1):
-        user = self._find_or_create_user()
-
+    def update_cool_points(self, amount=1):
         def increase_cred():
             def transform(doc):
                 doc["cool_points"] = doc["cool_points"] + amount
@@ -160,39 +149,24 @@ class User:
 
         self.db().update(increase_cred(), Query().name == self.name)
 
-    # and probably in a generic class
-    # should be one command!!!
-    # and way nicer
-    def remove_street_cred(self, amount=1):
-        user = self._find_or_create_user()
-
-        def decrease_cred():
+    def update_street_cred(self, amount=1):
+        def update_cred():
             def transform(doc):
-                doc["street_cred"] = doc["street_cred"] - amount
+                doc["street_cred"] = doc["street_cred"] + amount
 
             return transform
 
-        self.db().update(decrease_cred(), Query().name == self.name)
-
-    def add_street_cred(self, amount=1):
-        def increase_cred():
-            def transform(doc):
-                doc["street_cred"] = int(doc["street_cred"]) + int(amount)
-
-            return transform
-
-        self.db().update(increase_cred(), Query().name == self.name)
+        self.db().update(update_cred(), Query().name == self.name)
 
     # ===========
     # Punishments
     # ===========
 
     def remove_all_commands(self):
-        user = self._find_or_create_user()
         for command in self.commands():
-            Command(command).unallow_user(user["name"])
+            Command(command).unallow_user(self.name)
 
     def bankrupt(self):
-        self.remove_street_cred(self.street_cred())
-        self.remove_cool_points(self.cool_points())
+        self.update_street_cred(-self.street_cred())
+        self.update_cool_points(-self.cool_points())
         return f"{self.name} is now Bankrupt"

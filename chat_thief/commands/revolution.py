@@ -32,7 +32,7 @@ class Revolution:
 
         if user.cool_points() >= self.coup.cost():
             print("WE HAVE ENOUGH FOR A REVOLUTION")
-            user.remove_cool_points(self.coup.cost())
+            user.update_cool_points(-self.coup.cost())
             self.coup.increase_cost(self.coup.cost() * 2)
             return self._turn_the_tides(tide)
         else:

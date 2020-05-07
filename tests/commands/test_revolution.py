@@ -23,8 +23,8 @@ class TestRevolution(DatabaseConfig):
         user = User(revolutionary)
         assert user.street_cred() == 0
         assert user.cool_points() == 0
-        user.add_street_cred(1)
-        user.add_cool_points(1)
+        user.update_street_cred(1)
+        user.update_cool_points(1)
         subject = Revolution(revolutionary)
         tide = Vote.have_tables_turned(1)
         result = subject.attempt_coup(tide)
@@ -34,8 +34,8 @@ class TestRevolution(DatabaseConfig):
     def test_attempt_coup_with_enough_cool_points(self):
         revolutionary = "beginbot"
         user = User(revolutionary)
-        user.add_street_cred(1)
-        user.add_cool_points(11)
+        user.update_street_cred(1)
+        user.update_cool_points(11)
         subject = Revolution(revolutionary)
         tide = Vote.have_tables_turned(1)
         subject.attempt_coup(tide)
@@ -57,7 +57,7 @@ class TestRevolution(DatabaseConfig):
 
         revolutionary = User("beginbot")
         Vote(revolutionary.name).vote("revolution")
-        revolutionary.add_cool_points(11)
+        revolutionary.update_cool_points(11)
         subject = Revolution(revolutionary.name)
         subject.attempt_coup("revolution")
 
