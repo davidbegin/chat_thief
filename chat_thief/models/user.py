@@ -53,7 +53,7 @@ class User:
         return self._find_or_create_user()
 
     def stats(self):
-        return f"@{self.name} - Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
+        return f"@{self.name} - Health: {self.health()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
     # hmmm seems wierd
     def commands(self):
