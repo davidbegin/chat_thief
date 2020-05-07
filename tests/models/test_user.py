@@ -76,3 +76,21 @@ class TestUser(DatabaseConfig):
         result = User.richest()
         expected = [["thugga", 3], ["otheruser", 5], ["artmattdank", 10]]
         assert result == expected
+
+    def test_total_cool_points(self, user):
+        assert User.total_cool_points() == 0
+        user("artmattdank").add_cool_points(10)
+        assert User.total_cool_points() == 10
+        user("artmattdank").add_cool_points(3)
+        assert User.total_cool_points() == 13
+        user("brianeno").add_cool_points(420)
+        assert User.total_cool_points() == 433
+
+    def test_total_street_cred(self, user):
+        assert User.total_street_cred() == 0
+        user("artmattdank").add_street_cred(10)
+        assert User.total_street_cred() == 10
+        user("artmattdank").add_street_cred(3)
+        assert User.total_street_cred() == 13
+        user("brianeno").add_street_cred(420)
+        assert User.total_street_cred() == 433

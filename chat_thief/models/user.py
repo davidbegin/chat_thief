@@ -29,21 +29,18 @@ class User:
         users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
         return sorted(users, key=lambda user: user[1])
 
-    # DUMB
-    def total_users(self):
-        return len(self.db().all())
+    @classmethod
+    def total_street_cred(cls):
+        return sum([user["street_cred"] for user in cls.db().all()])
 
-    def total_street_cred(self):
-        users = self.db().all()
-        return sum([user["street_cred"] for user in users])
-
+    @classmethod
     def total_cool_points(self):
-        users = self.db().all()
-        return sum([user["cool_points"] for user in users])
+        return sum([user["cool_points"] for user in self.db().all()])
 
     def purge(self):
         return self.db().purge()
 
+    # We should set self.user here
     def __init__(self, name):
         self.name = name
 

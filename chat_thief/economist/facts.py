@@ -24,7 +24,7 @@ class Facts:
         return vote.revolution_count()
 
     def total_votes(self):
-        return Vote("beginbot").vote_count()
+        return Vote.count()
 
     def available_sounds(self):
         return Command.count()
@@ -34,12 +34,10 @@ class Facts:
         return total_sfx - self.available_sounds()
 
     def cool_points(self):
-        total_cool_points = User("beginbot").total_cool_points()
-        return total_cool_points
+        return User.total_cool_points()
 
     def street_cred(self):
-        total_street_cred = User("beginbot").total_street_cred()
-        return total_street_cred
+        return User.total_street_cred()
 
     def top_users(self):
         result = Command.db().all()

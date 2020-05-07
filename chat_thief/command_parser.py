@@ -91,7 +91,7 @@ class CommandParser:
             return Donator(self.user).donate()
 
         if self.command in ["peace", "revolution"]:
-            threshold = int(User(self.user).total_users() / 2)
+            threshold = int(User.count() / 2)
             vote_count = Vote.count()
             Vote(user=self.user).vote(self.command)
             return f"{vote_count} of {threshold} Votes Needed"
@@ -154,7 +154,7 @@ class CommandParser:
         if self.command == "coup":
             viva_la_revolution = Revolution(self.user)
 
-            threshold = int(User(self.user).total_users() / 1100)
+            threshold = int(User.count() / 10)
             result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")
 

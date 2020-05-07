@@ -187,8 +187,3 @@ class Command:
             "health": self.health,
             "cost": self.inital_cost,
         }
-
-    # def _user_has_chatted(self):
-    #     if not self.skip_validation:
-    #         if target_user not in WelcomeCommittee().present_users():
-    #             raise ValueError(f"Not a valid user: {target_user}")
