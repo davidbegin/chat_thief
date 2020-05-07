@@ -86,6 +86,13 @@ class Command:
         else:
             return 1
 
+    def silence(self):
+        def _db_remove_health():
+            def transform(doc):
+                doc["health"] = 0
+
+        return self.db().update(_db_remove_health(), Query().command == self.name)
+
     def increase_cost(self, amount=1):
         if command := self.db().get(Query().command == self.name):
             self._increase_cost(amount)

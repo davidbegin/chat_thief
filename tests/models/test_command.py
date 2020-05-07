@@ -60,3 +60,10 @@ class TestCommand(DatabaseConfig):
         assert Command.count() == 1
         command = Command.find_or_create("clap")
         assert Command.count() == 1
+
+    def test_silence(self):
+        subject = Command("damn")
+        subject.save()
+        assert subject.health == 5
+        # result = subject.doc()
+        # assert subject.health == 0

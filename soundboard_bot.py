@@ -14,7 +14,8 @@ def sync_main():
             all_effects = PlaySoundeffectRequest().pop_all_off()
             for sfx in all_effects:
                 print(sfx)
-                if Command(sfx["command"]).allowed_to_play(sfx["user"]):
+                command = Command(sfx["command"])
+                if command.allowed_to_play(sfx["user"]) and command.health > 0:
                     soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
                     AudioPlayer.play_sample(soundfile.resolve())
                 else:

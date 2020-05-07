@@ -217,6 +217,11 @@ class CommandParser:
         # Takes a Command
         # ---------------
 
+        if self.command == "silence" and self.user in STREAM_GODS:
+            print("We are attempting to silence")
+            parser = PermsParser(user=self.user, args=self.args).parse()
+            return Command(parser.target_command).silence()
+
         if self.command == "help":
             if len(self.args) > 0:
                 command = self.args[0]
