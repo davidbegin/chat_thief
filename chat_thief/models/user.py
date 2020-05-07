@@ -71,6 +71,13 @@ class User:
         self.update_cool_points(amount)
         return f"{self.name} has been Papered Up"
 
+
+
+
+
+
+
+
     def _find_affordable_random_command(self):
         looking_for_effect = True
 
@@ -135,28 +142,34 @@ class User:
         else:
             print(f"Creating New User: {self.doc()}")
             from tinyrecord import transaction
-
             with transaction(self.db()) as tr:
                 tr.insert(self.doc())
             return self.doc()
 
+
+
+
+
+
+
+
+
+
     def update_cool_points(self, amount=1):
-        def increase_cred():
-            def transform(doc):
-                doc["cool_points"] = doc["cool_points"] + amount
-
-            return transform
-
-        self.db().update(increase_cred(), Query().name == self.name)
+        self._update_value("cool_points", amount)
 
     def update_street_cred(self, amount=1):
-        def update_cred():
-            def transform(doc):
-                doc["street_cred"] = doc["street_cred"] + amount
+        self._update_value("street_cred", amount)
 
+    def _update_value(self, field, amount=1):
+        def _update_that_value():
+            def transform(doc):
+                doc[field] = doc[field] + amount
             return transform
 
-        self.db().update(update_cred(), Query().name == self.name)
+        from tinyrecord import transaction
+        with transaction(self.db()) as tr:
+            tr.update_callable(_update_that_value(), Query().name == self.name)
 
     # ===========
     # Punishments
@@ -170,3 +183,4 @@ class User:
         self.update_street_cred(-self.street_cred())
         self.update_cool_points(-self.cool_points())
         return f"{self.name} is now Bankrupt"
+
