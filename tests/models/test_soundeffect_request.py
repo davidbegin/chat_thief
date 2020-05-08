@@ -197,3 +197,9 @@ class TestSoundEffectRequest(DatabaseConfig):
         user = "fake_user"
         doc_id = 1
         SoundeffectRequest.approve_doc_id(user, doc_id)
+
+    def test_deny_doc_id_when_request_is_not_real(self):
+        user = "fake_user"
+        doc_id = 1
+        # We expect this to throw an error
+        SoundeffectRequest.deny_doc_id(user, doc_id)

@@ -203,17 +203,19 @@ class CommandParser:
             if self.user in STREAM_GODS:
                 return User(parser.target_user).paperup()
 
-        if (
-            self.command
-            in ["approve", "approve_all_requests"]
-            # and self.user in STREAM_LORDS
-        ):
+        if self.command in ["denied"] and self.user in STREAM_LORDS:
+            parser = RequestApproverParser(user=self.user, args=self.args).parse()
+            if parser.doc_id:
+                return SoundeffectRequest.deny_doc_id(self.user, parser.doc_id)
+
+        if self.command in ["approve"] and self.user in STREAM_LORDS:
 
             # # This should take a parser and act accordingly
             # "!approve all"
             # "!approve 1"
             # "!approve @artmattdank"
             # "!approve !new_command"
+
             parser = RequestApproverParser(user=self.user, args=self.args).parse()
 
             if parser.target_user:
@@ -226,6 +228,7 @@ class CommandParser:
                 return SoundeffectRequest.approve_doc_id(self.user, parser.doc_id)
             else:
                 return "Not Sure What to Approve"
+
             # elif parser.approve_all:
             #     return SoundeffectRequest.approve_all(approver=self.user)
 

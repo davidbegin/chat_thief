@@ -1,4 +1,5 @@
 from collections import Counter
+import traceback
 
 from tinydb import Query
 
@@ -100,6 +101,15 @@ class SoundeffectRequest:
             return cls._save_samples([result], approver)
         else:
             return f"Did not find Doc ID: {doc_id} to approve"
+
+    @classmethod
+    def deny_doc_id(cls, denier, doc_id):
+        # We need to either rescue, or not
+        # delete if they don't exist
+        try:
+            return cls.db().remove(doc_ids=[doc_id])
+        except KeyError:
+            traceback.print_exc()
 
     @classmethod
     def _save_samples(cls, results, approver):

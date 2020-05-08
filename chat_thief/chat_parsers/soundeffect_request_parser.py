@@ -1,3 +1,5 @@
+import re
+
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 
 
@@ -40,5 +42,23 @@ class SoundeffectRequestParser:
         else:
             raise ValueError("Must pass in a start_time and end_time")
 
+    def _is_valid_url(self, youtube_id):
+        regex = re.compile(
+            r"^(?:http|ftp)s?://"  # http:// or https://
+            r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"  # domain...
+            r"localhost|"  # localhost...
+            r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"  # ...or ip
+            r"(?::\d+)?"  # optional port
+            r"(?:/?|[/?]\S+)$",
+            re.IGNORECASE,
+        )
+
+        return re.match(regex, youtube_id) is not None
+
     def _valid_youtube_id(self, youtube_id):
-        return len(youtube_id) == 11
+        if len(youtube_id) == 11:
+            return True
+        elif self._is_valid_url(youtube_id):
+            return True
+        else:
+            return False
