@@ -18,11 +18,14 @@ WARNING = "\033[94m"
 ERROR = "\033[91m"
 CLEAR = "\033[0m"
 
+
 def success(msg):
     print(f"{SUCCESS}{msg}{CLEAR}")
 
+
 def warning(msg):
     print(f"{WARNING}{msg}{CLEAR}")
+
 
 def error(msg):
     print(f"{ERROR}{msg}{CLEAR}")

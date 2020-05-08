@@ -281,9 +281,18 @@ class CommandParser:
         # -------------------------
 
         if self.command == "revive" and self.user in STREAM_GODS:
+            print("WE ARE GOING FOR IT!")
+            for user in User.all():
+                User(user).bankrupt()
+                # print(command.unallow_user(user))
             # for command_name in Command.db().all():
+            #     command_name = command_name["name"]
+            #     print(command_name)
             #     command = Command(command_name)
-            #     print(command.unallow_user(command.users()))
+            #     for user in command.users():
+            #         User(user).bankrupt()
+            #         print(command.unallow_user(user))
+            return
 
             parser = PermsParser(user=self.user, args=self.args).parse()
 

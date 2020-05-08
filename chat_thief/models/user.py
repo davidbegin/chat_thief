@@ -3,6 +3,7 @@ from tinydb import Query
 from chat_thief.models.database import db_table
 from chat_thief.prize_dropper import random_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.config.log import error, warning, success
 
 from chat_thief.models.command import Command
 
@@ -145,7 +146,7 @@ class User:
             user_result = user_result[0]
             return user_result
         else:
-            print(f"Creating New User: {self.doc()}")
+            success(f"Creating New User: {self.doc()}")
             from tinyrecord import transaction
 
             with transaction(self.db()) as tr:

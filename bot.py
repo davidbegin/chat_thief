@@ -68,7 +68,9 @@ async def run_bot(server: socket.socket) -> None:
                     else:
                         await send_msg(server, f"{response}")
             except:
+                print("\033[91m")
                 traceback.print_exc()
+                print("\033[0m")
 
 
 async def main():

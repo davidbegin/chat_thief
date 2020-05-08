@@ -2,6 +2,8 @@ DEFAULT_VOTES_DB_PATH = "db/votes.json"
 from chat_thief.models.database import db_table
 from chat_thief.models.user import User
 
+from chat_thief.config.log import error, warning, success
+
 from tinydb import Query
 
 
@@ -83,7 +85,7 @@ class Vote:
             print(f"Previous Vote for User {self.user}!")
             self.db().update(user_vote(vote), Query().user == self.user)
         else:
-            print(f"NO Previous Vote for User {self.user}!")
+            warning(f"NO Previous Vote for User {self.user}!")
             from tinyrecord import transaction
 
             with transaction(self.db()) as tr:
