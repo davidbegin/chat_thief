@@ -37,8 +37,8 @@ from chat_thief.config.commands_config import OBS_COMMANDS
 
 
 BLACKLISTED_LOG_USERS = [
-    "beginbotbot",
-    "beginbot",
+    # "beginbotbot",
+    # "beginbot",
     "nightbot",
 ]
 
@@ -64,6 +64,12 @@ COMMANDS = {
     }
 }
 
+# 93 amd 94 looked the same
+WARNING = "\033[95m"
+# WARNING = '\033[93m'
+OTHER = "\033[94m"
+CLEAR = "\033[0m"
+
 
 class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
@@ -81,11 +87,8 @@ class CommandParser:
         if self.user not in BLACKLISTED_LOG_USERS:
             self._logger.info(f"{self.user}: {self.msg}")
             WelcomeCommittee().welcome_new_users(self.user)
-        else:
-            print(f"{self.user}: {self.msg}")
 
-        if self.irc_msg.is_command():
-            print(f"User: @{self.user} | Command: !{self.command}")
+        print(f"\n{WARNING}{self.user}: {self.msg}{CLEAR}")
 
         return self._process_command()
 
@@ -186,6 +189,11 @@ class CommandParser:
         # ------------
         # Takes a User
         # ------------
+
+        if self.command == "bankrupt":
+            parser = PermsParser(user=self.user, args=self.args).parse()
+            if self.user in STREAM_GODS:
+                return User(parser.target_user).bankrupt()
 
         if self.command == "paperup":
             parser = PermsParser(user=self.user, args=self.args).parse()
@@ -445,4 +453,5 @@ class CommandParser:
             print(f"executing OBS Command: {self.command}")
             return os.system(f"so {self.command}")
 
-        PlaySoundeffectRequest(user=self.user, command=self.command).save()
+        if self.command:
+            PlaySoundeffectRequest(user=self.user, command=self.command).save()

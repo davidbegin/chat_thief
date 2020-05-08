@@ -123,8 +123,9 @@ class SoundeffectRequest:
     # and we want to pass it in
     def _save_sample(cls, sfx, approver=None):
         print(sfx)
+        # We are messing up here
         sample_saver = SampleSaver(
-            user=approver,
+            user=sfx["requester"],
             command=sfx["command"],
             youtube_id=sfx["youtube_id"],
             start_time=sfx["start_time"],

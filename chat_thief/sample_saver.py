@@ -36,6 +36,7 @@ class SampleSaver:
             self._notify(sample_updated)
 
         command = Command(name=self.name)
+        # We need to makje sure to save the requester
         if command.exists:
             command.allow_user(random_user())
         else:
@@ -46,7 +47,7 @@ class SampleSaver:
 
     def _notify(self, sample_updated):
         if sample_updated:
-            PlaySoundeffectRequest(user="beginbot", command="update").save()
+            # PlaySoundeffectRequest(user="beginbot", sfx["requester"]command="update").save()
             send_twitch_msg(f"Updated Sound Available: !{self.name}")
         else:
             PlaySoundeffectRequest(user="beginbot", command="new_item").save()

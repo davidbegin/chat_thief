@@ -69,3 +69,6 @@ class TestCommand(DatabaseConfig):
         assert subject.health() == 0
         subject.revive()
         assert subject.health() == 5
+
+    def test_users_owning_commands(self):
+        pass

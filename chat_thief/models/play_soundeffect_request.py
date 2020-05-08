@@ -17,7 +17,7 @@ class PlaySoundeffectRequest:
 
     def save(self):
         if self._is_valid_json():
-            print(f"Play SFX Request: {self.doc()}")
+            print(f"\tSaving SFX Request for @{self.user} !{self.command}")
 
             from tinyrecord import transaction
 
