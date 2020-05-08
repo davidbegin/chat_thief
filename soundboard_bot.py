@@ -2,7 +2,7 @@ import subprocess
 import time
 import traceback
 
-from chat_thief.config.log import logger
+from chat_thief.config.log import logger, success, warning, error
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
@@ -39,15 +39,14 @@ def sync_main():
                     soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
                     if soundfile:
                         AudioPlayer.play_sample(soundfile.resolve())
-                        print("About to Update some health")
                         user.update_health(-1)
                     else:
-                        print(f"Couldn't find soundfile for {sfx['command']}")
+                        warning(f"Couldn't find soundfile for {sfx['command']}")
                 else:
-                    print(
+                    error(
                         f"\nNot Playing: !{command.name} for @{user.name} | Allowed: {user_allowed_to_play}"
                     )
-                    print(
+                    error(
                         f"\tUser Health {user_health} | Command Health {command_health}"
                     )
 

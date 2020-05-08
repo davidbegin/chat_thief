@@ -5,6 +5,7 @@ from itertools import chain
 
 from tinydb import Query
 
+from chat_thief.config.log import success, warning, error
 from chat_thief.models.database import db_table
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.stream_lords import STREAM_GODS
@@ -71,7 +72,7 @@ class Command:
 
     def allowed_to_play(self, user):
         if not SFXVote(self.name).is_enabled():
-            print(f"{self.name} is not currently enabled")
+            warning(f"{self.name} is not currently enabled")
             return False
 
         if self.is_theme_song:
