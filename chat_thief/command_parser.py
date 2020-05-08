@@ -18,6 +18,7 @@ from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.donator import Donator
+from chat_thief.commands.la_libre import LaLibre
 
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.soundeffect_request import SoundeffectRequest
@@ -115,6 +116,9 @@ class CommandParser:
             return " | ".join(
                 [f"{stat[0]}: {stat[1]}" for stat in reversed(User.richest())]
             )
+
+        if self.command == "la_libre":
+            return LaLibre.inform()
 
         # if self.command in ["leaderboard", "forbes"]:
         #     return leaderboard()
