@@ -28,6 +28,7 @@ from chat_thief.models.sfx_vote import SFXVote
 
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.config.log import error, success, warning
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.irc import send_twitch_msg
 from chat_thief.permissions_fetcher import PermissionsFetcher
@@ -64,10 +65,12 @@ COMMANDS = {
     }
 }
 
-# 93 amd 94 looked the same
-WARNING = "\033[95m"
-# WARNING = '\033[93m'
-OTHER = "\033[94m"
+WARNING = "\033[93m"
+WARNING = "\033[92m"
+FAIL = "\033[91m"
+OK = "\033[92m"
+
+
 CLEAR = "\033[0m"
 
 
@@ -88,7 +91,7 @@ class CommandParser:
             self._logger.info(f"{self.user}: {self.msg}")
             WelcomeCommittee().welcome_new_users(self.user)
 
-        print(f"\n{WARNING}{self.user}: {self.msg}{CLEAR}")
+        success(f"\n{self.user}: {self.msg}")
 
         return self._process_command()
 
