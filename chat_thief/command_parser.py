@@ -169,7 +169,9 @@ class CommandParser:
         if self.command == "coup":
             viva_la_revolution = Revolution(self.user)
 
-            threshold = int(User.count() / 10)
+            from chat_thief.commands.la_libre import REVOLUTION_LIKELYHOOD
+
+            threshold = int(User.count() / REVOLUTION_LIKELYHOOD)
             result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")
 

@@ -6,6 +6,9 @@ from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from tests.support.database_setup import DatabaseConfig
 
+# The higher the number, the more likely a revolution
+REVOLUTION_LIKELYHOOD = 14
+
 
 class TestLaLibre(DatabaseConfig):
     def test_inform(self):
@@ -14,7 +17,7 @@ class TestLaLibre(DatabaseConfig):
         self.coup = Command("coup")
         User("fake_user").save()
 
-        threshold = int(User.count() / 10)
+        threshold = int(User.count() / REVOLUTION_LIKELYHOOD)
 
         # Who are people who trigger the coup?
         # people who have at least the coup costs
@@ -22,8 +25,7 @@ class TestLaLibre(DatabaseConfig):
         assert result == [
             "PowerUpL La Libre PowerUpR",
             "Total Votes: 1",
-            "Peace Count: 1",
-            "Revolution Count: 0",
-            f"Votes Required: {threshold}",
+            f"Peace Count: 1 / {threshold}",
+            f"Revolution Count: 0 / {threshold}",
             f"panicBasket Coup Cost: {self.coup.cost()} panicBasket",
         ]
