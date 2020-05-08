@@ -1,4 +1,5 @@
 from collections import Counter
+
 import traceback
 
 from tinydb import Query
@@ -12,6 +13,14 @@ class SoundeffectRequest:
     table_name = "soundeffect_requests"
     database_folder = ""
     database_path = "db/soundeffect_requests.json"
+
+    @classmethod
+    def get(cls, command):
+        return cls.db().get(Query().command == command)
+
+    @classmethod
+    def all(cls):
+        return cls.db().all()
 
     @classmethod
     def db(cls):

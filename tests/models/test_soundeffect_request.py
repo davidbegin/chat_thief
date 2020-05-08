@@ -203,3 +203,18 @@ class TestSoundEffectRequest(DatabaseConfig):
         doc_id = 1
         # We expect this to throw an error
         SoundeffectRequest.deny_doc_id(user, doc_id)
+
+    def test_deny_doc_id(self):
+        subject = SoundeffectRequest(
+            user="beginbotsmonter",
+            command="damn",
+            youtube_id="VW2yff3su0U",
+            start_time="00:01",
+            end_time="00:05",
+        )
+        subject.save()
+        request = SoundeffectRequest.get(command="damn")
+        SoundeffectRequest.deny_doc_id("denier", request.doc_id)
+        assert "damn" not in [
+            request["command"] for request in SoundeffectRequest.all()
+        ]
