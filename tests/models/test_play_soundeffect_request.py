@@ -6,12 +6,8 @@ from tests.support.database_setup import DatabaseConfig
 
 
 class TestPlaySoundeffectRequest(DatabaseConfig):
-    def test_requester(self):
-        pass
-        # assert subject.user == "youngthug"
-        # command_count = subject.command_count()
-        # for _ in range(10):
-        #     subject = PlaySoundeffectRequest(user="beginbot", command=random_soundeffect())
-        #     subject.save()
-        # assert subject.command_count() ==command_count + 1
-        # subject.pop_all_off()
+    def test_lower_casing_command(self):
+        user = "uzi"
+        command = "WASSUP"
+        subject = PlaySoundeffectRequest(user=user, command=command)
+        assert subject.command == "wassup"

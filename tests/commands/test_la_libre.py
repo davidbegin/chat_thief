@@ -1,13 +1,11 @@
 import pytest
 
-from chat_thief.commands.la_libre import LaLibre
+from chat_thief.chat_logs import ChatLogs
+from chat_thief.commands.la_libre import LaLibre, REVOLUTION_LIKELYHOOD
 from chat_thief.models.vote import Vote
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from tests.support.database_setup import DatabaseConfig
-
-# The higher the number, the more likely a revolution
-REVOLUTION_LIKELYHOOD = 14
 
 
 class TestLaLibre(DatabaseConfig):
@@ -17,10 +15,8 @@ class TestLaLibre(DatabaseConfig):
         self.coup = Command("coup")
         User("fake_user").save()
 
-        threshold = int(User.count() / REVOLUTION_LIKELYHOOD)
-
-        # Who are people who trigger the coup?
-        # people who have at least the coup costs
+        peasants = ChatLogs().recent_stream_peasants()
+        threshold = 3
 
         assert result == [
             "PowerUpL La Libre PowerUpR",

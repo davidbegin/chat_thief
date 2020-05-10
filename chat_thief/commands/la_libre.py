@@ -1,6 +1,7 @@
-from chat_thief.models.vote import Vote
+from chat_thief.chat_logs import ChatLogs
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
+from chat_thief.models.vote import Vote
 
 REVOLUTION_LIKELYHOOD = 14
 
@@ -13,7 +14,11 @@ class LaLibre:
     # Potential Revolutionaries
     @classmethod
     def inform(cls):
-        threshold = int(User.count() / REVOLUTION_LIKELYHOOD)
+        peasants = ChatLogs().recent_stream_peasants()
+        threshold = int(len(peasants) / REVOLUTION_LIKELYHOOD)
+
+        if threshold < 3:
+            threshold = 3
 
         return [
             "PowerUpL La Libre PowerUpR",
