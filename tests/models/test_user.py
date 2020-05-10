@@ -112,15 +112,15 @@ class TestUser(DatabaseConfig):
         user("brianeno").update_street_cred(-420)
         assert User.total_street_cred() == -433
 
-    def test_health(self, user):
+    def test_mana(self, user):
         subject = User("artmattdank")
-        assert subject.health() == 5
+        assert subject.mana() == 5
         subject.kill()
-        assert subject.health() == 0
+        assert subject.mana() == 0
         subject.revive()
-        assert subject.health() == 5
-        subject.update_health(-1)
-        assert subject.health() == 4
+        assert subject.mana() == 5
+        subject.update_mana(-1)
+        assert subject.mana() == 4
 
         subject.revive()
-        assert subject.health() == 5
+        assert subject.mana() == 5

@@ -27,7 +27,7 @@ def sync_main():
 
                 command_health = 5
                 # command_health = command.health()
-                user_health = user.health()
+                user_mana = user.mana()
                 user_allowed_to_play = command.allowed_to_play(user.name)
 
                 if user.name in STREAM_GODS:
@@ -35,20 +35,18 @@ def sync_main():
                     if soundfile:
                         AudioPlayer.play_sample(soundfile.resolve())
 
-                elif user_allowed_to_play and command_health > 0 and user_health > 0:
+                elif user_allowed_to_play and command_health > 0 and user_mana > 0:
                     soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
                     if soundfile:
                         AudioPlayer.play_sample(soundfile.resolve())
-                        user.update_health(-1)
+                        user.update_mana(-1)
                     else:
                         warning(f"Couldn't find soundfile for {sfx['command']}")
                 else:
                     error(
                         f"\nNot Playing: !{command.name} for @{user.name} | Allowed: {user_allowed_to_play}"
                     )
-                    error(
-                        f"\tUser Health {user_health} | Command Health {command_health}"
-                    )
+                    error(f"\tUser Mana {user_mana} | Command Health {command_health}")
 
             # time.sleep(15)
             time.sleep(1)

@@ -9,23 +9,21 @@
 Example Output:
 
 ```bash
-@cooluser420 - Street Cred: 0 | Cool Points: 0
+@cooluser420 - Mana: 5 | Street Cred: 0 | Cool Points: 0
 ```
 
-## How Do You Gain Power
+## Mana
 
-Make friends in the chat, and someone can give you cool Cool Points
-Note: You can only get Cool Points from other Users
+You can play soundeffect for each Mana point you have.
+Mana replenishes regularlly.
 
-Hope to win one of the regular drops that gives a soundeffect to a random user
-in the chat.
+## Street Cred
 
-## Street Cred Commands
+Street Cred are a currency earn from chatting (you don't get more, for chatting
+more), that you CAN ONLY GIVE AWAY. Give it away to other chatters you like, or
+use it for deals, your choice!
 
-You can give someone in the chat your street cred. Or you can give some or all
-of it to a random user. props, endorse, bigups all do the same thing.
-
-Examples:
+Examples of Giving Away Street Cred:
 
 ```bash
 !endorse @artmattdank
@@ -37,11 +35,11 @@ Examples:
 !bigups
 ```
 
-## Cool Points Commands
+## Cool Points
 
-Once someone gives their street cred to someone else, it is transformed into
-Cool Points. If you want Cool Points, you need someone in the chat to give them
-to you!
+If someone gives you Street Cred it is converted to Cool Points.  Cool Points
+can be used to buy, share, steal sounds. If you want Cool Points, you need
+someone in the chat to give them to you!
 
 Examples:
 
@@ -49,13 +47,11 @@ Examples:
 !buy !clap
 !buy damn
 !buy random
-
 !steal clap beginbotbot
-
 !share !clap @artmattdank
 ```
 
-There are 500+ Soundeffects (and always climbing thanks to submissions from
+There are 700+ Soundeffects (and always climbing thanks to submissions from
 viewers like yourself), which you can gain access to. However, we do not publize
 the full list of soundeffects, you can always buy random, to get a random one,
 or learn what soundeffects you want from participating in the stream and seeing

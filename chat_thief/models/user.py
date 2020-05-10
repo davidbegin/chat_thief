@@ -54,7 +54,7 @@ class User:
         return self._find_or_create_user()
 
     def stats(self):
-        return f"@{self.name} - Health: {self.health()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
+        return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
     # hmmm seems wierd
     def commands(self):
@@ -67,17 +67,17 @@ class User:
     def cool_points(self):
         return self.user()["cool_points"]
 
-    def health(self):
-        return self.user()["health"]
+    def mana(self):
+        return self.user()["mana"]
 
     def kill(self):
-        return self._update_value("health", -self.health())
+        return self._update_value("mana", -self.mana())
 
     def revive(self):
-        return self._set_value("health", 5)
+        return self._set_value("mana", 5)
 
-    def update_health(self, amount):
-        return self._update_value("health", amount)
+    def update_mana(self, amount):
+        return self._update_value("mana", amount)
 
     def paperup(self, amount=100):
         self.update_street_cred(amount)
@@ -134,7 +134,7 @@ class User:
             "name": self.name,
             "street_cred": 0,
             "cool_points": 0,
-            "health": 5,
+            "mana": 5,
         }
 
     def save(self):
