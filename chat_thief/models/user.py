@@ -58,7 +58,6 @@ class User(BaseModel):
         return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
         # return f"@{self.name} - Mana: {self.mana()} | Karma: {self.karma()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
-    # hmmm seems wierd
     def commands(self):
         return Command.for_user(self.name)
 
@@ -75,11 +74,10 @@ class User(BaseModel):
     def update_mana(self, amount):
         return self._update_value("mana", amount)
 
+    # The ride or dies you have
     def karma(self):
-        return self.user()["karma"]
-
-    def update_karma(self, amount):
-        return self._update_value("karma", amount)
+        user_result = self.db().search(Query().ride_or_die == self.name)
+        return len(user_result)
 
     def kill(self):
         return self._update_value("mana", -self.mana())
@@ -143,7 +141,6 @@ class User(BaseModel):
             "street_cred": 0,
             "cool_points": 0,
             "mana": 5,
-            "karma": 0,
         }
 
     def save(self):
@@ -167,6 +164,9 @@ class User(BaseModel):
 
     def update_street_cred(self, amount=1):
         self._update_value("street_cred", amount)
+
+    def set_ride_or_die(self, ride_or_die):
+        self._set_value("ride_or_die", ride_or_die)
 
     # ===========
     # Punishments

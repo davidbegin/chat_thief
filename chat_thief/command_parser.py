@@ -99,10 +99,8 @@ class CommandParser:
 
     def _process_command(self):
         if self.command in ["peace", "revolution"]:
-            threshold = int(User.count() / 2)
-            vote_count = Vote.count()
             Vote(user=self.user).vote(self.command)
-            return f"{vote_count} of {threshold} Votes Needed"
+            return f"Thank you for your vote @{self.user}"
 
         if self.command == "facts" and self.user in STREAM_GODS:
             return Facts().available_sounds()
@@ -274,6 +272,14 @@ class CommandParser:
             if parser.target_command and not parser.target_user:
                 result = SFXVote(parser.target_command).support(self.user)
                 return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
+
+            if parser.target_user and not parser.target_command:
+                pass
+                # We have a problem
+                # how Can we who a user voted for
+                User(parser.target_user).update_karma(1)
+                # result = SFXVote(parser.target_command).support(self.user)
+                # return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
             else:
                 return None
 
@@ -301,6 +307,7 @@ class CommandParser:
             for user in User.all():
                 User(user).bankrupt()
             for command_name in Command.db().all():
+
                 command_name = command_name["name"]
                 print(command_name)
                 command = Command(command_name)

@@ -126,6 +126,14 @@ class TestUser(DatabaseConfig):
 
     def test_karma(self, user):
         subject = User("gary")
+        other_user = User("ash")
         assert subject.karma() == 0
-        subject.update_karma(108)
-        assert subject.karma() == 108
+        other_user.set_ride_or_die(subject.name)
+        assert subject.karma() == 1
+
+        another_user = User("meowth")
+        another_user.set_ride_or_die(subject.name)
+        assert subject.karma() == 2
+
+        other_user.set_ride_or_die(another_user.name)
+        assert subject.karma() == 1
