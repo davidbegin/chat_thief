@@ -121,6 +121,9 @@ class TestUser(DatabaseConfig):
         assert subject.mana() == 5
         subject.update_mana(-1)
         assert subject.mana() == 4
-
         subject.revive()
         assert subject.mana() == 5
+
+    def test_karma(self, user):
+        subject = User("gary")
+        assert subject.karma() == 0

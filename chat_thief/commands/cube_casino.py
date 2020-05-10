@@ -6,6 +6,8 @@ from chat_thief.models.database import db_table
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 from chat_thief.irc import send_twitch_msg
 
+# We need to move Bets into a Model First
+# Then Cube
 db_path = "db/bets.json"
 bets_db = db_table(db_path, "bets")
 
