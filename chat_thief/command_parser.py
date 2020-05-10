@@ -143,7 +143,11 @@ class CommandParser:
             return CubeCasino(self.user, self.args).all_bets()
 
         if self.command == "bet":
-            return CubeCasino(self.user, self.args).bet()
+            from chat_thief.models.cube_bet import CubeBet
+
+            parser = PropsParser(user=self.user, args=self.args).parse()
+            result = CubeBet(name=self.user, duration=parser.amount).save()
+            return f"Thank you for your bet: @{result['name']}: {result['duration']}s"
 
         if self.command == "new_cube" and self.user == "beginbotbot":
             return CubeCasino(self.user, self.args).purge()

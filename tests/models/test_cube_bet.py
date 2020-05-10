@@ -9,7 +9,6 @@ from chat_thief.models.user import Command
 from tests.support.database_setup import DatabaseConfig
 
 
-# Soon !bet
 class TestCubeBet(DatabaseConfig):
     def _create_user(self, name):
         user = User(name=name)
@@ -17,9 +16,15 @@ class TestCubeBet(DatabaseConfig):
         return user
 
     def test_betting(self):
-        gambler = self._create_user("gucci.mane")
-        duration = 26
-        subject = CubeBet(gambler.name, duration)
+        name = self._create_user("gucci.mane")
+        duration = 29
+        subject = CubeBet(name.name, duration)
         assert CubeBet.count() == 0
         subject.save()
         assert CubeBet.count() == 1
+
+        subject = CubeBet(name.name, 38)
+        subject.save()
+
+        assert CubeBet.count() == 1
+        assert subject.duration() == 38

@@ -1,12 +1,13 @@
 DEFAULT_VOTES_DB_PATH = "db/cube_bets.json"
 
 from chat_thief.models.database import db_table
+from chat_thief.models.base_model import BaseModel
 from chat_thief.models.user import User
 from chat_thief.config.log import error, warning, success
 from tinydb import Query
 
 
-class CubeBet:
+class CubeBet(BaseModel):
     table_name = "cube_bets"
     database_folder = ""
     database_path = "db/cube_bets.json"
@@ -19,15 +20,34 @@ class CubeBet:
     def count(cls):
         return len(cls.db().all())
 
-    def __init__(self, gambler, duration):
-        self.gambler = gambler
-        self.duration = int(duration)
+    def __init__(self, name, duration):
+        self.name = name
+        self._duration = int(duration)
 
     def save(self):
+        bet = self.db().get(Query().name == self.name)
+
+        if bet:
+            self._set_value("duration", self._duration)
+        else:
+            success(f"Creating New Cube Bet: {self.doc()}")
+            from tinyrecord import transaction
+
+            with transaction(self.db()) as tr:
+                tr.insert(self.doc())
+        return self.doc()
+
+    def duration(self):
+        return self.cube_bet()["duration"]
+
+    def name(self):
+        return self.cube_bet()["name"]
+
+    def cube_bet(self):
         return self._find_or_create_cube_bet()
 
     def _find_or_create_cube_bet(self):
-        result = self.db().get(Query().gambler == self.gambler)
+        result = self.db().get(Query().name == self.name)
 
         if result:
             return result
@@ -40,4 +60,4 @@ class CubeBet:
         return self.doc()
 
     def doc(self):
-        return {"gambler": self.gambler, "duration": self.duration}
+        return {"name": self.name, "duration": self._duration}

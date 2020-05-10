@@ -6,9 +6,10 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.log import error, warning, success
 
 from chat_thief.models.command import Command
+from chat_thief.models.base_model import BaseModel
 
 
-class User:
+class User(BaseModel):
     table_name = "users"
     database_folder = ""
     database_path = "db/users.json"
@@ -54,7 +55,8 @@ class User:
         return self._find_or_create_user()
 
     def stats(self):
-        return f"@{self.name} - Mana: {self.mana()} | Karma: {self.karma()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
+        return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
+        # return f"@{self.name} - Mana: {self.mana()} | Karma: {self.karma()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
     # hmmm seems wierd
     def commands(self):
@@ -165,30 +167,6 @@ class User:
 
     def update_street_cred(self, amount=1):
         self._update_value("street_cred", amount)
-
-    def _update_value(self, field, amount=1):
-        def _update_that_value():
-            def transform(doc):
-                doc[field] = doc[field] + amount
-
-            return transform
-
-        from tinyrecord import transaction
-
-        with transaction(self.db()) as tr:
-            tr.update_callable(_update_that_value(), Query().name == self.name)
-
-    def _set_value(self, field, value):
-        def _update_that_value():
-            def transform(doc):
-                doc[field] = value
-
-            return transform
-
-        from tinyrecord import transaction
-
-        with transaction(self.db()) as tr:
-            tr.update_callable(_update_that_value(), Query().name == self.name)
 
     # ===========
     # Punishments
