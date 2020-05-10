@@ -7,9 +7,10 @@
 
 🤠 Street Cred: {{ facts.street_cred }} |
 😎 Cool Points: {{ facts.cool_points }} |
-Found 🔊  : {{ facts.available_sounds }} / {{ facts.unavailable_sounds }} |
+Found 🔊  : {{ facts.available_sounds }} / {{ facts.total_sounds }} |
 
 {% for user, sfx_count in facts.top_users %}
+
   @{{ user }} : {{ sfx_count }} 🔊 |
 {% endfor %}
 

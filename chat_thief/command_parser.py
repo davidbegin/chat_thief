@@ -97,9 +97,6 @@ class CommandParser:
         return self._process_command()
 
     def _process_command(self):
-        if self.command == "donate":
-            return Donator(self.user).donate()
-
         if self.command in ["peace", "revolution"]:
             threshold = int(User.count() / 2)
             vote_count = Vote.count()
@@ -198,6 +195,13 @@ class CommandParser:
         # ------------
         # Takes a User
         # ------------
+
+        if self.command == "donate":
+            parser = PermsParser(user=self.user, args=self.args).parse()
+            if parser.target_user:
+                return Donator(self.user).donate(parser.target_user)
+            else:
+                return Donator(self.user).donate()
 
         if self.command == "bankrupt":
             parser = PermsParser(user=self.user, args=self.args).parse()

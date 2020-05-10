@@ -33,6 +33,9 @@ class Facts:
         total_sfx = len(SoundeffectsLibrary.soundeffects_only())
         return total_sfx - self.available_sounds()
 
+    def total_sounds(self):
+        return self.available_sounds() + self.unavailable_sounds()
+
     def cool_points(self):
         return User.total_cool_points()
 

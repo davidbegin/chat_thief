@@ -7,11 +7,15 @@ class Donator:
     def __init__(self, user):
         self.user = user
 
-    def donate(self):
+    def donate(self, target_user=None):
         results = {}
         for command in User(self.user).commands():
             command = Command(command)
-            new_user = random_user(blacklisted_users=command.users())
+
+            if target_user:
+                new_user = target_user
+            else:
+                new_user = random_user(blacklisted_users=command.users())
             if new_user:
                 donated_commands = results.get(new_user, [])
                 results[new_user] = donated_commands + [command.name]

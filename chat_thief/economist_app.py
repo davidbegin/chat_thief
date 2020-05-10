@@ -16,6 +16,7 @@ class FactsView:
     total_votes: int
     available_sounds: int
     unavailable_sounds: int
+    total_sounds: int
     cool_points: int
     street_cred: int
     top_users: List
@@ -40,6 +41,7 @@ def facts(name=None):
             revolution_count=facts.revolution_count(),
             peace_count=facts.peace_count(),
             unavailable_sounds=facts.unavailable_sounds(),
+            total_sounds=facts.total_sounds(),
             cool_points=facts.cool_points(),
             top_users=facts.top_users(),
             street_cred=facts.street_cred(),
