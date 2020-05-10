@@ -127,3 +127,5 @@ class TestUser(DatabaseConfig):
     def test_karma(self, user):
         subject = User("gary")
         assert subject.karma() == 0
+        subject.update_karma(108)
+        assert subject.karma() == 108

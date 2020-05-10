@@ -17,7 +17,7 @@ Economic Testing Ground:
 
 How Does it Work?
 
-350+ viewer supplied
+700+ viewer supplied
       soundeffects
 
 Submit a Soundeffect
@@ -48,16 +48,6 @@ The New Economy
   !endorse @viewer 10
   !bigups random
 
-💕 Sharing Commands:
-  !share command @viewer
-  Sharing sounds with a viewer
-  costs 1 Street Cred
-
-📬 Transferring Commands:
-  !give command @viewer
-  !transfer command random
-  (Costs 0 Street Cred)
-
 😎  Cool Points:
   - When you give someone Street Cred,
     they become Cool Points
@@ -71,35 +61,32 @@ The New Economy
 👭  If you want to get access to commands
 you are going to have to make friends! 👬
 
-Sharing, Stealing, Giving
+💕 Sharing Commands:
+  !share command @viewer
+  Sharing sounds with a viewer
+  costs Cool Points
 
-!steal clap beginbotbot
-!share !clap @artmattdank
-!give !clap @artmattdank
+📬 Transferring Commands:
+  !give command @viewer
+  !transfer command random
+  (Costs 0 Cool Points)
 
-Health
+👽 Stealing Commands
+  !steal clap beginbotbot
 
-Health for Commands
-Health for Users
+Users Have Mana
+Each command you play == Cost 1 Mana
 
-Users Use Health To Play Sounds
-Users Can Be Punished by Removing Health
-
-!donate
-
+🏩
 !love
 !hate
 
 📊  Exploring the Economy:
-- !leaderboard
 - !perms command
 - !perms @viewer
 
-Moving Forward
-
-We are coding new features on stream
-Things are always changing
-Jump in and participate!
+🏥 !donate
 
 !revolution
 !peace
+!coup
