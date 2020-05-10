@@ -13,6 +13,10 @@ class CubeBet(BaseModel):
     database_path = "db/cube_bets.json"
 
     @classmethod
+    def purge(cls):
+        return cls.db().purge()
+
+    @classmethod
     def db(cls):
         return db_table(cls.database_folder + cls.database_path, cls.table_name)
 
