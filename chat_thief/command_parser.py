@@ -20,12 +20,13 @@ from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.donator import Donator
 from chat_thief.commands.la_libre import LaLibre
 
+from chat_thief.models.command import Command
+from chat_thief.models.cube_bet import CubeBet
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
-from chat_thief.models.command import Command
-from chat_thief.models.sfx_vote import SFXVote
 
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
@@ -140,11 +141,9 @@ class CommandParser:
             return WelcomeCommittee().present_users()
 
         if self.command in ["all_bets", "all_bet", "bets"]:
-            return CubeCasino(self.user, self.args).all_bets()
+            return " | ".join([f"@{bet[0]}: {bet[1]}" for bet in CubeBet.all_bets()])
 
         if self.command == "bet":
-            from chat_thief.models.cube_bet import CubeBet
-
             parser = PropsParser(user=self.user, args=self.args).parse()
             result = CubeBet(name=self.user, duration=parser.amount).save()
             return f"Thank you for your bet: @{result['name']}: {result['duration']}s"

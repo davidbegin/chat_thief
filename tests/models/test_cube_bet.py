@@ -28,3 +28,13 @@ class TestCubeBet(DatabaseConfig):
 
         assert CubeBet.count() == 1
         assert subject.duration() == 38
+
+    def test_all_bets(self):
+        result = CubeBet.all_bets()
+        assert result == []
+        CubeBet("carti", 32).save()
+        result = CubeBet.all_bets()
+        assert result == [("carti", 32)]
+        CubeBet("uzi", 24).save()
+        result = CubeBet.all_bets()
+        assert result == [("uzi", 24), ("carti", 32)]

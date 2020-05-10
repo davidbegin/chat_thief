@@ -20,6 +20,11 @@ class CubeBet(BaseModel):
     def count(cls):
         return len(cls.db().all())
 
+    @classmethod
+    def all_bets(cls):
+        bets = [(bet["name"], bet["duration"]) for bet in cls.db().all()]
+        return sorted(bets, key=lambda bet: bet[1])
+
     def __init__(self, name, duration):
         self.name = name
         self._duration = int(duration)
