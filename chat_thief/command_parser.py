@@ -303,7 +303,6 @@ class CommandParser:
             for user in User.all():
                 User(user).bankrupt()
             for command_name in Command.db().all():
-
                 command_name = command_name["name"]
                 print(command_name)
                 command = Command(command_name)

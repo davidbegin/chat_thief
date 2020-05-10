@@ -79,6 +79,10 @@ class Revolution:
         if tide == "revolution":
             power_users = revolutionaries
             weaklings = peace_keepers
+            # We need to remove all Revolution permissionns before
+            for revolutionary in revolutionaries:
+                print(User(revolutionary).remove_all_commands())
+
             self._transfer_power(revolutionaries, peace_keepers, peace_keeper_sounds)
             return [
                 f"Power Users: { ' '.join(power_users)}",

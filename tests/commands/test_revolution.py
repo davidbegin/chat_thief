@@ -65,3 +65,67 @@ class TestRevolution(DatabaseConfig):
         assert revolutionary.name in damn_command.users()
         assert "damn" not in fence_sitter.commands()
         assert fence_sitter.name not in clap.users()
+
+    def test_peace_scenario(self):
+        fence_sitter = User("CoolCat")
+        fence_sitter.save()
+        clap_command = Command("clap")
+        clap_command.allow_user(fence_sitter.name)
+
+        peace_keeper = User("picakhu")
+        damn_command = Command("damn")
+        damn_command.allow_user(peace_keeper.name)
+        Vote(peace_keeper.name).vote("peace")
+        peace_keeper.update_cool_points(11)
+
+        peace_keeper2 = User("beginbotsmonster")
+        wassup_command = Command("wassup_command")
+        wassup_command.allow_user(peace_keeper2.name)
+        Vote(peace_keeper2.name).vote("peace")
+
+        revolutionary = User("beginbot")
+        listen_command = Command("listen")
+        listen_command.allow_user(revolutionary.name)
+        Vote(revolutionary.name).vote("revolution")
+
+        subject = Revolution(peace_keeper.name)
+        subject.attempt_coup("peace")
+
+        assert peace_keeper.name in listen_command.users()
+        assert peace_keeper2.name not in listen_command.users()
+        assert revolutionary.name not in listen_command.users()
+        assert fence_sitter.name not in clap_command.users()
+
+    def test_revolution_scenario(self):
+        fence_sitter = User("CoolCat")
+        fence_sitter.save()
+        clap_command = Command("clap")
+        clap_command.allow_user(fence_sitter.name)
+
+        peace_keeper = User("picakhu")
+        damn_command = Command("damn")
+        damn_command.allow_user(peace_keeper.name)
+        another_one_command = Command("anotherone")
+        another_one_command.allow_user(peace_keeper.name)
+        Vote(peace_keeper.name).vote("peace")
+
+        revolutionary2 = User("beginbotsmonster")
+        wassup_command = Command("wassup")
+        wassup_command.allow_user(revolutionary2.name)
+        Vote(revolutionary2.name).vote("revolution")
+
+        revolutionary = User("beginbot")
+        listen_command = Command("listen")
+        listen_command.allow_user(revolutionary.name)
+        Vote(revolutionary.name).vote("revolution")
+        revolutionary.update_cool_points(11)
+
+        subject = Revolution(revolutionary.name)
+        subject.attempt_coup("revolution")
+
+        assert peace_keeper.name not in damn_command.users()
+        assert revolutionary2.name in damn_command.users()
+        assert revolutionary.name in another_one_command.users()
+        assert revolutionary.name not in listen_command.users()
+        assert revolutionary2.name not in listen_command.users()
+        assert fence_sitter.name not in clap_command.users()

@@ -142,4 +142,3 @@ class TestUser(DatabaseConfig):
         subject = User("gary")
         subject.set_ride_or_die("gary")
         assert subject.karma() == 0
-
