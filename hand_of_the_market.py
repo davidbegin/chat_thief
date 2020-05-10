@@ -23,8 +23,8 @@ def sync_main():
 
             for peasant in peasants:
                 if peasant not in BLACKLIST:
-                    print(peasant)
                     user = User(peasant)
+                    print(f"@{peasant} Karma: {user.karma()}")
                     user.update_street_cred(1)
                     user.revive()
 

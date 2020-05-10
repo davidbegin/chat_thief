@@ -166,7 +166,7 @@ class User(BaseModel):
         self._update_value("street_cred", amount)
 
     def set_ride_or_die(self, ride_or_die):
-        self._set_value("ride_or_die", ride_or_die)
+        return self._set_value("ride_or_die", ride_or_die)
 
     # ===========
     # Punishments

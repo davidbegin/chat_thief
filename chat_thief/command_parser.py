@@ -274,12 +274,8 @@ class CommandParser:
                 return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
 
             if parser.target_user and not parser.target_command:
-                pass
-                # We have a problem
-                # how Can we who a user voted for
-                User(parser.target_user).update_karma(1)
-                # result = SFXVote(parser.target_command).support(self.user)
-                # return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
+                User(self.user).set_ride_or_die(parser.target_user)
+                return f"@{self.user} Made @{parser.target_user} their Ride or Die"
             else:
                 return None
 
