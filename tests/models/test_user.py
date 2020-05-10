@@ -137,3 +137,9 @@ class TestUser(DatabaseConfig):
 
         other_user.set_ride_or_die(another_user.name)
         assert subject.karma() == 1
+
+    def test_setting_ride_or_die_to_self(self):
+        subject = User("gary")
+        subject.set_ride_or_die("gary")
+        assert subject.karma() == 0
+
