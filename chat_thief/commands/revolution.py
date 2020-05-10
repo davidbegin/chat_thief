@@ -47,8 +47,11 @@ class Revolution:
         user = User("beginbot")
         vote = Vote("beginbot")
 
-        for user in fence_sitters:
-            User(user).remove_all_commands()
+        for fence_sitter in fence_sitters:
+            fs = User(fence_sitter)
+            fs.remove_all_commands()
+            if tide == "revolution":
+                print(fs.bankrupt())
 
         revolutionaries = vote.revolutionaries()
         peace_keepers = vote.peace_keepers()

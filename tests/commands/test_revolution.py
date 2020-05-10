@@ -71,12 +71,16 @@ class TestRevolution(DatabaseConfig):
         fence_sitter.save()
         clap_command = Command("clap")
         clap_command.allow_user(fence_sitter.name)
+        fence_sitter.update_street_cred(10)
+        fence_sitter.update_cool_points(10)
 
         peace_keeper = User("picakhu")
         damn_command = Command("damn")
         damn_command.allow_user(peace_keeper.name)
         Vote(peace_keeper.name).vote("peace")
         peace_keeper.update_cool_points(11)
+        peace_keeper.update_street_cred(10)
+        peace_keeper.update_cool_points(10)
 
         peace_keeper2 = User("beginbotsmonster")
         wassup_command = Command("wassup_command")
@@ -95,14 +99,20 @@ class TestRevolution(DatabaseConfig):
         assert peace_keeper2.name not in listen_command.users()
         assert revolutionary.name not in listen_command.users()
         assert fence_sitter.name not in clap_command.users()
+        assert fence_sitter.street_cred() == 10
+        assert fence_sitter.cool_points() == 10
 
     def test_revolution_scenario(self):
         fence_sitter = User("CoolCat")
+        fence_sitter.update_street_cred(10)
+        fence_sitter.update_cool_points(10)
         fence_sitter.save()
         clap_command = Command("clap")
         clap_command.allow_user(fence_sitter.name)
 
         peace_keeper = User("picakhu")
+        peace_keeper.update_street_cred(10)
+        peace_keeper.update_cool_points(10)
         damn_command = Command("damn")
         damn_command.allow_user(peace_keeper.name)
         another_one_command = Command("anotherone")
@@ -129,3 +139,8 @@ class TestRevolution(DatabaseConfig):
         assert revolutionary.name not in listen_command.users()
         assert revolutionary2.name not in listen_command.users()
         assert fence_sitter.name not in clap_command.users()
+
+        assert fence_sitter.street_cred() == 0
+        assert fence_sitter.cool_points() == 0
+        assert peace_keeper.street_cred() == 0
+        assert peace_keeper.cool_points() == 0
