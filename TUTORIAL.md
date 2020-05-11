@@ -87,3 +87,12 @@ You can steal a command from someone else as well, and they will lose access
 
 !perms COMMAND
 !perms USER
+
+## Submitting Bugs
+
+!issue I stole a command it didn't work
+!bug !ME doesn't work
+!submit etc
+!ticket Someone ripped me
+
+Beginbot will look at these

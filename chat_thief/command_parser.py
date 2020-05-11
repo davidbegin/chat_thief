@@ -110,8 +110,8 @@ class CommandParser:
         if self.command == "facts" and self.user in STREAM_GODS:
             return Facts().available_sounds()
 
-        if self.command == "coup_cost" and self.user in STREAM_GODS:
-            return Command("coup").increase_cost(-3)
+        # if self.command == "coup_cost" and self.user in STREAM_GODS:
+        #     return Command("coup").increase_cost(-3)
 
         if self.command == "richest":
             return " | ".join(
@@ -120,12 +120,6 @@ class CommandParser:
 
         if self.command == "la_libre":
             return LaLibre.inform()
-
-        # if self.command in ["leaderboard", "forbes"]:
-        #     return leaderboard()
-
-        # if self.command == "loserboard":
-        #     return loserboard()
 
         if self.command == "requests":
             stats = SoundeffectRequest.formatted_stats()

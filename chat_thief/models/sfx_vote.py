@@ -3,11 +3,11 @@ from typing import List
 from tinydb import Query
 
 from chat_thief.models.database import db_table
+from chat_thief.models.base_model import BaseModel
 
 
-class SFXVote:
+class SFXVote(BaseModel):
     table_name = "sfx_votes"
-    database_folder = ""
     database_path = "db/sfx_votes.json"
 
     def is_enabled(self):
@@ -20,14 +20,6 @@ class SFXVote:
         self.command = command
         self.supporters = supporters
         self.detractors = detractors
-
-    @classmethod
-    def db(cls):
-        return db_table(cls.database_folder + cls.database_path, cls.table_name)
-
-    @classmethod
-    def count(cls):
-        return len(cls.db().all())
 
     def support(self, supporter):
         vote = self._find_or_create_vote()

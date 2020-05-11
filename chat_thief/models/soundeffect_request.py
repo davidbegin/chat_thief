@@ -7,11 +7,11 @@ from tinydb import Query
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.models.database import db_table
 from chat_thief.sample_saver import SampleSaver
+from chat_thief.models.base_model import BaseModel
 
 
-class SoundeffectRequest:
+class SoundeffectRequest(BaseModel):
     table_name = "soundeffect_requests"
-    database_folder = ""
     database_path = "db/soundeffect_requests.json"
 
     @classmethod
@@ -21,10 +21,6 @@ class SoundeffectRequest:
     @classmethod
     def all(cls):
         return cls.db().all()
-
-    @classmethod
-    def db(cls):
-        return db_table(cls.database_folder + cls.database_path, cls.table_name)
 
     @classmethod
     def unapproved_count(cls):
@@ -73,10 +69,6 @@ class SoundeffectRequest:
         pt = datetime.strptime(request["start_time"], "%M:%S")
         total_seconds = pt.second + pt.minute * 60
         return f"https://youtu.be/{request['youtube_id']}?t={total_seconds}"
-
-    @classmethod
-    def count(cls):
-        return len(cls.db().all())
 
     @classmethod
     def pop_all_off(cls):

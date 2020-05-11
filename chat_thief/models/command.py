@@ -11,10 +11,11 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.models.sfx_vote import SFXVote
 
+from chat_thief.models.base_model import BaseModel
 
-class Command:
+
+class Command(BaseModel):
     table_name = "commands"
-    database_folder = ""
     database_path = "db/commands.json"
 
     def __init__(self, name):
@@ -52,14 +53,6 @@ class Command:
         return [
             f"{command['name']}: {command['cost']}" for command in sorted_commands[-5:]
         ]
-
-    @classmethod
-    def db(cls):
-        return db_table(cls.database_folder + cls.database_path, cls.table_name)
-
-    @classmethod
-    def count(cls):
-        return len(cls.db().all())
 
     def update(self, update_func):
         from tinyrecord import transaction

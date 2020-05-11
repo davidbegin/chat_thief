@@ -11,25 +11,11 @@ from chat_thief.models.base_model import BaseModel
 
 class User(BaseModel):
     table_name = "users"
-    database_folder = ""
     database_path = "db/users.json"
-
-    @classmethod
-    def db(cls):
-        return db_table(cls.database_folder + cls.database_path, cls.table_name)
-
-    @classmethod
-    def count(cls):
-        return len(cls.all())
 
     @classmethod
     def all(cls):
         return [user["name"] for user in cls.db().all()]
-
-    @classmethod
-    def richest(cls):
-        users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
-        return sorted(users, key=lambda user: user[1])
 
     @classmethod
     def total_street_cred(cls):
@@ -40,8 +26,9 @@ class User(BaseModel):
         return sum([user["cool_points"] for user in self.db().all()])
 
     @classmethod
-    def purge(cls):
-        return cls.db().purge()
+    def richest(cls):
+        users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
+        return sorted(users, key=lambda user: user[1])
 
     # ====================================================================
 

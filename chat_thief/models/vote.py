@@ -5,20 +5,12 @@ from chat_thief.models.user import User
 from chat_thief.config.log import error, warning, success
 
 from tinydb import Query
+from chat_thief.models.base_model import BaseModel
 
 
-class Vote:
+class Vote(BaseModel):
     table_name = "votes"
-    database_folder = ""
     database_path = "db/votes.json"
-
-    @classmethod
-    def db(cls):
-        return db_table(cls.database_folder + cls.database_path, cls.table_name)
-
-    @classmethod
-    def count(cls):
-        return len(cls.db().all())
 
     @classmethod
     def peace_keepers(cls):

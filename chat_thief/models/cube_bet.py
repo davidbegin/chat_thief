@@ -9,20 +9,7 @@ from tinydb import Query
 
 class CubeBet(BaseModel):
     table_name = "cube_bets"
-    database_folder = ""
     database_path = "db/cube_bets.json"
-
-    @classmethod
-    def purge(cls):
-        return cls.db().purge()
-
-    @classmethod
-    def db(cls):
-        return db_table(cls.database_folder + cls.database_path, cls.table_name)
-
-    @classmethod
-    def count(cls):
-        return len(cls.db().all())
 
     @classmethod
     def all_bets(cls):

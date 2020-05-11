@@ -4,9 +4,10 @@ import traceback
 from tinydb import Query
 
 from chat_thief.models.database import db_table
+from chat_thief.models.base_model import BaseModel
 
 
-class PlaySoundeffectRequest:
+class PlaySoundeffectRequest(BaseModel):
     def __init__(self, user=None, command=None):
         self.user = user
         if command:
