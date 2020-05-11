@@ -27,6 +27,7 @@ class Facts:
         return Vote.count()
 
     def available_sounds(self):
+        # We need a different number here
         return Command.count()
 
     def unavailable_sounds(self):

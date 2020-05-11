@@ -98,8 +98,13 @@ class CommandParser:
         return self._process_command()
 
     def _process_command(self):
-        if self.command in ["peace", "revolution"]:
-            Vote(user=self.user).vote(self.command)
+        if self.command in ["peace", "revolution", "vote"]:
+            if self.command == "vote":
+                vote = self.args[0]
+                Vote(user=self.user).vote(vote)
+            else:
+                Vote(user=self.user).vote(self.command)
+
             return f"Thank you for your vote @{self.user}"
 
         if self.command == "facts" and self.user in STREAM_GODS:
