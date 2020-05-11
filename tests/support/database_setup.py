@@ -6,38 +6,26 @@ from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
 from chat_thief.models.cube_bet import CubeBet
+from chat_thief.models.issue import Issue
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 
-SoundeffectRequest.database_folder = "tests/"
-SFXVote.database_folder = "tests/"
-Command.database_folder = "tests/"
-User.database_folder = "tests/"
-Vote.database_folder = "tests/"
-CubeBet.database_folder = "tests/"
-
-commands_db_path = Path(__file__).parent.parent.joinpath(Command.database_path)
-users_db_path = Path(__file__).parent.parent.joinpath(User.database_path)
-sfx_votes_db = Path(__file__).parent.parent.joinpath(SFXVote.database_path)
-votes_db_path = Path(__file__).parent.parent.joinpath(Vote.database_path)
-cube_bet_db_path = Path(__file__).parent.parent.joinpath(CubeBet.database_path)
-soundeffect_requests_db_path = Path(__file__).parent.parent.joinpath(
-    SoundeffectRequest.database_path
-)
+MODEL_CLASSES = [
+    SoundeffectRequest,
+    SFXVote,
+    Command,
+    User,
+    Vote,
+    CubeBet,
+    Issue,
+]
 
 
 class DatabaseConfig:
     @pytest.fixture(autouse=True)
     def destroy_db(self):
-        if commands_db_path.is_file():
-            commands_db_path.unlink()
-        if sfx_votes_db.is_file():
-            sfx_votes_db.unlink()
-        if users_db_path.is_file():
-            users_db_path.unlink()
-        if votes_db_path.is_file():
-            votes_db_path.unlink()
-        if soundeffect_requests_db_path.is_file():
-            soundeffect_requests_db_path.unlink()
-        if cube_bet_db_path.is_file():
-            cube_bet_db_path.unlink()
+        for model in MODEL_CLASSES:
+            model.database_folder = "tests/"
+            db_path = Path(__file__).parent.parent.joinpath(model.database_path)
+            if db_path.is_file():
+                db_path.unlink()
         yield

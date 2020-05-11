@@ -134,6 +134,7 @@ class User(BaseModel):
         return self._find_or_create_user()
 
     def _find_or_create_user(self):
+        # We should be using get
         user_result = self.db().search(Query().name == self.name)
         if user_result:
             user_result = user_result[0]
