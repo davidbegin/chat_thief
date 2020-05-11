@@ -8,17 +8,18 @@ from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 
-from chat_thief.economist.facts import Facts
+from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
+from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.commands.cube_casino import CubeCasino
+from chat_thief.commands.donator import Donator
+from chat_thief.commands.la_libre import LaLibre
+from chat_thief.commands.la_libre import REVOLUTION_LIKELYHOOD
 from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.revolution import Revolution
 from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
-from chat_thief.commands.command_stealer import CommandStealer
-from chat_thief.commands.command_giver import CommandGiver
-from chat_thief.commands.donator import Donator
-from chat_thief.commands.la_libre import LaLibre
+from chat_thief.economist.facts import Facts
 
 from chat_thief.models.command import Command
 from chat_thief.models.cube_bet import CubeBet
@@ -164,11 +165,7 @@ class CommandParser:
             return " ".join(STREAM_GODS)
 
         if self.command == "coup":
-            viva_la_revolution = Revolution(self.user)
-
-            from chat_thief.commands.la_libre import REVOLUTION_LIKELYHOOD
-
-            threshold = int(User.count() / REVOLUTION_LIKELYHOOD)
+            threshold = LaLibre.threshold()
             result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")
 
