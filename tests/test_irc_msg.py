@@ -59,3 +59,17 @@ class TestIrcMsg:
         assert subject.is_command()
         assert subject.command == "soundeffect"
         assert subject.args == ["Mv0oYS-qMcQ", "update", "0:00", "0:01"]
+
+    def test_parsing_mixed_case_command(self):
+        raw_msg = [
+            ":beginbot!beginbot@beginbot.tmi.twitch.tv",
+            "PRIVMSG",
+            "#beginbot",
+            ":!Me",
+        ]
+        subject = IrcMsg(raw_msg)
+        assert subject.user == "beginbot"
+        assert subject.msg == "!Me"
+        assert subject.is_command()
+        assert subject.command == "me"
+        assert subject.args == []

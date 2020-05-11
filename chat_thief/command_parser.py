@@ -189,6 +189,7 @@ class CommandParser:
 
         if self.command in ["me"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
+
             user_permissions = " ".join(
                 [f"!{perm}" for perm in User(self.user).commands()]
             )

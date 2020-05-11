@@ -16,9 +16,7 @@ class IrcMsg:
     def _set_command(self) -> None:
         args = self.msg.split(" ")
         if self.is_command():
-            return args[0][1:]
-        else:
-            return None
+            return args[0][1:].lower()
 
     def _set_args(self) -> List[str]:
         args = self.msg.split(" ")
