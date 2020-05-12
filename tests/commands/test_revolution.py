@@ -136,7 +136,8 @@ class TestRevolution(DatabaseConfig):
         assert peace_keeper.name not in damn_command.users()
         assert revolutionary2.name in damn_command.users()
         assert revolutionary.name in another_one_command.users()
-        assert revolutionary.name not in listen_command.users()
+
+        assert revolutionary.name in listen_command.users()
         assert revolutionary2.name not in listen_command.users()
         assert fence_sitter.name not in clap_command.users()
 

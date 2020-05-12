@@ -6,21 +6,7 @@ from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.models.command import Command
 
 
-# 2 Paths for Coup:
-#   - Peace
-#       - Voted For Peace:
-#           - Get a cut of the revolutionaries, sounds and points
-#       - Voted for Revolution:
-#           -  You lose it all
-#   - Revolution
-#       - Voted For Peace:
-#           -  You lose it all
-#       - Voted for Revolution:
-#           - You will get a small selections of founds
-
-
 class Revolution:
-    # Where should I pass in the user?
     def __init__(self, revolutionary):
         self.revolutionary = revolutionary
         self.coup = Command("coup")
@@ -82,11 +68,16 @@ class Revolution:
         if tide == "revolution":
             power_users = revolutionaries
             weaklings = peace_keepers
+
             # We need to remove all Revolution permissionns before
             for revolutionary in revolutionaries:
                 print(User(revolutionary).remove_all_commands())
 
-            self._transfer_power(revolutionaries, peace_keepers, peace_keeper_sounds)
+            self._transfer_power(
+                revolutionaries,
+                peace_keepers,
+                peace_keeper_sounds + revolutionary_sounds,
+            )
             return [
                 f"Power Users: { ' '.join(power_users)}",
                 f"Weaklings: { ' '.join(weaklings)}",
