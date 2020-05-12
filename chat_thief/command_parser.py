@@ -61,20 +61,15 @@ HELP_COMMANDS = {
     "soundeffect": "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
 }
 
+# This is only used for aliases
+# so we might to respect that
+# and then build out the list
 COMMANDS = {
     "give": {
         "aliases": ["transfer", "give"],
         "help": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
     }
 }
-
-WARNING = "\033[93m"
-WARNING = "\033[92m"
-FAIL = "\033[91m"
-OK = "\033[92m"
-
-
-CLEAR = "\033[0m"
 
 
 class CommandParser:

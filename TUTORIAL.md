@@ -21,6 +21,7 @@ Mana replenishes regularlly.
 
 Street Cred are a currency earn from chatting (you don't get more, for chatting
 more), that you CAN ONLY GIVE AWAY. Give it away to other chatters you like, or
+
 use it for deals, your choice!
 
 Examples of Giving Away Street Cred:
