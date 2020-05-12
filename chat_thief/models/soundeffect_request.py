@@ -1,6 +1,6 @@
 from collections import Counter
-
 import traceback
+from datetime import datetime
 
 from tinydb import Query
 
@@ -39,7 +39,7 @@ class SoundeffectRequest(BaseModel):
             stat_dict[request["requester"]] = {
                 request.doc_id: {
                     "name": request["command"],
-                    "youtube": SoundeffectRequest.youtube_url(request),
+                    "youtube": SoundeffectRequest.format_clip(request),
                     "time": f"{request['start_time']} - {request['end_time']}",
                 }
             }
@@ -63,12 +63,24 @@ class SoundeffectRequest(BaseModel):
         ]
 
     @staticmethod
-    def youtube_url(request):
-        from datetime import datetime
+    def format_clip(request):
+        from chat_thief.utils.url_validator import is_valid_url
 
-        pt = datetime.strptime(request["start_time"], "%M:%S")
-        total_seconds = pt.second + pt.minute * 60
-        return f"https://youtu.be/{request['youtube_id']}?t={total_seconds}"
+        clip_id = request["youtube_id"]
+
+        if is_valid_url(clip_id):
+            if "youtu" in clip_id:
+                pt = datetime.strptime(request["start_time"], "%M:%S")
+                total_seconds = pt.second + pt.minute * 60
+                return f"{clip_id}?t={total_seconds}"
+
+            # Assuming Twitch
+            else:
+                return clip_id
+        else:
+            pt = datetime.strptime(request["start_time"], "%M:%S")
+            total_seconds = pt.second + pt.minute * 60
+            return f"https://youtu.be/{request['youtube_id']}?t={total_seconds}"
 
     @classmethod
     def pop_all_off(cls):
