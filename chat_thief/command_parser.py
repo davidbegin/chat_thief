@@ -41,9 +41,10 @@ from chat_thief.config.commands_config import OBS_COMMANDS
 
 
 BLACKLISTED_LOG_USERS = [
-    # "beginbotbot",
-    # "beginbot",
+    "beginbotbot",
+    "beginbot",
     "nightbot",
+    "disk_bot"
 ]
 
 HELP_COMMANDS = {
@@ -159,7 +160,7 @@ class CommandParser:
         if self.command == "streamgods":
             return " ".join(STREAM_GODS)
 
-        if self.command == "coup":
+        if self.command == "coup" and self.user == "beginbotbot":
             threshold = LaLibre.threshold()
             result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")
