@@ -63,7 +63,7 @@ HELP_COMMANDS = {
 
 COMMANDS = {
     "give": {
-        "aliases": ["transfer"],
+        "aliases": ["transfer", "give"],
         "help": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
     }
 }
@@ -444,7 +444,7 @@ class CommandParser:
                 parser.target_command = random.choice(User(self.user).commands(), 1)[0]
                 print(f"Choosing Random Command: {parser.target_command}")
 
-            if parser.target_command == "random":
+            if parser.target_user == "random":
                 command = Command(parser.target_command)
                 parser.target_user = find_random_user(
                     blacklisted_users=[command.users()]

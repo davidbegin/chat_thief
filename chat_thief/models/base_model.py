@@ -1,15 +1,12 @@
+from abc import ABC
+import abc
+
 from chat_thief.models.database import db_table
 
 from tinydb import Query
 
-# Default lookup
-# Vote, command
-# Issue: number
-# Primary ID
-# tr.update_callable(_update_that_value(), Query().name == self.name)
 
-
-class BaseModel:
+class BaseModel(ABC):
     database_folder = ""
 
     def _update_value(self, field, amount=1):
@@ -47,3 +44,8 @@ class BaseModel:
     @classmethod
     def purge(cls):
         return cls.db().purge()
+
+    # @abc.abstractmethod
+    # def doc(self):
+    #     """The dict representation of the model"""
+    #     return
