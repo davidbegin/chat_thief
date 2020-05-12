@@ -72,7 +72,18 @@ def drop_random_soundeffect_to_user(user):
 
 
 # This needs a stronger interface
-def drop_soundeffect(invoking_user, args=[]):
+def drop_soundeffect(invoking_user, target_user=None, target_command=None, amount=None):
+
+    # target_user, target_command
+    # target_command
+    # target_user
+    # amount
+    # target_user amount
+    # target_command amount
+
+    # all(target_command, target_command, amount)
+    # if target_user and target_command and amount
+
     if len(args) == 0:
         print(f"Dropping Sound Effect since we got no args")
         return drop_random_soundeffect_to_random_user()

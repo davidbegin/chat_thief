@@ -8,6 +8,7 @@ from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 
+from chat_thief.commands.airdrop import Airdrop
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.command_stealer import CommandStealer
@@ -40,12 +41,7 @@ from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.config.commands_config import OBS_COMMANDS
 
 
-BLACKLISTED_LOG_USERS = [
-    "beginbotbot",
-    "beginbot",
-    "nightbot",
-    "disk_bot"
-]
+BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot", "disk_bot"]
 
 HELP_COMMANDS = {
     "me": "Info about yourself",
@@ -462,8 +458,25 @@ class CommandParser:
         # -------------------
 
         # These Need Chat Parsers
+        # Username
+        # Command
+        # Amount
         if self.command == "dropeffect" and self.user in STREAM_GODS:
-            return drop_soundeffect(self.user, self.args)
+            parser = PropsParser(user=self.user, args=self.args).parse()
+            parser2 = PermsParser(user=self.user, args=self.args).parse()
+
+            return Airdrop(
+                target_user=parser.target_user,
+                target_command=parser2.target_command,
+                amount=parser.amount,
+            ).drop()
+
+            # return drop_soundeffect(
+            #     self.user,
+            #     target_user=parser.target_user,
+            #     target_command=parser.target_command,
+            #     amount=parser.amount
+            # )
 
         if self.command == "dropreward" and self.user in STREAM_GODS:
             return dropreward()
