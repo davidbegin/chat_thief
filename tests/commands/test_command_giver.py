@@ -36,3 +36,16 @@ class TestCommandGiver(DatabaseConfig):
 
         assert user.name not in command.users()
         assert friend.name not in command.users()
+
+    def test_giving_a_command_to_yourself(self):
+        user = User("Miles")
+        command = Command("damn")
+        command.allow_user(user.name)
+
+        assert user.name in command.users()
+
+        with pytest.raises(ValueError) as e:
+            subject = CommandGiver(
+                user=user.name, command=command.name, friend=user.name
+            )
+            subject.give()

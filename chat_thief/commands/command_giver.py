@@ -9,6 +9,9 @@ class CommandGiver:
         self.command = command
         self.friend = friend
 
+        if user == friend:
+            raise ValueError("You cannot transfer sounds to yourself")
+
     def give(self):
         if self.user in STREAM_GODS:
             return f"YOU'RE A STREAM GOD @{self.user} YOU DON'T NEED TO SWAP PERMS"

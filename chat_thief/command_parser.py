@@ -453,6 +453,7 @@ class CommandParser:
             ).steal()
 
         if self.command in COMMANDS["give"]["aliases"]:
+
             if parser.target_command == "random":
                 sfx_choices = random.choice(User(self.user).commands(), 1) - [self.user]
                 parser.target_command = sfx_choices[0]
@@ -461,7 +462,7 @@ class CommandParser:
             if parser.target_user == "random":
                 command = Command(parser.target_command)
                 parser.target_user = find_random_user(
-                    blacklisted_users=[command.users()]
+                    blacklisted_users=[command.users()] + [self.user]
                 )
 
             if parser.target_user is None:
