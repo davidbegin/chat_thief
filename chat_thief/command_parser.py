@@ -24,6 +24,7 @@ from chat_thief.economist.facts import Facts
 
 from chat_thief.models.command import Command
 from chat_thief.models.cube_bet import CubeBet
+from chat_thief.models.issue import Issue
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.soundeffect_request import SoundeffectRequest
@@ -54,6 +55,7 @@ HELP_COMMANDS = {
     "props": "!props @beginbot (AMOUNT_OF_STREET_CRED) - Give you street cred to beginbot",
     "perms": "!perms !clap OR !perms @beginbot - See who is allowed to use the !clap command",
     "donate": "!donate give away all your commands to random users",
+    "issue": "!issue Description of a Bug - A bug you found you want Beginbot to look at",
     "most_popular": "!most_popular - Shows the most coveted commands",
     "soundeffect": "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
 }
@@ -89,7 +91,6 @@ class CommandParser:
         success(f"\n{self.user}: {self.msg}")
 
         if self.user == "beginbotbot" and self.command == "whateveriwant":
-            # User('beginb')
             return User("beginbot").commands()
             # return Command("beginbot").allow_user("beginbot")
 
@@ -105,11 +106,26 @@ class CommandParser:
 
             return f"Thank you for your vote @{self.user}"
 
+        if self.command in ["issue", "bug"]:
+            msg = " ".join(self.args)
+            issue = Issue(user=self.user, msg=msg).save()
+            return f"Thank You @{self.user} for your feedback, we will review and get back to you shortly"
+
+        if self.command == "delete_issue" and self.user in STREAM_GODS:
+            parser = RequestApproverParser(user=self.user, args=self.args).parse()
+
+            if parser.doc_id:
+                Issue.delete(parser.doc_id)
+                return f"Issue: {parser.doc_id} Deleted "
+
+        if self.command == "issues" and self.user in STREAM_GODS:
+            return [
+                f"@{issue['user']} ID: {issue.doc_id} - {issue['msg']}"
+                for issue in Issue.all()
+            ]
+
         if self.command == "facts" and self.user in STREAM_GODS:
             return Facts().available_sounds()
-
-        # if self.command == "coup_cost" and self.user in STREAM_GODS:
-        #     return Command("coup").increase_cost(-3)
 
         if self.command == "richest":
             return " | ".join(

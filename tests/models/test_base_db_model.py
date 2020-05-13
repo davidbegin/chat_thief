@@ -17,7 +17,7 @@ class RealFakeClass(BaseDbModel):
     table_name = "fake_things"
 
     def doc(self):
-        return {}
+        return {"name": "thugga"}
 
 
 MODEL_CLASSES = [RealFakeClass]
@@ -41,3 +41,6 @@ class TestBaseDbModel(DatabaseConfig):
         subject = RealFakeClass()
         subject.save()
         assert RealFakeClass.count() == 1
+        assert isinstance(RealFakeClass.all(), list)
+        RealFakeClass.delete(1)
+        assert RealFakeClass.count() == 0

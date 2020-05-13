@@ -9,8 +9,16 @@ class BaseDbModel(abc.ABC):
     database_folder = ""
 
     @classmethod
+    def delete(cls, doc_id):
+        return cls.db().remove(doc_ids=[doc_id])
+
+    @classmethod
     def count(cls):
-        return len(cls.db().all())
+        return len(cls.all())
+
+    @classmethod
+    def all(cls):
+        return cls.db().all()
 
     @classmethod
     def db(cls):

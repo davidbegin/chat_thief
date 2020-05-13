@@ -1,9 +1,9 @@
-from chat_thief.models.base_model import BaseModel
+from chat_thief.models.base_db_model import BaseDbModel
 
 
 # Base Model, should throw error if you don't
 # Make this an ABV
-class Issue(BaseModel):
+class Issue(BaseDbModel):
     table_name = "issues"
     database_path = "db/issues.json"
 
