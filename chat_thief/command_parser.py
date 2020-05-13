@@ -41,7 +41,7 @@ from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.config.commands_config import OBS_COMMANDS
 
 
-BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot", "disk_bot"]
+BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot"]
 
 HELP_COMMANDS = {
     "me": "Info about yourself",
@@ -87,6 +87,11 @@ class CommandParser:
             WelcomeCommittee().welcome_new_users(self.user)
 
         success(f"\n{self.user}: {self.msg}")
+
+        if self.user == "beginbotbot" and self.command == "whateveriwant":
+            # User('beginb')
+            return User("beginbot").commands()
+            # return Command("beginbot").allow_user("beginbot")
 
         return self._process_command()
 
@@ -433,7 +438,8 @@ class CommandParser:
 
         if self.command in COMMANDS["give"]["aliases"]:
             if parser.target_command == "random":
-                parser.target_command = random.choice(User(self.user).commands(), 1)[0]
+                sfx_choices = random.choice(User(self.user).commands(), 1) - [self.user]
+                parser.target_command = sfx_choices[0]
                 print(f"Choosing Random Command: {parser.target_command}")
 
             if parser.target_user == "random":

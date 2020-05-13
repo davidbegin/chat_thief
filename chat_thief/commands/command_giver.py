@@ -22,10 +22,3 @@ class CommandGiver:
             return [allow_msg, command.unallow_user(self.user)]
 
         return f"@{self.user} does not have permission to give: !{self.command}"
-
-    def swap_perm(self):
-        print(f"Transferring !{self.command} from @{self.user} to @{self.friend}")
-        command = Command(self.command)
-        allow_result = command.allow_user(self.friend)
-        unallow_result = command.unallow_user(self.user)
-        return allow_result + " " + unallow_result

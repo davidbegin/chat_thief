@@ -33,7 +33,6 @@ class TestBaseDbModel(DatabaseConfig):
         yield
 
     def test_class_without_doc(self):
-
         with pytest.raises(TypeError) as err_info:
             subject = FakeClass()
 
