@@ -91,12 +91,18 @@ class CommandParser:
         success(f"\n{self.user}: {self.msg}")
 
         if self.user == "beginbotbot" and self.command == "whateveriwant":
-            return User("beginbot").commands()
+            return Command("coup").save()
+            # return "HELP"
+            # return User("beginbot").commands()
             # return Command("beginbot").allow_user("beginbot")
 
         return self._process_command()
 
     def _process_command(self):
+        if self.command == "cool" and self.user == "beginbotbot":
+            # # Works like a charm
+            os.system("scene breakin")
+
         if self.command in ["peace", "revolution", "vote"]:
             if self.command == "vote":
                 vote = self.args[0]
@@ -177,7 +183,7 @@ class CommandParser:
         if self.command == "streamgods":
             return " ".join(STREAM_GODS)
 
-        if self.command == "coup":
+        if self.command == "coup" and self.user == "beginbotbot":
             threshold = LaLibre.threshold()
             result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")
@@ -344,8 +350,10 @@ class CommandParser:
             else:
                 print(f"Not Sure who or what to silence: {self.args}")
 
+        # This only works for soundeffects
         if self.command in ["permissions", "permission", "perms", "perm"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
+
             if (
                 len(self.args) > 0
                 and not parser.target_command
@@ -507,6 +515,8 @@ class CommandParser:
         # ------------------
         # OBS or Soundeffect
         # ------------------
+
+        # We could have a scene here easily
 
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")

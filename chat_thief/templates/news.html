@@ -1,0 +1,23 @@
+<!doctype html> <title>Beginland</title>
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <meta http-equiv="refresh" content="5">
+</head>
+
+<h1>Breaking News</h1>
+
+How do we show Revolution or not
+
+<!-- 🤠 Street Cred: {{ facts.street_cred }} | -->
+<!-- 😎 Cool Points: {{ facts.cool_points }} | -->
+<!-- Found 🔊  : {{ facts.available_sounds }} / {{ facts.total_sounds }} | -->
+
+{% for user, sfx_count in facts.top_users %}
+
+  @{{ user }} : {{ sfx_count }} 🔊 |
+{% endfor %}
+
+{% for effect in facts.most_popular %}
+  !{{ effect }} 💸 |
+{% endfor %}
