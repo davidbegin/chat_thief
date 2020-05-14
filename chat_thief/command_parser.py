@@ -95,7 +95,8 @@ class CommandParser:
             return BreakingNews.purge()
 
         if self.user == "beginbotbot" and self.command == "whateveriwant":
-            return BreakingNews("Kappa's detractors have started a riot").save()
+            return Command("mariodead").increase_cost(100)
+            # return BreakingNews("Kappa's detractors have started a riot").save()
             # return "HELP"
             # return User("beginbot").commands()
             # return Command("beginbot").allow_user("beginbot")

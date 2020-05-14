@@ -26,6 +26,12 @@ class Command(BaseModel):
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
     @classmethod
+    def most_expensive(cls):
+        cmds = cls.db().all()
+        if cmds:
+            return sorted(cmds, key=lambda cmd: cmd['cost'])[-1]
+
+    @classmethod
     def find_or_create(cls, name):
         found_command = cls.db().get(Query().name == name)
 

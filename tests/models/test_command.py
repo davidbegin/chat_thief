@@ -70,5 +70,17 @@ class TestCommand(DatabaseConfig):
         subject.revive()
         assert subject.health() == 5
 
-    def test_users_owning_commands(self):
-        pass
+    def test_most_expensive_command(self):
+        assert not Command.most_expensive()
+        damn_cmd = Command("damn")
+        damn_cmd.save()
+
+        chain_cmd = Command("mchdtmd")
+        chain_cmd.save()
+        chain_cmd.increase_cost(20)
+
+        win_cmd = Command("win")
+        win_cmd.save()
+        win_cmd.increase_cost(10)
+        assert Command.most_expensive()["name"] == "mchdtmd"
+

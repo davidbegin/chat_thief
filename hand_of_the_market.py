@@ -19,9 +19,9 @@ BLACKLIST = []
 def sync_main():
     while True:
         try:
-            news = BreakingNews.last()
-            if news:
-                os.system("scene breakin")
+            # news = BreakingNews.last()
+            # if news:
+            #     os.system("scene breakin")
 
             peasants = ChatLogs().recent_stream_peasants()
             result = drop_random_soundeffect_to_user(random.sample(peasants, 1)[0])
