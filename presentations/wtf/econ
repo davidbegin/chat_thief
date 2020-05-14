@@ -126,6 +126,21 @@ Mana  is replensihed automatically at regular intervals
 !love
 !hate
 
+!love @user
+You can make one user your Ride or Die.
+This means that they will get one more Mana per Mana Drop.
+
+If you don't like a sound
+You can !hate INSERT_SOUND
+
+or if you like a sound you can
+!like
+or
+!love INSERT_SOUND
+
+If the sound love ratio dips below 50%
+than the sound is no longer playable
+
 📊  Exploring the Economy:
 - !perms command
 - !perms @viewer
