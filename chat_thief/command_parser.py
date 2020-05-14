@@ -124,7 +124,7 @@ class CommandParser:
                 Issue.delete(parser.doc_id)
                 return f"Issue: {parser.doc_id} Deleted "
 
-        if self.command == "issues" and self.user in STREAM_GODS:
+        if self.command == "issues":
             return [
                 f"@{issue['user']} ID: {issue.doc_id} - {issue['msg']}"
                 for issue in Issue.all()
