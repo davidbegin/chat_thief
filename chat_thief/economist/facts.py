@@ -9,9 +9,13 @@ from chat_thief.models.user import User
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.vote import Vote
 from chat_thief.models.command import Command
+from chat_thief.models.breaking_news import BreakingNews
 
 
 class Facts:
+    def breaking_news(self):
+        return BreakingNews.last()
+
     def most_popular(self):
         return Command.most_popular()
 

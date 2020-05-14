@@ -39,8 +39,10 @@ class TestBaseDbModel(DatabaseConfig):
     def test_working_class(self):
         assert RealFakeClass.count() == 0
         subject = RealFakeClass()
+        assert not RealFakeClass.last()
         subject.save()
         assert RealFakeClass.count() == 1
         assert isinstance(RealFakeClass.all(), list)
+        assert RealFakeClass.last()
         RealFakeClass.delete(1)
         assert RealFakeClass.count() == 0

@@ -21,6 +21,12 @@ class BaseDbModel(abc.ABC):
         return cls.db().all()
 
     @classmethod
+    def last(cls):
+        # How do I grab the last with Tiny DB
+        if cls.all():
+            return cls.all()[-1]
+
+    @classmethod
     def db(cls):
         return db_table(cls.database_folder + cls.database_path, cls.table_name)
 

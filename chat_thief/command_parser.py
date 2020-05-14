@@ -22,6 +22,7 @@ from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.economist.facts import Facts
 
+from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.command import Command
 from chat_thief.models.cube_bet import CubeBet
 from chat_thief.models.issue import Issue
@@ -90,8 +91,11 @@ class CommandParser:
 
         success(f"\n{self.user}: {self.msg}")
 
+        if self.command == "no_news" and self.user in ["beginbot", "beginbotbot"]:
+            return BreakingNews.purge()
+
         if self.user == "beginbotbot" and self.command == "whateveriwant":
-            return Command("coup").save()
+            return BreakingNews("Kappa's detractors have started a riot").save()
             # return "HELP"
             # return User("beginbot").commands()
             # return Command("beginbot").allow_user("beginbot")
