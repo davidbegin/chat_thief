@@ -4,6 +4,7 @@ from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.models.command import Command
+from chat_thief.models.breaking_news import BreakingNews
 
 
 class Revolution:
@@ -17,6 +18,8 @@ class Revolution:
         print(f"Cool Points: {user.cool_points()} | Coup Cost: {self.coup.cost()}")
 
         if user.cool_points() >= self.coup.cost():
+            BreakingNews(f"@{self.revolutionary} triggered a {tide} coup").save()
+
             print("WE HAVE ENOUGH FOR A REVOLUTION")
             user.update_cool_points(-self.coup.cost())
             self.coup.increase_cost(self.coup.cost() * 2)

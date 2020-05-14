@@ -26,6 +26,8 @@ def sync_main():
                 last_most_expensive = Command.most_expensive()
                 BreakingNews(f"New Most Expensive Command: {last_most_expensive}").save()
                 os.system("scene breakin")
+            elif BreakingNews.last():
+                os.system("scene breakin")
 
             # send_twitch_msg(result)
 
