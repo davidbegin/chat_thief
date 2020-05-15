@@ -17,9 +17,10 @@ class Revolution:
 
         print(f"Cool Points: {user.cool_points()} | Coup Cost: {self.coup.cost()}")
 
-        if user.cool_points() >= self.coup.cost():
-            BreakingNews(f"@{self.revolutionary} triggered a {tide} coup").save()
-
+        if (
+            user.cool_points() >= self.coup.cost()
+            or self.revolutionary == "beginbotbot"
+        ):
             print("WE HAVE ENOUGH FOR A REVOLUTION")
             user.update_cool_points(-self.coup.cost())
             self.coup.increase_cost(self.coup.cost() * 2)
@@ -61,10 +62,20 @@ class Revolution:
         print(f"Peace Keepers: {peace_keepers}")
         print(f"Sounds: {peace_keeper_sounds}\n")
 
+        BreakingNews(
+            user=self.revolutionary,
+            scope=f"@{self.revolutionary} triggered a {tide} coup",
+            category=tide,
+            revolutionaries=revolutionaries,
+            peace_keepers=peace_keepers,
+            fence_sitters=fence_sitters,
+        ).save()
+
         if tide == "peace":
             power_users = peace_keepers
             weaklings = revolutionaries
             self._transfer_power(peace_keepers, revolutionaries, revolutionary_sounds)
+
             return [
                 f"Power Users: { ' '.join(power_users)}",
                 f"Weaklings: { ' '.join(weaklings)}",

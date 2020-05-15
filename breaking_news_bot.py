@@ -58,7 +58,7 @@ def sync_main():
 
                 os.system("scene breakin")
 
-            elif new_most_cool_points['name'] != last_richest_cool_points['name']:
+            elif new_most_cool_points["name"] != last_richest_cool_points["name"]:
                 last_richest_cool_points = new_most_cool_points
 
                 BreakingNews(
@@ -67,8 +67,6 @@ def sync_main():
                 ).save()
 
                 os.system("scene breakin")
-
-
 
             time.sleep(30)
             # time.sleep(300)

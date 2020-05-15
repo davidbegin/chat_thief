@@ -19,10 +19,22 @@ def facts(name=None):
         facts = Facts()
         breaking_news = facts.breaking_news()
 
+        category = None
+        if "category" in breaking_news:
+            category = breaking_news["category"]
+
         stats = None
         if "user" in breaking_news:
             user = User(breaking_news["user"])
             stats = user.stats()
 
-        return render_template("news.html", stats=stats, scope=breaking_news["scope"])
+        return render_template(
+            "news.html",
+            category=category,
+            stats=stats,
+            scope=breaking_news["scope"],
+            revolutionaries=breaking_news["revolutionaries"],
+            peace_keepers=breaking_news["peace_keepers"],
+            fence_sitters=breaking_news["fence_sitters"],
+        )
         time.sleep(1)

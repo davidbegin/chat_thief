@@ -20,3 +20,16 @@ class TestBreakingNews(DatabaseConfig):
         )
 
         assert subject._user == "coltrane"
+
+    def test_breaking_news_with_category(self):
+        subject = BreakingNews(
+            scope="Cool Points are now the most valuable currency in the world!",
+            user="coltrane",
+            category="coup",
+        )
+        subject.save()
+
+        news = BreakingNews.all()[-1]
+
+        assert news["user"] == "coltrane"
+        assert news["category"] == "coup"

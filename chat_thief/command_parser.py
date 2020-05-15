@@ -193,7 +193,8 @@ class CommandParser:
         if self.command == "streamgods":
             return " ".join(STREAM_GODS)
 
-        if self.command == "coup" and self.user == "beginbotbot":
+        # if self.command == "coup" and self.user == "beginbotbot":
+        if self.command == "coup":
             threshold = LaLibre.threshold()
             result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")
