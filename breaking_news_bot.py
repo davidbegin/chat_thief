@@ -38,17 +38,22 @@ def sync_main():
 
         try:
             # How do we know it's a revolution???
+
             if Command.most_expensive()["name"] != last_most_expensive["name"]:
                 last_most_expensive = Command.most_expensive()
                 BreakingNews(
                     f"New Most Expensive Command: {last_most_expensive}"
                 ).save()
                 os.system("scene breakin")
+
             elif User.richest_street_cred()["name"] != last_richest_street_cred["name"]:
                 last_richest_street_cred = User.richest_street_cred()
+
                 BreakingNews(
-                    f"New Richest in Street User: {last_richest_street_cred['name']}"
+                    scope=f"New Richest in Street User: {last_richest_street_cred['name']}",
+                    user=last_richest_street_cred["name"],
                 ).save()
+
                 os.system("scene breakin")
 
             time.sleep(300)

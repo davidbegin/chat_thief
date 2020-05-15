@@ -7,4 +7,14 @@
 
 <h1>Breaking News</h1>
 
-{{ facts.breaking_news()["scope"] }}
+<div>
+  {{ scope }}
+</div>
+
+<br />
+
+{% if stats %}
+  <div>
+  {{ stats }}
+  <div>
+{% endif %}
