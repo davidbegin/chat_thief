@@ -51,7 +51,7 @@ def sync_main():
                 ).save()
                 os.system("scene breakin")
 
-            time.sleep(3)
+            time.sleep(300)
         except Exception as e:
             time.sleep(30)
             # https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt

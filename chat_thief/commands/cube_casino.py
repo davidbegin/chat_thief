@@ -13,7 +13,7 @@ class CubeCasino:
     def __init__(self, solve_time):
         self._solve_time = solve_time
 
-        if self._is_stopwatch_running():
+        if CubeCasino.is_stopwatch_running():
             raise Exception("YOU CAN'T BET WHILE THE BEGIN IS SOLVING")
 
     def gamble(self):
@@ -55,7 +55,8 @@ class CubeCasino:
                 send_twitch_msg(drop_random_soundeffect_to_user(winner))
         return msg
 
-    def _is_stopwatch_running(self):
+    @staticmethod
+    def is_stopwatch_running():
         if "TEST_MODE" in os.environ:
             return False
 

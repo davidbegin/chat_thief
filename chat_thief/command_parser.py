@@ -95,6 +95,7 @@ class CommandParser:
             return BreakingNews.purge()
 
         if self.user == "beginbotbot" and self.command == "whateveriwant":
+            CubeCasino(108)._is_stopwatch_running()
             return Command("mariodead").increase_cost(100)
             # return BreakingNews("Kappa's detractors have started a riot").save()
             # return "HELP"
@@ -166,6 +167,7 @@ class CommandParser:
             return " | ".join([f"@{bet[0]}: {bet[1]}" for bet in CubeBet.all_bets()])
 
         if self.command == "bet":
+            CubeCasino.is_stopwatch_running()
             parser = PropsParser(user=self.user, args=self.args).parse()
             result = CubeBet(name=self.user, duration=parser.amount).save()
             return f"Thank you for your bet: @{result['name']}: {result['duration']}s"
