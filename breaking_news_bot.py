@@ -38,6 +38,7 @@ def sync_main():
 
         new_most_street_cred = User.richest_street_cred()
         new_most_cool_points = User.richest_cool_points()
+        new_most_expensive_command = Command.most_expensive()
 
         try:
             # How do we know it's a revolution???
@@ -51,13 +52,14 @@ def sync_main():
                     os.system("scene breakin")
                     in_coup = True
 
-            elif Command.most_expensive()["name"] != last_most_expensive["name"]:
-                last_most_expensive = Command.most_expensive()
-                BreakingNews(
-                    f"New Most Expensive Command: {last_most_expensive}"
-                ).save()
-                os.system("scene breakin")
+            elif new_most_expensive_command["name"] != last_most_expensive["name"]:
+                last_most_expensive = new_most_expensive_command
 
+                BreakingNews(
+                    f"New Most Expensive Command: {new_most_expensive_command['name']} - 💸 {new_most_expensive_command['cost']}"
+                ).save()
+
+                os.system("scene breakin")
             elif new_most_street_cred["name"] != last_richest_street_cred["name"]:
                 last_richest_street_cred = new_most_street_cred
 

@@ -25,8 +25,9 @@ def facts(name=None):
 
         stats = None
         if "user" in breaking_news:
-            user = User(breaking_news["user"])
-            stats = user.stats()
+            if breaking_news["user"]:
+                user = User(breaking_news["user"])
+                stats = user.stats()
 
         revolutionaries = None
         if "revolutionaries" in breaking_news:
