@@ -28,13 +28,25 @@ def facts(name=None):
             user = User(breaking_news["user"])
             stats = user.stats()
 
+        revolutionaries = None
+        if "revolutionaries" in breaking_news:
+            revolutionaries = breaking_news["revolutionaries"]
+
+        peace_keepers = None
+        if "peace_keepers" in breaking_news:
+            peace_keepers = breaking_news["peace_keepers"]
+
+        fence_sitters = None
+        if "fence_sitters" in breaking_news:
+            fence_sitters = breaking_news["fence_sitters"]
+
         return render_template(
             "news.html",
             category=category,
             stats=stats,
             scope=breaking_news["scope"],
-            revolutionaries=breaking_news["revolutionaries"],
-            peace_keepers=breaking_news["peace_keepers"],
-            fence_sitters=breaking_news["fence_sitters"],
+            revolutionaries=revolutionaries,
+            peace_keepers=peace_keepers,
+            fence_sitters=fence_sitters,
         )
         time.sleep(1)

@@ -20,6 +20,7 @@ BLACKLIST = []
 def sync_main():
     os.system("clear")
 
+    in_coup = False
     last_most_expensive = Command.most_expensive()
     last_richest_street_cred = User.richest_street_cred()
     last_richest_cool_points = User.richest_cool_points()
@@ -40,8 +41,17 @@ def sync_main():
 
         try:
             # How do we know it's a revolution???
+            last_news_story = BreakingNews.last()
 
-            if Command.most_expensive()["name"] != last_most_expensive["name"]:
+            if last_news_story:
+                if (
+                    last_news_story["category"] in ["peace", "revolution"]
+                    and not in_coup
+                ):
+                    os.system("scene breakin")
+                    in_coup = True
+
+            elif Command.most_expensive()["name"] != last_most_expensive["name"]:
                 last_most_expensive = Command.most_expensive()
                 BreakingNews(
                     f"New Most Expensive Command: {last_most_expensive}"
