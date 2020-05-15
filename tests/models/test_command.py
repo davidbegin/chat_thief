@@ -83,4 +83,3 @@ class TestCommand(DatabaseConfig):
         win_cmd.save()
         win_cmd.increase_cost(10)
         assert Command.most_expensive()["name"] == "mchdtmd"
-

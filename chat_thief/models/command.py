@@ -29,7 +29,7 @@ class Command(BaseModel):
     def most_expensive(cls):
         cmds = cls.db().all()
         if cmds:
-            return sorted(cmds, key=lambda cmd: cmd['cost'])[-1]
+            return sorted(cmds, key=lambda cmd: cmd["cost"])[-1]
 
     @classmethod
     def find_or_create(cls, name):

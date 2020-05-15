@@ -30,6 +30,16 @@ class User(BaseModel):
         users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
         return sorted(users, key=lambda user: user[1])
 
+    @classmethod
+    def richest_street_cred(cls):
+        users = [user for user in cls.db().all()]
+        return sorted(users, key=lambda user: user["street_cred"])[-1]
+
+    @classmethod
+    def richest_cool_points(cls):
+        users = [user for user in cls.db().all()]
+        return sorted(users, key=lambda user: user["cool_points"])[-1]
+
     # ====================================================================
 
     # We should set self.user here
