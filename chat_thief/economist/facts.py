@@ -31,8 +31,7 @@ class Facts:
         return Vote.count()
 
     def available_sounds(self):
-        # We need a different number here
-        return Command.count()
+        return len(Command.available_sounds())
 
     def unavailable_sounds(self):
         total_sfx = len(SoundeffectsLibrary.soundeffects_only())
