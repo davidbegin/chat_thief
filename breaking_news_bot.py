@@ -34,7 +34,9 @@ def sync_main():
         print(
             f"Most Cool Points      : @{last_richest_cool_points['name']} - {last_richest_cool_points['cool_points']}"
         )
-        # print(f"{last_richest_cool_points=}")
+
+        new_most_street_cred = User.richest_street_cred()
+        new_most_cool_points = User.richest_cool_points()
 
         try:
             # How do we know it's a revolution???
@@ -46,17 +48,30 @@ def sync_main():
                 ).save()
                 os.system("scene breakin")
 
-            elif User.richest_street_cred()["name"] != last_richest_street_cred["name"]:
-                last_richest_street_cred = User.richest_street_cred()
+            elif new_most_street_cred["name"] != last_richest_street_cred["name"]:
+                last_richest_street_cred = new_most_street_cred
 
                 BreakingNews(
-                    scope=f"New Richest in Street User: {last_richest_street_cred['name']}",
-                    user=last_richest_street_cred["name"],
+                    scope=f"New Richest in Street User: {new_most_street_cred['name']}",
+                    user=new_most_street_cred["name"],
                 ).save()
 
                 os.system("scene breakin")
 
-            time.sleep(300)
+            elif new_most_cool_points['name'] != last_richest_cool_points['name']:
+                last_richest_cool_points = new_most_cool_points
+
+                BreakingNews(
+                    scope=f"New Richest in Cool Points: {new_most_cool_points['name']}",
+                    user=new_most_cool_points["name"],
+                ).save()
+
+                os.system("scene breakin")
+
+
+
+            time.sleep(30)
+            # time.sleep(300)
         except Exception as e:
             time.sleep(30)
             # https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt

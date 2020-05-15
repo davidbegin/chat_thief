@@ -95,11 +95,12 @@ class CommandParser:
             return BreakingNews.purge()
 
         if self.user == "beginbotbot" and self.command == "whateveriwant":
+            return User("harrisandwich").update_street_cred(10)
             # CubeCasino(108)._is_stopwatch_running()
             # return Command("mariodead").increase_cost(100)
-            return BreakingNews(
-                scope="Kappa's detractors have started a riot", user="ogjake"
-            ).save()
+            # return BreakingNews(
+            #     scope="Kappa's detractors have started a riot", user="ogjake"
+            # ).save()
             # return "HELP"
             # return User("beginbot").commands()
             # return Command("beginbot").allow_user("beginbot")
