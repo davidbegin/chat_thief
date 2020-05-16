@@ -8,6 +8,6 @@ class CommandBuyer:
 
     def buy(self):
         if self.target_sfx == "random":
-            self.target_sfx = self.user._find_affordable_random_command()
+            self.target_sfx = self.user._find_affordable_random_command().name
 
         return self.user.buy(self.target_sfx)
