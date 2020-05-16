@@ -98,14 +98,6 @@ class CommandParser:
             return BreakingNews.purge()
 
         if self.user == "beginbotbot" and self.command == "whateveriwant":
-            # return User("harrisandwich").update_street_cred(10)
-            # CubeCasino(108)._is_stopwatch_running()
-            # return Command("mariodead").increase_cost(100)
-            # return BreakingNews(
-            #     scope="Kappa's detractors have started a riot", user="ogjake"
-            # ).save()
-            # return "HELP"
-            # return User("beginbot").commands()
             return Command("damn").increase_cost(300)
 
         return self._process_command()
@@ -431,29 +423,16 @@ class CommandParser:
         # --------------
 
         if self.command in ["buy"]:
-            parser = PermsParser(
-                user=self.user, args=self.args, random_command=True, perm_type="buy"
+            from chat_thief.chat_parsers.command_parser import (
+                CommandParser as ParseTime,
+            )
+            from chat_thief.commands.command_buyer import CommandBuyer
+
+            parser = ParseTime(
+                user=self.user, args=self.args, allow_random_sfx=True
             ).parse()
 
-            # So here we need to handle random
-            if parser.target_command:
-                command = parser.target_command
-            else:
-                command = "random"
-
-            if len(self.args) > 1:
-                results = []
-                for _ in range(0, int(self.args[1])):
-                    command = "random"
-                    results.append(User(self.user).buy(command))
-                return f"@{self.user}" + " ".join(
-                    [
-                        "!" + command[len("@{self.user} purchased:") :]
-                        for command in results
-                    ]
-                )
-            else:
-                return User(self.user).buy(command)
+            return CommandBuyer(user=self.user, target_sfx=parser.target_sfx).buy()
 
         # ------------------------------
         # Random Command and Random User
@@ -502,10 +481,6 @@ class CommandParser:
         # Stream God Commands
         # -------------------
 
-        # These Need Chat Parsers
-        # Username
-        # Command
-        # Amount
         if self.command == "dropeffect" and self.user in STREAM_GODS:
             parser = PropsParser(user=self.user, args=self.args).parse()
             parser2 = PermsParser(user=self.user, args=self.args).parse()
@@ -516,21 +491,12 @@ class CommandParser:
                 amount=parser.amount,
             ).drop()
 
-            # return drop_soundeffect(
-            #     self.user,
-            #     target_user=parser.target_user,
-            #     target_command=parser.target_command,
-            #     amount=parser.amount
-            # )
-
         if self.command == "dropreward" and self.user in STREAM_GODS:
             return dropreward()
 
         # ------------------
         # OBS or Soundeffect
         # ------------------
-
-        # We could have a scene here easily
 
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")

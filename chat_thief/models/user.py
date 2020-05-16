@@ -87,7 +87,11 @@ class User(BaseModel):
         self.update_cool_points(amount)
         return f"{self.name} has been Papered Up"
 
+    # This also might need a quick exit
     def _find_affordable_random_command(self):
+        if self.cool_points() < 1:
+            raise ValueError("You can't afford anything!")
+
         looking_for_effect = True
 
         while looking_for_effect:
@@ -102,34 +106,23 @@ class User(BaseModel):
         return command
 
     def buy(self, effect):
-        if (
-            effect != "random"
-            and effect not in SoundeffectsLibrary.fetch_soundeffect_names()
-        ):
+        if effect not in SoundeffectsLibrary.fetch_soundeffect_names():
             raise ValueError(f"Invalid Effect: {effect}")
 
-        if self.cool_points() > 0:
-            if effect == "random":
-                command = self._find_affordable_random_command()
-                self.update_cool_points(-command.cost())
-                command.allow_user(self.name)
-                command.increase_cost()
-                return f"@{self.name} purchased: {command.name}"
-            else:
-                if Command(effect).allowed_to_play(self.name):
-                    return f"@{self.name} already has access to !{effect}"
-                else:
-                    command = Command(effect)
+        if Command(effect).allowed_to_play(self.name):
+            return f"@{self.name} already has access to !{effect}"
 
-                    if self.cool_points() >= command.cost():
-                        self.update_cool_points(-command.cost())
-                        command.allow_user(self.name)
-                        command.increase_cost()
-                        return f"@{self.name} bought !{effect}"
-                    else:
-                        return f"@{self.name} IS TOO BROKE TO AFFORD !{effect}"
+        current_cool_points = self.cool_points()
+        command = Command(effect)
+        command_cost = command.cost()
+
+        if current_cool_points >= command_cost:
+            self.update_cool_points(command_cost)
+            command.allow_user(self.name)
+            command.increase_cost()
+            return f"@{self.name} bought !{effect}"
         else:
-            return f"@{self.name} - Out of Cool Points to Purchase with"
+            return f"@{self.name} not enough Cool Points to buy !{effect} - {current_cool_points}/{command_cost}"
 
     # This is initial doc
     def doc(self):
