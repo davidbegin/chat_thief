@@ -435,6 +435,7 @@ class CommandParser:
                 user=self.user, args=self.args, random_command=True, perm_type="buy"
             ).parse()
 
+            # So here we need to handle random
             if parser.target_command:
                 command = parser.target_command
             else:
