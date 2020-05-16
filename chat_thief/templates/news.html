@@ -8,23 +8,24 @@
 <h1>Breaking News</h1>
 
 <div>
-  {{ scope }}
+  <center>{{ scope }}</center>
 </div>
 
-<br />
 
 {% if stats %}
+  <br />
   <div>
-  {{ stats }}
-  <hr />
+    <center>
+      {{ stats }}
+    </center>
   </div>
 {% endif %}
 
 
 {% if category == "peace" %}
+  <hr />
   <h3>Revolutionaries:</h3>
   ALL REVOLUTIONARIES LOST THEIR SOUNDS AND ARE BANKRUPT
-  <br />
   <br />
   {{ ' '.join(revolutionaries) }}h
 
@@ -33,22 +34,18 @@
   <h3>Peace Keepers:</h3>
   PEACE KEEPERS INHERITED ALL THE REVOLUTIONARIES SOUNDS
   <br />
-  <br />
   {{ ' '.join(peace_keepers) }}
-
-  <!-- <br /> -->
-  <!-- <h3>Fence Sitters:</h3> {{ ' '.join(fence_sitters) }} -->
 
 {% endif %}
 
-{% if category == "revolution" %}
-  <div>
-  </div>
 
+
+
+{% if category == "revolution" %}
+  <hr />
   <h3>Revolutionaries:</h3>
   Revolutionaries have had their sound seized and are gettting
   an even amount with other revolutionaries
-  <br />
   <br />
   <div>
     {{ ' '.join(revolutionaries) }}
@@ -58,7 +55,6 @@
 
   <h3>Peace Keepers:</h3>
   Peace Keepers have had their sounds seized and redistributed
-  <br />
   <br />
   <div>
     {{ ' '.join(peace_keepers) }}
