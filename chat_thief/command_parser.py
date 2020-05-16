@@ -58,7 +58,9 @@ HELP_COMMANDS = {
     "donate": "!donate give away all your commands to random users",
     "issue": "!issue Description of a Bug - A bug you found you want Beginbot to look at",
     "most_popular": "!most_popular - Shows the most coveted commands",
+    "coup": "trigger either a revolution or a crushing or the rebellion based on !vote - if you don't have enough Cool Points to afford to trigger a coup, you will be stripped of all your Street Cred and Cool Points",
     "soundeffect": "!soundeffect YOUTUBE-ID YOUR_USERNAME 00:01 00:05 - Must be less than 5 second",
+    "vote": "!vote (peace|revolution) - Where you stand when a coup happens.  Should all sounds be redistributed, or should the trouble makes lose their sounds and the rich get richer",
 }
 
 # This is only used for aliases
@@ -67,13 +69,16 @@ HELP_COMMANDS = {
 COMMANDS = {
     "give": {
         "aliases": ["transfer", "give"],
-        "help": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
+        # "help": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
     }
 }
 
 
 class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
+        print("=========================")
+        print(irc_msg)
+        print("=========================")
         self._logger = logger
         self.irc_msg = IrcMsg(irc_msg)
         self.user = self.irc_msg.user
@@ -122,9 +127,12 @@ class CommandParser:
             return f"Thank you for your vote @{self.user}"
 
         if self.command in ["issue", "bug"]:
-            msg = " ".join(self.args)
-            issue = Issue(user=self.user, msg=msg).save()
-            return f"Thank You @{self.user} for your feedback, we will review and get back to you shortly"
+            if self.args:
+                msg = " ".join(self.args)
+                issue = Issue(user=self.user, msg=msg).save()
+                return f"Thank You @{self.user} for your feedback, we will review and get back to you shortly"
+            # Should we add a error msg?
+            # I say no right now, to reduce spam
 
         if self.command == "delete_issue" and self.user in STREAM_GODS:
             parser = RequestApproverParser(user=self.user, args=self.args).parse()

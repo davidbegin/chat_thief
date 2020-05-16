@@ -19,14 +19,11 @@ class PlaySoundeffectRequest(BaseModel):
 
     def save(self):
         if self._is_valid_json():
-            print(f"\tSaving SFX Request for @{self.user} !{self.command}")
-
             from tinyrecord import transaction
 
             with transaction(self.play_sfx_db) as tr:
                 tr.insert(self.doc())
             return self.doc()
-
         else:
             return f"There was an issue with {self.doc()}"
 
