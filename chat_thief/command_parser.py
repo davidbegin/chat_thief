@@ -76,9 +76,6 @@ COMMANDS = {
 
 class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
-        print("=========================")
-        print(irc_msg)
-        print("=========================")
         self._logger = logger
         self.irc_msg = IrcMsg(irc_msg)
         self.user = self.irc_msg.user
@@ -87,6 +84,7 @@ class CommandParser:
         self.args = self.irc_msg.args
 
     def build_response(self) -> Optional[str]:
+        # TODO: Ban from executing commands
         if self.user == "nightbot":
             return
 
@@ -113,10 +111,6 @@ class CommandParser:
         return self._process_command()
 
     def _process_command(self):
-        if self.command == "cool" and self.user == "beginbotbot":
-            # # Works like a charm
-            os.system("scene breakin")
-
         if self.command in ["peace", "revolution", "vote"]:
             if self.command == "vote":
                 vote = self.args[0]
@@ -131,8 +125,8 @@ class CommandParser:
                 msg = " ".join(self.args)
                 issue = Issue(user=self.user, msg=msg).save()
                 return f"Thank You @{self.user} for your feedback, we will review and get back to you shortly"
-            # Should we add a error msg?
-            # I say no right now, to reduce spam
+            else:
+                return f"@{self.user} Must include a description of the !issue"
 
         if self.command == "delete_issue" and self.user in STREAM_GODS:
             parser = RequestApproverParser(user=self.user, args=self.args).parse()

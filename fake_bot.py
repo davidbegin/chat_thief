@@ -3,9 +3,6 @@ from argparse import ArgumentParser
 from chat_thief.config.log import logger
 from chat_thief.command_parser import CommandParser
 
-# DEFAULT_MSG = "!clap"
-# DEFAULT_MSG = "!soundeffect Nz0b4STz1lo jupiter 07:04 07:10"
-# DEFAULT_MSG = "!perms clap"
 DEFAULT_MSG = "!add_perm ha johnnyutah"
 
 
