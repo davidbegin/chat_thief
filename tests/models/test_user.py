@@ -114,15 +114,15 @@ class TestUser(DatabaseConfig):
 
     def test_mana(self, user):
         subject = User("artmattdank")
-        assert subject.mana() == 5
+        assert subject.mana() == 3
         subject.kill()
         assert subject.mana() == 0
         subject.revive()
-        assert subject.mana() == 5
+        assert subject.mana() == 3
         subject.update_mana(-1)
-        assert subject.mana() == 4
+        assert subject.mana() == 2
         subject.revive()
-        assert subject.mana() == 5
+        assert subject.mana() == 3
 
     def test_karma(self, user):
         subject = User("gary")

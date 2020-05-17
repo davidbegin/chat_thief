@@ -86,8 +86,8 @@ class User(BaseModel):
     def kill(self):
         return self._update_value("mana", -self.mana())
 
-    def revive(self):
-        return self._set_value("mana", 5)
+    def revive(self, mana=3):
+        return self._set_value("mana", mana)
 
     def paperup(self, amount=100):
         self.update_street_cred(amount)
@@ -137,7 +137,7 @@ class User(BaseModel):
             "name": self.name,
             "street_cred": 0,
             "cool_points": 0,
-            "mana": 5,
+            "mana": 3,
         }
 
     def save(self):

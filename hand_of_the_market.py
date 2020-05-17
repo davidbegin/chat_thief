@@ -33,7 +33,7 @@ def sync_main():
                     user_karma = user.karma()
                     print(f"@{peasant} Karma: {user.karma()}")
                     user.update_street_cred(1 + user_karma)
-                    user.revive()
+                    user.revive(3 + user_karma)
 
             formatted_peasants = [f"@{peasant}" for peasant in peasants]
             send_twitch_msg(
