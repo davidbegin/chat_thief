@@ -16,22 +16,23 @@ class Revolution:
 
     def attempt_coup(self, tide):
         user = User(self.revolutionary)
+        coup_cost = self.coup.cost()
 
-        print(f"Cool Points: {user.cool_points()} | Coup Cost: {self.coup.cost()}")
+        print(f"Cool Points: {user.cool_points()} | Coup Cost: {coup_cost}")
 
-        if (
-            user.cool_points() >= self.coup.cost()
-            or self.revolutionary == "beginbotbot"
-        ):
+        if user.cool_points() >= coup_cost or self.revolutionary == "beginbotbot":
             print("WE HAVE ENOUGH FOR A REVOLUTION")
-            user.update_cool_points(-self.coup.cost())
-            self.coup.increase_cost(self.coup.cost() * 2)
+            user.update_cool_points(-coup_cost)
+            self.coup.increase_cost(coup_cost * 2)
+
             if "TEST_MODE" not in os.environ:
                 os.system(f"so {tide}")
+
             return self._turn_the_tides(tide)
         else:
-            print(f"YOU CAN'T TRIGGER A REVOLUTION: self.coup.cost()")
-            return self._punish_revolutionary()
+            print(f"YOU CAN'T TRIGGER A REVOLUTION: {coup_cost}")
+            self._punish_revolutionary()
+            return f"@{self.revolutionary} is now Bankrupt, that will teach you a lesson. Coups require {coup_cost} Cool Points"
 
     def _punish_revolutionary(self):
         return User(self.revolutionary).bankrupt()
@@ -81,12 +82,6 @@ class Revolution:
             self._transfer_power(peace_keepers, revolutionaries, revolutionary_sounds)
             return "REVOLUTIONS WILL NOT BE TOLERATED, AND REVOLUTIONARIES WILL BE PUNISHED"
 
-            # return [
-            #     f"Power Users: { ' '.join(power_users)}",
-            #     f"Weaklings: { ' '.join(weaklings)}",
-            #     f"Fence Sitters: { ' '.join(fence_sitters)}",
-            # ]
-
         if tide == "revolution":
             power_users = revolutionaries
             weaklings = peace_keepers
@@ -101,11 +96,6 @@ class Revolution:
                 peace_keeper_sounds + revolutionary_sounds,
             )
             return "THE REVOLUTION IS NOW!"
-            # return [
-            #     f"Power Users: { ' '.join(power_users)}",
-            #     f"Weaklings: { ' '.join(weaklings)}",
-            #     f"Fence Sitters: { ' '.join(fence_sitters)}",
-            # ]
 
     #  Transferring power is Different
     def _transfer_power(self, power_users, weaklings, bounty):

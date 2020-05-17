@@ -63,4 +63,7 @@ class TestCommandParser(DatabaseConfig):
         message = "!love thugga"
         irc_response = irc_msg(user, message)
         result = CommandParser(irc_response, logger).build_response()
-        assert result == "You can love yourself in real life, but not in Beginworld @thugga"
+        assert (
+            result
+            == "You can love yourself in real life, but not in Beginworld @thugga"
+        )

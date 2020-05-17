@@ -30,6 +30,10 @@ class TestRevolution(DatabaseConfig):
         result = subject.attempt_coup(tide)
         assert user.street_cred() == 0
         assert user.cool_points() == 0
+        assert (
+            result
+            == "@beginbot is now Bankrupt, that will teach you a lesson. Coups require 11 Cool Points"
+        )
 
     def test_attempt_coup_with_enough_cool_points(self):
         revolutionary = "beginbot"
