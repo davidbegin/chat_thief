@@ -3,6 +3,7 @@ import json
 import random
 import traceback
 import time
+from datetime import datetime
 import os
 
 from chat_thief.chat_logs import ChatLogs
@@ -17,10 +18,19 @@ from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 BLACKLIST = []
 
 
+def trigger_breaking_news():
+    os.system("scene breakin")
+    os.system("nomeme")
+    time.sleep(7)
+    os.system("nomeme")
+    os.system("scene news")
+
+
 def sync_main():
     os.system("clear")
 
     in_coup = False
+    last_breaking_time = None
     last_most_expensive = Command.most_expensive()
     last_richest_street_cred = User.richest_street_cred()
     last_richest_cool_points = User.richest_cool_points()
@@ -40,52 +50,49 @@ def sync_main():
         last_news_story = BreakingNews.last()
         print(f"last news story: {last_news_story}")
         print(f"in coup: {in_coup}")
+        # print(f"Time since Last Breaking News: {last_breaking_time}")
+
+        if last_breaking_time:
+            how_long_since_break = datetime.now() - last_breaking_time
+            print(f"How Long: {how_long_since_break}")
+            if how_long_since_break.seconds < 60:
+                print("Sorry Too Soon, waiting for more news")
+                time.sleep(3)
+                continue
+            else:
+                print("You have my permission to trigger breaking news")
 
         try:
-            # print("\n\tChecking for Updates")
-
             if not last_news_story:
                 in_coup = False
 
             if last_news_story:
-                if (
-                    last_news_story["category"] in ["peace", "revolution"]
-                    and not in_coup
-                ):
+                last_category = last_news_story.get("category", None)
+                print(f"New Most Expensive: {new_most_expensive_command['name']}")
+                print(f"Old Most Expensive: {last_most_expensive['name']}")
+                print(f"Category of Most Recent News Story: {last_category}")
+
+                if last_category in ["peace", "revolution"] and not in_coup:
                     in_coup = True
-                    os.system("scene breakin")
-                    os.system("nomeme")
-                    time.sleep(7)
-                    os.system("nomeme")
-                    os.system("scene news")
+                    last_breaking_time = datetime.now()
+                    trigger_breaking_news()
 
             elif new_most_expensive_command["name"] != last_most_expensive["name"]:
                 last_most_expensive = new_most_expensive_command
-
                 BreakingNews(
                     f"New Most Expensive Command: {new_most_expensive_command['name']} - 💸 {new_most_expensive_command['cost']}"
                 ).save()
-
-                os.system("scene breakin")
-            elif new_most_street_cred["name"] != last_richest_street_cred["name"]:
-                last_richest_street_cred = new_most_street_cred
-
-                BreakingNews(
-                    scope=f"New Richest in Street User: {new_most_street_cred['name']}",
-                    user=new_most_street_cred["name"],
-                ).save()
-
-                os.system("scene breakin")
+                last_breaking_time = datetime.now()
+                trigger_breaking_news()
 
             elif new_most_cool_points["name"] != last_richest_cool_points["name"]:
                 last_richest_cool_points = new_most_cool_points
-
                 BreakingNews(
                     scope=f"New Richest in Cool Points: {new_most_cool_points['name']}",
                     user=new_most_cool_points["name"],
                 ).save()
-
-                os.system("scene breakin")
+                last_breaking_time = datetime.now()
+                trigger_breaking_news()
 
             time.sleep(3)
             # time.sleep(300)

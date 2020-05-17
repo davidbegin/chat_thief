@@ -37,9 +37,11 @@ class TestCommandBuyer(DatabaseConfig):
     def test_buying_a_random_command(self, user_with_points, mock_affordable_commands):
         Command("ohh").save()
         user = "fake_user"
+        initial_cool_points = User(user).cool_points()
         result = CommandBuyer(user, "random").buy()
         assert result == f"@{user_with_points} bought !ohh"
         assert "clap" not in User(user_with_points).commands()
+        assert User(user).cool_points() < initial_cool_points
 
     def test_buying_a_random_command_with_no_points(self):
         user = "fake_user"

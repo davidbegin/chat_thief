@@ -173,3 +173,10 @@ class TestUser(DatabaseConfig):
 
         result = [user["name"] for user in User.top_three()]
         assert result == ["artmattdank", "watto", "tpain"]
+
+    def test_buy(self):
+        watto = User("watto")
+        watto.save()
+        watto.update_cool_points(3)
+        watto.buy("clap")
+        assert watto.cool_points() < 3

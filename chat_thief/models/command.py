@@ -104,6 +104,15 @@ class Command(BaseModel):
         else:
             return 1
 
+    def set_value(self, field, value):
+        def _update():
+            def transform(doc):
+                doc[field] = value
+
+            return transform
+
+        return self.update(_update)
+
     def update_health(self, amount):
         def _update_health():
             def transform(doc):

@@ -115,12 +115,11 @@ They become 😎  Cool Points:
 👽 Stealing Commands
   !steal clap beginbotbot
 
-
 🍄  Mana
 
 It costs 1 Mana per sound
 
-Mana  is replensihed automatically at regular intervals
+Mana is replenished automatically at regular intervals
 
 🏩 Showing Support
 !love
@@ -150,14 +149,20 @@ than the sound is no longer playable
 !revolution
 !peace
 !coup
----
 
-You have no sounds when you first join 😥
+Coup
+You need to have enough Cool Points for a Coup
+Once a Coup is triggered, the side with the most votes wins.
 
-👷  You gain access to sounds by
-participating in the economy 👷
+✊  Revolution
+All Sounds are confiscated and redistributed to those
+who voted revolution
 
-The New Economy
+☮  Peace
+All sounds from the "revolutionaries" are distributed among the Peace Keepers
 
-👭  If you want to get access to commands
-you are going to have to make friends! 👬
+🤺 Fence Sitters
+
+In both cases are punished
+
+More harsh during revolution

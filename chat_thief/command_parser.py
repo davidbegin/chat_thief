@@ -74,6 +74,9 @@ COMMANDS = {
 }
 
 
+YOU_WERE_THE_CHOSEN = ["beginbot", "beginbotbot"]
+
+
 class CommandParser:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
         self._logger = logger
@@ -85,6 +88,10 @@ class CommandParser:
 
     def build_response(self) -> Optional[str]:
         # TODO: Ban from executing commands
+        # if "TEST_MODE" not in os.environ:
+        #     if self.user not in YOU_WERE_THE_CHOSEN:
+        #         return
+
         if self.user == "nightbot":
             return
 
@@ -187,8 +194,8 @@ class CommandParser:
         if self.command == "streamgods":
             return " ".join(STREAM_GODS)
 
-        # if self.command == "coup" and self.user == "beginbotbot":
-        if self.command == "coup":
+        if self.command == "coup" and self.user == "beginbotbot":
+            # if self.command == "coup":
             threshold = LaLibre.threshold()
             result = Vote.have_tables_turned(threshold)
             print(f"The Result of have_tables_turned: {result}")

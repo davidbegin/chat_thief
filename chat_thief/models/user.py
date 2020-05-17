@@ -124,7 +124,7 @@ class User(BaseModel):
         command_cost = command.cost()
 
         if current_cool_points >= command_cost:
-            self.update_cool_points(command_cost)
+            self.update_cool_points(-command_cost)
             command.allow_user(self.name)
             command.increase_cost()
             return f"@{self.name} bought !{effect}"

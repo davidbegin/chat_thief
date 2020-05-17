@@ -4,6 +4,7 @@ from chat_thief.config.log import logger
 from chat_thief.command_parser import CommandParser
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
+from chat_thief.models.vote import Vote
 
 DEFAULT_MSG = "!add_perm ha johnnyutah"
 

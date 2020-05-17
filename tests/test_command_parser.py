@@ -48,3 +48,12 @@ class TestCommandParser(DatabaseConfig):
         irc_response = irc_msg(user, message)
         result = CommandParser(irc_response, logger).build_response()
         assert result == "@thugga purchase failed, command !gibberish not found"
+
+    def test_buying_random(self, irc_msg):
+        user = "thugga"
+        User(user).update_cool_points(10)
+        message = "!buy clap"
+        irc_response = irc_msg(user, message)
+        result = CommandParser(irc_response, logger).build_response()
+        assert result == "@thugga bought !clap"
+        assert User(user).cool_points() < 10
