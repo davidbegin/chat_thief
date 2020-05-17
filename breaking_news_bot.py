@@ -55,7 +55,7 @@ def sync_main():
         if last_breaking_time:
             how_long_since_break = datetime.now() - last_breaking_time
             print(f"How Long: {how_long_since_break}")
-            if how_long_since_break.seconds < 60:
+            if how_long_since_break.seconds < 300:
                 print("Sorry Too Soon, waiting for more news")
                 time.sleep(3)
                 continue
@@ -66,18 +66,21 @@ def sync_main():
             if not last_news_story:
                 in_coup = False
 
+            print(f"New Most Expensive: {new_most_expensive_command['name']}")
+            print(f"Old Most Expensive: {last_most_expensive['name']}")
+
             if last_news_story:
                 last_category = last_news_story.get("category", None)
-                print(f"New Most Expensive: {new_most_expensive_command['name']}")
-                print(f"Old Most Expensive: {last_most_expensive['name']}")
                 print(f"Category of Most Recent News Story: {last_category}")
 
                 if last_category in ["peace", "revolution"] and not in_coup:
                     in_coup = True
                     last_breaking_time = datetime.now()
                     trigger_breaking_news()
+                    time.sleep(3)
+                    continue
 
-            elif new_most_expensive_command["name"] != last_most_expensive["name"]:
+            if new_most_expensive_command["name"] != last_most_expensive["name"]:
                 last_most_expensive = new_most_expensive_command
                 BreakingNews(
                     f"New Most Expensive Command: {new_most_expensive_command['name']} - 💸 {new_most_expensive_command['cost']}"
