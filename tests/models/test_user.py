@@ -170,3 +170,6 @@ class TestUser(DatabaseConfig):
         tpain.save()
         tpain.update_cool_points(1)
         User.richest_cool_points()["name"] == "artmattdank"
+
+        result = [user["name"] for user in User.top_three()]
+        assert result == ["artmattdank", "watto", "tpain"]

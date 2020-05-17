@@ -1,0 +1,55 @@
+<!doctype html> <title>Beginland</title>
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <meta http-equiv="refresh" content="5">
+</head>
+
+<h1>Breaking News</h1>
+
+<div>
+  <center>{{ scope }}</center>
+</div>
+
+
+{% if stats %}
+  <br />
+  <div>
+    <center>
+      {{ stats }}
+    </center>
+  </div>
+{% endif %}
+
+
+
+{% if category == "peace" %}
+
+  <center>
+    <h4>Peace Keepers: Inheriting the seized sounds from the Revolutionaries</h4>
+    {{ ', '.join(peace_keepers) }}
+  </center>
+
+  <center>
+    <h4>Revolutionaries: Lost All their Sounds, Street Cred and Cool Points</h4>
+    🤕  {{ ', '.join(revolutionaries) }}
+  </center>
+
+{% endif %}
+
+
+
+{% if category == "revolution" %}
+
+  <center>
+    <h4>Peace Keepers: Lost All their Sounds, Street Cred and Cool Points</h4>
+    🤕  {{ ', '.join(peace_keepers) }}
+  </center>
+
+  <center>
+    <h4>Gave Up Their sounds and recieved an new set of State Distributed
+      Sounds, seized from wannabe Peace Keepers</h4>
+    😎  {{ ', '.join(revolutionaries) }}
+  </center>
+
+{% endif %}

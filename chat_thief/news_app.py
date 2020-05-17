@@ -19,30 +19,26 @@ def facts(name=None):
         facts = Facts()
         breaking_news = facts.breaking_news()
 
-        category = None
-        if "category" in breaking_news:
-            category = breaking_news["category"]
-
+        # richest_user
+        # coup
+        # richest_command
+        # We need an event type
         stats = None
-        if "user" in breaking_news:
-            if breaking_news["user"]:
-                user = User(breaking_news["user"])
-                stats = user.stats()
+        # if "user" in breaking_news:
+        #     if breaking_news["user"]:
+        #         user = User(breaking_news["user"])
+        #         stats = user.stats()
 
-        revolutionaries = None
-        if "revolutionaries" in breaking_news:
-            revolutionaries = breaking_news["revolutionaries"]
+        # this needs a specific template
+        category = breaking_news.get("category", None)
+        revolutionaries = breaking_news.get("revolutionaries", None)
+        peace_keepers = breaking_news.get("peace_keepers", None)
+        fence_sitters = breaking_news.get("fence_sitters", None)
 
-        peace_keepers = None
-        if "peace_keepers" in breaking_news:
-            peace_keepers = breaking_news["peace_keepers"]
-
-        fence_sitters = None
-        if "fence_sitters" in breaking_news:
-            fence_sitters = breaking_news["fence_sitters"]
+        # What do we really want?
 
         return render_template(
-            "news.html",
+            "coup.html",
             category=category,
             stats=stats,
             scope=breaking_news["scope"],

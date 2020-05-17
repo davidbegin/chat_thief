@@ -1,8 +1,9 @@
 body {
   /* background-color: none..class{ */
-  background:rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.7);
   color: white;
   font-size: 2em;
+  font-family: "Helvetica";
 }
 
 h1 {

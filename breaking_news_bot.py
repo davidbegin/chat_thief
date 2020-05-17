@@ -26,9 +26,7 @@ def sync_main():
     last_richest_cool_points = User.richest_cool_points()
 
     while True:
-        print()
-        # We should only print them if they are different
-        print(f"Most Expensive Command: !{last_most_expensive['name']}")
+        print(f"\nMost Expensive Command: !{last_most_expensive['name']}")
         print(
             f"Most Street Cred      : @{last_richest_street_cred['name']} - {last_richest_street_cred['street_cred']}"
         )
@@ -39,18 +37,27 @@ def sync_main():
         new_most_street_cred = User.richest_street_cred()
         new_most_cool_points = User.richest_cool_points()
         new_most_expensive_command = Command.most_expensive()
+        last_news_story = BreakingNews.last()
+        print(f"last news story: {last_news_story}")
+        print(f"in coup: {in_coup}")
 
         try:
-            # How do we know it's a revolution???
-            last_news_story = BreakingNews.last()
+            # print("\n\tChecking for Updates")
+
+            if not last_news_story:
+                in_coup = False
 
             if last_news_story:
                 if (
                     last_news_story["category"] in ["peace", "revolution"]
                     and not in_coup
                 ):
-                    os.system("scene breakin")
                     in_coup = True
+                    os.system("scene breakin")
+                    os.system("nomeme")
+                    time.sleep(7)
+                    os.system("nomeme")
+                    os.system("scene news")
 
             elif new_most_expensive_command["name"] != last_most_expensive["name"]:
                 last_most_expensive = new_most_expensive_command
@@ -80,7 +87,7 @@ def sync_main():
 
                 os.system("scene breakin")
 
-            time.sleep(30)
+            time.sleep(3)
             # time.sleep(300)
         except Exception as e:
             time.sleep(30)

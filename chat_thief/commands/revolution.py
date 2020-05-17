@@ -1,3 +1,4 @@
+import os
 from itertools import chain, cycle
 
 from chat_thief.models.user import User
@@ -11,6 +12,7 @@ class Revolution:
     def __init__(self, revolutionary):
         self.revolutionary = revolutionary
         self.coup = Command("coup")
+        # self.coup.save()
 
     def attempt_coup(self, tide):
         user = User(self.revolutionary)
@@ -24,6 +26,8 @@ class Revolution:
             print("WE HAVE ENOUGH FOR A REVOLUTION")
             user.update_cool_points(-self.coup.cost())
             self.coup.increase_cost(self.coup.cost() * 2)
+            if "TEST_MODE" not in os.environ:
+                os.system(f"so {tide}")
             return self._turn_the_tides(tide)
         else:
             print(f"YOU CAN'T TRIGGER A REVOLUTION: self.coup.cost()")
@@ -75,12 +79,13 @@ class Revolution:
             power_users = peace_keepers
             weaklings = revolutionaries
             self._transfer_power(peace_keepers, revolutionaries, revolutionary_sounds)
+            return "REVOLUTIONS WILL NOT BE TOLERATED, AND REVOLUTIONARIES WILL BE PUNISHED"
 
-            return [
-                f"Power Users: { ' '.join(power_users)}",
-                f"Weaklings: { ' '.join(weaklings)}",
-                f"Fence Sitters: { ' '.join(fence_sitters)}",
-            ]
+            # return [
+            #     f"Power Users: { ' '.join(power_users)}",
+            #     f"Weaklings: { ' '.join(weaklings)}",
+            #     f"Fence Sitters: { ' '.join(fence_sitters)}",
+            # ]
 
         if tide == "revolution":
             power_users = revolutionaries
@@ -95,11 +100,12 @@ class Revolution:
                 peace_keepers,
                 peace_keeper_sounds + revolutionary_sounds,
             )
-            return [
-                f"Power Users: { ' '.join(power_users)}",
-                f"Weaklings: { ' '.join(weaklings)}",
-                f"Fence Sitters: { ' '.join(fence_sitters)}",
-            ]
+            return "THE REVOLUTION IS NOW!"
+            # return [
+            #     f"Power Users: { ' '.join(power_users)}",
+            #     f"Weaklings: { ' '.join(weaklings)}",
+            #     f"Fence Sitters: { ' '.join(fence_sitters)}",
+            # ]
 
     #  Transferring power is Different
     def _transfer_power(self, power_users, weaklings, bounty):

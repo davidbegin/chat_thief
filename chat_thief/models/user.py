@@ -14,6 +14,13 @@ class User(BaseModel):
     database_path = "db/users.json"
 
     @classmethod
+    def top_three(cls):
+        users = [user for user in cls.db().all()]
+        top_3 = sorted(users, key=lambda user: user["cool_points"])[-3:]
+        top_3.reverse()
+        return top_3
+
+    @classmethod
     def all(cls):
         return [user["name"] for user in cls.db().all()]
 
