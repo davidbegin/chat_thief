@@ -29,21 +29,31 @@ def facts(name=None):
         #         user = User(breaking_news["user"])
         #         stats = user.stats()
 
-        # this needs a specific template
-        category = breaking_news.get("category", None)
-        revolutionaries = breaking_news.get("revolutionaries", None)
-        peace_keepers = breaking_news.get("peace_keepers", None)
-        fence_sitters = breaking_news.get("fence_sitters", None)
+        if breaking_news:
+            # this needs a specific template
+            category = breaking_news.get("category", None)
+            revolutionaries = breaking_news.get("revolutionaries", None)
+            peace_keepers = breaking_news.get("peace_keepers", None)
+            fence_sitters = breaking_news.get("fence_sitters", None)
 
-        # What do we really want?
+            # What do we really want?
 
-        return render_template(
-            "coup.html",
-            category=category,
-            stats=stats,
-            scope=breaking_news["scope"],
-            revolutionaries=revolutionaries,
-            peace_keepers=peace_keepers,
-            fence_sitters=fence_sitters,
-        )
-        time.sleep(1)
+            if category in ["coup"]:
+                return render_template(
+                    "coup.html",
+                    category=category,
+                    stats=stats,
+                    scope=breaking_news["scope"],
+                    revolutionaries=revolutionaries,
+                    peace_keepers=peace_keepers,
+                    fence_sitters=fence_sitters,
+                )
+            else:
+                return render_template(
+                    "news.html",
+                    category=category,
+                    stats=stats,
+                    scope=breaking_news["scope"],
+                )
+        else:
+            time.sleep(1)

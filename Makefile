@@ -14,7 +14,9 @@ f:
 backup:
 	cp db/users.json db/backups/users.json
 	cp db/commands.json db/backups/commands.json
+	cp db/issues.json db/backups/issues.json
 
 restore:
 	cp db/backups/users.json db/users.json
 	cp db/backups/commands.json db/commands.json
+	cp db/backups/issues.json db/issues.json
