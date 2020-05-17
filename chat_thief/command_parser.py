@@ -306,8 +306,11 @@ class CommandParser:
                 return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
 
             if parser.target_user and not parser.target_command:
-                User(self.user).set_ride_or_die(parser.target_user)
-                return f"@{self.user} Made @{parser.target_user} their Ride or Die"
+                if self.user == parser.target_user:
+                    return f"You can love yourself in real life, but not in Beginworld @{self.user}"
+                else:
+                    User(self.user).set_ride_or_die(parser.target_user)
+                    return f"@{self.user} Made @{parser.target_user} their Ride or Die"
             else:
                 return None
 
