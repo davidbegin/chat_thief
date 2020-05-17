@@ -62,4 +62,6 @@ class CubeCasino:
 
         args = "ps -ef".split(" ")
         processes = subprocess.run(args, capture_output=True).stdout
-        return "bash ./stopwatch" in str(processes)
+        result = "bash ./stopwatch" in str(processes)
+        print(f"Stop Watch Running: {result}")
+        return result
