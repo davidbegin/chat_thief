@@ -24,6 +24,16 @@ class TestCommandParser(DatabaseConfig):
 
         return _irc_msg
 
+    @pytest.fixture
+    def mock_find_random_user(self, monkeypatch):
+        def _fake_find_random_user(self):
+            return "thugga"
+
+        # monkeypatch.setattr(obj, name, value, raising=True)
+        monkeypatch.setattr(
+            CommandParser, "random_not_you_user", _fake_find_random_user
+        )
+
     def test_issue_with_no_info(self, irc_msg):
         irc_response = irc_msg("fake_user", "!issue")
         result = CommandParser(irc_response, logger).build_response()
@@ -31,12 +41,14 @@ class TestCommandParser(DatabaseConfig):
 
     def test_transferring_to_another_user(self, irc_msg):
         user = "thugga"
-        Command("damn").allow_user(user)
-        message = "!give damn beginbotbot"
+        User(user).update_cool_points(10)
+        command = Command("damn")
+        command.allow_user(user)
+        message = "!give damn beginbot"
         irc_response = irc_msg(user, message)
         result = CommandParser(irc_response, logger).build_response()
         assert result == [
-            "@beginbotbot now has access to !damn",
+            "@beginbot now has access to !damn",
             "@thugga lost access to !damn",
         ]
 
@@ -80,3 +92,15 @@ class TestCommandParser(DatabaseConfig):
         irc_response = irc_msg(transferrer.name, message)
         result = CommandParser(irc_response, logger).build_response()
         assert result == "@wheezy already has accesss to !damn @thugga"
+
+    def test_steal_with_no_params(self, irc_msg, mock_find_random_user):
+        thugga = User("thugga")
+        thugga.update_cool_points(10)
+        Command("damn").allow_user("thugga")
+        user = User("beginbot")
+        user.update_cool_points(10)
+
+        message = "!steal"
+        irc_response = irc_msg(user.name, message)
+        result = CommandParser(irc_response, logger).build_response()
+        assert result != "@beginbot stole from !damn from @thugga"

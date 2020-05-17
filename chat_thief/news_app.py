@@ -19,15 +19,11 @@ def facts(name=None):
         facts = Facts()
         breaking_news = facts.breaking_news()
 
-        # richest_user
-        # coup
-        # richest_command
-        # We need an event type
         stats = None
-        # if "user" in breaking_news:
-        #     if breaking_news["user"]:
-        #         user = User(breaking_news["user"])
-        #         stats = user.stats()
+        if "user" in breaking_news:
+            if breaking_news["user"]:
+                user = User(breaking_news["user"])
+                stats = user.stats()
 
         if breaking_news:
             # this needs a specific template

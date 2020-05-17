@@ -1,13 +1,15 @@
 from typing import Dict, List, Optional
 import logging
 import os
+import random
 
 from chat_thief.prize_dropper import random_user as find_random_user
+
 from chat_thief.chat_parsers.request_approver_parser import RequestApproverParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
-
+from chat_thief.chat_parsers.command_parser import CommandParser as ParseTime
 from chat_thief.commands.airdrop import Airdrop
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
@@ -85,6 +87,9 @@ class CommandParser:
         self.msg = self.irc_msg.msg
         self.command = self.irc_msg.command
         self.args = self.irc_msg.args
+
+    def random_not_you_user(self):
+        return find_random_user(blacklisted_users=[self.user])
 
     def build_response(self) -> Optional[str]:
         # TODO: Ban from executing commands
@@ -398,7 +403,7 @@ class CommandParser:
         ]:
             parser = PropsParser(user=self.user, args=self.args).parse()
             if parser.target_user == "random" or not parser.target_user:
-                parser.target_user = find_random_user(blacklisted_users=[self.user])
+                parser.target_user = self.random_not_you_user()
 
             return StreetCredTransfer(
                 user=self.user, cool_person=parser.target_user, amount=parser.amount
@@ -437,13 +442,13 @@ class CommandParser:
         # --------------
 
         if self.command in ["buy"]:
-            from chat_thief.chat_parsers.command_parser import (
-                CommandParser as ParseTime,
-            )
             from chat_thief.commands.command_buyer import CommandBuyer
 
             parser = ParseTime(
-                user=self.user, args=self.args, allow_random_sfx=True
+                user=self.user,
+                command=self.command,
+                args=self.args,
+                allow_random_sfx=True,
             ).parse()
 
             return CommandBuyer(user=self.user, target_sfx=parser.target_sfx).buy()
@@ -452,30 +457,35 @@ class CommandParser:
         # Random Command and Random User
         # ------------------------------
 
-        parser = PermsParser(
-            user=self.user, args=self.args, random_command=True, random_user=True,
+        parser = ParseTime(
+            user=self.user,
+            command=self.command,
+            args=self.args,
+            allow_random_sfx=True,
+            allow_random_user=True,
         ).parse()
 
         if self.command in ["steal"]:
-            if parser.target_user == "random" and parser.target_command == "random":
-                parser.target_user = find_random_user(blacklisted_users=[self.user])
-                command = random.sample(User(parser.target_user).commands(), 1)[0]
+
+            if parser.target_user == "random" and parser.target_sfx == "random":
+                parser.target_user = self.random_not_you_user()
+                parser.target_sfx = random.sample(
+                    User(parser.target_user).commands(), 1
+                )[0]
 
             return CommandStealer(
-                thief=self.user,
-                victim=parser.target_user,
-                command=parser.target_command,
+                thief=self.user, victim=parser.target_user, command=parser.target_sfx,
             ).steal()
 
         if self.command in COMMANDS["give"]["aliases"]:
 
             if parser.target_command == "random":
                 sfx_choices = random.choice(User(self.user).commands(), 1) - [self.user]
-                parser.target_command = sfx_choices[0]
+                parser.target_sfx = sfx_choices[0]
                 print(f"Choosing Random Command: {parser.target_command}")
 
             if parser.target_user == "random":
-                command = Command(parser.target_command)
+                command = Command(parser.target_sfx)
                 parser.target_user = find_random_user(
                     blacklisted_users=[command.users()] + [self.user]
                 )
@@ -483,12 +493,11 @@ class CommandParser:
             if parser.target_user is None:
                 raise ValueError("We didn't find a user to give to")
 
-            print(f"Attempting to give: !{parser.target_command} @{parser.target_user}")
+            print(f"Attempting to give: !{parser.target_sfx} @{parser.target_user}")
 
+            # This interface needs to call Command SFX
             return CommandGiver(
-                user=self.user,
-                command=parser.target_command,
-                friend=parser.target_user,
+                user=self.user, command=parser.target_sfx, friend=parser.target_user,
             ).give()
 
         # -------------------

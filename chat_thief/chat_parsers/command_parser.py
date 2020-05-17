@@ -19,8 +19,11 @@ class CommandRequest:
 
 
 class CommandParser:
-    def __init__(self, user, args=[], allow_random_user=False, allow_random_sfx=False):
+    def __init__(
+        self, user, command, args=[], allow_random_user=False, allow_random_sfx=False
+    ):
         self.user = user
+        self.target_command = command
         self.args = [self._sanitize(arg) for arg in args]
         self.allow_random_user = allow_random_user
         self.allow_random_sfx = allow_random_sfx
@@ -37,7 +40,6 @@ class CommandParser:
 
     def _set_target_user_and_command(self):
         self.target_user = None
-        self.target_command = None
         self.target_sfx = None
 
         for arg in self.args:
@@ -47,8 +49,12 @@ class CommandParser:
             if self._is_sfx(arg):
                 self.target_sfx = arg
 
-            if self._is_command(arg):
-                self.target_command = arg
+        if self.target_sfx is None and self.target_user is None:
+            if len(self.args) == 0:
+                if self.allow_random_user:
+                    self.target_user = "random"
+                if self.allow_random_sfx:
+                    self.target_sfx = "random"
 
     def _is_sfx(self, sfx):
         if self.allow_random_sfx and sfx == "random":
@@ -65,17 +71,6 @@ class CommandParser:
             return user in WelcomeCommittee().present_users() or user == "random"
         else:
             return user in WelcomeCommittee().present_users()
-
-    # We Need a Good Canonical Way of knowing this
-    # Maybe a Separate Help class
-    def _is_command(self, command):
-        commands = [
-            "buy",
-            "perms",
-            "give",
-            "transfer",
-        ]
-        return command in commands
 
     def _sanitize(self, item):
         if item.startswith("!") or item.startswith("@"):
