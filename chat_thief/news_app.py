@@ -36,9 +36,8 @@ def facts(name=None):
             peace_keepers = breaking_news.get("peace_keepers", None)
             fence_sitters = breaking_news.get("fence_sitters", None)
 
-            # What do we really want?
-
-            if category in ["coup"]:
+            if category in ["peace", "revolution", "coup"]:
+                print("Rendering A Coup")
                 return render_template(
                     "coup.html",
                     category=category,
@@ -49,6 +48,7 @@ def facts(name=None):
                     fence_sitters=fence_sitters,
                 )
             else:
+                print("Rendering The News")
                 return render_template(
                     "news.html",
                     category=category,
