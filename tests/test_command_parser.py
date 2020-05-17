@@ -67,3 +67,16 @@ class TestCommandParser(DatabaseConfig):
             result
             == "You can love yourself in real life, but not in Beginworld @thugga"
         )
+
+    @pytest.mark.skip
+    def test_transferring_a_command_already_owned(self, irc_msg):
+        transferrer = User("thugga")
+        transferee = User("wheezy")
+
+        damn_command = Command("damn")
+        damn_command.allow_user(transferee.name)
+
+        message = "!transfer !damn @wheezy"
+        irc_response = irc_msg(transferrer.name, message)
+        result = CommandParser(irc_response, logger).build_response()
+        assert result == "@wheezy already has accesss to !damn @thugga"

@@ -21,7 +21,12 @@ class CommandGiver:
 
         command = Command(self.command)
         if self.user in permitted_users:
-            allow_msg = command.allow_user(self.friend)
-            return [allow_msg, command.unallow_user(self.user)]
+            if self.friend in permitted_users:
+                return (
+                    f"@{self.friend} already has access to !{self.command} @{self.user}"
+                )
+            else:
+                allow_msg = command.allow_user(self.friend)
+                return [allow_msg, command.unallow_user(self.user)]
 
         return f"@{self.user} does not have permission to give: !{self.command}"

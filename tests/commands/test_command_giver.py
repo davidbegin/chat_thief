@@ -8,6 +8,26 @@ from tests.support.database_setup import DatabaseConfig
 
 
 class TestCommandGiver(DatabaseConfig):
+    def test_giving_a_command_already_owned(self):
+        transferrer = User("thugga")
+        transferee = User("wheezy")
+
+        command = Command("damn")
+        command.allow_user(transferee.name)
+        command.allow_user(transferrer.name)
+
+        assert transferrer.name in command.users()
+        assert transferee.name in command.users()
+
+        subject = CommandGiver(
+            user=transferrer.name, command=command.name, friend=transferee.name
+        )
+        result = subject.give()
+
+        assert result == "@wheezy already has access to !damn @thugga"
+        assert transferrer.name in command.users()
+        assert transferee.name in command.users()
+
     def test_giving_a_command(self):
         user = User("Miles")
         friend = User("Coltrane")
