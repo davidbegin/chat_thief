@@ -79,7 +79,7 @@ COMMANDS = {
 YOU_WERE_THE_CHOSEN = ["beginbot", "beginbotbot"]
 
 
-class CommandParser:
+class CommandRouter:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
         self._logger = logger
         self.irc_msg = IrcMsg(irc_msg)

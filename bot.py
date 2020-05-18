@@ -6,7 +6,7 @@ import traceback
 
 from chat_thief.config.log import logger
 from chat_thief.config.twitch import TwitchConfig
-from chat_thief.command_parser import CommandParser
+from chat_thief.command_router import CommandRouter
 
 CONNECTION_DATA = ("irc.chat.twitch.tv", 6667)
 ENCODING = "utf-8"
@@ -54,7 +54,7 @@ async def run_bot(server: socket.socket) -> None:
             pass
         elif irc_response[1] == CHAT_MSG:
             try:
-                if response := CommandParser(irc_response, logger).build_response():
+                if response := CommandRouter(irc_response, logger).build_response():
                     MESSAGE_LIMIT = 500
 
                     if isinstance(response, List):

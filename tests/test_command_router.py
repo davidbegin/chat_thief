@@ -1,6 +1,6 @@
 import pytest
 
-from chat_thief.command_parser import CommandParser
+from chat_thief.command_router import CommandRouter
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from chat_thief.config.log import logger
@@ -11,7 +11,7 @@ from tests.support.utils import setup_logger
 logger = setup_logger()
 
 
-class TestCommandParser(DatabaseConfig):
+class TestCommandRouter(DatabaseConfig):
     @pytest.fixture
     def irc_msg(self):
         def _irc_msg(user, msg):
@@ -31,12 +31,12 @@ class TestCommandParser(DatabaseConfig):
 
         # monkeypatch.setattr(obj, name, value, raising=True)
         monkeypatch.setattr(
-            CommandParser, "random_not_you_user", _fake_find_random_user
+            CommandRouter, "random_not_you_user", _fake_find_random_user
         )
 
     def test_issue_with_no_info(self, irc_msg):
         irc_response = irc_msg("fake_user", "!issue")
-        result = CommandParser(irc_response, logger).build_response()
+        result = CommandRouter(irc_response, logger).build_response()
         assert result == "@fake_user Must include a description of the !issue"
 
     def test_transferring_to_another_user(self, irc_msg):
@@ -46,7 +46,7 @@ class TestCommandParser(DatabaseConfig):
         command.allow_user(user)
         message = "!give damn beginbot"
         irc_response = irc_msg(user, message)
-        result = CommandParser(irc_response, logger).build_response()
+        result = CommandRouter(irc_response, logger).build_response()
         assert result == [
             "@beginbot now has access to !damn",
             "@thugga lost access to !damn",
@@ -58,7 +58,7 @@ class TestCommandParser(DatabaseConfig):
         User(user).update_cool_points(10)
         message = "!buy gibberish"
         irc_response = irc_msg(user, message)
-        result = CommandParser(irc_response, logger).build_response()
+        result = CommandRouter(irc_response, logger).build_response()
         assert result == "@thugga purchase failed, command !gibberish not found"
 
     def test_buying_random(self, irc_msg):
@@ -66,7 +66,7 @@ class TestCommandParser(DatabaseConfig):
         User(user).update_cool_points(10)
         message = "!buy clap"
         irc_response = irc_msg(user, message)
-        result = CommandParser(irc_response, logger).build_response()
+        result = CommandRouter(irc_response, logger).build_response()
         assert result == "@thugga bought !clap"
         assert User(user).cool_points() < 10
 
@@ -74,7 +74,7 @@ class TestCommandParser(DatabaseConfig):
         user = "thugga"
         message = "!love thugga"
         irc_response = irc_msg(user, message)
-        result = CommandParser(irc_response, logger).build_response()
+        result = CommandRouter(irc_response, logger).build_response()
         assert (
             result
             == "You can love yourself in real life, but not in Beginworld @thugga"
@@ -90,7 +90,7 @@ class TestCommandParser(DatabaseConfig):
 
         message = "!transfer !damn @wheezy"
         irc_response = irc_msg(transferrer.name, message)
-        result = CommandParser(irc_response, logger).build_response()
+        result = CommandRouter(irc_response, logger).build_response()
         assert result == "@wheezy already has accesss to !damn @thugga"
 
     def test_steal_with_no_params(self, irc_msg, mock_find_random_user):
@@ -102,5 +102,5 @@ class TestCommandParser(DatabaseConfig):
 
         message = "!steal"
         irc_response = irc_msg(user.name, message)
-        result = CommandParser(irc_response, logger).build_response()
+        result = CommandRouter(irc_response, logger).build_response()
         assert result != "@beginbot stole from !damn from @thugga"
