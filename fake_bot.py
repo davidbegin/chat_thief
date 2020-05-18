@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     if args.breakpoint:
         breakpoint()
-    elif response := CommandParser(irc_response, logger).build_response():
+    elif response := CommandRouter(irc_response, logger).build_response():
         print(response)
     else:
         print("No Response")

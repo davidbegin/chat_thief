@@ -5,6 +5,7 @@ import random
 
 from chat_thief.prize_dropper import random_user as find_random_user
 
+from chat_thief.routers.basic_info_router import BasicInfoRouter
 from chat_thief.chat_parsers.request_approver_parser import RequestApproverParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
@@ -88,9 +89,6 @@ class CommandRouter:
         self.command = self.irc_msg.command
         self.args = self.irc_msg.args
 
-    def random_not_you_user(self):
-        return find_random_user(blacklisted_users=[self.user])
-
     def build_response(self) -> Optional[str]:
         # TODO: Ban from executing commands
         # if "TEST_MODE" not in os.environ:
@@ -106,15 +104,20 @@ class CommandRouter:
 
         success(f"\n{self.user}: {self.msg}")
 
+        result = BasicInfoRouter(self.command).route()
+
+        if result:
+            return result
+
+        return self._process_command()
+
+    def _process_command(self):
         if self.command == "no_news" and self.user in ["beginbot", "beginbotbot"]:
             return BreakingNews.purge()
 
         if self.user == "beginbotbot" and self.command == "whateveriwant":
             return Command("damn").increase_cost(300)
 
-        return self._process_command()
-
-    def _process_command(self):
         if self.command in ["peace", "revolution", "vote"]:
             if self.command == "vote":
                 vote = self.args[0]
@@ -152,9 +155,6 @@ class CommandRouter:
             return " | ".join(
                 [f"{stat[0]}: {stat[1]}" for stat in reversed(User.richest())]
             )
-
-        if self.command == "la_libre":
-            return LaLibre.inform()
 
         if self.command == "requests":
             stats = SoundeffectRequest.formatted_stats()
@@ -527,3 +527,6 @@ class CommandRouter:
 
         if self.command:
             PlaySoundeffectRequest(user=self.user, command=self.command).save()
+
+    def random_not_you_user(self):
+        return find_random_user(blacklisted_users=[self.user])
