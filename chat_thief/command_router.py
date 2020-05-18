@@ -21,7 +21,6 @@ from chat_thief.commands.la_libre import LaLibre
 from chat_thief.commands.la_libre import REVOLUTION_LIKELYHOOD
 from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.revolution import Revolution
-from chat_thief.commands.shoutout import shoutout
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.economist.facts import Facts
 
@@ -104,7 +103,7 @@ class CommandRouter:
 
         success(f"\n{self.user}: {self.msg}")
 
-        result = BasicInfoRouter(self.command).route()
+        result = BasicInfoRouter(self.command, self.args).route()
 
         if result:
             return result
@@ -148,14 +147,6 @@ class CommandRouter:
                 for issue in Issue.all()
             ]
 
-        if self.command == "facts" and self.user in STREAM_GODS:
-            return Facts().available_sounds()
-
-        if self.command == "richest":
-            return " | ".join(
-                [f"{stat[0]}: {stat[1]}" for stat in reversed(User.richest())]
-            )
-
         if self.command == "requests":
             stats = SoundeffectRequest.formatted_stats()
             if not stats:
@@ -168,9 +159,6 @@ class CommandRouter:
         if self.command in ["economy"]:
             cool_points = User(self.user).total_cool_points()
             return f"Total Cool Points in Market: {cool_points}"
-
-        if self.command == "users":
-            return WelcomeCommittee().present_users()
 
         if self.command in ["all_bets", "all_bet", "bets"]:
             return " | ".join([f"@{bet[0]}: {bet[1]}" for bet in CubeBet.all_bets()])
@@ -193,15 +181,6 @@ class CommandRouter:
             result = CubeCasino(cube_time).gamble()
             CubeBet.purge()
             return result
-
-        if self.command == "so":
-            return shoutout(self.msg)
-
-        if self.command == "streamlords":
-            return " ".join(STREAM_LORDS)
-
-        if self.command == "streamgods":
-            return " ".join(STREAM_GODS)
 
         # if self.command == "coup" and self.user == "beginbotbot":
         if self.command == "coup":

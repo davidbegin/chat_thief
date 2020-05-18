@@ -20,3 +20,7 @@ class TestBasicInfoRouter(DatabaseConfig):
         assert result == "beginbot beginbotbot stupac62 artmattdank"
         result = BasicInfoRouter("streamlords").route()
         assert "zerostheory" in result
+
+    def test_so(self):
+        result = BasicInfoRouter("so", ["beginbot"]).route()
+        assert result == "Shoutout twitch.tv/beginbot"

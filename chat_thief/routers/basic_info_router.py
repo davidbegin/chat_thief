@@ -3,8 +3,9 @@ from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 
 
 class BasicInfoRouter:
-    def __init__(self, command):
+    def __init__(self, command, args=[]):
         self.command = command
+        self.args = args
 
     def route(self):
         if self.command == "la_libre":
@@ -15,6 +16,12 @@ class BasicInfoRouter:
 
         if self.command == "streamgods":
             return " ".join(STREAM_GODS)
+
+        if self.command == "so":
+            return self._shoutout()
+
+    def _shoutout(self):
+        return f"Shoutout twitch.tv/{self.args[0]}"
 
     # def _process_command(self):
     #     if self.command == "delete_issue" and self.user in STREAM_GODS:
@@ -30,14 +37,6 @@ class BasicInfoRouter:
     #             for issue in Issue.all()
     #         ]
 
-    #     if self.command == "facts" and self.user in STREAM_GODS:
-    #         return Facts().available_sounds()
-
-    #     if self.command == "richest":
-    #         return " | ".join(
-    #             [f"{stat[0]}: {stat[1]}" for stat in reversed(User.richest())]
-    #         )
-
     #     if self.command == "requests":
     #         stats = SoundeffectRequest.formatted_stats()
     #         if not stats:
@@ -51,14 +50,8 @@ class BasicInfoRouter:
     #         cool_points = User(self.user).total_cool_points()
     #         return f"Total Cool Points in Market: {cool_points}"
 
-    #     if self.command == "users":
-    #         return WelcomeCommittee().present_users()
-
     #     if self.command in ["all_bets", "all_bet", "bets"]:
     #         return " | ".join([f"@{bet[0]}: {bet[1]}" for bet in CubeBet.all_bets()])
-
-    #     if self.command == "so":
-    #         return shoutout(self.msg)
 
     #     # -------------------------
     #     # No Random Command or User
@@ -121,3 +114,12 @@ class BasicInfoRouter:
     #             print("Doing Nothing")
     # def random_not_you_user(self):
     #     return find_random_user(blacklisted_users=[self.user])
+
+    #     if self.command == "users":
+    #         return WelcomeCommittee().present_users()
+    #     if self.command == "richest":
+    #         return " | ".join(
+    #             [f"{stat[0]}: {stat[1]}" for stat in reversed(User.richest())]
+    #         )
+    #     if self.command == "facts" and self.user in STREAM_GODS:
+    #         return Facts().available_sounds()
