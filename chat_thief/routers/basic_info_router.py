@@ -1,9 +1,12 @@
 from chat_thief.commands.la_libre import LaLibre
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.chat_parsers.command_parser import CommandParser
+from chat_thief.models.user import User
 
 
 class BasicInfoRouter:
-    def __init__(self, command, args=[]):
+    def __init__(self, user, command, args=[]):
+        self.user = user
         self.command = command
         self.args = args
 
@@ -19,6 +22,14 @@ class BasicInfoRouter:
 
         if self.command == "so":
             return self._shoutout()
+
+        if self.command == "bankrupt":
+            parser = CommandParser(
+                user=self.user, command=self.command, args=self.args
+            ).parse()
+
+            if self.user in STREAM_GODS:
+                return User(parser.target_user).bankrupt()
 
     def _shoutout(self):
         return f"Shoutout twitch.tv/{self.args[0]}"
@@ -42,9 +53,6 @@ class BasicInfoRouter:
     #         if not stats:
     #             stats = "Excellent Job Stream Lords No Requests!"
     #         return stats
-
-    #     if self.command == "most_popular":
-    #         return " | ".join(Command.most_popular())
 
     #     if self.command in ["economy"]:
     #         cool_points = User(self.user).total_cool_points()
@@ -79,11 +87,6 @@ class BasicInfoRouter:
     #             return Donator(self.user).donate(parser.target_user)
     #         else:
     #             return Donator(self.user).donate()
-
-    #     if self.command == "bankrupt":
-    #         parser = PermsParser(user=self.user, args=self.args).parse()
-    #         if self.user in STREAM_GODS:
-    #             return User(parser.target_user).bankrupt()
 
     #     if self.command == "paperup":
     #         parser = PermsParser(user=self.user, args=self.args).parse()
@@ -123,3 +126,5 @@ class BasicInfoRouter:
     #         )
     #     if self.command == "facts" and self.user in STREAM_GODS:
     #         return Facts().available_sounds()
+    #     if self.command == "most_popular":
+    #         return " | ".join(Command.most_popular())

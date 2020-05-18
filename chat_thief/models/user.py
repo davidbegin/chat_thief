@@ -178,4 +178,4 @@ class User(BaseModel):
     def bankrupt(self):
         self.update_street_cred(-self.street_cred())
         self.update_cool_points(-self.cool_points())
-        return f"{self.name} is now Bankrupt"
+        return f"@{self.name} is now Bankrupt"

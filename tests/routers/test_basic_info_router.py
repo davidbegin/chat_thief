@@ -1,12 +1,20 @@
 import pytest
 
 from chat_thief.routers.basic_info_router import BasicInfoRouter
+from chat_thief.models.user import User
+from chat_thief.chat_parsers.command_parser import CommandParser
+
 from tests.support.database_setup import DatabaseConfig
+
+
+class FakeParser:
+    def __init__(self):
+        self.target_user = "coltrane"
 
 
 class TestBasicInfoRouter(DatabaseConfig):
     def test_la_libre(self):
-        result = BasicInfoRouter("la_libre").route()
+        result = BasicInfoRouter("billy", "la_libre").route()
         assert result == [
             "PowerUpL La Libre PowerUpR",
             "Total Votes: 0",
@@ -16,11 +24,26 @@ class TestBasicInfoRouter(DatabaseConfig):
         ]
 
     def test_stream_gods_and_lords(self, monkeypatch):
-        result = BasicInfoRouter("streamgods").route()
+        result = BasicInfoRouter("sammy", "streamgods").route()
         assert result == "beginbot beginbotbot stupac62 artmattdank"
-        result = BasicInfoRouter("streamlords").route()
+        result = BasicInfoRouter("sammy", "streamlords").route()
         assert "zerostheory" in result
 
-    def test_so(self):
-        result = BasicInfoRouter("so", ["beginbot"]).route()
+    def test_shoutout(self):
+        result = BasicInfoRouter("thugga", "so", ["beginbot"]).route()
         assert result == "Shoutout twitch.tv/beginbot"
+
+    def test_bankrupt(self, monkeypatch):
+        user = User("coltrane")
+        user.update_cool_points(10)
+        user.update_street_cred(10)
+
+        def _fake_parse(self):
+            return FakeParser()
+
+        monkeypatch.setattr(CommandParser, "parse", _fake_parse)
+
+        result = BasicInfoRouter("beginbotbot", "bankrupt", ["coltrane"]).route()
+        assert user.cool_points() == 0
+        assert user.street_cred() == 0
+        assert result == "@coltrane is now Bankrupt"
