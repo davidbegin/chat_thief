@@ -220,16 +220,6 @@ class CommandRouter:
             else:
                 return Donator(self.user).donate()
 
-        if self.command == "bankrupt":
-            parser = PermsParser(user=self.user, args=self.args).parse()
-            if self.user in STREAM_GODS:
-                return User(parser.target_user).bankrupt()
-
-        if self.command == "paperup":
-            parser = PermsParser(user=self.user, args=self.args).parse()
-            if self.user in STREAM_GODS:
-                return User(parser.target_user).paperup()
-
         if self.command in ["deny"] and self.user in STREAM_LORDS:
             parser = RequestApproverParser(user=self.user, args=self.args).parse()
             if parser.doc_id:

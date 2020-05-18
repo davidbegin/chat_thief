@@ -47,3 +47,16 @@ class TestBasicInfoRouter(DatabaseConfig):
         assert user.cool_points() == 0
         assert user.street_cred() == 0
         assert result == "@coltrane is now Bankrupt"
+
+    def test_paperup(self, monkeypatch):
+        user = User("coltrane")
+
+        def _fake_parse(self):
+            return FakeParser()
+
+        monkeypatch.setattr(CommandParser, "parse", _fake_parse)
+
+        result = BasicInfoRouter("beginbotbot", "paperup", ["coltrane"]).route()
+        assert user.cool_points() == 100
+        assert user.street_cred() == 100
+        assert result == "@coltrane has been Papered Up"

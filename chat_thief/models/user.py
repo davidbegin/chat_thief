@@ -92,7 +92,7 @@ class User(BaseModel):
     def paperup(self, amount=100):
         self.update_street_cred(amount)
         self.update_cool_points(amount)
-        return f"{self.name} has been Papered Up"
+        return f"@{self.name} has been Papered Up"
 
     # This also might need a quick exit
     def _find_affordable_random_command(self):
