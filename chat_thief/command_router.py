@@ -9,6 +9,7 @@ from chat_thief.routers.basic_info_router import BasicInfoRouter
 from chat_thief.routers.feedback_router import FeedbackRouter
 from chat_thief.routers.moderator_router import ModeratorRouter
 from chat_thief.routers.cube_casino_router import CubeCasinoRouter
+from chat_thief.routers.revolution_router import RevolutionRouter
 
 from chat_thief.chat_parsers.request_approver_parser import RequestApproverParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
@@ -115,34 +116,19 @@ class CommandRouter:
         if result:
             return result
 
+        result = RevolutionRouter(self.user, self.command, self.args).route()
+        if result:
+            return result
+
         return self._process_command()
 
     def _process_command(self):
-
-        if self.command in ["peace", "revolution", "vote"]:
-            if self.command == "vote":
-                vote = self.args[0]
-                Vote(user=self.user).vote(vote)
-            else:
-                Vote(user=self.user).vote(self.command)
-            return f"Thank you for your vote @{self.user}"
 
         if self.command == "requests":
             stats = SoundeffectRequest.formatted_stats()
             if not stats:
                 stats = "Excellent Job Stream Lords No Requests!"
             return stats
-
-        # if self.command == "coup" and self.user == "beginbotbot":
-        if self.command == "coup":
-            threshold = LaLibre.threshold()
-            result = Vote.have_tables_turned(threshold)
-            print(f"The Result of have_tables_turned: {result}")
-
-            if result in ["peace", "revolution"]:
-                return Revolution(self.user).attempt_coup(result)
-            else:
-                return f"The Will of the People have not chosen: {threshold} votes must be cast for either Peace or Revolution"
 
         # -------------------------
         # No Random Command or User
