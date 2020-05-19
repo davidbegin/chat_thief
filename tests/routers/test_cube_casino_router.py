@@ -5,6 +5,7 @@ from chat_thief.routers.cube_casino_router import CubeCasinoRouter
 from chat_thief.welcome_committee import WelcomeCommittee
 from tests.support.database_setup import DatabaseConfig
 
+
 class TestCubeCasinoRouter(DatabaseConfig):
     @pytest.fixture(autouse=True)
     def mock_present_users(self, monkeypatch):
@@ -15,12 +16,11 @@ class TestCubeCasinoRouter(DatabaseConfig):
 
     def test_all_bets(self):
         result = CubeCasinoRouter("beginbotbot", "all_bets").route()
-        assert result == ''
+        assert result == ""
         assert CubeBet.count() == 0
         CubeCasinoRouter("random_user", "bet", ["42"]).route()
         result = CubeCasinoRouter("beginbotbot", "all_bets").route()
         assert result == "@random_user: 42"
-
 
     def test_bet(self):
         CubeCasinoRouter("beginbotbot", "all_bets").route()
@@ -35,7 +35,7 @@ class TestCubeCasinoRouter(DatabaseConfig):
         assert CubeBet.count() == 2
         result = CubeCasinoRouter("beginbotbot", "cubed", ["41"]).route()
         assert CubeBet.count() == 0
-        assert result == ['Winner: @uzi Won 1 commands']
+        assert result == ["Winner: @uzi Won 1 commands"]
 
     def test_new_cube(self):
         CubeCasinoRouter("future", "bet", ["108"]).route()

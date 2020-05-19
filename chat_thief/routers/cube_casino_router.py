@@ -3,6 +3,7 @@ from chat_thief.models.cube_bet import CubeBet
 from chat_thief.commands.cube_casino import CubeCasino
 from chat_thief.chat_parsers.command_parser import CommandParser
 
+
 class CubeCasinoRouter(BaseRouter):
     def route(self):
         if self.command in ["all_bets", "all_bet", "bets"]:
@@ -10,7 +11,9 @@ class CubeCasinoRouter(BaseRouter):
 
         if self.command == "bet":
             if not CubeCasino.is_stopwatch_running():
-                parser = CommandParser(user=self.user, command=self.command, args=self.args).parse()
+                parser = CommandParser(
+                    user=self.user, command=self.command, args=self.args
+                ).parse()
                 result = CubeBet(name=self.user, duration=parser.amount).save()
                 return (
                     f"Thank you for your bet: @{result['name']}: {result['duration']}s"
@@ -26,4 +29,3 @@ class CubeCasinoRouter(BaseRouter):
 
         if self.command == "new_cube" and self.user == "beginbotbot":
             return CubeBet.purge()
-

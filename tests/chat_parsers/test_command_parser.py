@@ -139,9 +139,7 @@ class TestCommandParser:
     def test_amount(self):
         user = "fake_user"
         args = ["beginbot", "10"]
-        subject = CommandParser(
-            user, "props", args
-        )
+        subject = CommandParser(user, "props", args)
         result = subject.parse()
 
         assert result.target_command == "props"

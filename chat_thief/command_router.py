@@ -103,11 +103,6 @@ class CommandRouter:
         return self._process_command()
 
     def _process_command(self):
-        if self.command == "no_news" and self.user in ["beginbot", "beginbotbot"]:
-            return BreakingNews.purge()
-
-        if self.user == "beginbotbot" and self.command == "whateveriwant":
-            return Command("damn").increase_cost(300)
 
         if self.command in ["peace", "revolution", "vote"]:
             if self.command == "vote":
@@ -115,7 +110,6 @@ class CommandRouter:
                 Vote(user=self.user).vote(vote)
             else:
                 Vote(user=self.user).vote(self.command)
-
             return f"Thank you for your vote @{self.user}"
 
         if self.command in ["issue", "bug"]:
@@ -144,7 +138,6 @@ class CommandRouter:
             if not stats:
                 stats = "Excellent Job Stream Lords No Requests!"
             return stats
-
 
         # if self.command == "coup" and self.user == "beginbotbot":
         if self.command == "coup":
@@ -198,6 +191,8 @@ class CommandRouter:
                 options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
                 return f"Call !help with a specfic command for more details: {options}"
 
+        # ===============================================
+
         if self.command in ["dislike", "hate", "detract"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
 
@@ -222,46 +217,6 @@ class CommandRouter:
                     return f"@{self.user} Made @{parser.target_user} their Ride or Die"
             else:
                 return None
-
-        # -------------------------
-        # Takes a User OR a Command
-        # -------------------------
-
-        if self.command == "do_over" and self.user == "beginbotbot":
-            print("WE ARE GOING FOR IT!")
-            for user in User.all():
-                User(user).bankrupt()
-            for command_name in Command.db().all():
-                command_name = command_name["name"]
-                print(command_name)
-                command = Command(command_name)
-                for user in command.users():
-                    print(command.unallow_user(user))
-            return "Society now must rebuild"
-
-        if self.command == "revive" and self.user in STREAM_GODS:
-
-            parser = PermsParser(user=self.user, args=self.args).parse()
-
-            if parser.target_command:
-                print(f"We are attempting to revive: !{parser.target_command}")
-                Command.find_or_create(parser.target_command)
-                return Command(parser.target_command).revive()
-            elif parser.target_user:
-                return User(parser.target_user).revive()
-            else:
-                print(f"Not Sure who or what to silence: {self.args}")
-
-        if self.command == "silence" and self.user in STREAM_GODS:
-            parser = PermsParser(user=self.user, args=self.args).parse()
-
-            if parser.target_command:
-                print("We are attempting to silence")
-                return Command(parser.target_command).silence()
-            elif parser.target_user:
-                return User(parser.target_user).kill()
-            else:
-                print(f"Not Sure who or what to silence: {self.args}")
 
         # This only works for soundeffects
         if self.command in ["permissions", "permission", "perms", "perm"]:
