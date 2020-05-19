@@ -9,7 +9,6 @@ from chat_thief.routers.basic_info_router import BasicInfoRouter
 from chat_thief.chat_parsers.request_approver_parser import RequestApproverParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
-from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 from chat_thief.chat_parsers.command_parser import CommandParser as ParseTime
 from chat_thief.commands.airdrop import Airdrop
 from chat_thief.commands.command_giver import CommandGiver
@@ -288,20 +287,17 @@ class CommandRouter:
             else:
                 return None
 
-        # -----
-        # Other
-        # -----
+        # # -----
+        # # Other
+        # # -----
 
-        if self.command == "soundeffect":
-            sfx_request = SoundeffectRequestParser(self.user, self.irc_msg.args)
-
-            return SoundeffectRequest(
-                user=self.user,
-                youtube_id=sfx_request.youtube_id,
-                command=sfx_request.command,
-                start_time=sfx_request.start_time,
-                end_time=sfx_request.end_time,
-            ).save()
+        #     return SoundeffectRequest(
+        #         user=self.user,
+        #         youtube_id=sfx_request.youtube_id,
+        #         command=sfx_request.command,
+        #         start_time=sfx_request.start_time,
+        #         end_time=sfx_request.end_time,
+        #     ).save()
 
         # -------------------------
         # Takes a User OR a Command

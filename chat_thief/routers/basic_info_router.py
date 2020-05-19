@@ -2,14 +2,10 @@ from chat_thief.commands.la_libre import LaLibre
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.models.user import User
+from chat_thief.routers.base_router import BaseRouter
 
 
-class BasicInfoRouter:
-    def __init__(self, user, command, args=[]):
-        self.user = user
-        self.command = command
-        self.args = args
-
+class BasicInfoRouter(BaseRouter):
     def route(self):
         if self.command == "la_libre":
             return LaLibre.inform()
