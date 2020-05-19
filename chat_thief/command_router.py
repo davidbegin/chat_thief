@@ -129,23 +129,6 @@ class CommandRouter:
                 options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
                 return f"Call !help with a specfic command for more details: {options}"
 
-        # -------------------------
-        # No Random Command or User
-        # -------------------------
-
-        # UserSoundeffectRouter
-        if self.command in ["me"]:
-            parser = PermsParser(user=self.user, args=self.args).parse()
-
-            user_permissions = " ".join(
-                [f"!{perm}" for perm in User(self.user).commands()]
-            )
-            stats = User(self.user).stats()
-            if user_permissions:
-                return f"{stats} | {user_permissions}"
-            else:
-                return stats
-
         # ------------
         # Takes a User
         # ------------
@@ -183,24 +166,6 @@ class CommandRouter:
                     return f"@{self.user} Made @{parser.target_user} their Ride or Die"
             else:
                 return None
-
-        # This only works for soundeffects
-        if self.command in ["permissions", "permission", "perms", "perm"]:
-            parser = PermsParser(user=self.user, args=self.args).parse()
-
-            if (
-                len(self.args) > 0
-                and not parser.target_command
-                and not parser.target_user
-            ):
-                raise ValueError(
-                    f"Could not find user or command: {' '.join(self.args)}"
-                )
-            return PermissionsFetcher.fetch_permissions(
-                user=self.user,
-                target_user=parser.target_user,
-                target_command=parser.target_command,
-            )
 
         # -----------
         # Random User
