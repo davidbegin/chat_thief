@@ -34,6 +34,10 @@ class TestFeedbackRouter(DatabaseConfig):
             ["VW2yff3su0U", "storm_seeker", "00:01", "00:04"],
         ).route()
         assert SoundeffectRequest.count() == 1
+
+        result = FeedbackRouter("not_streamlord", "requests", [],).route()
+
+        assert "storm_seeker" in result[0]
         result = FeedbackRouter("beginbotbot", "approve", ["not_streamlord"]).route()
         assert SoundeffectRequest.count() == 0
 

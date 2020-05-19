@@ -20,14 +20,10 @@ from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.commands.donator import Donator
-from chat_thief.commands.la_libre import LaLibre
-from chat_thief.commands.la_libre import REVOLUTION_LIKELYHOOD
 from chat_thief.commands.leaderboard import leaderboard, loserboard
-from chat_thief.commands.revolution import Revolution
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.economist.facts import Facts
 
-from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.command import Command
 from chat_thief.models.issue import Issue
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
@@ -123,12 +119,6 @@ class CommandRouter:
         return self._process_command()
 
     def _process_command(self):
-
-        if self.command == "requests":
-            stats = SoundeffectRequest.formatted_stats()
-            if not stats:
-                stats = "Excellent Job Stream Lords No Requests!"
-            return stats
 
         # -------------------------
         # No Random Command or User

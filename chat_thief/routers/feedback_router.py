@@ -68,3 +68,9 @@ class FeedbackRouter(BaseRouter):
                 f"@{issue['user']} ID: {issue.doc_id} - {issue['msg']}"
                 for issue in Issue.all()
             ]
+
+        if self.command == "requests":
+            stats = SoundeffectRequest.formatted_stats()
+            if not stats:
+                stats = "Excellent Job Stream Lords No Requests!"
+            return stats
