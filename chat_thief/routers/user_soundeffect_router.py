@@ -2,6 +2,7 @@ from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.user import User
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.permissions_fetcher import PermissionsFetcher
+from chat_thief.commands.donator import Donator
 
 
 class UserSoundeffectRouter(BaseRouter):
@@ -35,3 +36,13 @@ class UserSoundeffectRouter(BaseRouter):
                 target_user=parser.target_user,
                 target_command=parser.target_sfx,
             )
+
+        # ------------
+        # Takes a User
+        # ------------
+
+        if self.command == "donate":
+            if parser.target_user:
+                return Donator(self.user).donate(parser.target_user)
+            else:
+                return Donator(self.user).donate()

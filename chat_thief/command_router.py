@@ -129,16 +129,6 @@ class CommandRouter:
                 options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
                 return f"Call !help with a specfic command for more details: {options}"
 
-        # ------------
-        # Takes a User
-        # ------------
-
-        if self.command == "donate":
-            parser = PermsParser(user=self.user, args=self.args).parse()
-            if parser.target_user:
-                return Donator(self.user).donate(parser.target_user)
-            else:
-                return Donator(self.user).donate()
 
         # ===============================================
 
