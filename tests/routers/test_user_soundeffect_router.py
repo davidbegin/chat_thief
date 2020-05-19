@@ -24,7 +24,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
 
     def test_donate(self):
         Command("clap").allow_user("thugga")
-        assert 'thugga' in Command("clap").users()
+        assert "thugga" in Command("clap").users()
         result = UserSoundeffectRouter("thugga", "donate", []).route()
-        assert 'thugga' not in Command("clap").users()
+        assert "thugga" not in Command("clap").users()
         assert "was gifted" in result[0]

@@ -11,17 +11,13 @@ from chat_thief.routers.moderator_router import ModeratorRouter
 from chat_thief.routers.cube_casino_router import CubeCasinoRouter
 from chat_thief.routers.revolution_router import RevolutionRouter
 
-from chat_thief.chat_parsers.request_approver_parser import RequestApproverParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.command_parser import CommandParser as ParseTime
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.command_stealer import CommandStealer
-from chat_thief.commands.donator import Donator
-from chat_thief.commands.leaderboard import leaderboard, loserboard
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
-from chat_thief.economist.facts import Facts
 
 from chat_thief.models.command import Command
 from chat_thief.models.issue import Issue
@@ -31,12 +27,9 @@ from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
 
-from chat_thief.chat_logs import ChatLogs
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.config.log import error, success, warning
 from chat_thief.irc_msg import IrcMsg
-from chat_thief.irc import send_twitch_msg
-from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.config.commands_config import OBS_COMMANDS
 
@@ -128,7 +121,6 @@ class CommandRouter:
             else:
                 options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
                 return f"Call !help with a specfic command for more details: {options}"
-
 
         # ===============================================
 
