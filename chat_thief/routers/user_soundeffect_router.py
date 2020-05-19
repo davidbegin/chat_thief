@@ -1,8 +1,13 @@
-from chat_thief.routers.base_router import BaseRouter
+import random
+
+from chat_thief.prize_dropper import random_user as find_random_user
 from chat_thief.models.user import User
 from chat_thief.chat_parsers.command_parser import CommandParser
+from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.commands.donator import Donator
+from chat_thief.commands.street_cred_transfer import StreetCredTransfer
+from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.sfx_vote import SFXVote
 
 
@@ -69,3 +74,43 @@ class UserSoundeffectRouter(BaseRouter):
             else:
                 print("Doing Nothing")
                 return
+
+        if self.command in [
+            "props",
+            "bigups",
+            "endorse",
+        ]:
+            parser = CommandParser(
+                user=self.user, command=self.command, args=self.args
+            ).parse()
+
+            if parser.target_user == "random" or parser.target_user is None:
+                parser.target_user = self._random_user()
+
+            return StreetCredTransfer(
+                user=self.user, cool_person=parser.target_user, amount=parser.amount
+            ).transfer()
+
+        parser = CommandParser(
+            user=self.user,
+            command=self.command,
+            args=self.args,
+            allow_random_sfx=True,
+            allow_random_user=True,
+        ).parse()
+
+        if self.command in ["steal"]:
+
+            if parser.target_user == "random" and parser.target_sfx == "random":
+                parser.target_user = self._random_user()
+                parser.target_sfx = random.sample(
+                    User(parser.target_user).commands(), 1
+                )[0]
+
+            return CommandStealer(
+                thief=self.user, victim=parser.target_user, command=parser.target_sfx,
+            ).steal()
+
+    # What a Terrible Name
+    def _random_user(self):
+        return find_random_user(blacklisted_users=[self.user])

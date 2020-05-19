@@ -24,16 +24,6 @@ class TestCommandRouter(DatabaseConfig):
 
         return _irc_msg
 
-    @pytest.fixture
-    def mock_find_random_user(self, monkeypatch):
-        def _fake_find_random_user(self):
-            return "thugga"
-
-        # monkeypatch.setattr(obj, name, value, raising=True)
-        monkeypatch.setattr(
-            CommandRouter, "random_not_you_user", _fake_find_random_user
-        )
-
     def test_issue_with_no_info(self, irc_msg):
         irc_response = irc_msg("fake_user", "!issue")
         result = CommandRouter(irc_response, logger).build_response()
@@ -92,15 +82,3 @@ class TestCommandRouter(DatabaseConfig):
         irc_response = irc_msg(transferrer.name, message)
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "@wheezy already has accesss to !damn @thugga"
-
-    def test_steal_with_no_params(self, irc_msg, mock_find_random_user):
-        thugga = User("thugga")
-        thugga.update_cool_points(10)
-        Command("damn").allow_user("thugga")
-        user = User("beginbot")
-        user.update_cool_points(10)
-
-        message = "!steal"
-        irc_response = irc_msg(user.name, message)
-        result = CommandRouter(irc_response, logger).build_response()
-        assert result != "@beginbot stole from !damn from @thugga"

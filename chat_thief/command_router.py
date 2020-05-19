@@ -17,7 +17,6 @@ from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.command_parser import CommandParser as ParseTime
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
-from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 
 from chat_thief.models.command import Command
@@ -65,6 +64,15 @@ COMMANDS = {
     }
 }
 
+ROUTERS = [
+    ModeratorRouter,
+    BasicInfoRouter,
+    FeedbackRouter,
+    CubeCasinoRouter,
+    RevolutionRouter,
+    UserSoundeffectRouter,
+]
+
 
 class CommandRouter:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
@@ -85,29 +93,9 @@ class CommandRouter:
 
         success(f"\n{self.user}: {self.msg}")
 
-        result = ModeratorRouter(self.user, self.command, self.args).route()
-        if result:
-            return result
-
-        result = BasicInfoRouter(self.user, self.command, self.args).route()
-        if result:
-            return result
-
-        result = FeedbackRouter(self.user, self.command, self.args).route()
-        if result:
-            return result
-
-        result = CubeCasinoRouter(self.user, self.command, self.args).route()
-        if result:
-            return result
-
-        result = RevolutionRouter(self.user, self.command, self.args).route()
-        if result:
-            return result
-
-        result = UserSoundeffectRouter(self.user, self.command, self.args).route()
-        if result:
-            return result
+        for Router in ROUTERS:
+            if result := Router(self.user, self.command, self.args).route():
+                return result
 
         return self._process_command()
 
@@ -127,33 +115,9 @@ class CommandRouter:
                 options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
                 return f"Call !help with a specfic command for more details: {options}"
 
-        # ===============================================
-
-        if self.command in ["dislike", "hate", "detract"]:
-            parser = PermsParser(user=self.user, args=self.args).parse()
-
-            if parser.target_command and not parser.target_user:
-                result = SFXVote(parser.target_command).detract(self.user)
-                return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
-            else:
-                print("Doing Nothing")
-
         # -----------
         # Random User
         # -----------
-
-        if self.command in [
-            "props",
-            "bigups",
-            "endorse",
-        ]:
-            parser = PropsParser(user=self.user, args=self.args).parse()
-            if parser.target_user == "random" or not parser.target_user:
-                parser.target_user = self.random_not_you_user()
-
-            return StreetCredTransfer(
-                user=self.user, cool_person=parser.target_user, amount=parser.amount
-            ).transfer()
 
         if self.command in [
             "share",
@@ -211,18 +175,6 @@ class CommandRouter:
             allow_random_user=True,
         ).parse()
 
-        if self.command in ["steal"]:
-
-            if parser.target_user == "random" and parser.target_sfx == "random":
-                parser.target_user = self.random_not_you_user()
-                parser.target_sfx = random.sample(
-                    User(parser.target_user).commands(), 1
-                )[0]
-
-            return CommandStealer(
-                thief=self.user, victim=parser.target_user, command=parser.target_sfx,
-            ).steal()
-
         if self.command in COMMANDS["give"]["aliases"]:
 
             if parser.target_command == "random":
@@ -256,6 +208,3 @@ class CommandRouter:
 
         if self.command:
             PlaySoundeffectRequest(user=self.user, command=self.command).save()
-
-    def random_not_you_user(self):
-        return find_random_user(blacklisted_users=[self.user])
