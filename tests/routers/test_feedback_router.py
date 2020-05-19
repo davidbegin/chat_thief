@@ -50,10 +50,10 @@ class TestFeedbackRouter(DatabaseConfig):
     def test_submitting_and_deleting_issue(self):
         assert Issue.count() == 0
         result = FeedbackRouter(
-            "not_streamlord", "issue", ["THIS THING DOESN'T HARD"],
+            "not_streamlord", "issue", ["THIS THING DOESN'T WORK"],
         ).route()
         assert Issue.count() == 1
-        result = FeedbackRouter(
-            "beginbotbot", "delete_issue", ["not_streamlord"],
-        ).route()
+        result = FeedbackRouter("beginbotbot", "issues").route()
+        assert result == ["@not_streamlord ID: 1 - THIS THING DOESN'T WORK"]
+        FeedbackRouter("beginbotbot", "delete_issue", ["not_streamlord"],).route()
         assert Issue.count() == 0

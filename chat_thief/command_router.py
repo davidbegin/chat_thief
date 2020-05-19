@@ -127,20 +127,6 @@ class CommandRouter:
                 Vote(user=self.user).vote(self.command)
             return f"Thank you for your vote @{self.user}"
 
-        if self.command in ["issue", "bug"]:
-            if self.args:
-                msg = " ".join(self.args)
-                issue = Issue(user=self.user, msg=msg).save()
-                return f"Thank You @{self.user} for your feedback, we will review and get back to you shortly"
-            else:
-                return f"@{self.user} Must include a description of the !issue"
-
-        if self.command == "issues":
-            return [
-                f"@{issue['user']} ID: {issue.doc_id} - {issue['msg']}"
-                for issue in Issue.all()
-            ]
-
         if self.command == "requests":
             stats = SoundeffectRequest.formatted_stats()
             if not stats:
