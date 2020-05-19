@@ -2,7 +2,8 @@ from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectReques
 from chat_thief.chat_parsers.request_approver_parser import RequestApproverParser
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.routers.base_router import BaseRouter
-from chat_thief.config.stream_lords import STREAM_LORDS
+from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.models.issue import Issue
 
 
 class FeedbackRouter(BaseRouter):
@@ -46,3 +47,18 @@ class FeedbackRouter(BaseRouter):
                 if parser.doc_id:
                     SoundeffectRequest.deny_doc_id(self.user, parser.doc_id)
                     return f"@{self.user} DENIED Request: {parser.doc_id}"
+
+        if self.command in ["issue", "bug"]:
+            if self.args:
+                msg = " ".join(self.args)
+                issue = Issue(user=self.user, msg=msg).save()
+                return f"Thank You @{self.user} for your feedback, we will review and get back to you shortly"
+            else:
+                return f"@{self.user} Must include a description of the !issue"
+
+        if self.command == "delete_issue" and self.user in STREAM_GODS:
+            parser = RequestApproverParser(user=self.user, args=self.args).parse()
+
+            if parser.doc_id:
+                Issue.delete(parser.doc_id)
+                return f"Issue: {parser.doc_id} Deleted "

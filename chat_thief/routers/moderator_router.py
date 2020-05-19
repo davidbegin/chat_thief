@@ -8,6 +8,7 @@ from chat_thief.models.breaking_news import BreakingNews
 
 class ModeratorRouter(BaseRouter):
     def route(self):
+        print("Looking for Commands in ModeratorRouter")
 
         if self.user in STREAM_GODS:
             if self.command == "no_news":

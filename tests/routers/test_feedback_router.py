@@ -3,6 +3,7 @@ import pytest
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.routers.feedback_router import FeedbackRouter
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.models.issue import Issue
 
 from tests.support.database_setup import DatabaseConfig
 
@@ -46,5 +47,13 @@ class TestFeedbackRouter(DatabaseConfig):
         result = FeedbackRouter("beginbotbot", "deny", ["not_streamlord"]).route()
         assert SoundeffectRequest.count() == 0
 
-    # def submitting_issue
-    # def delete_issue
+    def test_submitting_and_deleting_issue(self):
+        assert Issue.count() == 0
+        result = FeedbackRouter(
+            "not_streamlord", "issue", ["THIS THING DOESN'T HARD"],
+        ).route()
+        assert Issue.count() == 1
+        result = FeedbackRouter(
+            "beginbotbot", "delete_issue", ["not_streamlord"],
+        ).route()
+        assert Issue.count() == 0

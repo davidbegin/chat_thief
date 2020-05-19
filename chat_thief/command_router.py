@@ -6,6 +6,10 @@ import random
 from chat_thief.prize_dropper import random_user as find_random_user
 
 from chat_thief.routers.basic_info_router import BasicInfoRouter
+from chat_thief.routers.feedback_router import FeedbackRouter
+from chat_thief.routers.moderator_router import ModeratorRouter
+from chat_thief.routers.cube_casino_router import CubeCasinoRouter
+
 from chat_thief.chat_parsers.request_approver_parser import RequestApproverParser
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
@@ -95,8 +99,19 @@ class CommandRouter:
 
         success(f"\n{self.user}: {self.msg}")
 
-        result = BasicInfoRouter(self.command, self.args).route()
+        result = ModeratorRouter(self.user, self.command, self.args).route()
+        if result:
+            return result
 
+        result = BasicInfoRouter(self.user, self.command, self.args).route()
+        if result:
+            return result
+
+        result = FeedbackRouter(self.user, self.command, self.args).route()
+        if result:
+            return result
+
+        result = CubeCasinoRouter(self.user, self.command, self.args).route()
         if result:
             return result
 
@@ -119,13 +134,6 @@ class CommandRouter:
                 return f"Thank You @{self.user} for your feedback, we will review and get back to you shortly"
             else:
                 return f"@{self.user} Must include a description of the !issue"
-
-        if self.command == "delete_issue" and self.user in STREAM_GODS:
-            parser = RequestApproverParser(user=self.user, args=self.args).parse()
-
-            if parser.doc_id:
-                Issue.delete(parser.doc_id)
-                return f"Issue: {parser.doc_id} Deleted "
 
         if self.command == "issues":
             return [
