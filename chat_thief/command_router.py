@@ -219,17 +219,6 @@ class CommandRouter:
             else:
                 return Donator(self.user).donate()
 
-        if self.command in ["deny"] and self.user in STREAM_LORDS:
-            parser = RequestApproverParser(user=self.user, args=self.args).parse()
-            if parser.doc_id:
-                SoundeffectRequest.deny_doc_id(self.user, parser.doc_id)
-                return f"@{self.user} DENIED Request: {parser.doc_id}"
-
-
-
-            # elif parser.approve_all:
-            #     return SoundeffectRequest.approve_all(approver=self.user)
-
         # ---------------
         # Takes a Command
         # ---------------

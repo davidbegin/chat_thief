@@ -36,10 +36,15 @@ class TestFeedbackRouter(DatabaseConfig):
         result = FeedbackRouter("beginbotbot", "approve", ["not_streamlord"]).route()
         assert SoundeffectRequest.count() == 0
 
-        # Create an unapproved SFX
-        # Then approve it
-        # make sure it is gone
+    def test_denying_sfx(self, mock_present_users):
+        result = FeedbackRouter(
+            "not_streamlord",
+            "soundeffect",
+            ["VW2yff3su0U", "storm_seeker", "00:01", "00:04"],
+        ).route()
+        assert SoundeffectRequest.count() == 1
+        result = FeedbackRouter("beginbotbot", "deny", ["not_streamlord"]).route()
+        assert SoundeffectRequest.count() == 0
 
-    # def test_denying_sfx
     # def submitting_issue
     # def delete_issue

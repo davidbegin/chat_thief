@@ -28,7 +28,9 @@ class FeedbackRouter(BaseRouter):
                 parser = RequestApproverParser(user=self.user, args=self.args).parse()
 
                 if parser.target_user:
-                    return SoundeffectRequest.approve_user(self.user, parser.target_user)
+                    return SoundeffectRequest.approve_user(
+                        self.user, parser.target_user
+                    )
                 elif parser.target_command:
                     return SoundeffectRequest.approve_command(
                         self.user, parser.target_command
@@ -37,3 +39,10 @@ class FeedbackRouter(BaseRouter):
                     return SoundeffectRequest.approve_doc_id(self.user, parser.doc_id)
                 else:
                     return "Not Sure What to Approve"
+
+        if self.command in ["deny"]:
+            if self.user in STREAM_LORDS:
+                parser = RequestApproverParser(user=self.user, args=self.args).parse()
+                if parser.doc_id:
+                    SoundeffectRequest.deny_doc_id(self.user, parser.doc_id)
+                    return f"@{self.user} DENIED Request: {parser.doc_id}"
