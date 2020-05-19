@@ -135,3 +135,16 @@ class TestCommandParser:
         assert result.target_user == "random"
         assert result.target_sfx == "random"
         assert result.requester == user
+
+    def test_amount(self):
+        user = "fake_user"
+        args = ["beginbot", "10"]
+        subject = CommandParser(
+            user, "props", args
+        )
+        result = subject.parse()
+
+        assert result.target_command == "props"
+        assert result.target_user == "beginbot"
+        assert result.target_sfx == None
+        assert result.amount == 10

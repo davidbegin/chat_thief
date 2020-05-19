@@ -38,3 +38,4 @@ class TestCubeBet(DatabaseConfig):
         CubeBet("uzi", 24).save()
         result = CubeBet.all_bets()
         assert result == [("uzi", 24), ("carti", 32)]
+

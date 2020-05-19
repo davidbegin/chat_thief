@@ -39,6 +39,19 @@ class BaseDbModel(abc.ABC):
         """The dict representation of the model"""
         return
 
+    # this is always based on the name, you should be able to override
+    def set_value(self, field, value):
+        def _update_that_value():
+            def transform(doc):
+                doc[field] = value
+
+            return transform
+
+        from tinyrecord import transaction
+
+        with transaction(self.db()) as tr:
+            tr.update_callable(_update_that_value(), Query().name == self.name)
+
     def save(self):
         from tinyrecord import transaction
 

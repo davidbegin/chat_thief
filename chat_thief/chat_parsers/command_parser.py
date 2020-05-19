@@ -16,6 +16,7 @@ class CommandRequest:
     target_command: Optional[str]
     target_sfx: Optional[str]
     requester: str
+    amount: Optional[int]
 
 
 class CommandParser:
@@ -36,11 +37,13 @@ class CommandParser:
             target_command=self.target_command,
             target_sfx=self.target_sfx,
             requester=self.user,
+            amount=self.amount,
         )
 
     def _set_target_user_and_command(self):
         self.target_user = None
         self.target_sfx = None
+        self.amount = 1
 
         for arg in self.args:
             if self._is_user(arg):
@@ -48,6 +51,9 @@ class CommandParser:
 
             if self._is_sfx(arg):
                 self.target_sfx = arg
+
+            if self._is_valid_amount(arg):
+                self.amount = int(arg)
 
         if self.target_sfx is None and self.target_user is None:
             if len(self.args) == 0:
@@ -71,6 +77,12 @@ class CommandParser:
             return user in WelcomeCommittee().present_users() or user == "random"
         else:
             return user in WelcomeCommittee().present_users()
+
+    def _is_valid_amount(self, val):
+        try:
+            return int(val) > 1
+        except (Exception, ValueError):
+            return False
 
     def _sanitize(self, item):
         if item.startswith("!") or item.startswith("@"):

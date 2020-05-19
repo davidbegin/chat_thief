@@ -1,13 +1,13 @@
 DEFAULT_VOTES_DB_PATH = "db/cube_bets.json"
 
 from chat_thief.models.database import db_table
-from chat_thief.models.base_model import BaseModel
+from chat_thief.models.base_db_model import BaseDbModel
 from chat_thief.models.user import User
 from chat_thief.config.log import error, warning, success
 from tinydb import Query
 
 
-class CubeBet(BaseModel):
+class CubeBet(BaseDbModel):
     table_name = "cube_bets"
     database_path = "db/cube_bets.json"
 
@@ -24,7 +24,7 @@ class CubeBet(BaseModel):
         bet = self.db().get(Query().name == self.name)
 
         if bet:
-            self._set_value("duration", self._duration)
+            self.set_value("duration", self._duration)
         else:
             success(f"Creating New Cube Bet: {self.doc()}")
             from tinyrecord import transaction

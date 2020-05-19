@@ -14,7 +14,6 @@ from chat_thief.commands.airdrop import Airdrop
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.command_stealer import CommandStealer
-from chat_thief.commands.cube_casino import CubeCasino
 from chat_thief.commands.donator import Donator
 from chat_thief.commands.la_libre import LaLibre
 from chat_thief.commands.la_libre import REVOLUTION_LIKELYHOOD
@@ -25,7 +24,6 @@ from chat_thief.economist.facts import Facts
 
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.command import Command
-from chat_thief.models.cube_bet import CubeBet
 from chat_thief.models.issue import Issue
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.sfx_vote import SFXVote
@@ -88,11 +86,6 @@ class CommandRouter:
         self.args = self.irc_msg.args
 
     def build_response(self) -> Optional[str]:
-        # TODO: Ban from executing commands
-        # if "TEST_MODE" not in os.environ:
-        #     if self.user not in YOU_WERE_THE_CHOSEN:
-        #         return
-
         if self.user == "nightbot":
             return
 
@@ -152,34 +145,6 @@ class CommandRouter:
                 stats = "Excellent Job Stream Lords No Requests!"
             return stats
 
-        if self.command == "most_popular":
-            return " | ".join(Command.most_popular())
-
-        if self.command in ["economy"]:
-            cool_points = User(self.user).total_cool_points()
-            return f"Total Cool Points in Market: {cool_points}"
-
-        if self.command in ["all_bets", "all_bet", "bets"]:
-            return " | ".join([f"@{bet[0]}: {bet[1]}" for bet in CubeBet.all_bets()])
-
-        if self.command == "bet":
-            if not CubeCasino.is_stopwatch_running():
-                parser = PropsParser(user=self.user, args=self.args).parse()
-                result = CubeBet(name=self.user, duration=parser.amount).save()
-                return (
-                    f"Thank you for your bet: @{result['name']}: {result['duration']}s"
-                )
-            else:
-                return f"NO BETS WHILE BEGINBOT IS SOLVING"
-
-        if self.command == "new_cube" and self.user == "beginbotbot":
-            return CubeCasino(self.user, self.args).purge()
-
-        if self.command == "cubed" and self.user in ["beginbot", "beginbotbot"]:
-            cube_time = int(self.args[0])
-            result = CubeCasino(cube_time).gamble()
-            CubeBet.purge()
-            return result
 
         # if self.command == "coup" and self.user == "beginbotbot":
         if self.command == "coup":
@@ -257,18 +222,6 @@ class CommandRouter:
                     return f"@{self.user} Made @{parser.target_user} their Ride or Die"
             else:
                 return None
-
-        # # -----
-        # # Other
-        # # -----
-
-        #     return SoundeffectRequest(
-        #         user=self.user,
-        #         youtube_id=sfx_request.youtube_id,
-        #         command=sfx_request.command,
-        #         start_time=sfx_request.start_time,
-        #         end_time=sfx_request.end_time,
-        #     ).save()
 
         # -------------------------
         # Takes a User OR a Command
