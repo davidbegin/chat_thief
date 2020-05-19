@@ -225,25 +225,7 @@ class CommandRouter:
                 SoundeffectRequest.deny_doc_id(self.user, parser.doc_id)
                 return f"@{self.user} DENIED Request: {parser.doc_id}"
 
-        if self.command in ["approve"] and self.user in STREAM_LORDS:
-            # # This should take a parser and act accordingly
-            # "!approve all"
-            # "!approve 1"
-            # "!approve @artmattdank"
-            # "!approve !new_command"
 
-            parser = RequestApproverParser(user=self.user, args=self.args).parse()
-
-            if parser.target_user:
-                return SoundeffectRequest.approve_user(self.user, parser.target_user)
-            elif parser.target_command:
-                return SoundeffectRequest.approve_command(
-                    self.user, parser.target_command
-                )
-            elif parser.doc_id:
-                return SoundeffectRequest.approve_doc_id(self.user, parser.doc_id)
-            else:
-                return "Not Sure What to Approve"
 
             # elif parser.approve_all:
             #     return SoundeffectRequest.approve_all(approver=self.user)
