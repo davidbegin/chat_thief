@@ -10,6 +10,7 @@ from chat_thief.routers.feedback_router import FeedbackRouter
 from chat_thief.routers.moderator_router import ModeratorRouter
 from chat_thief.routers.cube_casino_router import CubeCasinoRouter
 from chat_thief.routers.revolution_router import RevolutionRouter
+from chat_thief.routers.user_soundeffect_router import UserSoundeffectRouter
 
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
@@ -104,6 +105,10 @@ class CommandRouter:
         if result:
             return result
 
+        result = UserSoundeffectRouter(self.user, self.command, self.args).route()
+        if result:
+            return result
+
         return self._process_command()
 
     def _process_command(self):
@@ -132,22 +137,6 @@ class CommandRouter:
                 return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
             else:
                 print("Doing Nothing")
-
-        if self.command in ["support", "love", "like"]:
-            parser = PermsParser(user=self.user, args=self.args).parse()
-
-            if parser.target_command and not parser.target_user:
-                result = SFXVote(parser.target_command).support(self.user)
-                return f"!{parser.target_command} supporters: {len(result['supporters'])} | detractors {len(result['detractors'])}"
-
-            if parser.target_user and not parser.target_command:
-                if self.user == parser.target_user:
-                    return f"You can love yourself in real life, but not in Beginworld @{self.user}"
-                else:
-                    User(self.user).set_ride_or_die(parser.target_user)
-                    return f"@{self.user} Made @{parser.target_user} their Ride or Die"
-            else:
-                return None
 
         # -----------
         # Random User

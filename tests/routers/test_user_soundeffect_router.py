@@ -2,6 +2,7 @@ import pytest
 from chat_thief.routers.user_soundeffect_router import UserSoundeffectRouter
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.models.command import Command
+from chat_thief.models.sfx_vote import SFXVote
 
 from tests.support.database_setup import DatabaseConfig
 
@@ -28,3 +29,11 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         result = UserSoundeffectRouter("thugga", "donate", []).route()
         assert "thugga" not in Command("clap").users()
         assert "was gifted" in result[0]
+
+    def test_hate_and_like_command(self):
+        assert SFXVote("clap").supporter_count() == 0
+        assert SFXVote("clap").detractor_count() == 0
+        result = UserSoundeffectRouter("thugga", "like", ["clap"]).route()
+        assert SFXVote("clap").supporter_count() == 1
+        result = UserSoundeffectRouter("future", "hate", ["clap"]).route()
+        assert SFXVote("clap").detractor_count() == 1
