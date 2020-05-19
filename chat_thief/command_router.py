@@ -15,7 +15,6 @@ from chat_thief.chat_parsers.request_approver_parser import RequestApproverParse
 from chat_thief.chat_parsers.perms_parser import PermsParser
 from chat_thief.chat_parsers.props_parser import PropsParser
 from chat_thief.chat_parsers.command_parser import CommandParser as ParseTime
-from chat_thief.commands.airdrop import Airdrop
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.commands.command_stealer import CommandStealer
@@ -38,7 +37,6 @@ from chat_thief.config.log import error, success, warning
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.irc import send_twitch_msg
 from chat_thief.permissions_fetcher import PermissionsFetcher
-from chat_thief.prize_dropper import drop_soundeffect, dropreward
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.config.commands_config import OBS_COMMANDS
 
@@ -72,9 +70,6 @@ COMMANDS = {
         # "help": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
     }
 }
-
-
-YOU_WERE_THE_CHOSEN = ["beginbot", "beginbotbot"]
 
 
 class CommandRouter:
@@ -120,10 +115,25 @@ class CommandRouter:
 
     def _process_command(self):
 
+        # ---------------
+        # Takes a Command
+        # ---------------
+
+        if self.command == "help":
+            if len(self.args) > 0:
+                command = self.args[0]
+                if command.startswith("!"):
+                    command = command[1:]
+                return HELP_COMMANDS[command]
+            else:
+                options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
+                return f"Call !help with a specfic command for more details: {options}"
+
         # -------------------------
         # No Random Command or User
         # -------------------------
 
+        # UserSoundeffectRouter
         if self.command in ["me"]:
             parser = PermsParser(user=self.user, args=self.args).parse()
 
@@ -146,20 +156,6 @@ class CommandRouter:
                 return Donator(self.user).donate(parser.target_user)
             else:
                 return Donator(self.user).donate()
-
-        # ---------------
-        # Takes a Command
-        # ---------------
-
-        if self.command == "help":
-            if len(self.args) > 0:
-                command = self.args[0]
-                if command.startswith("!"):
-                    command = command[1:]
-                return HELP_COMMANDS[command]
-            else:
-                options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
-                return f"Call !help with a specfic command for more details: {options}"
 
         # ===============================================
 
@@ -313,23 +309,6 @@ class CommandRouter:
             return CommandGiver(
                 user=self.user, command=parser.target_sfx, friend=parser.target_user,
             ).give()
-
-        # -------------------
-        # Stream God Commands
-        # -------------------
-
-        if self.command == "dropeffect" and self.user in STREAM_GODS:
-            parser = PropsParser(user=self.user, args=self.args).parse()
-            parser2 = PermsParser(user=self.user, args=self.args).parse()
-
-            return Airdrop(
-                target_user=parser.target_user,
-                target_command=parser2.target_command,
-                amount=parser.amount,
-            ).drop()
-
-        if self.command == "dropreward" and self.user in STREAM_GODS:
-            return dropreward()
 
         # ------------------
         # OBS or Soundeffect

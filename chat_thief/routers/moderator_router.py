@@ -1,4 +1,6 @@
 from chat_thief.routers.base_router import BaseRouter
+from chat_thief.prize_dropper import drop_soundeffect, dropreward
+from chat_thief.commands.airdrop import Airdrop
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.models.user import User
@@ -53,3 +55,17 @@ class ModeratorRouter(BaseRouter):
                     return User(parser.target_user).kill()
                 else:
                     print(f"Not Sure who or what to silence: {self.args}")
+
+        if self.command == "dropeffect" and self.user in STREAM_GODS:
+            parser = CommandParser(
+                user=self.user, command=self.command, args=self.args
+            ).parse()
+
+            return Airdrop(
+                target_user=parser.target_user,
+                target_command=parser.target_command,
+                amount=parser.amount,
+            ).drop()
+
+        if self.command == "dropreward" and self.user in STREAM_GODS:
+            return dropreward()
