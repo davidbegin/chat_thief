@@ -7,7 +7,6 @@ from chat_thief.config.log import error, warning, success
 
 from chat_thief.models.command import Command
 
-# from chat_thief.models.base_model import BaseModel
 from chat_thief.models.base_db_model import BaseDbModel
 
 

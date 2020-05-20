@@ -4,10 +4,10 @@ import traceback
 from tinydb import Query
 
 from chat_thief.models.database import db_table
-from chat_thief.models.base_model import BaseModel
+from chat_thief.models.base_db_model import BaseDbModel
 
 
-class PlaySoundeffectRequest(BaseModel):
+class PlaySoundeffectRequest(BaseDbModel):
     def __init__(self, user=None, command=None):
         self.user = user
         if command:
@@ -16,16 +16,6 @@ class PlaySoundeffectRequest(BaseModel):
         self.play_sfx_db = db_table(
             play_soundeffect_requests_db_path, "play_soundeffects"
         )
-
-    def save(self):
-        if self._is_valid_json():
-            from tinyrecord import transaction
-
-            with transaction(self.play_sfx_db) as tr:
-                tr.insert(self.doc())
-            return self.doc()
-        else:
-            return f"There was an issue with {self.doc()}"
 
     def command_count(self):
         # We should check if this is valid json

@@ -3,10 +3,10 @@ from typing import List
 from tinydb import Query
 
 from chat_thief.models.database import db_table
-from chat_thief.models.base_model import BaseModel
+from chat_thief.models.base_db_model import BaseDbModel
 
 
-class SFXVote(BaseModel):
+class SFXVote(BaseDbModel):
     table_name = "sfx_votes"
     database_path = "db/sfx_votes.json"
 

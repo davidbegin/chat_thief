@@ -5,10 +5,10 @@ from chat_thief.models.user import User
 from chat_thief.config.log import error, warning, success
 
 from tinydb import Query
-from chat_thief.models.base_model import BaseModel
+from chat_thief.models.base_db_model import BaseDbModel
 
 
-class Vote(BaseModel):
+class Vote(BaseDbModel):
     table_name = "votes"
     database_path = "db/votes.json"
 

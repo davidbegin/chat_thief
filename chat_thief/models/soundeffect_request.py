@@ -7,20 +7,16 @@ from tinydb import Query
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.models.database import db_table
 from chat_thief.sample_saver import SampleSaver
-from chat_thief.models.base_model import BaseModel
+from chat_thief.models.base_db_model import BaseDbModel
 
 
-class SoundeffectRequest(BaseModel):
+class SoundeffectRequest(BaseDbModel):
     table_name = "soundeffect_requests"
     database_path = "db/soundeffect_requests.json"
 
     @classmethod
     def get(cls, command):
         return cls.db().get(Query().command == command)
-
-    @classmethod
-    def all(cls):
-        return cls.db().all()
 
     @classmethod
     def unapproved_count(cls):

@@ -4,7 +4,6 @@ import os
 import subprocess
 
 from chat_thief.irc_msg import IrcMsg
-from chat_thief.models.soundeffect import SoundEffect
 from chat_thief.irc import send_twitch_msg
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.prize_dropper import random_user
