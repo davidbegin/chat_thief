@@ -48,7 +48,8 @@ class BreakingNewsBot:
             if self.last_breaking_time:
                 how_long_since_break = datetime.now() - self.last_breaking_time
                 print(f"How Long: {how_long_since_break}")
-                if how_long_since_break.seconds < 300:
+                if how_long_since_break.seconds < 30:
+                # if how_long_since_break.seconds < 300:
                     print("Sorry Too Soon, waiting for more news")
                     time.sleep(3)
                 else:
@@ -60,12 +61,15 @@ class BreakingNewsBot:
 
     def trigger_breaking_news(self):
         # Let's mark the news as reported on
+        news_story = BreakingNews.report_last_story()
+
         os.system("scene breakin")
         os.system("nomeme")
         time.sleep(7)
         os.system("nomeme")
         os.system("scene news")
         self.last_breaking_time = datetime.now()
+
 
         # os.system("clear")
 
