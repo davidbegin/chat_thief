@@ -33,3 +33,30 @@ class TestBreakingNews(DatabaseConfig):
 
         assert news["user"] == "coltrane"
         assert news["category"] == "coup"
+
+    def test_breaking_news_reported_on(self):
+        subject = BreakingNews(
+            scope="Cool Points are now the most valuable currency in the world!",
+            user="coltrane",
+            category="coup",
+        )
+        subject.save()
+        result = BreakingNews.report_last_story()
+        assert (
+            result["scope"]
+            == "Cool Points are now the most valuable currency in the world!"
+        )
+
+    def test_unreported_news(self):
+        subject = BreakingNews(
+            scope="Cool Points are now the most valuable currency in the world!",
+        )
+        subject.save()
+        old_news = BreakingNews(scope="THE WORLD IS ENDING", reported_on=True)
+        old_news.save()
+        result = BreakingNews.unreported_news()
+        assert "THE WORLD IS ENDING" not in result["scope"]
+        assert (
+            "Cool Points are now the most valuable currency in the world!"
+            in result["scope"]
+        )

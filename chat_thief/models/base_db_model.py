@@ -34,6 +34,19 @@ class BaseDbModel(abc.ABC):
     def purge(cls):
         return cls.db().purge()
 
+    @classmethod
+    def set_value_by_id(cls, doc_id, field, value):
+        def _update_that_value():
+            def transform(doc):
+                doc[field] = value
+
+            return transform
+
+        from tinyrecord import transaction
+
+        with transaction(cls.db()) as tr:
+            tr.update_callable(_update_that_value(), doc_ids=[doc_id])
+
     @abc.abstractmethod
     def doc(self):
         """The dict representation of the model"""

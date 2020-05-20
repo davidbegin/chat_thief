@@ -13,14 +13,6 @@ from chat_thief.models.command import Command
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 
 
-def trigger_breaking_news():
-    os.system("scene breakin")
-    os.system("nomeme")
-    time.sleep(7)
-    os.system("nomeme")
-    os.system("scene news")
-
-
 class BreakingNewsBot:
     def __init__(self):
         self.in_coup = False
@@ -28,7 +20,7 @@ class BreakingNewsBot:
         self.initial_most_expensive = Command.most_expensive()
         self.initial_richest_user = User.richest_cool_points()
 
-    def loop():
+    def loop(self):
         os.system("clear")
 
         while True:
@@ -47,23 +39,34 @@ class BreakingNewsBot:
 
     # Return Breaking News if exists
     def check_for_breaking_news(self):
-        if BreakingNews.all():
+        if BreakingNews.unreported_news():
             last_news_story = BreakingNews.last()
             print(f"last news story: {last_news_story}")
             print(f"in coup: {self.in_coup}")
             print(f"Time since Last Breaking News: {self.last_breaking_time}")
-        if self.last_breaking_time:
-            how_long_since_break = datetime.now() - self.last_breaking_time
-            print(f"How Long: {how_long_since_break}")
-            if how_long_since_break.seconds < 300:
-                print("Sorry Too Soon, waiting for more news")
-                time.sleep(3)
-            else:
-                print("You have my permission to trigger breaking news")
-                trigger_breaking_news()
 
-    def loop():
-        pass
+            if self.last_breaking_time:
+                how_long_since_break = datetime.now() - self.last_breaking_time
+                print(f"How Long: {how_long_since_break}")
+                if how_long_since_break.seconds < 300:
+                    print("Sorry Too Soon, waiting for more news")
+                    time.sleep(3)
+                else:
+                    print("You have my permission to trigger breaking news")
+                    self.trigger_breaking_news()
+            else:
+                print("Triggering Breaking News no previous news stories ")
+                self.trigger_breaking_news()
+
+    def trigger_breaking_news(self):
+        # Let's mark the news as reported on
+        os.system("scene breakin")
+        os.system("nomeme")
+        time.sleep(7)
+        os.system("nomeme")
+        os.system("scene news")
+        self.last_breaking_time = datetime.now()
+
         # os.system("clear")
 
         # while True:

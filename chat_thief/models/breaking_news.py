@@ -1,6 +1,9 @@
+import time
+
 from chat_thief.models.base_db_model import BaseDbModel
 from datetime import datetime
-import time
+
+from tinydb import Query
 
 
 class BreakingNews(BaseDbModel):
@@ -12,6 +15,7 @@ class BreakingNews(BaseDbModel):
         scope,
         user=None,
         category=None,
+        reported_on=False,
         revolutionaries=[],
         peace_keepers=[],
         fence_sitters=[],
@@ -19,9 +23,20 @@ class BreakingNews(BaseDbModel):
         self._scope = scope
         self._user = user
         self._category = category
+        self._reported_on = reported_on
         self._revolutionaries = revolutionaries
         self._peace_keepers = peace_keepers
         self._fence_sitters = fence_sitters
+
+    @classmethod
+    def unreported_news(cls):
+        return cls.db().get(Query().reported_on == False)
+
+    @classmethod
+    def report_last_story(cls):
+        last_story = cls.unreported_news()
+        cls.set_value_by_id(last_story.doc_id, "reported_on", True)
+        return last_story
 
     def doc(self):
         scope_time = datetime.fromtimestamp(time.time())
@@ -30,6 +45,7 @@ class BreakingNews(BaseDbModel):
             "user": self._user,
             "category": self._category,
             "timestamp": str(scope_time),
+            "reported_on": self._reported_on,
             "revolutionaries": self._revolutionaries,
             "peace_keepers": self._peace_keepers,
             "fence_sitters": self._fence_sitters,

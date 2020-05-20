@@ -144,6 +144,7 @@ class TestUser(DatabaseConfig):
         assert subject.karma() == 0
 
     def test_richest_street_cred(self):
+        User.richest_street_cred() == None
         watto = User("watto")
         watto.save()
         watto.update_street_cred(3)
@@ -158,10 +159,10 @@ class TestUser(DatabaseConfig):
         User.richest_street_cred()["name"] == "artmattdank"
 
     def test_richest_cool_points(self):
+        User.richest_cool_points() == None
         watto = User("watto")
         watto.save()
         watto.update_cool_points(3)
-
         artmattdank = User("artmattdank")
         artmattdank.save()
         artmattdank.update_cool_points(9)
