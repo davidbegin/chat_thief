@@ -23,7 +23,7 @@ class Command(BaseDbModel):
     def __init__(self, name):
         self.name = name
         self.permitted_users = []
-        self.inital_health = 5
+        self.inital_health = 3
         self.inital_cost = 1
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
@@ -69,12 +69,6 @@ class Command(BaseDbModel):
             f"{command['name']}: {command['cost']}" for command in sorted_commands[-5:]
         ]
 
-    def update(self, update_func):
-        from tinyrecord import transaction
-
-        with transaction(self.db()) as tr:
-            return tr.update_callable(update_func(), Query().name == self.name)
-
     def exists(self):
         return cls.db().get(Query().name == name) is not None
 
@@ -107,49 +101,24 @@ class Command(BaseDbModel):
             return 1
 
     def update_health(self, amount):
-        def _update_health():
-            def transform(doc):
-                doc["health"] = doc["health"] + int(amount)
-
-            return transform
-
-        return self.update(_update_health)
+        return self._update_value("health", amount)
 
     def revive(self):
-        def _update_health():
-            def transform(doc):
-                doc["health"] = 5
-
-            return transform
-
-        return self.update(_update_health)
+        return self.set_value("health", 3)
 
     def silence(self):
-        def _update_health():
-            def transform(doc):
-                doc["health"] = 0
-
-            return transform
-
-        return self.update(_update_health)
+        return self.set_value("health", 0)
 
     def increase_cost(self, amount=1):
         if command := self.db().get(Query().name == self.name):
             self._increase_cost(amount)
 
     def _increase_cost(self, amount):
-        def _db_increase_cost():
-            def transform(doc):
-                doc["cost"] = int(doc["cost"]) + int(amount)
-
-            return transform
-
-        self.update(_db_increase_cost)
+        self._update_value("cost", amount)
 
     def unallow_user(self, target_user):
         try:
             command = self.db().get(Query().name == self.name)
-
             if command:
                 self._remove_user(target_user)
                 return f"@{target_user} lost access to !{self.name}"

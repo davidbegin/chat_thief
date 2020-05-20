@@ -64,11 +64,11 @@ class TestCommand(DatabaseConfig):
     def test_silence_and_revive(self):
         subject = Command("damn")
         subject.save()
-        assert subject.health() == 5
+        assert subject.health() == 3
         subject.silence()
         assert subject.health() == 0
         subject.revive()
-        assert subject.health() == 5
+        assert subject.health() == 3
 
     def test_most_expensive_command(self):
         assert not Command.most_expensive()

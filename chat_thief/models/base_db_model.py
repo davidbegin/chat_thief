@@ -71,6 +71,12 @@ class BaseDbModel(abc.ABC):
         with transaction(self.db()) as tr:
             tr.insert(self.doc())
 
+    def update(self, update_func):
+        from tinyrecord import transaction
+
+        with transaction(self.db()) as tr:
+            return tr.update_callable(update_func(), Query().name == self.name)
+
     def _update_value(self, field, amount=1):
         def _update_that_value():
             def transform(doc):
