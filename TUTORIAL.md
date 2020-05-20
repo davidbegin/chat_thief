@@ -15,7 +15,7 @@ Example Output:
 ## Mana
 
 You can play soundeffect for each Mana point you have.
-Mana replenishes regularlly.
+Mana replenishes regularly.
 
 ## Street Cred
 
@@ -96,4 +96,4 @@ You can steal a command from someone else as well, and they will lose access
 !submit etc
 !ticket Someone ripped me
 
-Beginbot will look at these
+Beginbot will look at these issues, and delete them once completed

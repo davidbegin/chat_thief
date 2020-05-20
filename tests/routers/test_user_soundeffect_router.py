@@ -12,7 +12,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
     @pytest.fixture
     def mock_find_random_user(self, monkeypatch):
         def _fake_find_random_user(self):
-            return "thugga"
+            return "young.thug"
 
         monkeypatch.setattr(
             UserSoundeffectRouter, "_random_user", _fake_find_random_user
@@ -33,11 +33,14 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         result = UserSoundeffectRouter("beginbotbot", "perms", ["clap"]).route()
         assert result == "!clap | Cost: 1 | Health: 0 | Like Ratio 100%"
 
-    def test_donate(self):
-        Command("clap").allow_user("thugga")
-        assert "thugga" in Command("clap").users()
-        result = UserSoundeffectRouter("thugga", "donate", []).route()
-        assert "thugga" not in Command("clap").users()
+    def test_donate(self, mock_present_users, mock_find_random_user):
+        user = User("uzi")
+        Command("clap").allow_user(user.name)
+        assert "uzi" in Command("clap").users()
+        assert "young.thug" not in Command("clap").users()
+        result = UserSoundeffectRouter("uzi", "donate", ["young.thug"]).route()
+        assert "young.thug" in Command("clap").users()
+        assert "uzi" not in Command("clap").users()
         assert "was gifted" in result[0]
 
     def test_hate_and_like_command(self):
@@ -71,14 +74,14 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         assert young_thug.street_cred() == 0
         assert uzi.street_cred() == 9
 
-    def test_steal_with_no_params(self, mock_find_random_user):
-        thugga = User("thugga")
+    def test_steal_with_no_params(self, mock_present_users, mock_find_random_user):
+        thugga = User("young.thug")
         thugga.update_cool_points(10)
-        Command("damn").allow_user("thugga")
+        Command("damn").allow_user("young.thug")
         user = User("beginbot")
         user.update_cool_points(10)
         result = UserSoundeffectRouter(user.name, "steal", []).route()
-        result == "@beginbot stole from @thugga"
+        result == "@beginbot stole from @young.thug"
         assert user.cool_points() == 9
 
     def test_buying_random(self, mock_find_random_user):

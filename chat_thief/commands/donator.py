@@ -1,5 +1,6 @@
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
+
 from chat_thief.prize_dropper import random_user
 
 
