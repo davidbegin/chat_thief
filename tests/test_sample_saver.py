@@ -20,3 +20,15 @@ class TestSampleSaver(DatabaseConfig):
         assert Command.count() == 1
         subject.save()
         assert Command.count() == 1
+
+    def test_saving_a_problem_sample(self):
+        assert Command.count() == 0
+        subject = SampleSaver(
+            user="qwertimer",
+            youtube_id="https://www.youtube.com/watch?v=Ve-ATf6OTBQ",
+            command="qwertimer",
+            start_time="0:07",
+            end_time="0:11",
+        )
+        subject.save()
+        assert Command.count() == 1

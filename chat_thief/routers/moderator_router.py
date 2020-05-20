@@ -63,7 +63,7 @@ class ModeratorRouter(BaseRouter):
 
             return Airdrop(
                 target_user=parser.target_user,
-                target_command=parser.target_command,
+                target_command=parser.target_sfx,
                 amount=parser.amount,
             ).drop()
 

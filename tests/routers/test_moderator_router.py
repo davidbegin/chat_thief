@@ -42,8 +42,9 @@ class TestModeratorRouter(DatabaseConfig):
         ModeratorRouter("beginbotbot", "no_news", []).route()
         assert BreakingNews.count() == 0
 
-    def test_dropeffects(self):
+    def test_dropeffects(self, mock_present_users):
         result = ModeratorRouter("beginbotbot", "dropeffect").route()
         assert "now has access" in result[0]
+        assert "now has access to Sound Effect: !dropeffect" not in result[0]
         result = ModeratorRouter("beginbotbot", "dropreward").route()
         assert "now has access" in result
