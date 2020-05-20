@@ -4,11 +4,22 @@ from chat_thief.prize_dropper import random_user as find_random_user
 from chat_thief.models.user import User
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.commands.command_stealer import CommandStealer
+from chat_thief.commands.command_giver import CommandGiver
+from chat_thief.commands.command_sharer import CommandSharer
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.commands.donator import Donator
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.sfx_vote import SFXVote
+from chat_thief.commands.command_buyer import CommandBuyer
+
+
+COMMANDS = {
+    "give": {
+        "aliases": ["transfer", "give"],
+        # "help": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
+    }
+}
 
 
 class UserSoundeffectRouter(BaseRouter):
@@ -110,6 +121,79 @@ class UserSoundeffectRouter(BaseRouter):
             return CommandStealer(
                 thief=self.user, victim=parser.target_user, command=parser.target_sfx,
             ).steal()
+
+        if self.command in ["buy"]:
+            parser = CommandParser(
+                user=self.user,
+                command=self.command,
+                args=self.args,
+                allow_random_sfx=True,
+            ).parse()
+
+            return CommandBuyer(user=self.user, target_sfx=parser.target_sfx).buy()
+
+        # So What are the aliases here
+        if self.command in COMMANDS["give"]["aliases"]:
+            parser = CommandParser(
+                user=self.user,
+                command=self.command,
+                args=self.args,
+                allow_random_sfx=True,
+                allow_random_user=True,
+            ).parse()
+
+            if parser.target_command == "random":
+                sfx_choices = random.choice(User(self.user).commands(), 1) - [self.user]
+                parser.target_sfx = sfx_choices[0]
+                print(f"Choosing Random Command: {parser.target_command}")
+
+            if parser.target_user == "random":
+                command = Command(parser.target_sfx)
+                parser.target_user = find_random_user(
+                    blacklisted_users=[command.users()] + [self.user]
+                )
+
+            if parser.target_user is None:
+                raise ValueError("We didn't find a user to give to")
+
+            print(f"Attempting to give: !{parser.target_sfx} @{parser.target_user}")
+
+            # This interface needs to call Command SFX
+            return CommandGiver(
+                user=self.user, command=parser.target_sfx, friend=parser.target_user,
+            ).give()
+
+        if self.command in [
+            "share",
+            "clone",
+            "add_perm",
+            "add_perms",
+            "share_perm",
+            "share_perms",
+        ]:
+            parser = CommandParser(
+                user=self.user,
+                command=self.command,
+                args=self.args,
+                allow_random_sfx=True,
+                allow_random_user=True,
+            ).parse()
+
+            if parser.target_sfx == "random":
+                commands = User(self.user).commands()
+                parser.target_sfx = random.sample(commands, 1)[0]
+
+            if parser.target_user == "random":
+                parser.target_user = find_random_user(
+                    blacklisted_users=Command(command).users()
+                )
+
+            if parser.target_user and parser.target_sfx:
+                return CommandSharer(
+                    self.user, parser.target_sfx, parser.target_user
+                ).share()
+            else:
+                return f"Error Sharing - Command: {parser.target_sfx} | User: {parser.target_user}"
 
     # What a Terrible Name
     def _random_user(self):

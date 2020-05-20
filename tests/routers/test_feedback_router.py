@@ -52,6 +52,8 @@ class TestFeedbackRouter(DatabaseConfig):
         assert SoundeffectRequest.count() == 0
 
     def test_submitting_and_deleting_issue(self):
+        result = FeedbackRouter("fake_user", "issue", [],).route()
+        assert result == "@fake_user Must include a description of the !issue"
         assert Issue.count() == 0
         result = FeedbackRouter(
             "not_streamlord", "issue", ["THIS THING DOESN'T WORK"],

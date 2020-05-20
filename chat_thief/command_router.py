@@ -100,11 +100,6 @@ class CommandRouter:
         return self._process_command()
 
     def _process_command(self):
-
-        # ---------------
-        # Takes a Command
-        # ---------------
-
         if self.command == "help":
             if len(self.args) > 0:
                 command = self.args[0]
@@ -114,89 +109,6 @@ class CommandRouter:
             else:
                 options = " ".join([f"!{command}" for command in HELP_COMMANDS.keys()])
                 return f"Call !help with a specfic command for more details: {options}"
-
-        # -----------
-        # Random User
-        # -----------
-
-        if self.command in [
-            "share",
-            "clone",
-            "add_perm",
-            "add_perms",
-            "share_perm",
-            "share_perms",
-        ]:
-            parser = PermsParser(
-                user=self.user, args=self.args, random_user=True, random_command=True
-            ).parse()
-
-            if parser.target_command == "random":
-                commands = User(self.user).commands()
-                parser.target_command = random.sample(commands, 1)[0]
-
-            if parser.target_user == "random":
-                parser.target_user = find_random_user(
-                    blacklisted_users=Command(command).users()
-                )
-
-            if parser.target_user and parser.target_command:
-                return CommandSharer(
-                    self.user, parser.target_command, parser.target_user
-                ).share()
-            else:
-                return f"Error Sharing - Command: {parser.target_command} | User: {parser.target_user}"
-
-        # --------------
-        # Random Command
-        # --------------
-
-        if self.command in ["buy"]:
-            from chat_thief.commands.command_buyer import CommandBuyer
-
-            parser = ParseTime(
-                user=self.user,
-                command=self.command,
-                args=self.args,
-                allow_random_sfx=True,
-            ).parse()
-
-            return CommandBuyer(user=self.user, target_sfx=parser.target_sfx).buy()
-
-        # ------------------------------
-        # Random Command and Random User
-        # ------------------------------
-
-        parser = ParseTime(
-            user=self.user,
-            command=self.command,
-            args=self.args,
-            allow_random_sfx=True,
-            allow_random_user=True,
-        ).parse()
-
-        if self.command in COMMANDS["give"]["aliases"]:
-
-            if parser.target_command == "random":
-                sfx_choices = random.choice(User(self.user).commands(), 1) - [self.user]
-                parser.target_sfx = sfx_choices[0]
-                print(f"Choosing Random Command: {parser.target_command}")
-
-            if parser.target_user == "random":
-                command = Command(parser.target_sfx)
-                parser.target_user = find_random_user(
-                    blacklisted_users=[command.users()] + [self.user]
-                )
-
-            if parser.target_user is None:
-                raise ValueError("We didn't find a user to give to")
-
-            print(f"Attempting to give: !{parser.target_sfx} @{parser.target_user}")
-
-            # This interface needs to call Command SFX
-            return CommandGiver(
-                user=self.user, command=parser.target_sfx, friend=parser.target_user,
-            ).give()
 
         # ------------------
         # OBS or Soundeffect

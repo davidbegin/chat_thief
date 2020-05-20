@@ -48,6 +48,14 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         result = UserSoundeffectRouter("future", "hate", ["clap"]).route()
         assert SFXVote("clap").detractor_count() == 1
 
+    def test_you_cannot_love_yourself(self):
+        user = "young.thug"
+        result = UserSoundeffectRouter("young.thug", "love", ["@young.thug"]).route()
+        assert (
+            result
+            == "You can love yourself in real life, but not in Beginworld @young.thug"
+        )
+
     def test_props(self):
         young_thug = User("young.thug")
         uzi = User("uzi")
@@ -72,3 +80,29 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         result = UserSoundeffectRouter(user.name, "steal", []).route()
         result == "@beginbot stole from @thugga"
         assert user.cool_points() == 9
+
+    def test_buying_random(self, mock_find_random_user):
+        user = "young.thug"
+        User(user).update_cool_points(10)
+        result = UserSoundeffectRouter(user, "buy", ["clap"]).route()
+        assert result == "@young.thug bought !clap"
+        assert User(user).cool_points() < 10
+
+    def test_transferring_to_another_user(self, mock_find_random_user):
+        user = "young.thug"
+        User(user).update_cool_points(10)
+        command = Command("damn")
+        command.allow_user(user)
+        result = UserSoundeffectRouter(user, "give", ["damn", "uzi"]).route()
+        assert result == [
+            "@uzi now has access to !damn",
+            "@young.thug lost access to !damn",
+        ]
+
+    def test_sharing_with_another_user(self, mock_find_random_user):
+        user = "young.thug"
+        User(user).update_cool_points(10)
+        command = Command("damn")
+        command.allow_user(user)
+        result = UserSoundeffectRouter(user, "share", ["damn", "uzi"]).route()
+        assert result == "young.thug shared @uzi now has access to !damn"

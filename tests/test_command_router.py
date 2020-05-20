@@ -24,24 +24,6 @@ class TestCommandRouter(DatabaseConfig):
 
         return _irc_msg
 
-    def test_issue_with_no_info(self, irc_msg):
-        irc_response = irc_msg("fake_user", "!issue")
-        result = CommandRouter(irc_response, logger).build_response()
-        assert result == "@fake_user Must include a description of the !issue"
-
-    def test_transferring_to_another_user(self, irc_msg):
-        user = "thugga"
-        User(user).update_cool_points(10)
-        command = Command("damn")
-        command.allow_user(user)
-        message = "!give damn beginbot"
-        irc_response = irc_msg(user, message)
-        result = CommandRouter(irc_response, logger).build_response()
-        assert result == [
-            "@beginbot now has access to !damn",
-            "@thugga lost access to !damn",
-        ]
-
     @pytest.mark.skip
     def test_buying_a_non_existent_sound(self, irc_msg):
         user = "thugga"
@@ -50,25 +32,6 @@ class TestCommandRouter(DatabaseConfig):
         irc_response = irc_msg(user, message)
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "@thugga purchase failed, command !gibberish not found"
-
-    def test_buying_random(self, irc_msg):
-        user = "thugga"
-        User(user).update_cool_points(10)
-        message = "!buy clap"
-        irc_response = irc_msg(user, message)
-        result = CommandRouter(irc_response, logger).build_response()
-        assert result == "@thugga bought !clap"
-        assert User(user).cool_points() < 10
-
-    def test_you_cannot_love_yourself(self, irc_msg):
-        user = "thugga"
-        message = "!love thugga"
-        irc_response = irc_msg(user, message)
-        result = CommandRouter(irc_response, logger).build_response()
-        assert (
-            result
-            == "You can love yourself in real life, but not in Beginworld @thugga"
-        )
 
     @pytest.mark.skip
     def test_transferring_a_command_already_owned(self, irc_msg):
