@@ -44,10 +44,7 @@ def facts(name=None):
                     fence_sitters=fence_sitters,
                 )
             elif category == "iasip":
-                return render_template(
-                    "sunny.html",
-                    title_card=breaking_news["scope"]
-                )
+                return render_template("sunny.html", title_card=breaking_news["scope"])
             else:
                 print("Rendering The News")
                 return render_template(

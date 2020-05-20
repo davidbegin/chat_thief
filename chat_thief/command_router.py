@@ -7,6 +7,7 @@ from chat_thief.config.log import error, success, warning
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
+from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.routers.basic_info_router import BasicInfoRouter
 from chat_thief.routers.beginworld_help_router import BeginworldHelpRouter
 from chat_thief.routers.cube_casino_router import CubeCasinoRouter
@@ -51,6 +52,16 @@ class CommandRouter:
         for Router in ROUTERS:
             if result := Router(self.user, self.command, self.args).route():
                 return result
+
+        # Who is allowed to do this???
+        if self.user in STREAM_LORDS:
+            if self.command == "iasip":
+                return BreakingNews(
+                    " ".join(self.irc_msg.args), category="iasip"
+                ).save()
+
+            if self.command == "curb_your_begin":
+                return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
 
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")

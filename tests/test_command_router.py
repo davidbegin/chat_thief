@@ -2,6 +2,7 @@ import pytest
 
 from chat_thief.command_router import CommandRouter
 from chat_thief.models.command import Command
+from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.user import User
 from chat_thief.config.log import logger
 
@@ -45,3 +46,9 @@ class TestCommandRouter(DatabaseConfig):
         irc_response = irc_msg(transferrer.name, message)
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "@wheezy already has accesss to !damn @thugga"
+
+    def test_iasip(self, irc_msg):
+        irc_response = irc_msg("beginbot", "!iasip The Gang Steals Kappa")
+        CommandRouter(irc_response, logger).build_response()
+        news = BreakingNews.last()
+        assert news["scope"] == "The Gang Steals Kappa"

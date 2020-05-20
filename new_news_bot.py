@@ -58,21 +58,21 @@ class BreakingNewsBot:
                 print("Triggering Breaking News no previous news stories ")
                 self.trigger_breaking_news()
 
-
     def trigger_breaking_news(self):
         news_story = BreakingNews.report_last_story()
-        category = news_story.get('category', None)
+        category = news_story.get("category", None)
 
-        if category:
+        if category == "iasip":
             os.system("scene iasip")
-            self.last_breaking_time = datetime.now()
+        elif category == "curb":
+            os.system("scene curb")
         else:
             os.system("scene breakin")
             os.system("nomeme")
             time.sleep(7)
             os.system("nomeme")
             os.system("scene news")
-            self.last_breaking_time = datetime.now()
+        self.last_breaking_time = datetime.now()
 
 
 if __name__ == "__main__":

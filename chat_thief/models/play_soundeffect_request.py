@@ -8,6 +8,9 @@ from chat_thief.models.base_db_model import BaseDbModel
 
 
 class PlaySoundeffectRequest(BaseDbModel):
+    table_name = "play_soundeffects"
+    database_path = "db/play_soundeffects.json"
+
     def __init__(self, user=None, command=None):
         self.user = user
         if command:
