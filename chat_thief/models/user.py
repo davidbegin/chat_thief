@@ -6,10 +6,12 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.log import error, warning, success
 
 from chat_thief.models.command import Command
-from chat_thief.models.base_model import BaseModel
+
+# from chat_thief.models.base_model import BaseModel
+from chat_thief.models.base_db_model import BaseDbModel
 
 
-class User(BaseModel):
+class User(BaseDbModel):
     table_name = "users"
     database_path = "db/users.json"
 
@@ -89,7 +91,7 @@ class User(BaseModel):
         return self._update_value("mana", -self.mana())
 
     def revive(self, mana=3):
-        return self._set_value("mana", mana)
+        return self.set_value("mana", mana)
 
     def paperup(self, amount=100):
         self.update_street_cred(amount)
@@ -167,7 +169,7 @@ class User(BaseModel):
 
     def set_ride_or_die(self, ride_or_die):
         if ride_or_die != self.name:
-            return self._set_value("ride_or_die", ride_or_die)
+            return self.set_value("ride_or_die", ride_or_die)
 
     # ===========
     # Punishments

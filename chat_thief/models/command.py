@@ -11,10 +11,12 @@ from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.models.sfx_vote import SFXVote
 
-from chat_thief.models.base_model import BaseModel
+from chat_thief.models.base_db_model import BaseDbModel
+
+# from chat_thief.models.base_model import BaseModel
 
 
-class Command(BaseModel):
+class Command(BaseDbModel):
     table_name = "commands"
     database_path = "db/commands.json"
 
@@ -45,7 +47,7 @@ class Command(BaseModel):
         if found_command:
             return found_command
         else:
-            return cls(name)._create_new_command()
+            return cls(name).save()
 
     @classmethod
     def for_user(cls, user):
@@ -103,15 +105,6 @@ class Command(BaseModel):
             return command["cost"]
         else:
             return 1
-
-    def set_value(self, field, value):
-        def _update():
-            def transform(doc):
-                doc[field] = value
-
-            return transform
-
-        return self.update(_update)
 
     def update_health(self, amount):
         def _update_health():
@@ -177,7 +170,8 @@ class Command(BaseModel):
             else:
                 return f"@{target_user} already allowed !{self.name}"
         else:
-            self._create_new_command([target_user])
+            self.permitted_users = [target_user]
+            self.save()
             return f"@{target_user} is the 1st person with access to: !{self.name}"
 
     def users(self):
@@ -185,28 +179,6 @@ class Command(BaseModel):
             return command["permitted_users"]
         else:
             return []
-
-    def _create_new_command(self, target_users=[]):
-        from tinyrecord import transaction
-
-        new_command = self._new_command(permitted_users=target_users)
-        with transaction(self.db()) as tr:
-            tr.insert(new_command)
-        return new_command
-
-    def save(self):
-        from tinyrecord import transaction
-
-        with transaction(self.db()) as tr:
-            tr.insert(
-                {
-                    "name": self.name,
-                    "user": "beginbot",
-                    "permitted_users": self.permitted_users,
-                    "health": self.inital_health,
-                    "cost": self.inital_cost,
-                }
-            )
 
     def _add_user(self, target_user):
         def add_permitted_users():
@@ -227,11 +199,11 @@ class Command(BaseModel):
 
         self.update(remove_permitted_users)
 
-    def _new_command(self, permitted_users=[]):
+    def doc(self):
         return {
             "name": self.name,
             "user": "beginbot",
-            "permitted_users": permitted_users,
+            "permitted_users": self.permitted_users,
             "health": self.inital_health,
             "cost": self.inital_cost,
         }
