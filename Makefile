@@ -15,6 +15,7 @@ backup:
 	cp db/users.json db/backups/users.json
 	cp db/commands.json db/backups/commands.json
 	cp db/issues.json db/backups/issues.json
+	cp db/sfx_votes.json db/backups/sfx_votes.json
 
 restore:
 	cp db/backups/users.json db/users.json

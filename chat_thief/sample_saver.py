@@ -12,7 +12,7 @@ from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 
 
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
-ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
+ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus", ".webm"]
 ADD_SOUND_EFFECT_PATH = Path(SAMPLES_PATH).joinpath("add_sound_effect")
 
 

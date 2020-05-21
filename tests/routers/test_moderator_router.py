@@ -42,6 +42,8 @@ class TestModeratorRouter(DatabaseConfig):
         ModeratorRouter("beginbotbot", "no_news", []).route()
         assert BreakingNews.count() == 0
 
+    # This is not mocked properly
+    # It is relying on real users existing
     def test_dropeffects(self, mock_present_users):
         result = ModeratorRouter("beginbotbot", "dropeffect").route()
         assert "now has access" in result[0]
