@@ -1,5 +1,6 @@
 from typing import Dict, List, Optional
 import logging
+import traceback
 import os
 
 from chat_thief.config.commands_config import OBS_COMMANDS
@@ -14,6 +15,7 @@ from chat_thief.routers.cube_casino_router import CubeCasinoRouter
 from chat_thief.routers.feedback_router import FeedbackRouter
 from chat_thief.routers.moderator_router import ModeratorRouter
 from chat_thief.routers.revolution_router import RevolutionRouter
+from chat_thief.routers.community_router import CommunityRouter
 from chat_thief.routers.user_soundeffect_router import UserSoundeffectRouter
 from chat_thief.welcome_committee import WelcomeCommittee
 
@@ -27,6 +29,7 @@ ROUTERS = [
     RevolutionRouter,
     UserSoundeffectRouter,
     BeginworldHelpRouter,
+    CommunityRouter,
 ]
 
 
@@ -50,8 +53,12 @@ class CommandRouter:
         success(f"\n{self.user}: {self.msg}")
 
         for Router in ROUTERS:
-            if result := Router(self.user, self.command, self.args).route():
-                return result
+            try:
+                if result := Router(self.user, self.command, self.args).route():
+                    return result
+            except Exception as e:
+                traceback.print_exc()
+                # raise e
 
         # Who is allowed to do this???
         if self.user in STREAM_GODS:

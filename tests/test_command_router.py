@@ -4,6 +4,7 @@ from chat_thief.command_router import CommandRouter
 from chat_thief.models.command import Command
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.user import User
+from chat_thief.models.proposal import Proposal
 from chat_thief.config.log import logger
 
 from tests.support.database_setup import DatabaseConfig
@@ -52,3 +53,21 @@ class TestCommandRouter(DatabaseConfig):
         CommandRouter(irc_response, logger).build_response()
         news = BreakingNews.last()
         assert news["scope"] == "The Gang Steals Kappa"
+
+    def test_propose(self, irc_msg):
+        irc_response = irc_msg("beginbot", "!propose !iasip The Gang Steals Kappa")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert result == "Thank you @beginbot for your proposal"
+        last_proposal = Proposal.last()
+        assert last_proposal["proposal"] == "The Gang Steals Kappa"
+        assert last_proposal["command"] == "iasip"
+
+    def test_support(self, irc_msg):
+        # Creating a Proposal
+        irc_response = irc_msg("beginbot", "!propose !iasip The Gang Steals Kappa")
+        result = CommandRouter(irc_response, logger).build_response()
+
+        # Supporting a Proposal
+        irc_response = irc_msg("bill.evans", "!support beginbot")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert result == "@beginbot thanks you for the support @bill.evans"

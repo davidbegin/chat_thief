@@ -60,7 +60,7 @@ class UserSoundeffectRouter(BaseRouter):
             else:
                 return Donator(self.user).donate()
 
-        if self.command in ["support", "love", "like"]:
+        if self.command in ["love", "like"]:
             if parser.target_sfx and not parser.target_user:
                 result = SFXVote(parser.target_sfx).support(self.user)
                 love_count = len(result["supporters"])
