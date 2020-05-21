@@ -54,7 +54,7 @@ class CommandRouter:
                 return result
 
         # Who is allowed to do this???
-        if self.user in STREAM_LORDS:
+        if self.user in STREAM_GODS:
             if self.command == "iasip":
                 return BreakingNews(
                     " ".join(self.irc_msg.args), category="iasip"
