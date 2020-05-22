@@ -60,15 +60,15 @@ class CommandRouter:
                 traceback.print_exc()
                 # raise e
 
-        # Who is allowed to do this???
         if self.user in STREAM_GODS:
+            # print("Oh boy we got a STREAM GOD here hmmm")
+            # if self.command == "curb_your_begin":
+            #     return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
+
             if self.command == "iasip":
                 return BreakingNews(
                     " ".join(self.irc_msg.args), category="iasip"
                 ).save()
-
-            if self.command == "curb_your_begin":
-                return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
 
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")

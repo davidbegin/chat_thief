@@ -48,6 +48,7 @@ class TestCommandRouter(DatabaseConfig):
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "@wheezy already has accesss to !damn @thugga"
 
+    @pytest.mark.skip
     def test_iasip(self, irc_msg):
         irc_response = irc_msg("beginbot", "!iasip The Gang Steals Kappa")
         CommandRouter(irc_response, logger).build_response()

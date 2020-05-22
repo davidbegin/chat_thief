@@ -38,6 +38,17 @@ class TestCommunityRouter(DatabaseConfig):
         assert last["proposal"] == "The Gang Steals Kappa"
         assert last["command"] == "iasip"
 
+    def test_iasip_propose(self):
+        assert Proposal.count() == 0
+        result = CommunityRouter(
+            "beginbot", "iasip", ["The", "Gang", "Steals", "Kappa"]
+        ).route()
+
+        assert result == "Thank you @beginbot for your proposal"
+        last = Proposal.last()
+        assert last["proposal"] == "The Gang Steals Kappa"
+        assert last["command"] == "iasip"
+
     def test_support(self):
         CommunityRouter.SUPPORT_REQUIREMENT = 1
         BreakingNews.count() == 0
