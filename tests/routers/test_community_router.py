@@ -49,6 +49,7 @@ class TestCommunityRouter(DatabaseConfig):
         assert last["proposal"] == "The Gang Steals Kappa"
         assert last["command"] == "iasip"
 
+    # We want Proposals to only last 5 minutes
     def test_support(self):
         CommunityRouter.SUPPORT_REQUIREMENT = 1
         BreakingNews.count() == 0
@@ -57,5 +58,7 @@ class TestCommunityRouter(DatabaseConfig):
             "beginbot", "propose", ["!iasip", "The", "Gang", "Steals", "Kappa"]
         ).route()
         result = CommunityRouter("uzi", "support", ["@beginbot"]).route()
+        proposal = Proposal.last()
+        assert proposal["proposed_at"] is not None
         assert result == "@beginbot thanks you for the support @uzi"
         assert BreakingNews.count() == 1

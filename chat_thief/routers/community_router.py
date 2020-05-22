@@ -3,6 +3,7 @@ from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.proposal import Proposal
 from chat_thief.routers.base_router import BaseRouter
 
+
 DEFAULT_SUPPORT_REQUIREMENT = 5
 
 
