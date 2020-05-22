@@ -13,6 +13,7 @@ INVALID_USERS = ["nightbot", ".tim.twitch.tv"] + STREAM_GODS
 CONNECTING_MSG = '{"message": "Connecting to #beginbot as beginbotbot"}'
 
 
+# These should not return theme songs
 def random_soundeffect():
     return random.sample(SoundeffectsLibrary.soundeffects_only(), 1)[0]
 
@@ -38,10 +39,17 @@ def drop_effect(user, soundeffect):
         return f"@{user} now has access to Sound Effect: !{soundeffect}"
 
 
+# WE want to keep looping on random_soundeffect
+# until one, is not owned by the user
 def drop_random_soundeffect_to_random_user():
-    user = random_user()
     print(f"\n\tUSER: {user}\n")
-    soundeffect = random_soundeffect()
+    user = random_user()
+    looking_for_soundeffect = True
+
+    while looking_for_soundeffect:
+        soundeffect = random_soundeffect()
+        if user not in command(soundeffect).users():
+            looking_for_soundeffect = False
     return drop_effect(user, soundeffect)
 
 
@@ -67,6 +75,8 @@ def _is_int_between(potential_int):
 
 
 def drop_random_soundeffect_to_user(user):
+    # So here is the problem
+    # This needs to
     soundeffect = random_soundeffect()
     return drop_effect(user, soundeffect)
 

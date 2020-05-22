@@ -4,6 +4,7 @@ from chat_thief.models.command import Command
 from chat_thief.models.proposal import Proposal
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.user import User
+from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.routers.community_router import CommunityRouter
 from chat_thief.welcome_committee import WelcomeCommittee
 
@@ -38,9 +39,12 @@ class TestCommunityRouter(DatabaseConfig):
         assert last["command"] == "iasip"
 
     def test_support(self):
+        CommunityRouter.SUPPORT_REQUIREMENT = 1
+        BreakingNews.count() == 0
         assert Proposal.count() == 0
         result = CommunityRouter(
             "beginbot", "propose", ["!iasip", "The", "Gang", "Steals", "Kappa"]
         ).route()
         result = CommunityRouter("uzi", "support", ["@beginbot"]).route()
         assert result == "@beginbot thanks you for the support @uzi"
+        assert BreakingNews.count() == 1

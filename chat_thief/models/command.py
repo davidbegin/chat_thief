@@ -131,8 +131,8 @@ class Command(BaseDbModel):
     def allow_user(self, target_user):
         command = self.db().get(Query().name == self.name)
 
+        # What if we are none
         if command:
-            # What if we are none
             if target_user not in command["permitted_users"]:
                 self._add_user(target_user)
                 return f"@{target_user} now has access to !{self.name}"
