@@ -19,5 +19,5 @@ class TestProposal(DatabaseConfig):
     def test_support(test):
         Proposal(user="bobby", command="iasip", proposal="The Gang Steals Kappa").save()
         proposal = Proposal.last()
-        Proposal.support(proposal.doc_id, "sumo")
+        Proposal.support("bobby", proposal.doc_id, "sumo")
         assert Proposal.find_by_user("bobby")["supporters"] == ["sumo"]
