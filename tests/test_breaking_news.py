@@ -1,6 +1,8 @@
 import pytest
 
-from chat_thief.bots.breaking_news_bot import BreakingNewsBot
+from breaking_news_bot_2 import BreakingNewsBot
+
+# from chat_thief.bots.breaking_news_bot import BreakingNewsBot
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from chat_thief.models.breaking_news import BreakingNews
