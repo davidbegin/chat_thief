@@ -16,6 +16,7 @@ from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 BLACKLIST = []
 
 
+# I feel like this could also handle checking for the news
 def sync_main():
     while True:
         try:

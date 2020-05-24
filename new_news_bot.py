@@ -47,6 +47,8 @@ class BreakingNewsBot:
             if self.last_breaking_time:
                 how_long_since_break = datetime.now() - self.last_breaking_time
                 print(f"How Long: {how_long_since_break}")
+
+                # We Should also take into account the type of event
                 if how_long_since_break.seconds < 30:
                     # if how_long_since_break.seconds < 300:
                     print("Sorry Too Soon, waiting for more news")
@@ -55,10 +57,11 @@ class BreakingNewsBot:
                     print("You have my permission to trigger breaking news")
                     self.trigger_breaking_news()
             else:
-                print("Triggering Breaking News no previous news stories ")
+                print("Triggering Breaking News no previous news stories")
                 self.trigger_breaking_news()
 
     def trigger_breaking_news(self):
+        # The key here is that this, changes the news to be unreported
         news_story = BreakingNews.report_last_story()
         category = news_story.get("category", None)
 
