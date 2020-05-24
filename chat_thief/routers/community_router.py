@@ -25,15 +25,6 @@ class CommunityRouter(BaseRouter):
             else:
                 print("CommunityRouter#propose not enough args")
         elif self.command in ["iasip", "alwayssunny"]:
-
-            # self.args = ["propose"]
-            # This needs to be regular propose
-            # print("CommunityRouter#iasip")
-            # proposal = Proposal(
-            #     user=self.user, command="iasip", proposal=" ".join(self.args),
-            # )
-            # proposal.save()
-            # return f"Thank you @{self.user} for your proposal"
             return self._propose("iasip")
 
         elif self.command == "support":
@@ -53,6 +44,7 @@ class CommunityRouter(BaseRouter):
             user=self.user, command=proposed_command, proposal=" ".join(args),
         )
         proposal.save()
+
         if "TEST_MODE" not in os.environ:
             PlaySoundeffectRequest(user="beginbotbot", command="5minutes").save()
         return f"Thank you @{self.user} for your proposal. You have 5 minutes to get 5 supporters"
@@ -77,10 +69,16 @@ class CommunityRouter(BaseRouter):
 
         total_support = len(proposal["supporters"]) + 1
 
+        support_msg = None
+        if proposal:
+            support_msg = Proposal.support(user, proposal.doc_id, self.user)
+
         if total_support >= self.SUPPORT_REQUIREMENT:
             BreakingNews(
                 scope=proposal["proposal"], category=proposal["command"]
             ).save()
+            if proposal:
+                print(f"Deleteing Proposal from: {user}, since it was approved!")
+                Proposal.delete(proposal.doc_id)
 
-        if proposal:
-            return Proposal.support(user, proposal.doc_id, self.user)
+        return support_msg

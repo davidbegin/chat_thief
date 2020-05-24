@@ -51,6 +51,16 @@ class TestCommunityRouter(DatabaseConfig):
         assert last["proposal"] == "The Gang Steals Kappa"
         assert last["command"] == "iasip"
 
+    def test_deleting_proposal_after_report(self):
+        CommunityRouter.SUPPORT_REQUIREMENT = 1
+        result = CommunityRouter(
+            "beginbot", "propose", ["!iasip", "The", "Gang", "Steals", "Kappa"]
+        ).route()
+        Proposal.count() == 1
+        result = CommunityRouter("uzi", "support", ["@beginbot"]).route()
+        assert BreakingNews.count() == 1
+        assert Proposal.count() == 0
+
     def test_support(self):
         CommunityRouter.SUPPORT_REQUIREMENT = 1
         BreakingNews.count() == 0
@@ -59,18 +69,8 @@ class TestCommunityRouter(DatabaseConfig):
             "beginbot", "propose", ["!iasip", "The", "Gang", "Steals", "Kappa"]
         ).route()
         result = CommunityRouter("uzi", "support", ["@beginbot"]).route()
-        proposal = Proposal.last()
-        assert proposal["proposed_at"] is not None
         assert result == "@beginbot thanks you for the support @uzi"
         assert BreakingNews.count() == 1
-
-        proposal = Proposal("beginbot")
-        # how can we look up the object???
-        assert not proposal.is_expired()
-        OG_EXPIRE_TIME = Proposal.EXPIRE_TIME_IN_SECS
-        Proposal.EXPIRE_TIME_IN_SECS = 0
-        assert proposal.is_expired()
-        Proposal.EXPIRE_TIME_IN_SECS = OG_EXPIRE_TIME
 
     def test_support_last(self):
         CommunityRouter.SUPPORT_REQUIREMENT = 1
@@ -78,7 +78,5 @@ class TestCommunityRouter(DatabaseConfig):
             "beginbot", "propose", ["!iasip", "The", "Gang", "Steals", "Kappa"]
         ).route()
         result = CommunityRouter("uzi", "support", []).route()
-        proposal = Proposal.last()
-        assert proposal["proposed_at"] is not None
         assert "@beginbot thanks you for the support @uzi" in result
         assert BreakingNews.count() == 1

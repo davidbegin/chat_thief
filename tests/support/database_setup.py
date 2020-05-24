@@ -1,6 +1,7 @@
 from pathlib import Path
 import pytest
 
+from chat_thief.models.base_db_model import BaseDbModel
 from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.user import User
@@ -27,6 +28,8 @@ MODEL_CLASSES = [
 class DatabaseConfig:
     @pytest.fixture(autouse=True)
     def destroy_db(self):
+        BaseDbModel.database_folder = "tests/"
+
         for model in MODEL_CLASSES:
             model.database_folder = "tests/"
             db_path = Path(__file__).parent.parent.joinpath(model.database_path)
