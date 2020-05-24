@@ -79,6 +79,8 @@ class TestCommandRouter(DatabaseConfig):
         result = CommandRouter(irc_response, logger).build_response()
         assert result != "@bill.evans stole from @None"
 
+    # We aren't mocking out user here, properly
+    # or failing for another reason
     def test_share_command(self, irc_msg):
         user = User("bill.evans")
         Command("damn").allow_user("bill.evans")

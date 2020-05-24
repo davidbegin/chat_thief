@@ -61,7 +61,6 @@ class CommandRouter:
                 # raise e
 
         if self.user in STREAM_GODS:
-            # print("Oh boy we got a STREAM GOD here hmmm")
             # if self.command == "curb_your_begin":
             #     return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
 
