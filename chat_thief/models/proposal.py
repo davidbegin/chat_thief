@@ -4,8 +4,7 @@ import time
 
 from chat_thief.models.base_db_model import BaseDbModel
 
-DEFAULT_EXPIRE_TIME_IN_SECS = 600
-# DEFAULT_EXPIRE_TIME_IN_SECS = 120
+DEFAULT_EXPIRE_TIME_IN_SECS = 300
 
 
 class Proposal(BaseDbModel):

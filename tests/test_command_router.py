@@ -58,7 +58,7 @@ class TestCommandRouter(DatabaseConfig):
     def test_propose(self, irc_msg):
         irc_response = irc_msg("beginbot", "!propose !iasip The Gang Steals Kappa")
         result = CommandRouter(irc_response, logger).build_response()
-        assert result == "Thank you @beginbot for your proposal"
+        assert "Thank you @beginbot for your proposal" in result
         last_proposal = Proposal.last()
         assert last_proposal["proposal"] == "The Gang Steals Kappa"
         assert last_proposal["command"] == "iasip"
@@ -71,7 +71,7 @@ class TestCommandRouter(DatabaseConfig):
         # Supporting a Proposal
         irc_response = irc_msg("bill.evans", "!support beginbot")
         result = CommandRouter(irc_response, logger).build_response()
-        assert result == "@beginbot thanks you for the support @bill.evans"
+        assert "@beginbot thanks you for the support @bill.evans" in result
 
     def test_stealing_non_existent_sfx(self, irc_msg):
         User("bill.evans").update_cool_points(10)

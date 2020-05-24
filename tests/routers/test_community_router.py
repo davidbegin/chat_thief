@@ -33,7 +33,7 @@ class TestCommunityRouter(DatabaseConfig):
         result = CommunityRouter(
             "beginbot", "propose", ["!iasip", "The", "Gang", "Steals", "Kappa"]
         ).route()
-        assert result == "Thank you @beginbot for your proposal"
+        assert "Thank you @beginbot for your proposal" in result
         last = Proposal.last()
         assert last["proposal"] == "The Gang Steals Kappa"
         assert last["command"] == "iasip"
@@ -44,7 +44,7 @@ class TestCommunityRouter(DatabaseConfig):
             "beginbot", "iasip", ["The", "Gang", "Steals", "Kappa"]
         ).route()
 
-        assert result == "Thank you @beginbot for your proposal"
+        assert "Thank you @beginbot for your proposal" in result
         last = Proposal.last()
         assert last["proposal"] == "The Gang Steals Kappa"
         assert last["command"] == "iasip"
@@ -78,5 +78,5 @@ class TestCommunityRouter(DatabaseConfig):
         result = CommunityRouter("uzi", "support", []).route()
         proposal = Proposal.last()
         assert proposal["proposed_at"] is not None
-        assert result == "@beginbot thanks you for the support @uzi"
+        assert "@beginbot thanks you for the support @uzi" in result
         assert BreakingNews.count() == 1

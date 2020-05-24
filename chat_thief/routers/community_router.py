@@ -1,10 +1,13 @@
+import os
+
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.proposal import Proposal
+from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.routers.base_router import BaseRouter
 
 
-DEFAULT_SUPPORT_REQUIREMENT = 3
+DEFAULT_SUPPORT_REQUIREMENT = 5
 
 
 class CommunityRouter(BaseRouter):
@@ -42,7 +45,9 @@ class CommunityRouter(BaseRouter):
                 user=self.user, command=proposed_command, proposal=" ".join(args),
             )
             proposal.save()
-            return f"Thank you @{self.user} for your proposal"
+            if "TEST_MODE" not in os.environ:
+                PlaySoundeffectRequest(user="beginbotbot", command="5minutes").save()
+            return f"Thank you @{self.user} for your proposal. You have 5 minutes to get 5 supporters"
 
     def _support(self):
         if self.args:
