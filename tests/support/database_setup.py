@@ -2,26 +2,28 @@ from pathlib import Path
 import pytest
 
 from chat_thief.models.base_db_model import BaseDbModel
+from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.command import Command
-from chat_thief.models.sfx_vote import SFXVote
-from chat_thief.models.user import User
-from chat_thief.models.vote import Vote
 from chat_thief.models.cube_bet import CubeBet
 from chat_thief.models.issue import Issue
+from chat_thief.models.notification import Notification
 from chat_thief.models.proposal import Proposal
-from chat_thief.models.breaking_news import BreakingNews
+from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.soundeffect_request import SoundeffectRequest
+from chat_thief.models.user import User
+from chat_thief.models.vote import Vote
 
 MODEL_CLASSES = [
-    SoundeffectRequest,
-    SFXVote,
+    BreakingNews,
     Command,
-    User,
-    Vote,
     CubeBet,
     Issue,
-    BreakingNews,
+    Notification,
     Proposal,
+    SFXVote,
+    SoundeffectRequest,
+    User,
+    Vote,
 ]
 
 

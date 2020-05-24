@@ -6,6 +6,7 @@ from chat_thief.models.user import User
 from chat_thief.models.command import Command
 from chat_thief.models.vote import Vote
 from chat_thief.models.breaking_news import BreakingNews
+from chat_thief.models.notification import Notification
 
 DEFAULT_MSG = "!add_perm ha johnnyutah"
 

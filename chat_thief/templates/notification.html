@@ -1,0 +1,10 @@
+<!doctype html> <title>Beginland</title>
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <meta http-equiv="refresh" content="5">
+</head>
+
+{% for notification in notifications %}
+  {{ notification }}
+{% endfor %}
