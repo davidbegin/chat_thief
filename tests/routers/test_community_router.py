@@ -62,3 +62,11 @@ class TestCommunityRouter(DatabaseConfig):
         assert proposal["proposed_at"] is not None
         assert result == "@beginbot thanks you for the support @uzi"
         assert BreakingNews.count() == 1
+
+        proposal = Proposal("beginbot")
+        # how can we look up the object???
+        assert not proposal.is_expired()
+        OG_EXPIRE_TIME = Proposal.EXPIRE_TIME_IN_SECS
+        Proposal.EXPIRE_TIME_IN_SECS = 0
+        assert proposal.is_expired()
+        Proposal.EXPIRE_TIME_IN_SECS = OG_EXPIRE_TIME

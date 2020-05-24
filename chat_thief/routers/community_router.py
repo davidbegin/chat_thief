@@ -51,7 +51,13 @@ class CommunityRouter(BaseRouter):
 
         proposal = Proposal.find_by_user(user)
 
+        if Proposal(user).is_expired():
+            Proposal.delete(proposal.doc_id)
+            print("Deleteing Expired Proposal")
+            return
+
         total_support = len(proposal["supporters"]) + 1
+
         if total_support >= self.SUPPORT_REQUIREMENT:
             BreakingNews(
                 scope=proposal["proposal"], category=proposal["command"]

@@ -12,7 +12,10 @@ class Proposal(BaseDbModel):
     database_path = "db/proposals.json"
     EXPIRE_TIME_IN_SECS = DEFAULT_EXPIRE_TIME_IN_SECS
 
-    def __init__(self, user, command, proposal):
+    # A User can only have one proposal at a time
+    # If they make a new one, it overwrites the old one
+    # and resets the time frame for approval
+    def __init__(self, user, command=None, proposal=None):
         self.user = user
         self.command = command
         self.proposal = proposal
@@ -20,11 +23,16 @@ class Proposal(BaseDbModel):
 
     def is_expired(self):
         info = self.db().get(Query().user == self.user)
-        current_time = datetime.fromtimestamp(time.time())
-        proposed_at = datetime.fromisoformat(info['proposed_at'])
-        elapsed_time = current_time - proposed_at
 
-        return elapsed_time.seconds >= self.EXPIRE_TIME_IN_SECS
+        if info:
+            current_time = datetime.fromtimestamp(time.time())
+            proposed_at = datetime.fromisoformat(info["proposed_at"])
+            elapsed_time = current_time - proposed_at
+            return elapsed_time.seconds >= self.EXPIRE_TIME_IN_SECS
+        else:
+            # If we can't find the proposal, then assume
+            # it is expired
+            return True
 
     @classmethod
     def support(cls, user, doc_id, supporter):
