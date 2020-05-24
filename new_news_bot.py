@@ -68,6 +68,7 @@ class BreakingNewsBot:
         if category == "iasip":
             os.system("scene iasip")
             time.sleep(7)
+            os.system("scene")
         elif category == "curb":
             os.system("scene curb")
         else:

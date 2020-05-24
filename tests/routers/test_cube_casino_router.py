@@ -37,6 +37,14 @@ class TestCubeCasinoRouter(DatabaseConfig):
         assert CubeBet.count() == 0
         assert result == ["Winner: @uzi Won 1 commands"]
 
+    def test_cubed_with_a_timestamp(self, mock_present_users):
+        CubeCasinoRouter("future", "bet", ["108"]).route()
+        CubeCasinoRouter("uzi", "bet", ["32"]).route()
+        assert CubeBet.count() == 2
+        result = CubeCasinoRouter("beginbotbot", "cubed", ["00:00:41"]).route()
+        assert CubeBet.count() == 0
+        assert result == ["Winner: @uzi Won 1 commands"]
+
     def test_new_cube(self):
         CubeCasinoRouter("future", "bet", ["108"]).route()
         CubeCasinoRouter("uzi", "bet", ["32"]).route()
