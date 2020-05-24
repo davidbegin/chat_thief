@@ -15,16 +15,7 @@ class ModeratorRouter(BaseRouter):
                 return BreakingNews.purge()
 
             if self.command == "do_over":
-                print("WE ARE GOING FOR IT!")
-                for user in User.all():
-                    User(user).bankrupt()
-                for command_name in Command.db().all():
-                    command_name = command_name["name"]
-                    print(command_name)
-                    command = Command(command_name)
-                    for user in command.users():
-                        print(command.unallow_user(user))
-                return "Society now must rebuild"
+                return self._do_over()
 
             if self.command == "revive":
                 parser = CommandParser(
@@ -67,3 +58,17 @@ class ModeratorRouter(BaseRouter):
 
         if self.command == "dropreward" and self.user in STREAM_GODS:
             return dropreward()
+
+    def _do_over(self):
+        print("WE ARE GOING FOR IT!")
+
+        for user in User.all():
+            User(user).bankrupt()
+        for command_name in Command.db().all():
+            command_name = command_name["name"]
+            print(command_name)
+            command = Command(command_name)
+            command.set_value("cost", int(command.cost() / 2))
+            for user in command.users():
+                print(command.unallow_user(user))
+        return "Society now must rebuild"

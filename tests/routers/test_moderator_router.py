@@ -1,5 +1,6 @@
 import pytest
 
+from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.welcome_committee import WelcomeCommittee
@@ -37,12 +38,16 @@ class TestModeratorRouter(DatabaseConfig):
         assert user.mana() == 3
 
     def test_do_over(self):
+        command = Command("damn")
+        command.save()
+        command.increase_cost(9)
         user = User("future")
         user.update_cool_points(100)
         assert user.cool_points() == 100
         result = ModeratorRouter("beginbotbot", "do_over", ["@future"]).route()
         assert user.cool_points() == 0
         assert result == "Society now must rebuild"
+        assert command.cost() == 5
 
     def test_no_news(self):
         BreakingNews("Arch Linux is now Illegal").save()
