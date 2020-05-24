@@ -21,7 +21,7 @@ class CommunityRouter(BaseRouter):
                 return self._propose()
             else:
                 print("CommunityRouter#propose not enough args")
-        elif self.command == "iasip":
+        elif self.command in ["iasip", "alwayssunny"]:
             print("CommunityRouter#iasip")
             proposal = Proposal(
                 user=self.user, command="iasip", proposal=" ".join(self.args),

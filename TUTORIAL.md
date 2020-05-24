@@ -52,11 +52,9 @@ Examples:
 !share !clap @artmattdank
 ```
 
-There are 700+ Soundeffects (and always climbing thanks to submissions from
-viewers like yourself), which you can gain access to. However, we do not publize
-the full list of soundeffects, you can always buy random, to get a random one,
-or learn what soundeffects you want from participating in the stream and seeing
-what is available.
+There are 800+ Soundeffects (and always climbing thanks to submissions from
+viewers like yourself), which you can gain access to. All soundeffects are
+managed in Git, and available at [Twitch Soundboard](https://github.com/davidbegin/twitch-soundboard).
 
 ### Share
 

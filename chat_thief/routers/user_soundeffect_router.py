@@ -119,7 +119,9 @@ class UserSoundeffectRouter(BaseRouter):
 
             if parser.target_user and parser.target_sfx:
                 return CommandStealer(
-                    thief=self.user, victim=parser.target_user, command=parser.target_sfx,
+                    thief=self.user,
+                    victim=parser.target_user,
+                    command=parser.target_sfx,
                 ).steal()
             else:
                 return f"Problem stealing {parser.target_command} {self.args}"

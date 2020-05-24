@@ -48,7 +48,7 @@ class FeedbackRouter(BaseRouter):
                     SoundeffectRequest.deny_doc_id(self.user, parser.doc_id)
                     return f"@{self.user} DENIED Request: {parser.doc_id}"
 
-        if self.command in ["issue", "bug"]:
+        if self.command in ["issue", "bug", "feature"]:
             if self.args:
                 msg = " ".join(self.args)
                 issue = Issue(user=self.user, msg=msg).save()

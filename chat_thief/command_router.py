@@ -65,7 +65,7 @@ class CommandRouter:
             # if self.command == "curb_your_begin":
             #     return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
 
-            if self.command == "iasip":
+            if self.command == ["iasip", "alwayssunny"]:
                 return BreakingNews(
                     " ".join(self.irc_msg.args), category="iasip"
                 ).save()
