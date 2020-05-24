@@ -11,6 +11,7 @@ from chat_thief.commands.donator import Donator
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.sfx_vote import SFXVote
+from chat_thief.models.command import Command
 from chat_thief.commands.command_buyer import CommandBuyer
 
 
@@ -187,11 +188,13 @@ class UserSoundeffectRouter(BaseRouter):
                 commands = User(self.user).commands()
                 parser.target_sfx = random.sample(commands, 1)[0]
 
-            if parser.target_user == "random":
-                parser.target_user = find_random_user(
-                    blacklisted_users=Command(command).users()
-                )
+            if parser.target_user == "random" or parser.target_user is None:
+                if parser.target_sfx:
+                    parser.target_user = find_random_user(
+                        blacklisted_users=Command(parser.target_sfx).users()
+                    )
 
+            # We  don't know why
             if parser.target_user and parser.target_sfx:
                 return CommandSharer(
                     self.user, parser.target_sfx, parser.target_user

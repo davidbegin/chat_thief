@@ -78,3 +78,12 @@ class TestCommandRouter(DatabaseConfig):
         irc_response = irc_msg("bill.evans", "!steal fakesound")
         result = CommandRouter(irc_response, logger).build_response()
         assert result != "@bill.evans stole from @None"
+
+    def test_share_command(self, irc_msg):
+        user = User("bill.evans")
+        Command("damn").allow_user("bill.evans")
+        irc_response = irc_msg("bill.evans", "!share damn")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert (
+            "@bill.evans Not enough cool_points (0/1) to share !damn with @" in result
+        )

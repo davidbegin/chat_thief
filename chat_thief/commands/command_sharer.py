@@ -17,12 +17,13 @@ class CommandSharer:
 
         command = Command(name=self.command)
         command_cost = command.cost()
+        user_cool_points = User(self.user).cool_points()
 
         if self.user in STREAM_GODS:
             perm_result = command.allow_user(self.friend)
             return f"{self.user} shared {perm_result}"
 
-        elif User(self.user).cool_points() >= command_cost:
+        elif user_cool_points >= command_cost:
             perm_result = command.allow_user(self.friend)
             if perm_result:
                 print("\nWe have a Perm Result")
@@ -34,4 +35,4 @@ class CommandSharer:
                 return f"{self.user} cannot add permissions"
 
         else:
-            return f"@{self.user} Not enough street_cred to share !{self.command} with @{self.friend}"
+            return f"@{self.user} Not enough cool_points ({user_cool_points}/{command_cost}) to share !{self.command} with @{self.friend}"
