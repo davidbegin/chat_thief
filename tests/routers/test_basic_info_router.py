@@ -25,7 +25,7 @@ class TestBasicInfoRouter(DatabaseConfig):
 
     def test_stream_gods_and_lords(self, monkeypatch):
         result = BasicInfoRouter("sammy", "streamgods").route()
-        assert result == "beginbot beginbotbot stupac62 artmattdank"
+        assert "stupac62" in result
         result = BasicInfoRouter("sammy", "streamlords").route()
         assert "zerostheory" in result
 

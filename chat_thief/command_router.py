@@ -52,6 +52,15 @@ class CommandRouter:
 
         success(f"\n{self.user}: {self.msg}")
 
+        if self.user in STREAM_GODS:
+            print(f"Oh Look we got a Stream God over here: {self.user}")
+            # if self.command == "curb_your_begin":
+            #     return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
+
+            if self.command in ["iasip", "alwayssunny"]:
+                BreakingNews(" ".join(self.irc_msg.args), category="iasip").save()
+                return
+
         for Router in ROUTERS:
             try:
                 if result := Router(self.user, self.command, self.args).route():
@@ -59,15 +68,6 @@ class CommandRouter:
             except Exception as e:
                 traceback.print_exc()
                 # raise e
-
-        if self.user in STREAM_GODS:
-            # if self.command == "curb_your_begin":
-            #     return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
-
-            if self.command == ["iasip", "alwayssunny"]:
-                return BreakingNews(
-                    " ".join(self.irc_msg.args), category="iasip"
-                ).save()
 
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")

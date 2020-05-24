@@ -23,6 +23,11 @@ class TestProposal(DatabaseConfig):
         Proposal.support("bobby", proposal.doc_id, "sumo")
         assert Proposal.find_by_user("bobby")["supporters"] == ["sumo"]
 
+    def test_support_last(test):
+        Proposal(user="bobby", command="iasip", proposal="The Gang Steals Kappa").save()
+        Proposal.support_last("sumo")
+        assert Proposal.find_by_user("bobby")["supporters"] == ["sumo"]
+
     def test_proposals_expire(self):
         proposal = Proposal(
             user="bobby", command="iasip", proposal="The Gang Steals Kappa"

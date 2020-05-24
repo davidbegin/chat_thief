@@ -4,7 +4,7 @@ from chat_thief.models.proposal import Proposal
 from chat_thief.routers.base_router import BaseRouter
 
 
-DEFAULT_SUPPORT_REQUIREMENT = 5
+DEFAULT_SUPPORT_REQUIREMENT = 3
 
 
 class CommunityRouter(BaseRouter):
@@ -45,15 +45,22 @@ class CommunityRouter(BaseRouter):
             return f"Thank you @{self.user} for your proposal"
 
     def _support(self):
-        user = self.args[0]
+        if self.args:
+            user = self.args[0]
+        else:
+            user = Proposal.last()["user"]
+
         if user.startswith("@"):
             user = user[1:]
 
         proposal = Proposal.find_by_user(user)
 
         if Proposal(user).is_expired():
-            Proposal.delete(proposal.doc_id)
-            print("Deleteing Expired Proposal")
+            if proposal:
+                print(f"Deleteing Expired Proposal from: {user}")
+                Proposal.delete(proposal.doc_id)
+            else:
+                print(f"Did not find Proposal for {user}")
             return
 
         total_support = len(proposal["supporters"]) + 1

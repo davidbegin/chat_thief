@@ -4,7 +4,8 @@ import time
 
 from chat_thief.models.base_db_model import BaseDbModel
 
-DEFAULT_EXPIRE_TIME_IN_SECS = 120
+DEFAULT_EXPIRE_TIME_IN_SECS = 600
+# DEFAULT_EXPIRE_TIME_IN_SECS = 120
 
 
 class Proposal(BaseDbModel):
@@ -33,6 +34,11 @@ class Proposal(BaseDbModel):
             # If we can't find the proposal, then assume
             # it is expired
             return True
+
+    @classmethod
+    def support_last(cls, supporter):
+        last_proposal = cls.last()
+        return cls.support(last_proposal["user"], last_proposal.doc_id, supporter)
 
     @classmethod
     def support(cls, user, doc_id, supporter):
