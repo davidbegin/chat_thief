@@ -52,6 +52,7 @@ class BreakingNewsBot:
             print(f"last news story: {last_news_story}")
             print(f"in coup: {self.in_coup}")
             print(f"Time since Last Breaking News: {self.last_breaking_time}")
+
         if self.last_breaking_time:
             how_long_since_break = datetime.now() - self.last_breaking_time
             print(f"How Long: {how_long_since_break}")
@@ -62,8 +63,6 @@ class BreakingNewsBot:
                 print("You have my permission to trigger breaking news")
                 trigger_breaking_news()
 
-    def loop():
-        pass
         # os.system("clear")
 
         # while True:
