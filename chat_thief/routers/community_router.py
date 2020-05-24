@@ -25,29 +25,37 @@ class CommunityRouter(BaseRouter):
             else:
                 print("CommunityRouter#propose not enough args")
         elif self.command in ["iasip", "alwayssunny"]:
-            print("CommunityRouter#iasip")
-            proposal = Proposal(
-                user=self.user, command="iasip", proposal=" ".join(self.args),
-            )
-            proposal.save()
-            return f"Thank you @{self.user} for your proposal"
+
+            # self.args = ["propose"]
+            # This needs to be regular propose
+            # print("CommunityRouter#iasip")
+            # proposal = Proposal(
+            #     user=self.user, command="iasip", proposal=" ".join(self.args),
+            # )
+            # proposal.save()
+            # return f"Thank you @{self.user} for your proposal"
+            return self._propose("iasip")
+
         elif self.command == "support":
             print("CommunityRouter#support")
             return self._support()
 
-    def _propose(self):
-        proposed_command, *args = self.args
+    def _propose(self, proposed_command=None):
+        if proposed_command:
+            args = self.args
+        else:
+            proposed_command, *args = self.args
 
         if proposed_command.startswith("!"):
             proposed_command = proposed_command[1:]
 
-            proposal = Proposal(
-                user=self.user, command=proposed_command, proposal=" ".join(args),
-            )
-            proposal.save()
-            if "TEST_MODE" not in os.environ:
-                PlaySoundeffectRequest(user="beginbotbot", command="5minutes").save()
-            return f"Thank you @{self.user} for your proposal. You have 5 minutes to get 5 supporters"
+        proposal = Proposal(
+            user=self.user, command=proposed_command, proposal=" ".join(args),
+        )
+        proposal.save()
+        if "TEST_MODE" not in os.environ:
+            PlaySoundeffectRequest(user="beginbotbot", command="5minutes").save()
+        return f"Thank you @{self.user} for your proposal. You have 5 minutes to get 5 supporters"
 
     def _support(self):
         if self.args:
@@ -66,7 +74,6 @@ class CommunityRouter(BaseRouter):
                 Proposal.delete(proposal.doc_id)
             else:
                 print(f"Did not find Proposal for {user}")
-            return
 
         total_support = len(proposal["supporters"]) + 1
 
