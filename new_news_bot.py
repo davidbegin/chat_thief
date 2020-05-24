@@ -75,6 +75,7 @@ class BreakingNewsBot:
             time.sleep(7)
             os.system("nomeme")
             os.system("scene news")
+
         self.last_breaking_time = datetime.now()
 
 
