@@ -72,3 +72,9 @@ class TestCommandRouter(DatabaseConfig):
         irc_response = irc_msg("bill.evans", "!support beginbot")
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "@beginbot thanks you for the support @bill.evans"
+
+    def test_stealing_non_existent_sfx(self, irc_msg):
+        User('bill.evans').update_cool_points(10)
+        irc_response = irc_msg("bill.evans", "!steal fakesound")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert result != "@bill.evans stole from @None"

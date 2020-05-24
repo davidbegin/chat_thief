@@ -111,16 +111,18 @@ class UserSoundeffectRouter(BaseRouter):
         ).parse()
 
         if self.command in ["steal"]:
-
             if parser.target_user == "random" and parser.target_sfx == "random":
                 parser.target_user = self._random_user()
                 parser.target_sfx = random.sample(
                     User(parser.target_user).commands(), 1
                 )[0]
 
-            return CommandStealer(
-                thief=self.user, victim=parser.target_user, command=parser.target_sfx,
-            ).steal()
+            if parser.target_user and parser.target_sfx:
+                return CommandStealer(
+                    thief=self.user, victim=parser.target_user, command=parser.target_sfx,
+                ).steal()
+            else:
+                return f"Problem stealing {parser.target_command} {self.args}"
 
         if self.command in ["buy"]:
             parser = CommandParser(

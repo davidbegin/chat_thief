@@ -84,6 +84,16 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         result == "@beginbot stole from @young.thug"
         assert user.cool_points() == 9
 
+    def test_try_steal_fake_sound(self, mock_present_users, mock_find_random_user):
+        User('uzi').update_cool_points(10)
+        Command("clap").allow_user('uzi')
+
+        user = User("young.thug")
+        user.update_cool_points(10)
+        result = UserSoundeffectRouter(user.name, "steal", ["fakesound"]).route()
+        assert result != "@young.thug stole from @None"
+        assert user.cool_points() == 10
+
     def test_buying_random(self, mock_find_random_user):
         user = "young.thug"
         User(user).update_cool_points(10)
