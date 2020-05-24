@@ -4,16 +4,27 @@ import time
 
 from chat_thief.models.base_db_model import BaseDbModel
 
+DEFAULT_EXPIRE_TIME_IN_SECS = 120
+
 
 class Proposal(BaseDbModel):
     table_name = "proposals"
     database_path = "db/proposals.json"
+    EXPIRE_TIME_IN_SECS = DEFAULT_EXPIRE_TIME_IN_SECS
 
     def __init__(self, user, command, proposal):
         self.user = user
         self.command = command
         self.proposal = proposal
         self.supporters = []
+
+    def is_expired(self):
+        info = self.db().get(Query().user == self.user)
+        current_time = datetime.fromtimestamp(time.time())
+        proposed_at = datetime.fromisoformat(info['proposed_at'])
+        elapsed_time = current_time - proposed_at
+
+        return elapsed_time.seconds >= self.EXPIRE_TIME_IN_SECS
 
     @classmethod
     def support(cls, user, doc_id, supporter):

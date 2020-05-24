@@ -1,3 +1,4 @@
+import time
 import pytest
 
 from chat_thief.models.proposal import Proposal
@@ -21,3 +22,9 @@ class TestProposal(DatabaseConfig):
         proposal = Proposal.last()
         Proposal.support("bobby", proposal.doc_id, "sumo")
         assert Proposal.find_by_user("bobby")["supporters"] == ["sumo"]
+
+    def test_proposals_expire(self):
+        proposal = Proposal(user="bobby", command="iasip", proposal="The Gang Steals Kappa").save()
+        assert not proposal.is_expired()
+        Proposal.EXPIRE_TIME_IN_SECS = 0
+        assert proposal.is_expired()
