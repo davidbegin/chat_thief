@@ -69,7 +69,7 @@ class TestCommunityRouter(DatabaseConfig):
             "beginbot", "propose", ["!iasip", "The", "Gang", "Steals", "Kappa"]
         ).route()
         result = CommunityRouter("uzi", "support", ["@beginbot"]).route()
-        assert result == "@beginbot thanks you for the support @uzi"
+        assert result == "@beginbot thanks you for the support @uzi 1/1"
         assert BreakingNews.count() == 1
 
     def test_support_last(self):

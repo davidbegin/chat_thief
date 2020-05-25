@@ -26,7 +26,7 @@ class BreakingNewsBot:
         while True:
             try:
                 self.check_for_breaking_news()
-                time.sleep(3)
+                time.sleep(1)
             except Exception as e:
                 time.sleep(30)
                 # https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt
@@ -49,7 +49,8 @@ class BreakingNewsBot:
                 print(f"How Long: {how_long_since_break}")
 
                 # We Should also take into account the type of event
-                if how_long_since_break.seconds < 300:
+                # if how_long_since_break.seconds < 300:
+                if how_long_since_break.seconds < 5:
                     # if how_long_since_break.seconds < 300:
                     print("Sorry Too Soon, waiting for more news")
                     time.sleep(3)

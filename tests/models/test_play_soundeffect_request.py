@@ -10,6 +10,6 @@ class TestPlaySoundeffectRequest(DatabaseConfig):
     def test_lower_casing_command(self):
         user = "uzi"
         command = "WASSUP"
-        subject = PlaySoundeffectRequest(user=user, command=command)
+        subject = PlaySoundeffectRequest(user=user, command=command, notification=False)
         subject.save()
         assert subject.command == "wassup"

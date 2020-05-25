@@ -76,7 +76,7 @@ class CommunityRouter(BaseRouter):
 
         total_support = len(proposal["supporters"]) + 1
 
-        support_msg = None
+        support_msg = ""
         if proposal:
             support_msg = Proposal.support(user, proposal.doc_id, self.user)
 
@@ -88,4 +88,4 @@ class CommunityRouter(BaseRouter):
                 print(f"Deleteing Proposal from: {user}, since it was approved!")
                 Proposal.delete(proposal.doc_id)
 
-        return support_msg
+        return support_msg + f" {total_support}/{self.SUPPORT_REQUIREMENT}"

@@ -33,12 +33,16 @@ def sync_main():
                 if user.name in STREAM_GODS:
                     soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
                     if soundfile:
-                        AudioPlayer.play_sample(soundfile.resolve())
+                        AudioPlayer.play_sample(
+                            soundfile.resolve(), sfx["notification"]
+                        )
 
                 elif user_allowed_to_play and command_health > 0 and user_mana > 0:
                     soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
                     if soundfile:
-                        AudioPlayer.play_sample(soundfile.resolve())
+                        AudioPlayer.play_sample(
+                            soundfile.resolve(), sfx["notification"]
+                        )
                         user.update_mana(-1)
                     else:
                         warning(f"Couldn't find soundfile for {sfx['command']}")

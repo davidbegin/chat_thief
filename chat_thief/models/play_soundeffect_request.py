@@ -11,8 +11,9 @@ class PlaySoundeffectRequest(BaseDbModel):
     table_name = "play_soundeffects"
     database_path = "db/play_soundeffects.json"
 
-    def __init__(self, user=None, command=None):
+    def __init__(self, user=None, command=None, notification=True):
         self.user = user
+        self.notification = notification
         if command:
             self.command = command.lower()
         play_soundeffect_requests_db_path = "db/play_soundeffects.json"
@@ -36,6 +37,7 @@ class PlaySoundeffectRequest(BaseDbModel):
         return {
             "user": self.user,
             "command": self.command,
+            "notification": self.notification,
         }
 
     def pop_all_off(self):
