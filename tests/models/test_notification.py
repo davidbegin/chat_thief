@@ -10,3 +10,6 @@ class TestNotification(DatabaseConfig):
         assert Notification.count() == 0
         Notification("Cool Stuff").save()
         assert Notification.count() == 1
+
+        notification = Notification.last()
+        assert notification["duration"] == 1

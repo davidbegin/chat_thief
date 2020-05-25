@@ -15,5 +15,7 @@ app.run(debug=True)
 def facts(name=None):
     last_notification = Notification.last()
     return render_template(
-        "notification.html", notifications=[last_notification["message"]]
+        "notification.html",
+        notification=last_notification["message"],
+        refresh_time=last_notification["duration"],
     )

@@ -5,6 +5,7 @@ from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.proposal import Proposal
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.routers.base_router import BaseRouter
+from chat_thief.models.notification import Notification
 
 
 DEFAULT_SUPPORT_REQUIREMENT = 5
@@ -46,7 +47,9 @@ class CommunityRouter(BaseRouter):
         proposal.save()
 
         if "TEST_MODE" not in os.environ:
+            # Maybe I should be able to say no notification
             PlaySoundeffectRequest(user="beginbotbot", command="5minutes").save()
+        Notification("Type !support", duration=300).save()
         return f"Thank you @{self.user} for your proposal. You have 5 minutes to get 5 supporters"
 
     def _support(self):
