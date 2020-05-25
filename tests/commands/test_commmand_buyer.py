@@ -25,7 +25,7 @@ class TestCommandBuyer(DatabaseConfig):
 
     def test_buying_a_command(self, user_with_points):
         result = CommandBuyer(user_with_points, "clap").buy()
-        assert result == f"@{user_with_points} bought !clap"
+        assert result == f"@{user_with_points} bought !clap for 1 Cool Points"
         assert "clap" in User(user_with_points).commands()
 
     def test_buying_a_command_with_no_points(self):
@@ -39,7 +39,7 @@ class TestCommandBuyer(DatabaseConfig):
         user = "fake_user"
         initial_cool_points = User(user).cool_points()
         result = CommandBuyer(user, "random").buy()
-        assert result == f"@{user_with_points} bought !ohh"
+        assert result == f"@{user_with_points} bought !ohh for 1 Cool Points"
         assert "clap" not in User(user_with_points).commands()
         assert User(user).cool_points() < initial_cool_points
 

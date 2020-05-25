@@ -130,7 +130,7 @@ class User(BaseDbModel):
             self.update_cool_points(-command_cost)
             command.allow_user(self.name)
             command.increase_cost()
-            return f"@{self.name} bought !{effect}"
+            return f"@{self.name} bought !{effect} for {command_cost} Cool Points"
         else:
             return f"@{self.name} not enough Cool Points to buy !{effect} - {current_cool_points}/{command_cost}"
 

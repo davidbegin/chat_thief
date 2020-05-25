@@ -179,5 +179,6 @@ class TestUser(DatabaseConfig):
         watto = User("watto")
         watto.save()
         watto.update_cool_points(3)
-        watto.buy("clap")
+        result = watto.buy("clap")
+        assert result == "@watto bought !clap for 1 Cool Points"
         assert watto.cool_points() < 3

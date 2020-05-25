@@ -98,7 +98,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         user = "young.thug"
         User(user).update_cool_points(10)
         result = UserSoundeffectRouter(user, "buy", ["clap"]).route()
-        assert result == "@young.thug bought !clap"
+        assert result == "@young.thug bought !clap for 1 Cool Points"
         assert User(user).cool_points() < 10
 
     def test_transferring_to_another_user(self, mock_find_random_user):
