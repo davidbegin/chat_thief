@@ -23,6 +23,23 @@ class TestProposal(DatabaseConfig):
         Proposal.support("bobby", proposal.doc_id, "sumo")
         assert Proposal.find_by_user("bobby")["supporters"] == ["sumo"]
 
+    def test_cannot_support_yourself(self):
+        Proposal(user="bobby", command="iasip", proposal="The Gang Steals Kappa").save()
+        proposal = Proposal.last()
+        result = Proposal.support("bobby", proposal.doc_id, "bobby")
+        assert result == "Can't support yourself @bobby"
+        assert Proposal.find_by_user("bobby")["supporters"] == []
+
+    def test_no_double_support(self):
+        Proposal(user="bobby", command="iasip", proposal="The Gang Steals Kappa").save()
+        proposal = Proposal.last()
+        result = Proposal.support("bobby", proposal.doc_id, "sumo")
+        assert Proposal.find_by_user("bobby")["supporters"] == ["sumo"]
+        assert result == "@bobby Thanks You for the support @sumo"
+        result = Proposal.support("bobby", proposal.doc_id, "sumo")
+        assert Proposal.find_by_user("bobby")["supporters"] == ["sumo"]
+        assert result == "You already supported! @sumo"
+
     def test_support_last(test):
         Proposal(user="bobby", command="iasip", proposal="The Gang Steals Kappa").save()
         Proposal.support_last("sumo")

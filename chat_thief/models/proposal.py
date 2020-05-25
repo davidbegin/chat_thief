@@ -41,6 +41,13 @@ class Proposal(BaseDbModel):
 
     @classmethod
     def support(cls, user, doc_id, supporter):
+        if user == supporter:
+            return f"Can't support yourself @{supporter}"
+
+        supporters = cls.db().get(doc_id=doc_id)["supporters"]
+        if supporter in supporters:
+            return f"You already supported! @{supporter}"
+
         def add_support(supporter):
             def transform(doc):
                 if supporter not in doc["supporters"]:
@@ -49,7 +56,7 @@ class Proposal(BaseDbModel):
             return transform
 
         cls.db().update(add_support(supporter), doc_ids=[doc_id])
-        return f"@{user} thanks you for the support @{supporter}"
+        return f"@{user} Thanks You for the support @{supporter}"
 
     @classmethod
     def find_by_user(cls, user):

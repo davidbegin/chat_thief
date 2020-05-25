@@ -1,5 +1,7 @@
 from argparse import ArgumentParser
 
+from tinydb import Query
+
 from chat_thief.config.log import logger
 from chat_thief.command_router import CommandRouter
 from chat_thief.models.user import User
@@ -26,6 +28,9 @@ if __name__ == "__main__":
     irc_response = _fake_irc_msg_builder(args.user, args.message)
 
     if args.breakpoint:
+        # found_command = Proposal.db().get(Query().name == name)
+        # found_command = Proposal.db().search(Query().user == "beginbot")
+
         breakpoint()
     elif response := CommandRouter(irc_response, logger).build_response():
         print(response)

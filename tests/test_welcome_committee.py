@@ -4,10 +4,12 @@ import pytest
 
 from chat_thief.welcome_committee import WelcomeCommittee
 
+from tests.support.database_setup import DatabaseConfig
+
 welcome_file = Path(__file__).parent.joinpath("db/.welcome")
 
 
-class TestWelcomeCommittee:
+class TestWelcomeCommittee(DatabaseConfig):
     @pytest.fixture(autouse=True)
     def __setup_welcome__(self):
         if welcome_file.is_file():
