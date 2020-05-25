@@ -10,6 +10,7 @@ from chat_thief.models.notification import Notification
 from chat_thief.models.proposal import Proposal
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.soundeffect_request import SoundeffectRequest
+from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
 
@@ -19,6 +20,7 @@ MODEL_CLASSES = [
     CubeBet,
     Issue,
     Notification,
+    PlaySoundeffectRequest,
     Proposal,
     SFXVote,
     SoundeffectRequest,

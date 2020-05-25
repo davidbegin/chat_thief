@@ -48,8 +48,12 @@ class CommunityRouter(BaseRouter):
 
         if "TEST_MODE" not in os.environ:
             # Maybe I should be able to say no notification
-            PlaySoundeffectRequest(user="beginbotbot", command="5minutes").save()
-        Notification("Type !support", duration=300).save()
+
+            PlaySoundeffectRequest(
+                user="beginbotbot", command="5minutes", notification=False
+            ).save()
+
+            Notification("Type !support", duration=300).save()
         return f"Thank you @{self.user} for your proposal. You have 5 minutes to get 5 supporters"
 
     def _support(self):

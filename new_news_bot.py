@@ -49,7 +49,7 @@ class BreakingNewsBot:
                 print(f"How Long: {how_long_since_break}")
 
                 # We Should also take into account the type of event
-                if how_long_since_break.seconds < 30:
+                if how_long_since_break.seconds < 300:
                     # if how_long_since_break.seconds < 300:
                     print("Sorry Too Soon, waiting for more news")
                     time.sleep(3)
