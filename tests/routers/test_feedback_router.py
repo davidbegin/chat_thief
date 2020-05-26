@@ -33,7 +33,15 @@ class TestFeedbackRouter(DatabaseConfig):
         ).route()
         assert SoundeffectRequest.count() == 1
         sfx = SoundeffectRequest.last()
-        sfx["command"] == "beginbotbot"
+        assert sfx["command"] == "beginbotbot"
+
+    def test_requesting_sfx(self):
+        result = FeedbackRouter(
+            "beginbotbot", "soundeffect", ["VW2yff3su0U", "@cool_user", "00:01", "00:04"],
+        ).route()
+        assert SoundeffectRequest.count() == 1
+        sfx = SoundeffectRequest.last()
+        assert sfx["command"] == "cool_user"
 
     # We must mock out the WelcomeCommittee
     def test_approving_sfx(self, mock_present_users):

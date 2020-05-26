@@ -12,6 +12,10 @@ class SoundeffectRequestParser:
         self._set_start_and_end_time()
 
     def parse(self):
+        # Santize the command
+        if self.command.startswith("@") or self.command.startswith("!"):
+            self.command = self.command[1:]
+
         return SoundeffectRequest(
             user=self.user,
             youtube_id=self.youtube_id,
