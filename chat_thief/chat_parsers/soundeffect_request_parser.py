@@ -36,6 +36,10 @@ class SoundeffectRequestParser:
         if len(self.args) == 2:
             self.start_time = "00:00"
             self.end_time = "00:04"
+        elif len(self.args) == 3:
+            self.command = self.user
+            self.start_time = self.args[1]
+            self.end_time = self.args[2]
         elif len(self.args) == 4:
             self.start_time = self.args[2]
             self.end_time = self.args[3]

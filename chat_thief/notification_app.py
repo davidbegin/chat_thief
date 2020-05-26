@@ -14,8 +14,13 @@ app.run(debug=True)
 @app.route("/")
 def facts(name=None):
     last_notification = Notification.last()
+    if last_notification:
+        message = last_notification["message"]
+        duration = last_notification["duration"]
+    else:
+        message = None
+        duration = None
+
     return render_template(
-        "notification.html",
-        notification=last_notification["message"],
-        refresh_time=last_notification["duration"],
+        "notification.html", notification=message, refresh_time=duration
     )

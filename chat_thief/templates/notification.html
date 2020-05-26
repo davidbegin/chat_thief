@@ -6,5 +6,7 @@
 </head>
 
 <body>
-  {{ notification }}
+  {% if notification %}
+    {{ notification }}
+  {% endif %}
 </body>

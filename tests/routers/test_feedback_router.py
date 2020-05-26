@@ -7,6 +7,7 @@ from chat_thief.models.issue import Issue
 
 from tests.support.database_setup import DatabaseConfig
 
+# StreamImprovementsRouter
 # FeedbackRouter is not a good name
 # these are commands that users submit
 # and a Streamlord approves later on
@@ -25,6 +26,14 @@ class TestFeedbackRouter(DatabaseConfig):
             ["VW2yff3su0U", "storm_seeker", "00:01", "00:04"],
         ).route()
         assert SoundeffectRequest.count() == 1
+
+    def test_requesting_sfx(self):
+        result = FeedbackRouter(
+            "beginbotbot", "soundeffect", ["VW2yff3su0U", "00:01", "00:04"],
+        ).route()
+        assert SoundeffectRequest.count() == 1
+        sfx = SoundeffectRequest.last()
+        sfx["command"] == "beginbotbot"
 
     # We must mock out the WelcomeCommittee
     def test_approving_sfx(self, mock_present_users):
