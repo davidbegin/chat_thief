@@ -85,7 +85,9 @@ class CommandParser:
             return False
 
     def _sanitize(self, item):
-        if item.startswith("!") or item.startswith("@"):
+        if isinstance(item, int):
+            return item
+        elif item.startswith("!") or item.startswith("@"):
             return item[1:].lower()
         else:
             return item.lower()

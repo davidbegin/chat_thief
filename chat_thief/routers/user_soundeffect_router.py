@@ -135,7 +135,9 @@ class UserSoundeffectRouter(BaseRouter):
                 allow_random_sfx=True,
             ).parse()
 
-            return CommandBuyer(user=self.user, target_sfx=parser.target_sfx).buy()
+            return CommandBuyer(
+                user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
+            ).new_buy()
 
         # So What are the aliases here
         if self.command in COMMANDS["give"]["aliases"]:

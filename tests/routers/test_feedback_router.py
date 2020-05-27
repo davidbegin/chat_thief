@@ -37,7 +37,9 @@ class TestFeedbackRouter(DatabaseConfig):
 
     def test_requesting_sfx(self):
         result = FeedbackRouter(
-            "beginbotbot", "soundeffect", ["VW2yff3su0U", "@cool_user", "00:01", "00:04"],
+            "beginbotbot",
+            "soundeffect",
+            ["VW2yff3su0U", "@cool_user", "00:01", "00:04"],
         ).route()
         assert SoundeffectRequest.count() == 1
         sfx = SoundeffectRequest.last()

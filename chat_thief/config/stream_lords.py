@@ -7,6 +7,7 @@ STREAM_GODS = [
     "beginbotbot",
     "stupac62",
     "artmattdank",
+    "syoonee",
 ]
 
 STREAM_PEASANTS = []
