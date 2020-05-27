@@ -28,7 +28,10 @@ class BasicInfoRouter(BaseRouter):
                 return User(parser.target_user).bankrupt()
 
             if self.command == "paperup":
-                return User(parser.target_user).paperup()
+                if parser.target_user:
+                    return User(parser.target_user).paperup()
+                else:
+                    return "You need to specify who to Paperup"
 
     def _shoutout(self):
         return f"Shoutout twitch.tv/{self.args[0]}"

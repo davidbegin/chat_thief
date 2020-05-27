@@ -8,8 +8,8 @@ from tests.support.database_setup import DatabaseConfig
 
 
 class FakeParser:
-    def __init__(self):
-        self.target_user = "coltrane"
+    def __init__(self, target_user="coltrane"):
+        self.target_user = target_user
 
 
 class TestBasicInfoRouter(DatabaseConfig):
@@ -60,3 +60,12 @@ class TestBasicInfoRouter(DatabaseConfig):
         assert user.cool_points() == 100
         assert user.street_cred() == 100
         assert result == "@coltrane has been Papered Up"
+
+    def test_paperup_no_one(self, monkeypatch):
+        def _fake_parse(self):
+            return FakeParser(None)
+
+        monkeypatch.setattr(CommandParser, "parse", _fake_parse)
+
+        result = BasicInfoRouter("beginbotbot", "paperup", []).route()
+        assert result == "You need to specify who to Paperup"
