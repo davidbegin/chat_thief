@@ -125,7 +125,8 @@ class UserSoundeffectRouter(BaseRouter):
                     command=parser.target_sfx,
                 ).steal()
             else:
-                return f"Problem stealing {parser.target_command} {self.args}"
+                return f"@{self.user} failed to steal: {' '.join(self.args)}"
+                # return f"Problem stealing {parser.target_command} {self.args}"
 
         if self.command in ["buy"]:
             parser = CommandParser(

@@ -8,7 +8,7 @@ from chat_thief.routers.base_router import BaseRouter
 class BasicInfoRouter(BaseRouter):
     def route(self):
         if self.command == "la_libre":
-            return LaLibre.inform()
+            return " | ".join(LaLibre.inform())
 
         if self.command == "streamlords":
             return " ".join(STREAM_LORDS)

@@ -87,11 +87,10 @@ class TestUserSoundeffectRouter(DatabaseConfig):
     def test_try_steal_fake_sound(self, mock_present_users, mock_find_random_user):
         User("uzi").update_cool_points(10)
         Command("clap").allow_user("uzi")
-
         user = User("young.thug")
         user.update_cool_points(10)
         result = UserSoundeffectRouter(user.name, "steal", ["fakesound"]).route()
-        assert result != "@young.thug stole from @None"
+        assert result == "@young.thug failed to steal: fakesound"
         assert user.cool_points() == 10
 
     def test_buying_random(self, mock_find_random_user):

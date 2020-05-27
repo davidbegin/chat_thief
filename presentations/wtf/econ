@@ -84,8 +84,8 @@ As you chat you get 🤠 Street Cred
 
 ✊ Giving Props:
   !props @viewer
-  !endorse @viewer 10
-  !bigups random
+  !props @viewer 10
+  !props random
 
 You decide who you want to give you Street Cred to.
 

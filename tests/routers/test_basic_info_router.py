@@ -15,13 +15,15 @@ class FakeParser:
 class TestBasicInfoRouter(DatabaseConfig):
     def test_la_libre(self):
         result = BasicInfoRouter("billy", "la_libre").route()
-        assert result == [
-            "PowerUpL La Libre PowerUpR",
-            "Total Votes: 0",
-            "Peace Count: 0 / 3",
-            "Revolution Count: 0 / 3",
-            "panicBasket Coup Cost: 1 panicBasket",
-        ]
+        assert result == " | ".join(
+            [
+                "PowerUpL La Libre PowerUpR",
+                "Total Votes: 0",
+                "Peace Count: 0 / 3",
+                "Revolution Count: 0 / 3",
+                "panicBasket Coup Cost: 1 panicBasket",
+            ]
+        )
 
     def test_stream_gods_and_lords(self, monkeypatch):
         result = BasicInfoRouter("sammy", "streamgods").route()

@@ -21,3 +21,4 @@ restore:
 	cp db/backups/users.json db/users.json
 	cp db/backups/commands.json db/commands.json
 	cp db/backups/issues.json db/issues.json
+	cp db/backups/sfx_votes.json db/sfx_votes.json
