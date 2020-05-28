@@ -34,8 +34,10 @@ class TestBasicInfoRouter(DatabaseConfig):
     def test_shoutout(self):
         result = BasicInfoRouter("thugga", "so", ["beginbot"]).route()
         assert result == "Shoutout twitch.tv/beginbot"
+        result = BasicInfoRouter("thugga", "so", ["$beginbot"]).route()
+        assert result == "Shoutout twitch.tv/%24beginbot"
         result = BasicInfoRouter("thugga", "so", ["@beginbot"]).route()
-        assert result == "Shoutout twitch.tv/%40beginbot"
+        assert result == "Shoutout twitch.tv/beginbot"
 
     def test_bankrupt(self, monkeypatch):
         user = User("coltrane")

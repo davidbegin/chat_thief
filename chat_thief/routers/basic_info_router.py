@@ -36,4 +36,7 @@ class BasicInfoRouter(BaseRouter):
                     return "You need to specify who to Paperup"
 
     def _shoutout(self):
-        return f"Shoutout twitch.tv/{quote(self.args[0])}"
+        user_path = self.args[0]
+        if user_path.startswith("@"):
+            user_path = user_path[1:]
+        return f"Shoutout twitch.tv/{quote(user_path)}"

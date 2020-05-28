@@ -7,7 +7,6 @@ from chat_thief.models.issue import Issue
 
 
 class FeedbackRouter(BaseRouter):
-
     def route(self):
         if self.command == "soundeffect":
             sfx_request = SoundeffectRequestParser(self.user, self.args).parse()
