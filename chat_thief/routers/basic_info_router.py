@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 from chat_thief.commands.la_libre import LaLibre
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.chat_parsers.command_parser import CommandParser
@@ -34,4 +36,4 @@ class BasicInfoRouter(BaseRouter):
                     return "You need to specify who to Paperup"
 
     def _shoutout(self):
-        return f"Shoutout twitch.tv/{self.args[0]}"
+        return f"Shoutout twitch.tv/{quote(self.args[0])}"
