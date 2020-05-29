@@ -53,8 +53,10 @@ class SampleSaver:
             send_twitch_msg(f"New Sound Available: !{self.name}")
 
     def _delete_old_sample(self):
+        samples = Path(SAMPLES_PATH).glob(f"**/{self.name}.*")
+
         sample_updated = False
-        for sample in self._current_samples():
+        for sample in samples:
             print(f"Deleting Previous {sample}")
             if sample.is_file():
                 sample.unlink()
@@ -69,6 +71,10 @@ class SampleSaver:
         return command
 
     # Maybe: This belongs in the soundeffects library
+
+    # We are iterating through a list of types of audio formats
+    # and doing exact matches
+    # we should instead just match the name
     def _current_samples(self):
         return [
             Path(SAMPLES_PATH).joinpath(f"{self.name}{suffix}")

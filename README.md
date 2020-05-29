@@ -125,3 +125,9 @@ Check the soundboard leaderboard
 
 Show the Streamlords
 `!streamlords`
+
+---
+
+## Exposing User Data
+
+Probelm

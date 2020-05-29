@@ -5,7 +5,7 @@ format:
 	black chat_thief/*.py chat_thief/**/*.py *.py
 	black tests/**/*.py tests/*.py
 
-t:
+t format:
 	TEST_MODE=true BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief tests/*
 
 f:
