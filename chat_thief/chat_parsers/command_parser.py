@@ -53,7 +53,12 @@ class CommandParser:
                 self.target_sfx = arg
 
             if self._is_valid_amount(arg):
-                self.amount = int(arg)
+                if isinstance(arg, int):
+                    self.amount = arg
+                elif arg.endswith("s"):
+                    self.amount = int(arg[:-1])
+                else:
+                    self.amount = int(arg)
 
         if self.target_sfx is None and self.target_user is None:
             if len(self.args) == 0:
@@ -80,7 +85,12 @@ class CommandParser:
 
     def _is_valid_amount(self, val):
         try:
-            return int(val) > 1
+            if isinstance(val, int):
+                return val > 1
+            elif val.endswith("s"):
+                return int(val[:-1]) > 1
+            else:
+                return int(val) > 1
         except (Exception, ValueError):
             return False
 

@@ -28,6 +28,8 @@ class TestCubeCasinoRouter(DatabaseConfig):
         result = CubeCasinoRouter("random_user", "bet", ["42"]).route()
         assert result == "Thank you for your bet: @random_user: 42s"
         assert CubeBet.count() == 1
+        result = CubeCasinoRouter("random_user", "bet", ["42s"]).route()
+        assert result == "Thank you for your bet: @random_user: 42s"
 
     def test_cubed(self, mock_present_users):
         CubeCasinoRouter("future", "bet", ["108"]).route()

@@ -81,6 +81,7 @@ if __name__ == "__main__":
             lines = chat_lines[-options.line_count :]
 
         # We should do something when there are less lines than the count
-        chat = [decrypt_msg(msg) for msg in filter_out_logs(lines)]
+        # chat = [decrypt_msg(msg) for msg in filter_out_logs(lines)]
+        chat = lines
 
     print("\n".join(chat))

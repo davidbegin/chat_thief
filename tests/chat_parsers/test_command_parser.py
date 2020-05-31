@@ -146,3 +146,14 @@ class TestCommandParser:
         assert result.target_user == "beginbot"
         assert result.target_sfx == None
         assert result.amount == 10
+
+    def test_amount_with_seconds(self):
+        user = "fake_user"
+        args = ["beginbot", "10s"]
+        subject = CommandParser(user, "props", args)
+        result = subject.parse()
+
+        assert result.target_command == "props"
+        assert result.target_user == "beginbot"
+        assert result.target_sfx == None
+        assert result.amount == 10

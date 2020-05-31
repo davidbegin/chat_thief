@@ -42,25 +42,13 @@ Give you access to
 
 What are commands?
 
-✍ 700+ viewer supplied soundeffects
+✍ 900+ viewer supplied soundeffects
 
 😏You can trigger on stream!
 
-🧞 Submit a Soundeffect
-
-!soundeffect YOUTUBE_ID command 00:00 00:04
-
-Must be 5 seconds or less
-
-Must NOT be terrible
-
-YOUTUBE ID
-YOUTUBE URL
-TWITCH URL
-
-(Note: A !streamlord must approve the command)
-
 🤔 How do I use access these commands?
+
+@woosh.jpg
 
 🍄  Mana
 
@@ -166,3 +154,17 @@ All sounds from the "revolutionaries" are distributed among the Peace Keepers
 In both cases are punished
 
 More harsh during revolution
+
+🧞 Submit a Soundeffect
+
+!soundeffect YOUTUBE_ID command 00:00 00:04
+
+Must be 5 seconds or less
+
+Must NOT be terrible
+
+YOUTUBE ID
+YOUTUBE URL
+TWITCH URL
+
+(Note: A !streamlord must approve the command)
