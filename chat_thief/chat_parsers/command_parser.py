@@ -85,7 +85,9 @@ class CommandParser:
 
     def _is_valid_amount(self, val):
         try:
-            if isinstance(val, int):
+            if str(val) == "1080":
+                return False
+            elif isinstance(val, int):
                 return val > 1
             elif val.endswith("s"):
                 return int(val[:-1]) > 1

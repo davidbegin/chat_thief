@@ -157,3 +157,13 @@ class TestCommandParser:
         assert result.target_user == "beginbot"
         assert result.target_sfx == None
         assert result.amount == 10
+
+    def test_the_1080(self):
+        user = "fake_user"
+        args = ["1080"]
+        subject = CommandParser(user, "dropeffect", args)
+        result = subject.parse()
+
+        assert result.target_command == "dropeffect"
+        assert result.target_sfx == "1080"
+        assert result.amount == 1

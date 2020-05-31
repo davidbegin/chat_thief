@@ -1,0 +1,34 @@
+<!doctype html> <title>Beginland</title>
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <meta http-equiv="refresh" content="{{ refresh_time }}">
+</head>
+
+<body>
+  <h1>BeginWorld Finance</h1>
+
+  <h2>Users</h2>
+
+  <ul>
+    {% for user in users %}
+      <li>
+        {{ user['name'] }} |
+        Cool Points: {{ user['cool_points'] }} |
+        Street Cred: {{ user['street_cred'] }} |
+        Street Cred: {{ user['street_cred'] }}
+        {% if user['ride_or_die'] %}
+          | Ride Or Die: {{ user['ride_or_die'] }}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2>Commands</h2>
+
+  <ul>
+    {% for command in commands %}
+      <li>{{ command }}</li>
+    {% endfor %}
+  </ul>
+</body>

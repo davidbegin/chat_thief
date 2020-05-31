@@ -74,6 +74,12 @@ class User(BaseDbModel):
         if users:
             return sorted(users, key=lambda user: user["cool_points"])[-1]
 
+    @classmethod
+    def by_cool_points(cls):
+        users = [user for user in cls.db().all()]
+        if users:
+            return reversed(sorted(users, key=lambda user: user["cool_points"]))
+
     # ====================================================================
 
     # We should set self.user here

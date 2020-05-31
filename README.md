@@ -130,4 +130,11 @@ Show the Streamlords
 
 ## Exposing User Data
 
-Probelm
+Simple Website: HTML, JSON
+strager: HTML? Nah, plain text. curl API.
+Users
+
+User:
+Stats
+
+Commands and STats

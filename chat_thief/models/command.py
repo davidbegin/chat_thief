@@ -41,6 +41,12 @@ class Command(BaseDbModel):
             return sorted(cmds, key=lambda cmd: cmd["cost"])[-1]
 
     @classmethod
+    def by_cost(cls):
+        cmds = cls.db().all()
+        if cmds:
+            return reversed(sorted(cmds, key=lambda cmd: cmd["cost"]))
+
+    @classmethod
     def find_or_create(cls, name):
         found_command = cls.db().get(Query().name == name)
 
