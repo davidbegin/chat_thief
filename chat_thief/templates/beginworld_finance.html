@@ -7,20 +7,21 @@
 
 <body>
   <h1>BeginWorld Finance</h1>
-
   <h2>Users</h2>
 
   <ul>
     {% for user in users %}
-      <li>
-        {{ user['name'] }} |
-        Cool Points: {{ user['cool_points'] }} |
-        Street Cred: {{ user['street_cred'] }} |
-        Street Cred: {{ user['street_cred'] }}
-        {% if user['ride_or_die'] %}
-          | Ride Or Die: {{ user['ride_or_die'] }}
+        {% if user['name'] %}
+          <li>
+            <a href="{{ url_for('profile', username=user['name']) }}">{{ user['name'] }}</a> |
+            Cool Points: {{ user['cool_points'] }} |
+            Street Cred: {{ user['street_cred'] }} |
+            Street Cred: {{ user['street_cred'] }}
+            {% if user['ride_or_die'] %}
+              | Ride Or Die: {{ user['ride_or_die'] }}
+            {% endif %}
+          </li>
         {% endif %}
-      </li>
     {% endfor %}
   </ul>
 

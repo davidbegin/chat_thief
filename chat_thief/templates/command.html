@@ -7,16 +7,18 @@
 
 <body>
   <h1><a href="{{ url_for("home") }}">BeginWorld Finance</a></h1>
-  <h2>{{ user['name']}}</h2>
-  <h3>{{ stats }}</h3>
+
+  <h2>Command Name: {{ command.name }}</h2>
+  <h3>Command Cost: {{ command.cost() }}</h3>
 
   <ul>
-    {% for command in commands %}
+    {% for user in command.users() %}
       <li>
-        <a href="{{ url_for("command_stats", command_name=command) }}">
-          {{ command }}
+        <a href="{{ url_for("profile", username=user) }}">
+          {{ user }}
         </a>
       </li>
     {% endfor %}
   </ul>
+
 </body>

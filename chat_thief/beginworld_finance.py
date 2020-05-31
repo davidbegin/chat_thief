@@ -12,17 +12,25 @@ app.run(debug=True)
 
 
 @app.route("/")
-def index():
+def home():
     users = User.by_cool_points()
     commands = Command.by_cost()
 
-    return render_template("beginworld_finance.html", users=users, commands=commands)
+    return render_template("beginworld_finance.html", users=users, commands=commands,)
 
 
 @app.route("/user/<username>")
-def user(username):
-    user = User(user)
+def profile(username):
+    user = User(username)
     commands = user.commands()
     stats = user.stats()
+    print(f"{user=}")
+    print(f"{commands=}")
+    print(f"{stats=}")
+    return render_template("user.html", user=user, stats=stats, commands=commands)
 
-    return render_template("user.html", stats=stats, commands=commands)
+
+@app.route("/command/<command_name>")
+def command_stats(command_name):
+    command = Command(command_name)
+    return render_template("command.html", command=command)
