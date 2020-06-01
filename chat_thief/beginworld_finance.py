@@ -6,6 +6,7 @@ from flask import render_template
 
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
+from chat_thief.models.sfx_vote import SFXVote
 
 app = Flask(__name__)
 app.run(debug=True)
@@ -33,4 +34,5 @@ def profile(username):
 @app.route("/command/<command_name>")
 def command_stats(command_name):
     command = Command(command_name)
-    return render_template("command.html", command=command)
+    sfx_vote = SFXVote(command_name)
+    return render_template("command.html", command=command, like_to_hate_ratio=sfx_vote.like_to_hate_ratio())

@@ -10,6 +10,7 @@
 
   <h2>Command Name: {{ command.name }}</h2>
   <h3>Command Cost: {{ command.cost() }}</h3>
+  <h3>Like to Hate Ratio: {{ like_to_hate_ratio }}%</h3>
 
   <ul>
     {% for user in command.users() %}
