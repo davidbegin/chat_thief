@@ -1,19 +1,19 @@
 <!doctype html> <title>Beginland</title>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ base_url }}/style.css">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
     <meta http-equiv="refresh" content="{{ refresh_time }}">
 </head>
 
 <body>
-  <h1><a href="{{ base_url }}">BeginWorld Finance</a></h1>
+  <h1><a href="{{ url_for("home") }}">BeginWorld Finance</a></h1>
   <h2>{{ user['name']}}</h2>
   <h3>{{ stats }}</h3>
 
   <ul>
     {% for command in commands %}
       <li>
-        <a href="{{ base_url }}/commands/{{ command }}">
+        <a href="{{ url_for("command_stats", command_name=command) }}">
           {{ command }}
         </a>
       </li>

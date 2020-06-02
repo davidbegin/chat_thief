@@ -2,3 +2,4 @@ pytest
 mypy
 pytest-cov
 pytest-mock
+jinja2

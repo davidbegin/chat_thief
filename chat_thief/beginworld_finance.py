@@ -1,6 +1,3 @@
-from typing import Dict, List
-import time
-
 from flask import Flask
 from flask import render_template
 
@@ -16,7 +13,6 @@ app.run(debug=True)
 def home():
     users = User.by_cool_points()
     commands = Command.by_cost()
-
     return render_template("beginworld_finance.html", users=users, commands=commands,)
 
 

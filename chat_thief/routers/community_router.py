@@ -8,7 +8,7 @@ from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.notification import Notification
 
 
-DEFAULT_SUPPORT_REQUIREMENT = 5
+DEFAULT_SUPPORT_REQUIREMENT = 3
 
 
 class CommunityRouter(BaseRouter):
