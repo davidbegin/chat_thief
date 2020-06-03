@@ -6,6 +6,7 @@ from pulumi import Output
 
 bucket = s3.Bucket("beginworld.exchange", force_destroy=True)
 
+# acl: "public-read",
 
 def allow_s3_bucket_access(s3_bucket):
     bucket_policy = Output.all(s3_bucket.arn).apply(
@@ -15,10 +16,17 @@ def allow_s3_bucket_access(s3_bucket):
                 "Id": "BeginWorldExchange",
                 "Statement": [
                     {
-                        "Sid": "AllowThingsInTheBucket",
+                        "Sid": "PublicAccess",
                         "Effect": "Allow",
-                        "Principal": {"AWS": args[1]},
+                        "Principal": {"AWS": "*"},
                         "Action": "s3:Get*",
+                        "Resource": f"{args[0]}/*",
+                    },
+                    {
+                        "Sid": "BeginWriteAccess",
+                        "Effect": "Allow",
+                        "Principal": {"AWS": "arn:aws:iam::851075464416:root" },
+                        "Action": "s3:Put*",
                         "Resource": f"{args[0]}/*",
                     },
                 ],
@@ -27,5 +35,7 @@ def allow_s3_bucket_access(s3_bucket):
     )
 
     s3.BucketPolicy(
-        "morgue-file-bucket-policy", bucket=s3_bucket.id, policy=bucket_policy
+        "beginworld-exchange-bucket-policy", bucket=s3_bucket.id, policy=bucket_policy
     )
+
+allow_s3_bucket_access(bucket)

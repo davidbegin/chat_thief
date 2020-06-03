@@ -16,10 +16,6 @@ class PlaySoundeffectRequest(BaseDbModel):
         self.notification = notification
         if command:
             self.command = command.lower()
-        # play_soundeffect_requests_db_path = "db/play_soundeffects.json"
-        # self.play_sfx_db = db_table(
-        #     play_soundeffect_requests_db_path, "play_soundeffects"
-        # )
 
     # Deprecate this
     def command_count(self):
@@ -48,7 +44,7 @@ class PlaySoundeffectRequest(BaseDbModel):
 
         doc_ids_to_delete = [sfx.doc_id for sfx in all_effects]
         if doc_ids_to_delete:
-            with transaction(self.play_sfx_db) as tr:
+            with transaction(self.db()) as tr:
                 tr.remove(doc_ids=doc_ids_to_delete)
             return all_effects
         else:

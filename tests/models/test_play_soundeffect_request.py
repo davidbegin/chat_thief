@@ -13,3 +13,4 @@ class TestPlaySoundeffectRequest(DatabaseConfig):
         subject = PlaySoundeffectRequest(user=user, command=command, notification=False)
         subject.save()
         assert subject.command == "wassup"
+

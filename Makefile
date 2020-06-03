@@ -22,3 +22,18 @@ restore:
 	cp db/backups/commands.json db/commands.json
 	cp db/backups/issues.json db/issues.json
 	cp db/backups/sfx_votes.json db/sfx_votes.json
+
+new_day:
+	rm db/play_soundeffects.json
+	rm db/notifications.json
+	rm db/cube_bets.json
+	rm db/breaking_news.json
+	rm db/votes.json
+	rm .welcome
+
+# TODO: How do pull in the name
+sync:
+	aws s3 sync ./build/beginworld_finance/ s3://beginworld.exchange-f27cf15
+
+deploy sync:
+	python beginworld_publisher.py | lolcat

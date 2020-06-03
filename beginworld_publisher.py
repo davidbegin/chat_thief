@@ -15,6 +15,7 @@ from chat_thief.config.log import success, warning, error
 rendered_template_path = Path(__file__).parent.joinpath("build/beginworld_finance")
 template_path = Path(__file__).parent.joinpath("chat_thief/templates/")
 base_url = "/home/begin/code/chat_thief/build/beginworld_finance"
+deploy_url = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
 
 
 def setup_build_dir():
@@ -59,7 +60,7 @@ def generate_home():
     context = {
         "users": users,
         "commands": commands,
-        "base_url": base_url,
+        "base_url": deploy_url,
     }
     _render_and_save_html("beginworld_finance.html", context, "index.html")
 
@@ -70,7 +71,8 @@ def generate_command_page(command):
     command_name = command["name"]
     command = Command(command_name)
 
-    if len(command.users()) > 0:
+    if len(command.users()) > -1:
+    # if len(command.users()) > 0:
         print(f"Command: {command_name}")
         sfx_vote = SFXVote(command_name)
 
@@ -79,7 +81,7 @@ def generate_command_page(command):
             "users": command.users(),
             "cost": command.cost,
             "like_to_hate_ratio": sfx_vote.like_to_hate_ratio(),
-            "base_url": base_url,
+            "base_url": deploy_url,
         }
 
         _render_and_save_html("command.html", context, f"commands/{command_name}.html")
@@ -94,7 +96,7 @@ def generate_user_page(username):
         "user": user.name,
         "commands": commands,
         "stats": stats,
-        "base_url": base_url,
+        "base_url": deploy_url,
     }
 
     _render_and_save_html("user.html", context, f"{user.name}.html")
@@ -104,9 +106,9 @@ if __name__ == "__main__":
     setup_build_dir()
     generate_home()
 
-    for user in User.all():
-        print(f"USER: {user}")
-        generate_user_page(user)
+    # for user in User.all():
+    #     print(f"USER: {user}")
+    #     generate_user_page(user)
 
     # A bunch of commands are theme songs
     # we want to filter out theme_songs
