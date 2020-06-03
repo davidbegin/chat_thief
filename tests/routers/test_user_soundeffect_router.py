@@ -27,7 +27,10 @@ class TestUserSoundeffectRouter(DatabaseConfig):
 
     def test_me(self):
         result = UserSoundeffectRouter("beginbotbot", "me", []).route()
-        assert result == "@beginbotbot - Mana: 3 | Street Cred: 0 | Cool Points: 0"
+        assert (
+            result
+            == "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com/beginbotbot.html"
+        )
 
     def test_perms(self):
         result = UserSoundeffectRouter("beginbotbot", "perms", ["clap"]).route()

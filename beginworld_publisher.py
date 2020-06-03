@@ -1,3 +1,4 @@
+from argparse import ArgumentParser
 from pathlib import Path
 from shutil import copyfile, rmtree
 
@@ -18,6 +19,7 @@ base_url = "/home/begin/code/chat_thief/build/beginworld_finance"
 deploy_url = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
 
 
+# this handles setup and destroy
 def setup_build_dir():
     warning("Setting Up Build Dir")
 
@@ -72,7 +74,7 @@ def generate_command_page(command):
     command = Command(command_name)
 
     if len(command.users()) > -1:
-    # if len(command.users()) > 0:
+        # if len(command.users()) > 0:
         print(f"Command: {command_name}")
         sfx_vote = SFXVote(command_name)
 
@@ -103,14 +105,28 @@ def generate_user_page(username):
 
 
 if __name__ == "__main__":
-    setup_build_dir()
-    generate_home()
+    parser = ArgumentParser()
+    parser.add_argument(
+        "--users", "-u", action="store_true", dest="generate_users", default=False
+    )
+    parser.add_argument(
+        "--commands", "-c", action="store_true", dest="generate_commands", default=False
+    )
+    args = parser.parse_args()
+    # parser.add_argument("--user", "-u", dest="user", default="beginbotbot")
+    # parser.add_argument(
+    #     "--breakpoint", "-b", dest="breakpoint", action="store_true", default=False
+    # )
+    # setup_build_dir()
+    # generate_home()
 
-    # for user in User.all():
-    #     print(f"USER: {user}")
-    #     generate_user_page(user)
+    if args.generate_users:
+        for user in User.all():
+            print(f"USER: {user}")
+            generate_user_page(user)
 
     # A bunch of commands are theme songs
     # we want to filter out theme_songs
-    for command in Command.all():
-        generate_command_page(command)
+    if args.generate_commands:
+        for command in Command.all():
+            generate_command_page(command)

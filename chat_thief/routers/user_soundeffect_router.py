@@ -14,6 +14,7 @@ from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.command import Command
 from chat_thief.commands.command_buyer import CommandBuyer
 
+BASE_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
 
 COMMANDS = {
     "give": {
@@ -30,14 +31,16 @@ class UserSoundeffectRouter(BaseRouter):
         ).parse()
 
         if self.command in ["me"]:
-            user_permissions = " ".join(
-                [f"!{perm}" for perm in User(self.user).commands()]
-            )
-            stats = User(self.user).stats()
-            if user_permissions:
-                return f"{stats} | {user_permissions}"
-            else:
-                return stats
+            return f"{BASE_URL}/{self.user}.html"
+
+            # user_permissions = " ".join(
+            #     [f"!{perm}" for perm in User(self.user).commands()]
+            # )
+            # stats = User(self.user).stats()
+            # if user_permissions:
+            #     return f"{stats} | {user_permissions}"
+            # else:
+            #     return stats
 
         # TODO: This only works for soundeffects
         if self.command in ["permissions", "permission", "perms", "perm"]:
