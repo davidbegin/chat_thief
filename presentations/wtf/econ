@@ -50,12 +50,6 @@ What are commands?
 
 @woosh.jpg
 
-🍄  Mana
-
-🤠 Street Cred
-
-😎 Cool Points
-
 🥰  Chat and be a good person 🥰
 
 Or....
@@ -63,7 +57,6 @@ Or....
 We'll explain how this works
 
 As you chat you get 🤠 Street Cred
-
 
 🤠 Street Cred:
   - You earn from just chatting!
@@ -75,16 +68,9 @@ As you chat you get 🤠 Street Cred
   !props @viewer 10
   !props random
 
-You decide who you want to give you Street Cred to.
+When you give someone Street Cred
 
-When you give someone Street Cred,
-
-They become 😎  Cool Points:
-
-
-😎  Cool Points:
-  - You can !buy sounds
-  - You CANNOT transfer them
+They become 😎  Cool Point
 
 😎  Cool Points Command:
   - !buy command

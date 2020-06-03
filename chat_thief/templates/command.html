@@ -3,23 +3,21 @@
 <title>Beginland</title>
 
 <head>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ base_url }}/style.css">
     <meta http-equiv="refresh" content="{{ refresh_time }}">
 </head>
 
 <body>
-  <h1><a href="{{ url_for("home") }}">BeginWorld Finance</a></h1>
+  <h1><a href="{{ base_url }}/index.html">BeginWorld Finance</a></h1>
 
-  <h2>Command Name: {{ command.name }}</h2>
-  <h3>Command Cost: {{ command.cost() }}</h3>
+  <h2>Command Name: {{ name }}</h2>
+  <h3>Command Cost: {{ cost }}</h3>
   <h3>Like to Hate Ratio: {{ like_to_hate_ratio }}%</h3>
 
   <ul>
-    {% for user in command.users() %}
+    {% for user in users %}
       <li>
-        <a href="{{ url_for("profile", username=user) }}">
-          {{ user }}
-        </a>
+        <a href="{{ base_url }}/{{ user }}.html"> {{ user }}</a>
       </li>
     {% endfor %}
   </ul>

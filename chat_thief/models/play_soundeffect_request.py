@@ -16,14 +16,15 @@ class PlaySoundeffectRequest(BaseDbModel):
         self.notification = notification
         if command:
             self.command = command.lower()
-        play_soundeffect_requests_db_path = "db/play_soundeffects.json"
-        self.play_sfx_db = db_table(
-            play_soundeffect_requests_db_path, "play_soundeffects"
-        )
+        # play_soundeffect_requests_db_path = "db/play_soundeffects.json"
+        # self.play_sfx_db = db_table(
+        #     play_soundeffect_requests_db_path, "play_soundeffects"
+        # )
 
+    # Deprecate this
     def command_count(self):
         # We should check if this is valid json
-        return len(self.play_sfx_db)
+        return self.count()
 
     def _is_valid_json(self):
         try:
@@ -43,7 +44,7 @@ class PlaySoundeffectRequest(BaseDbModel):
     def pop_all_off(self):
         from tinyrecord import transaction
 
-        all_effects = self.play_sfx_db.all()
+        all_effects = self.all()
 
         doc_ids_to_delete = [sfx.doc_id for sfx in all_effects]
         if doc_ids_to_delete:

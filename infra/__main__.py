@@ -7,20 +7,18 @@ from pulumi import Output
 bucket = s3.Bucket("beginworld.exchange", force_destroy=True)
 
 
-def allow_s3_bucket_access(s3_bucket, roles, lamda_function_arn):
-    role_arns = [role.arn for role in roles]
-
-    bucket_policy = Output.all(s3_bucket.arn, role_arns).apply(
+def allow_s3_bucket_access(s3_bucket):
+    bucket_policy = Output.all(s3_bucket.arn).apply(
         lambda args: json.dumps(
             {
                 "Version": "2012-10-17",
-                "Id": "MorgueFileBucketPolicy",
+                "Id": "BeginWorldExchange",
                 "Statement": [
                     {
                         "Sid": "AllowThingsInTheBucket",
                         "Effect": "Allow",
                         "Principal": {"AWS": args[1]},
-                        "Action": "s3:*",
+                        "Action": "s3:Get*",
                         "Resource": f"{args[0]}/*",
                     },
                 ],

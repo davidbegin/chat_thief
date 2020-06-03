@@ -31,4 +31,8 @@ def profile(username):
 def command_stats(command_name):
     command = Command(command_name)
     sfx_vote = SFXVote(command_name)
-    return render_template("command.html", command=command, like_to_hate_ratio=sfx_vote.like_to_hate_ratio())
+    return render_template(
+        "command.html",
+        command=command,
+        like_to_hate_ratio=sfx_vote.like_to_hate_ratio(),
+    )

@@ -6,14 +6,14 @@
 </head>
 
 <body>
-  <h1><a href="{{ base_url }}">BeginWorld Finance</a></h1>
+  <h1><a href="{{ base_url }}/index.html">BeginWorld Finance</a></h1>
   <h2>{{ user['name']}}</h2>
   <h3>{{ stats }}</h3>
 
   <ul>
     {% for command in commands %}
       <li>
-        <a href="{{ base_url }}/commands/{{ command }}">
+        <a href="{{ base_url }}/commands/{{ command }}.html">
           {{ command }}
         </a>
       </li>
