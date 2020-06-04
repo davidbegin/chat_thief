@@ -31,6 +31,7 @@ def setup_build_dir():
     css_source = Path(__file__).parent.joinpath("chat_thief/static/baldclap.css")
     css_dest = Path(__file__).parent.joinpath("build/beginworld_finance/style.css")
     copyfile(css_source, css_dest)
+    success("Finished Setting Up Build Dir")
 
 
 async def _render_and_save_html(file_name, context, dest_filename=None):
@@ -43,8 +44,7 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     rendered_template = template.render(context)
     success(f"Finished Rendering Template: {dest_filename}")
 
-    # The Writing of the file??
-    warning("Writing Template")
+    warning(f"Writing Template: {file_name}")
     if dest_filename:
         html_file = dest_filename
     else:
@@ -52,12 +52,12 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
 
     with open(rendered_template_path.joinpath(html_file), "w") as f:
         f.write(rendered_template)
-    success("Finished Writing Template")
+    success(f"Finished Writing Template: {file_name}")
 
 
 async def generate_home():
-    users = User.by_cool_points()
     commands = Command.by_cost()
+    users = User.by_cool_points()
     context = {
         "users": users,
         "commands": commands,
@@ -68,7 +68,6 @@ async def generate_home():
 
 async def generate_command_page(cmd_dict):
     name = cmd_dict["name"]
-    print(f"Generating Command: {name}")
     Path(base_url).joinpath("commands").mkdir(exist_ok=True)
 
     if len(cmd_dict["permitted_users"]) > -1:
@@ -104,14 +103,22 @@ async def generate_user_page(user_dict):
 
 # cyberbeni: Isn't asyncio single threaded? I think you need a
 # ProcessPoolExecutor or a ThreadPoolExecutor to speed it up.
-
-
 async def main():
+    warning("Fetching Users")
+    users = User.all_data()
+    success("Finished Fetching Users")
+
+    warning("Fetching Commands")
+    commands = Command.all_data()
+    success("Finished Fetching Commands")
+
+    warning("Setting Up Tasks")
     tasks = (
         [generate_home()]
-        + [generate_user_page(user_dict) for user_dict in User.all_data()]
-        + [generate_command_page(command) for command in Command.all_data()]
+        + [generate_user_page(user_dict) for user_dict in users]
+        + [generate_command_page(command) for command in commands]
     )
+    success("Finished Setting Up Tasks")
 
     await asyncio.gather(*[asyncio.create_task(task) for task in tasks])
 

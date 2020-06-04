@@ -4,9 +4,7 @@ from chat_thief.models.database import db_table
 from chat_thief.prize_dropper import random_soundeffect
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.log import error, warning, success
-
 from chat_thief.models.command import Command
-
 from chat_thief.models.base_db_model import BaseDbModel
 
 from enum import Enum
@@ -41,10 +39,15 @@ class User(BaseDbModel):
     @classmethod
     def all_data(cls):
         user_data = cls.db().all()
+        cmd_data = Command.db().all()
         results = []
 
         for user_dict in user_data:
-            user_dict["commands"] = User(user_dict["name"]).commands()
+            user_dict["commands"] = [
+                cmd["name"]
+                for cmd in cmd_data
+                if user_dict["name"] in cmd["permitted_users"]
+            ]
             results.append(user_dict)
         return results
 

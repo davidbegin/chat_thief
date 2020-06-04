@@ -10,7 +10,6 @@ from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.models.base_db_model import BaseDbModel
 from chat_thief.models.database import db_table
 from chat_thief.models.sfx_vote import SFXVote
-from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 
@@ -28,12 +27,25 @@ class Command(BaseDbModel):
     @classmethod
     def all_data(cls):
         cmd_data = cls.db().all()
+        votes = SFXVote.db().all()
         results = []
 
         for cmd_dict in cmd_data:
-            cmd_dict["like_to_hate_ratio"] = SFXVote(
-                cmd_dict["name"]
-            ).like_to_hate_ratio()
+            sfx_vote = next(
+                (vote for vote in votes if vote["command"] == cmd_dict["name"]), None
+            )
+
+            if sfx_vote:
+                supporters = sfx_vote["supporters"]
+                detractors = sfx_vote["detractors"]
+                total = len(supporters) + len(detractors)
+                if total > 0:
+                    cmd_dict["like_to_hate_ratio"] = total * 100
+                else:
+                    cmd_dict["like_to_hate_ratio"] = 100
+            else:
+                cmd_dict["like_to_hate_ratio"] = 100
+
             results.append(cmd_dict)
         return results
 

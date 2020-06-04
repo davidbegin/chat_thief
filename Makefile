@@ -35,5 +35,7 @@ new_day:
 sync:
 	aws s3 sync ./build/beginworld_finance/ s3://beginworld.exchange-f27cf15
 
-deploy:
-	python beginworld_publisher.py | lolcat
+beginworld_html:
+	python beginworld_publisher.py
+
+deploy: beginworld_html sync
