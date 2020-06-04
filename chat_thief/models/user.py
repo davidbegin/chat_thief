@@ -11,7 +11,7 @@ from chat_thief.models.base_db_model import BaseDbModel
 
 from enum import Enum
 
-# I want these these to be foramt strings
+
 class PurchaseResult(Enum):
     AlreadyOwn = "@{user} already has access to !{sfx}"
     InvalidSFX = "Invalid Effect: {sfx}"
@@ -37,6 +37,16 @@ class PurchaseReceipt:
 class User(BaseDbModel):
     table_name = "users"
     database_path = "db/users.json"
+
+    @classmethod
+    def all_data(cls):
+        user_data = cls.db().all()
+        results = []
+
+        for user_dict in user_data:
+            user_dict["commands"] = User(user_dict["name"]).commands()
+            results.append(user_dict)
+        return results
 
     @classmethod
     def top_three(cls):

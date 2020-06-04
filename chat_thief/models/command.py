@@ -6,14 +6,12 @@ from itertools import chain
 from tinydb import Query
 
 from chat_thief.config.log import success, warning, error
-from chat_thief.models.database import db_table
-from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.stream_lords import STREAM_GODS
-from chat_thief.models.sfx_vote import SFXVote
-
 from chat_thief.models.base_db_model import BaseDbModel
-
-# from chat_thief.models.base_model import BaseModel
+from chat_thief.models.database import db_table
+from chat_thief.models.sfx_vote import SFXVote
+from chat_thief.models.sfx_vote import SFXVote
+from chat_thief.soundeffects_library import SoundeffectsLibrary
 
 
 class Command(BaseDbModel):
@@ -26,6 +24,18 @@ class Command(BaseDbModel):
         self.inital_health = 3
         self.inital_cost = 1
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
+
+    @classmethod
+    def all_data(cls):
+        cmd_data = cls.db().all()
+        results = []
+
+        for cmd_dict in cmd_data:
+            cmd_dict["like_to_hate_ratio"] = SFXVote(
+                cmd_dict["name"]
+            ).like_to_hate_ratio()
+            results.append(cmd_dict)
+        return results
 
     @classmethod
     def available_sounds(cls):

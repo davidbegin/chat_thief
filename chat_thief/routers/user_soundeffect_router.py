@@ -30,17 +30,17 @@ class UserSoundeffectRouter(BaseRouter):
             user=self.user, command=self.command, args=self.args
         ).parse()
 
-        if self.command in ["me"]:
-            return f"{BASE_URL}/{self.user}.html"
+        if self.command in ["me", "perm"]:
+            # return f"{BASE_URL}/{self.user}.html"
 
-            # user_permissions = " ".join(
-            #     [f"!{perm}" for perm in User(self.user).commands()]
-            # )
-            # stats = User(self.user).stats()
-            # if user_permissions:
-            #     return f"{stats} | {user_permissions}"
-            # else:
-            #     return stats
+            user_permissions = " ".join(
+                [f"!{perm}" for perm in User(self.user).commands()]
+            )
+            stats = User(self.user).stats()
+            if user_permissions:
+                return f"{stats} | {user_permissions}"
+            else:
+                return stats
 
         # TODO: This only works for soundeffects
         if self.command in ["permissions", "permission", "perms", "perm"]:

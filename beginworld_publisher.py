@@ -1,7 +1,6 @@
 from argparse import ArgumentParser
 from pathlib import Path
 from shutil import copyfile, rmtree
-
 import asyncio
 
 import jinja2
@@ -29,22 +28,22 @@ def setup_build_dir():
     rendered_template_path.mkdir(exist_ok=True, parents=True)
 
     # Move the CSS File
-    css_source = Path(__file__).parent.joinpath("chat_thief/static/style.css")
+    css_source = Path(__file__).parent.joinpath("chat_thief/static/baldclap.css")
     css_dest = Path(__file__).parent.joinpath("build/beginworld_finance/style.css")
     copyfile(css_source, css_dest)
 
 
-def _render_and_save_html(file_name, context, dest_filename=None):
-    warning("Rendering Template")
+async def _render_and_save_html(file_name, context, dest_filename=None):
+    warning(f"Rendering Template: {dest_filename}")
     template = jinja2.Environment(
         loader=jinja2.FileSystemLoader(template_path),
         # enable_async=True
     ).get_template(file_name)
 
     rendered_template = template.render(context)
-    # await rendered_template = template.render_async(context)
-    success("Finished Rendering Template")
+    success(f"Finished Rendering Template: {dest_filename}")
 
+    # The Writing of the file??
     warning("Writing Template")
     if dest_filename:
         html_file = dest_filename
@@ -56,7 +55,7 @@ def _render_and_save_html(file_name, context, dest_filename=None):
     success("Finished Writing Template")
 
 
-def generate_home():
+async def generate_home():
     users = User.by_cool_points()
     commands = Command.by_cost()
     context = {
@@ -64,69 +63,59 @@ def generate_home():
         "commands": commands,
         "base_url": deploy_url,
     }
-    _render_and_save_html("beginworld_finance.html", context, "index.html")
+    await _render_and_save_html("beginworld_finance.html", context, "index.html")
 
 
-def generate_command_page(command):
+async def generate_command_page(cmd_dict):
+    name = cmd_dict["name"]
+    print(f"Generating Command: {name}")
     Path(base_url).joinpath("commands").mkdir(exist_ok=True)
 
-    command_name = command["name"]
-    command = Command(command_name)
-
-    if len(command.users()) > -1:
-        # if len(command.users()) > 0:
-        print(f"Command: {command_name}")
-        sfx_vote = SFXVote(command_name)
-
+    if len(cmd_dict["permitted_users"]) > -1:
         context = {
-            "name": command_name,
-            "users": command.users(),
-            "cost": command.cost,
-            "like_to_hate_ratio": sfx_vote.like_to_hate_ratio(),
+            "name": cmd_dict["name"],
+            "users": cmd_dict["permitted_users"],
+            "cost": cmd_dict["cost"],
+            "like_to_hate_ratio": cmd_dict["like_to_hate_ratio"],
             "base_url": deploy_url,
         }
 
-        _render_and_save_html("command.html", context, f"commands/{command_name}.html")
+        await _render_and_save_html(
+            "command.html", context, f"commands/{cmd_dict['name']}.html"
+        )
 
 
-def generate_user_page(username):
-    user = User(username)
-    stats = user.stats()
-    commands = user.commands()
+# We need to fetch all the info upfront
+# Fetching the info from the DB is blocking!
+async def generate_user_page(user_dict):
+    name = user_dict["name"]
+    commands = user_dict["commands"]
+    stats = f"@{name} - Mana: {user_dict['mana']} | Street Cred: {user_dict['street_cred']} | Cool Points: {user_dict['cool_points']}"
 
     context = {
-        "user": user.name,
+        "user": name,
         "commands": commands,
         "stats": stats,
         "base_url": deploy_url,
     }
 
-    _render_and_save_html("user.html", context, f"{user.name}.html")
+    await _render_and_save_html("user.html", context, f"{name}.html")
+
+
+# cyberbeni: Isn't asyncio single threaded? I think you need a
+# ProcessPoolExecutor or a ThreadPoolExecutor to speed it up.
+
+
+async def main():
+    tasks = (
+        [generate_home()]
+        + [generate_user_page(user_dict) for user_dict in User.all_data()]
+        + [generate_command_page(command) for command in Command.all_data()]
+    )
+
+    await asyncio.gather(*[asyncio.create_task(task) for task in tasks])
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument(
-        "--users", "-u", action="store_true", dest="generate_users", default=False
-    )
-    parser.add_argument(
-        "--commands", "-c", action="store_true", dest="generate_commands", default=False
-    )
-    args = parser.parse_args()
-    # parser.add_argument("--user", "-u", dest="user", default="beginbotbot")
-    # parser.add_argument(
-    #     "--breakpoint", "-b", dest="breakpoint", action="store_true", default=False
-    # )
-    # setup_build_dir()
-    # generate_home()
-
-    if args.generate_users:
-        for user in User.all():
-            print(f"USER: {user}")
-            generate_user_page(user)
-
-    # A bunch of commands are theme songs
-    # we want to filter out theme_songs
-    if args.generate_commands:
-        for command in Command.all():
-            generate_command_page(command)
+    setup_build_dir()
+    asyncio.run(main())

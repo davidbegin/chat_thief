@@ -182,3 +182,20 @@ class TestUser(DatabaseConfig):
         result = watto.buy("clap")
         assert result == "@watto bought !clap for 1 Cool Points"
         assert watto.cool_points() < 3
+
+    def test_all_data(self):
+        watto = User("watto")
+        watto.save()
+        watto.update_cool_points(3)
+        Command("damn").allow_user("watto")
+        all_data = User.all_data()
+
+        assert all_data == [
+            {
+                "name": "watto",
+                "street_cred": 0,
+                "cool_points": 3,
+                "mana": 3,
+                "commands": ["damn"],
+            }
+        ]
