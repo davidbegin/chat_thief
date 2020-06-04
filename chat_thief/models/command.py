@@ -101,10 +101,6 @@ class Command(BaseDbModel):
         return cls.db().get(Query().name == name) is not None
 
     def allowed_to_play(self, user):
-        if not SFXVote(self.name).is_enabled():
-            warning(f"{self.name} is not currently enabled")
-            return False
-
         if self.is_theme_song:
             return user == self.name
 

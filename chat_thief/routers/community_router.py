@@ -54,7 +54,7 @@ class CommunityRouter(BaseRouter):
             ).save()
 
             Notification("Type !support", duration=300).save()
-        return f"Thank you @{self.user} for your proposal. You have 5 minutes to get 5 supporters"
+        return f"Thank you @{self.user} for your proposal. You have 5 minutes to get {self.SUPPORT_REQUIREMENT} supporters"
 
     def _support(self):
         if self.args:
