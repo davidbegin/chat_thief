@@ -46,10 +46,8 @@ class SampleSaver:
 
     def _notify(self, sample_updated):
         if sample_updated:
-            # PlaySoundeffectRequest(user="beginbot", sfx["requester"]command="update").save()
             send_twitch_msg(f"Updated Sound Available: !{self.name}")
         else:
-            PlaySoundeffectRequest(user="beginbot", command="new_item").save()
             send_twitch_msg(f"New Sound Available: !{self.name}")
 
     def _delete_old_sample(self):

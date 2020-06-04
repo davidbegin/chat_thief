@@ -23,7 +23,8 @@ restore:
 	cp db/backups/issues.json db/issues.json
 	cp db/backups/sfx_votes.json db/sfx_votes.json
 
-new_day:
+# TODO: Move log files from the day before
+new_day: backup
 	rm db/play_soundeffects.json
 	rm db/notifications.json
 	rm db/cube_bets.json

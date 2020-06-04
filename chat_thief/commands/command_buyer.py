@@ -25,7 +25,7 @@ class CommandBuyer:
             [result.result == PurchaseResult.SuccessfulPurchase for result in results]
         )
         if successful_purchase:
-            return f"@{self.user.name} bought {len(results)} SFXs: {sfx_names} for a Total of {total_spent}"
+            return f"@{self.user.name} bought {len(results)} SFXs: {sfx_names} for a Total of {total_spent} Cool Points"
         else:
             if len(results) == 1:
                 return results[0].message

@@ -55,3 +55,11 @@ class TestSoundeffectRequestParser:
         assert result.command == "nice"
         assert result.start_time == "00:00"
         assert result.end_time == "00:04"
+
+        # args = ["nice", "-RzBr6wof1mw"]
+        # subject = SoundeffectRequestParser(user, args)
+        # result = subject.parse()
+        # assert result.youtube_id == "RzBr6wof1mw"
+        # assert result.command == "nice"
+        # assert result.start_time == "00:00"
+        # assert result.end_time == "00:04"
