@@ -32,9 +32,9 @@ new_day:
 	rm .welcome
 
 sync:
-	scripts/sync_html.sh
+	scripts/sync_html.sh | lolcat
 
 beginworld_html:
-	python beginworld_publisher.py
+	python beginworld_publisher.py | lolcat
 
 deploy: beginworld_html sync

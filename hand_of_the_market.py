@@ -39,7 +39,7 @@ def sync_main():
             )
 
             # Every 5 minutes, all the chatters have a chance at some street cred
-            os.system("make deploy")
+            os.system("time make deploy")
             time.sleep(300)
         except Exception as e:
             time.sleep(30)
