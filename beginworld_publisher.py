@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 from pathlib import Path
-from shutil import copyfile, rmtree
+from shutil import copyfile, rmtree, copytree
 import asyncio
 
 import jinja2
@@ -23,6 +23,12 @@ def setup_build_dir():
     warning("Setting Up Build Dir")
 
     # Delete and Recreate Build Direction for BeginWorld Finance HTML
+    old_build_path = Path(__file__).parent.parent.joinpath(
+        "tmp/old_build/beginworld_finance"
+    )
+    rmtree(old_build_path, ignore_errors=True)
+    copytree(rendered_template_path, old_build_path)
+
     rmtree(rendered_template_path, ignore_errors=True)
     # This aint working!!!
     rendered_template_path.mkdir(exist_ok=True, parents=True)

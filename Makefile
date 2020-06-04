@@ -31,9 +31,8 @@ new_day:
 	rm db/votes.json
 	rm .welcome
 
-# TODO: How do pull in the name
 sync:
-	aws s3 sync ./build/beginworld_finance/ s3://beginworld.exchange-f27cf15
+	scripts/sync_html.sh
 
 beginworld_html:
 	python beginworld_publisher.py

@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+echo "Whitelisting $1"
+
+echo "$1" >> /home/begin/code/chat_thief/.whitelisted_users
+cat /home/begin/code/chat_thief/.whitelisted_users

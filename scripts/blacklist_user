@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+echo "Blacklisting $1"
+
+USER_FILE="/home/begin/code/chat_thief/.whitelisted_users"
+
+sed -i "s/$1//g" $USER_FILE
+sed '/^[[:space:]]*$/d' $USER_FILE

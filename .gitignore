@@ -7,7 +7,6 @@ tests/db/*
 .mypy_cache/*
 .whitelisted_users
 .welcome
-scripts/*
 .coverage
 
 __pycache__/
