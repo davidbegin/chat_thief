@@ -38,7 +38,8 @@ def sync_main():
                 f"Squid1 Enjoy your street cred: {' '.join(formatted_peasants)} Squid4"
             )
 
-            # Every 10 minutes, all the chatters have a chance at some street cred
+            # Every 5 minutes, all the chatters have a chance at some street cred
+            os.system("make deploy")
             time.sleep(300)
         except Exception as e:
             time.sleep(30)
