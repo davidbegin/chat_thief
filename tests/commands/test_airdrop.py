@@ -54,6 +54,7 @@ class TestAirDrop(DatabaseConfig):
             "@thugga now has access to Sound Effect: !clap",
             "@thugga now has access to Sound Effect: !clap",
         ]
+        # assert result == "@thugga now has access to Sound Effect: !clap"
 
     def test_with_amount_and_user(self, mock_soundeffects):
         subject = Airdrop(target_user="ella", amount=2)

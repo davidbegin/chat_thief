@@ -14,7 +14,8 @@ from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.command import Command
 from chat_thief.commands.command_buyer import CommandBuyer
 
-BASE_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
+# BASE_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
+BASE_URL = "https://www.beginworld.exchange"
 
 COMMANDS = {
     "give": {
