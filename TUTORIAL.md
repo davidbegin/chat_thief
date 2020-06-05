@@ -9,7 +9,7 @@
 Example Output:
 
 ```bash
-@cooluser420 - Mana: 5 | Street Cred: 0 | Cool Points: 0
+https://www.beginworld.exchange/cooluser420.html
 ```
 
 ## Mana
