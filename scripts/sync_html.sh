@@ -7,6 +7,8 @@ rm -rf $NEW_BUILD_FOLDER
 
 # Is -p POSIX compliant?
 mkdir -p $NEW_BEGINWORLD
+mkdir -p $NEW_BEGINWORLD/styles
+mkdir -p $NEW_BEGINWORLD/commands
 
 while read -r HTML_FILE; do
 
@@ -14,20 +16,28 @@ while read -r HTML_FILE; do
        Only*)
 
          # HTML_FILE=$(echo $HTML_FILE | cut -d ' ' -f3)
-         # if [[ $HTML_FILE == *"old_build"* ]]; then
-         #    echo "Old Build We Should Delete!"
-         #    # echo $HTML_FILE | cut -d ' ' -f3
-         # fi
+         if [[ $HTML_FILE == *"old_build"* ]]; then
+            DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $1 "/" $2}' | rev | sed 's/://')
+            aws s3 rm "s3://beginworld.exchange-f27cf15/${DEST_PATH}"
+         fi
 
          if [[ $HTML_FILE == *"/build"* ]]; then
-            cp $(echo $HTML_FILE | awk '{print $3 $4}' | sed 's/:/\//') $NEW_BEGINWORLD
+           FILE_PATH=$(echo $HTML_FILE | awk '{print $3 $4}' | sed 's/:/\//')
+           DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $1 "/" $2}' | rev | sed 's/://')
+           echo $FILE_PATH
+           cp $FILE_PATH "${NEW_BEGINWORLD}/${DEST_PATH}"
          fi
        ;;
        *differ)
-         cp $(echo $HTML_FILE | cut -d ' ' -f2) $NEW_BEGINWORLD
+         # echo "$HTML_FILE"
+         DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $2 "/" $3}' | rev | sed 's/://')
+         # echo "$DEST_PATH"
+         # cp $(echo $HTML_FILE | cut -d ' ' -f2) $NEW_BEGINWORLD
+         cp $(echo $HTML_FILE | cut -d ' ' -f2) "${NEW_BEGINWORLD}/${DEST_PATH}"
        ;;
     esac
 done <<< "$(diff -qr ./build ./tmp/old_build/)"
 # I use this syntax to read in whole lines from diff and loop over theme
 
+# Maybe CSS --delete is only for styles??
 aws s3 sync "$NEW_BEGINWORLD/" s3://beginworld.exchange-f27cf15

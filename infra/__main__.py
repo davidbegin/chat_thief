@@ -53,9 +53,10 @@ cert = acm.Certificate("cert",
 
 
 s3_distribution = cloudfront.Distribution("s3Distribution",
-    aliases=[
-        "beginworld.exchange",
-    ],
+    # aliases=[
+    #     "beginworld.exchange",
+    #     "www.beginworld.exchange"
+    # ],
     default_cache_behavior={
         "allowedMethods": [
             "GET",
@@ -162,5 +163,8 @@ s3_distribution = cloudfront.Distribution("s3Distribution",
     #     "Environment": "production",
     # },
     viewer_certificate={
-        "acmCertificateArn": cert.arn
+        # "acmCertificateArn": cert.arn
+        # "acmCertificateArn": "6baa0ec0-3774-4e3e-8611-7f2cb912e58b"
+        # beginworld.exchange (6baa0ec0-3774-4e3e-8611-7f2cb912e58b)
+        # "acmCertificateArn": "arn:aws:acm:us-west-2:851075464416:certificate/e0fe3065-bde6-4c1c-976a-936b085c3a49" => "6baa0ec0-3774-4e3e-8611-7f2cb912e58b"
     })
