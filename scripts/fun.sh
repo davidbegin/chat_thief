@@ -1,13 +1,5 @@
 #!/usr/bin/bash
 
-NEW_BUILD_FOLDER="./tmp/new_build"
-NEW_BEGINWORLD="$NEW_BUILD_FOLDER/beginworld_finance"
-
-rm -rf $NEW_BUILD_FOLDER
-
-# Is -p POSIX compliant?
-mkdir -p $NEW_BEGINWORLD
-
 while read -r HTML_FILE; do
 
     case $HTML_FILE in
@@ -20,14 +12,14 @@ while read -r HTML_FILE; do
          # fi
 
          if [[ $HTML_FILE == *"/build"* ]]; then
-            cp $(echo $HTML_FILE | awk '{print $3 $4}' | sed 's/:/\//') $NEW_BEGINWORLD
+            cp $(echo $HTML_FILE | awk '{print $3 $4}' | sed 's/:/\//') ./tmp/new_build/beginworld_finance/
          fi
        ;;
        *differ)
-         cp $(echo $HTML_FILE | cut -d ' ' -f2) $NEW_BEGINWORLD
+         cp $(echo $HTML_FILE | cut -d ' ' -f2) ./tmp/new_build/beginworld_finance/
        ;;
     esac
 done <<< "$(diff -qr ./build ./tmp/old_build/)"
 # I use this syntax to read in whole lines from diff and loop over theme
 
-aws s3 sync "$NEW_BEGINWORLD/" s3://beginworld.exchange-f27cf15
+aws s3 sync ./tmp/new_build/beginworld_finance/ s3://beginworld.exchange-f27cf15

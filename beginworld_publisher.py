@@ -34,9 +34,10 @@ def setup_build_dir():
     rendered_template_path.mkdir(exist_ok=True, parents=True)
 
     # Move the CSS File
-    css_source = Path(__file__).parent.joinpath("chat_thief/static/baldclap.css")
-    css_dest = Path(__file__).parent.joinpath("build/beginworld_finance/style.css")
-    copyfile(css_source, css_dest)
+    css_source = Path(__file__).parent.joinpath("chat_thief/static")
+    css_dest = Path(__file__).parent.joinpath("build/beginworld_finance/styles")
+    copytree(css_source, css_dest)
+
     success("Finished Setting Up Build Dir")
 
 
@@ -117,7 +118,6 @@ async def main():
     warning("Fetching Commands")
     commands = Command.all_data()
     success("Finished Fetching Commands")
-
     warning("Setting Up Tasks")
     tasks = (
         [generate_home()]

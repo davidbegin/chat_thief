@@ -4,6 +4,7 @@ import traceback
 import os
 
 from chat_thief.config.commands_config import OBS_COMMANDS
+from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.log import error, success, warning
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc_msg import IrcMsg
@@ -73,5 +74,6 @@ class CommandRouter:
             print(f"executing OBS Command: {self.command}")
             return os.system(f"so {self.command}")
 
-        if self.command:
-            PlaySoundeffectRequest(user=self.user, command=self.command).save()
+        if self.command in SoundeffectsLibrary.fetch_soundeffect_names():
+            if self.command:
+                PlaySoundeffectRequest(user=self.user, command=self.command).save()

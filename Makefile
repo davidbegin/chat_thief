@@ -39,3 +39,6 @@ beginworld_html:
 	python beginworld_publisher.py | lolcat
 
 deploy: beginworld_html sync
+
+deploy_all:
+	aws s3 sync ./build/beginworld_finance s3://beginworld.exchange-f27cf15

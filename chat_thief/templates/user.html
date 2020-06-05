@@ -1,13 +1,14 @@
 <!doctype html> <title>Beginland</title>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ base_url }}/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/{{ user }}.css">
     <meta http-equiv="refresh" content="{{ refresh_time }}">
 </head>
 
 <body>
   <h1><a href="{{ base_url }}/index.html">BeginWorld Finance</a></h1>
-  <h2>{{ user['name']}}</h2>
+  <h2>{{ user }}</h2>
   <h3>{{ stats }}</h3>
 
   <ul>

@@ -1,0 +1,23 @@
+h1 {
+        color: white;
+        height: 400px;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+        background-image: url(https://www.nickfarina.co.uk/welcome-to-my-site.gif);
+        background-size: auto 70%;
+        background-position: bottom;
+ }
+h2 {
+		background-image: url(http://i.imgur.com/gRGoe.gif);
+		height: 100px;
+		background-size: auto 100%;
+		width: 100%;
+}
+h3 {
+		background-image: url(https://media.giphy.com/media/14kqI3Y4urS3rG/giphy.gif);
+		height: 300px;
+		background-position: bottom;
+		background-repeat-y: no-repeat;
+		background-size: auto 80%;
+}

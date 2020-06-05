@@ -51,9 +51,12 @@ def sync_main():
                     else:
                         warning(f"Couldn't find soundfile for {sfx['command']}")
                 else:
-                    msg = f"Not Playing '!{command.name}' for @{user.name} | Allowed: {user_allowed_to_play} | Mana: {user_mana}"
-                    send_twitch_msg(msg)
-                    warning(msg)
+                    if user.name not in ["beginbot", "beginbotbot"]:
+                        # is the soundeffect isn't a real command
+                        # don't say anything
+                        msg = f"Not Playing '!{command.name}' for @{user.name} | Allowed: {user_allowed_to_play} | Mana: {user_mana}"
+                        send_twitch_msg(msg)
+                        warning(msg)
 
             # time.sleep(15)
             time.sleep(1)
