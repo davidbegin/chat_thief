@@ -38,7 +38,14 @@ sync:
 beginworld_html:
 	python beginworld_publisher.py | lolcat
 
-deploy: beginworld_html sync
+deploy: beginworld_html sync invalidate_cdn
+
+invalidate_cdn:
+	aws cloudfront create-invalidation \
+			--distribution-id E382OTJDHBFSJL \
+			--paths "/*" "/**/*"
 
 deploy_all:
 	aws s3 sync ./build/beginworld_finance s3://beginworld.exchange-f27cf15
+
+full_deploy: deploy_all

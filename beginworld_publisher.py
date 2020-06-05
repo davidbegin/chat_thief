@@ -15,7 +15,9 @@ from chat_thief.config.log import success, warning, error
 rendered_template_path = Path(__file__).parent.joinpath("build/beginworld_finance")
 template_path = Path(__file__).parent.joinpath("chat_thief/templates/")
 base_url = "/home/begin/code/chat_thief/build/beginworld_finance"
-deploy_url = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
+
+# DEPLOY_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
+DEPLOY_URL = "https://www.beginworld.exchange"
 
 
 # this handles setup and destroy
@@ -68,7 +70,7 @@ async def generate_home():
     context = {
         "users": users,
         "commands": commands,
-        "base_url": deploy_url,
+        "base_url": DEPLOY_URL,
     }
     await _render_and_save_html("beginworld_finance.html", context, "index.html")
 
@@ -83,7 +85,7 @@ async def generate_command_page(cmd_dict):
             "users": cmd_dict["permitted_users"],
             "cost": cmd_dict["cost"],
             "like_to_hate_ratio": cmd_dict["like_to_hate_ratio"],
-            "base_url": deploy_url,
+            "base_url": DEPLOY_URL,
         }
 
         await _render_and_save_html(
@@ -102,7 +104,7 @@ async def generate_user_page(user_dict):
         "user": name,
         "commands": commands,
         "stats": stats,
-        "base_url": deploy_url,
+        "base_url": DEPLOY_URL,
     }
 
     await _render_and_save_html("user.html", context, f"{name}.html")
