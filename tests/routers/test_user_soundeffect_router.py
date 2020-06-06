@@ -14,6 +14,17 @@ from tests.support.database_setup import DatabaseConfig
 class TestUserSoundeffectRouter(DatabaseConfig):
     @pytest.fixture
     def mock_find_random_user(self, monkeypatch):
+        users = ["young.thug", "future"]
+
+        def _fake_find_random_user(self):
+            return users.pop()
+
+        monkeypatch.setattr(
+            UserSoundeffectRouter, "_random_user", _fake_find_random_user
+        )
+
+    @pytest.fixture
+    def mock_find_random_user(self, monkeypatch):
         def _fake_find_random_user(self):
             return "young.thug"
 
@@ -76,6 +87,15 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         assert young_thug.cool_points() == 1
         assert young_thug.street_cred() == 0
         assert uzi.street_cred() == 9
+
+    @pytest.mark.skip
+    def test_props_random(self, mock_find_random_user):
+        uzi = User("uzi")
+        uzi.update_street_cred(10)
+        result = UserSoundeffectRouter(uzi.name, "props", ["random", "2"]).route()
+        # result = UserSoundeffectRouter(uzi.name, "props", ['random']).route()
+        # This ain't what we want
+        assert result == "@uzi gave 1 Street Cred to @young.thug"
 
     def test_steal_with_no_params(self, mock_present_users, mock_find_random_user):
         thugga = User("young.thug")
@@ -147,7 +167,6 @@ class TestUserSoundeffectRouter(DatabaseConfig):
             == "Thanks for the custom CSS @beginbotbot! https://www.beginworld.exchange/beginbotbot.html"
         )
 
-        # A File for beginbotbot should exist in
         css_filepath = Path(__file__).parent.parent.parent.joinpath(
             "build/beginworld_finance/styles/beginbotbot.css"
         )

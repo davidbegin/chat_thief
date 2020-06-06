@@ -18,182 +18,55 @@ from chat_thief.models.command import Command
 from chat_thief.commands.command_buyer import CommandBuyer
 from chat_thief.config.stream_lords import STREAM_LORDS
 
-# BASE_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
 BASE_URL = "https://www.beginworld.exchange"
 
-COMMANDS = {
-    "give": {
-        "aliases": ["transfer", "give"],
-        # "help": "!transfer COMMAND USER - transfer command to someone, costs no cool points",
-    }
-}
+COMMANDS = {"give": {"aliases": ["transfer", "give"],}}
 
 
 class UserSoundeffectRouter(BaseRouter):
     def route(self):
+        # This is the default parser
+        # if a command wants to handle more
+        # custom parser, they just use their own parser
         parser = CommandParser(
             user=self.user, command=self.command, args=self.args
         ).parse()
 
         if self.command == "css":
             if self.user in STREAM_LORDS:
-                custom_css = self.args[0]
-                User(self.user).set_value("custom_css", custom_css)
-
-                response = requests.get(custom_css)
-                new_css_path = Path(__file__).parent.parent.joinpath(
-                    f"static/{self.user}.css"
-                )
-                print(f"Saving Custom CSS for @{self.user} {new_css_path}")
-                with open(new_css_path, "w") as f:
-                    f.write(response.text)
-
-                # requests
-                return f"Thanks for the custom CSS @{self.user}! {BASE_URL}/{self.user}.html"
+                return self.set_css()
 
         if self.command in ["me", "perm"]:
-            return f"{BASE_URL}/{self.user}.html"
+            return self.me()
 
-            # user_permissions = " ".join(
-            #     [f"!{perm}" for perm in User(self.user).commands()]
-            # )
-            # stats = User(self.user).stats()
-            # if user_permissions:
-            #     return f"{stats} | {user_permissions}"
-            # else:
-            #     return stats
-
-        # TODO: This only works for soundeffects
         if self.command in ["permissions", "permission", "perms", "perm"]:
-            if len(self.args) > 0 and not parser.target_sfx and not parser.target_user:
-                raise ValueError(
-                    f"Could not find user or command: {' '.join(self.args)}"
-                )
-            return PermissionsFetcher.fetch_permissions(
-                user=self.user,
-                target_user=parser.target_user,
-                target_command=parser.target_sfx,
-            )
-
-        # ------------
-        # Takes a User
-        # ------------
+            return self.perms(parser)
 
         if self.command == "donate":
-            if parser.target_user:
-                return Donator(self.user).donate(parser.target_user)
-            else:
-                return Donator(self.user).donate()
+            return self.donate(parser)
 
         if self.command in ["love", "like"]:
-            if parser.target_sfx and not parser.target_user:
-                result = SFXVote(parser.target_sfx).support(self.user)
-                love_count = len(result["supporters"])
-                hate_count = len(result["detractors"])
-                return f"!{parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
-
-            if parser.target_user and not parser.target_sfx:
-                if self.user == parser.target_user:
-                    return f"You can love yourself in real life, but not in Beginworld @{self.user}"
-                else:
-                    User(self.user).set_ride_or_die(parser.target_user)
-                    return f"@{self.user} Made @{parser.target_user} their Ride or Die"
-            else:
-                return None
+            return self.love(parser)
 
         if self.command in ["dislike", "hate", "detract"]:
-            if parser.target_sfx and not parser.target_user:
-                result = SFXVote(parser.target_sfx).detract(self.user)
-                love_count = len(result["supporters"])
-                hate_count = len(result["detractors"])
-                return f"!{parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
-            else:
-                print("Doing Nothing")
-                return
+            return self.hate(parser)
 
         if self.command in [
             "props",
             "bigups",
             "endorse",
         ]:
-            parser = CommandParser(
-                user=self.user, command=self.command, args=self.args
-            ).parse()
-
-            if parser.target_user == "random" or parser.target_user is None:
-                parser.target_user = self._random_user()
-
-            return StreetCredTransfer(
-                user=self.user, cool_person=parser.target_user, amount=parser.amount
-            ).transfer()
-
-        parser = CommandParser(
-            user=self.user,
-            command=self.command,
-            args=self.args,
-            allow_random_sfx=True,
-            allow_random_user=True,
-        ).parse()
+            return self.props(parser)
 
         if self.command in ["steal"]:
-            if parser.target_user == "random" and parser.target_sfx == "random":
-                parser.target_user = self._random_user()
-                parser.target_sfx = random.sample(
-                    User(parser.target_user).commands(), 1
-                )[0]
-
-            if parser.target_user and parser.target_sfx:
-                return CommandStealer(
-                    thief=self.user,
-                    victim=parser.target_user,
-                    command=parser.target_sfx,
-                ).steal()
-            else:
-                return f"@{self.user} failed to steal: {' '.join(self.args)}"
-                # return f"Problem stealing {parser.target_command} {self.args}"
+            return self.steal()
 
         if self.command in ["buy"]:
-            parser = CommandParser(
-                user=self.user,
-                command=self.command,
-                args=self.args,
-                allow_random_sfx=True,
-            ).parse()
-
-            return CommandBuyer(
-                user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
-            ).new_buy()
+            return self.buy()
 
         # So What are the aliases here
         if self.command in COMMANDS["give"]["aliases"]:
-            parser = CommandParser(
-                user=self.user,
-                command=self.command,
-                args=self.args,
-                allow_random_sfx=True,
-                allow_random_user=True,
-            ).parse()
-
-            if parser.target_command == "random":
-                sfx_choices = random.choice(User(self.user).commands(), 1) - [self.user]
-                parser.target_sfx = sfx_choices[0]
-                print(f"Choosing Random Command: {parser.target_command}")
-
-            if parser.target_user == "random":
-                command = Command(parser.target_sfx)
-                parser.target_user = find_random_user(
-                    blacklisted_users=[command.users()] + [self.user]
-                )
-
-            if parser.target_user is None:
-                raise ValueError("We didn't find a user to give to")
-
-            print(f"Attempting to give: !{parser.target_sfx} @{parser.target_user}")
-
-            # This interface needs to call Command SFX
-            return CommandGiver(
-                user=self.user, command=parser.target_sfx, friend=parser.target_user,
-            ).give()
+            return self.give()
 
         if self.command in [
             "share",
@@ -203,32 +76,168 @@ class UserSoundeffectRouter(BaseRouter):
             "share_perm",
             "share_perms",
         ]:
-            parser = CommandParser(
-                user=self.user,
-                command=self.command,
-                args=self.args,
-                allow_random_sfx=True,
-                allow_random_user=True,
-            ).parse()
+            return self.share()
 
-            if parser.target_sfx == "random":
-                commands = User(self.user).commands()
-                parser.target_sfx = random.sample(commands, 1)[0]
-
-            if parser.target_user == "random" or parser.target_user is None:
-                if parser.target_sfx:
-                    parser.target_user = find_random_user(
-                        blacklisted_users=Command(parser.target_sfx).users()
-                    )
-
-            # We  don't know why
-            if parser.target_user and parser.target_sfx:
-                return CommandSharer(
-                    self.user, parser.target_sfx, parser.target_user
-                ).share()
-            else:
-                return f"Error Sharing - Command: {parser.target_sfx} | User: {parser.target_user}"
+    def donate(self, parser):
+        if parser.target_user:
+            return Donator(self.user).donate(parser.target_user)
+        else:
+            return Donator(self.user).donate()
 
     # What a Terrible Name
     def _random_user(self):
         return find_random_user(blacklisted_users=[self.user])
+
+    def set_css(self):
+        custom_css = self.args[0]
+        User(self.user).set_value("custom_css", custom_css)
+
+        # requests
+        response = requests.get(custom_css)
+        new_css_path = Path(__file__).parent.parent.joinpath(f"static/{self.user}.css")
+        print(f"Saving Custom CSS for @{self.user} {new_css_path}")
+        with open(new_css_path, "w") as f:
+            f.write(response.text)
+
+        return f"Thanks for the custom CSS @{self.user}! {BASE_URL}/{self.user}.html"
+
+    def me(self):
+        # user_permissions = " ".join(
+        #     [f"!{perm}" for perm in User(self.user).commands()]
+        # )
+        # stats = User(self.user).stats()
+        # if user_permissions:
+        #     return f"{stats} | {user_permissions}"
+        # else:
+        #     return stats
+        return f"{BASE_URL}/{self.user}.html"
+
+    def perms(self, parser):
+        if len(self.args) > 0 and not parser.target_sfx and not parser.target_user:
+            raise ValueError(f"Could not find user or command: {' '.join(self.args)}")
+        return PermissionsFetcher.fetch_permissions(
+            user=self.user,
+            target_user=parser.target_user,
+            target_command=parser.target_sfx,
+        )
+
+    def buy(self):
+        parser = CommandParser(
+            user=self.user, command=self.command, args=self.args, allow_random_sfx=True,
+        ).parse()
+
+        return CommandBuyer(
+            user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
+        ).new_buy()
+
+    def share(self):
+        parser = CommandParser(
+            user=self.user,
+            command=self.command,
+            args=self.args,
+            allow_random_sfx=True,
+            allow_random_user=True,
+        ).parse()
+
+        if parser.target_sfx == "random":
+            commands = User(self.user).commands()
+            parser.target_sfx = random.sample(commands, 1)[0]
+
+        if parser.target_user == "random" or parser.target_user is None:
+            if parser.target_sfx:
+                parser.target_user = find_random_user(
+                    blacklisted_users=Command(parser.target_sfx).users()
+                )
+
+        # We  don't know why
+        if parser.target_user and parser.target_sfx:
+            return CommandSharer(
+                self.user, parser.target_sfx, parser.target_user
+            ).share()
+        else:
+            return f"Error Sharing - Command: {parser.target_sfx} | User: {parser.target_user}"
+
+    def steal(self):
+        parser = CommandParser(
+            user=self.user,
+            command=self.command,
+            args=self.args,
+            allow_random_sfx=True,
+            allow_random_user=True,
+        ).parse()
+
+        if parser.target_user == "random" and parser.target_sfx == "random":
+            parser.target_user = self._random_user()
+            parser.target_sfx = random.sample(User(parser.target_user).commands(), 1)[0]
+
+        if parser.target_user and parser.target_sfx:
+            return CommandStealer(
+                thief=self.user, victim=parser.target_user, command=parser.target_sfx,
+            ).steal()
+        else:
+            return f"@{self.user} failed to steal: {' '.join(self.args)}"
+            # return f"Problem stealing {parser.target_command} {self.args}"
+
+    def give(self):
+        parser = CommandParser(
+            user=self.user,
+            command=self.command,
+            args=self.args,
+            allow_random_sfx=True,
+            allow_random_user=True,
+        ).parse()
+
+        if parser.target_command == "random":
+            sfx_choices = random.choice(User(self.user).commands(), 1) - [self.user]
+            parser.target_sfx = sfx_choices[0]
+            print(f"Choosing Random Command: {parser.target_command}")
+
+        if parser.target_user == "random":
+            command = Command(parser.target_sfx)
+            parser.target_user = find_random_user(
+                blacklisted_users=[command.users()] + [self.user]
+            )
+
+        if parser.target_user is None:
+            raise ValueError("We didn't find a user to give to")
+
+        print(f"Attempting to give: !{parser.target_sfx} @{parser.target_user}")
+
+        # This interface needs to call Command SFX
+        return CommandGiver(
+            user=self.user, command=parser.target_sfx, friend=parser.target_user,
+        ).give()
+
+    def props(self, parser):
+        if parser.target_user == "random" or parser.target_user is None:
+            parser.target_user = self._random_user()
+
+        return StreetCredTransfer(
+            user=self.user, cool_person=parser.target_user, amount=parser.amount
+        ).transfer()
+
+    def love(self, parser):
+        if parser.target_sfx and not parser.target_user:
+            result = SFXVote(parser.target_sfx).support(self.user)
+            love_count = len(result["supporters"])
+            hate_count = len(result["detractors"])
+            return f"!{parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
+
+        if parser.target_user and not parser.target_sfx:
+            if self.user == parser.target_user:
+                return f"You can love yourself in real life, but not in Beginworld @{self.user}"
+            else:
+                User(self.user).set_ride_or_die(parser.target_user)
+                return f"@{self.user} Made @{parser.target_user} their Ride or Die"
+        else:
+            return None
+
+    def hate(self, parser):
+        if parser.target_sfx and not parser.target_user:
+            result = SFXVote(parser.target_sfx).detract(self.user)
+            love_count = len(result["supporters"])
+            hate_count = len(result["detractors"])
+            return f"!{parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
+        else:
+            print("Doing Nothing")
+            return

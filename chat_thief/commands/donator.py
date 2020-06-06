@@ -17,6 +17,8 @@ class Donator:
 
             command = Command(command)
 
+            # so we we have a user use it
+            # if not donate to randos
             if target_user:
                 new_user = target_user
             else:

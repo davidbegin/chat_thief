@@ -6,6 +6,7 @@ class StreetCredTransfer:
         self.user = user
         self.cool_person = cool_person
         self.amount = amount
+
         if self.user == self.cool_person:
             raise ValueError(f"Can't give yourself Cool Points @{self.user}!")
 
