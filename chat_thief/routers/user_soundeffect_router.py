@@ -92,7 +92,7 @@ class UserSoundeffectRouter(BaseRouter):
         custom_css = self.args[0]
         User(self.user).set_value("custom_css", custom_css)
 
-        # requests
+        # Switch to NOT USE requests
         response = requests.get(custom_css)
         new_css_path = Path(__file__).parent.parent.joinpath(f"static/{self.user}.css")
         print(f"Saving Custom CSS for @{self.user} {new_css_path}")
@@ -102,14 +102,7 @@ class UserSoundeffectRouter(BaseRouter):
         return f"Thanks for the custom CSS @{self.user}! {BASE_URL}/{self.user}.html"
 
     def me(self):
-        # user_permissions = " ".join(
-        #     [f"!{perm}" for perm in User(self.user).commands()]
-        # )
         # stats = User(self.user).stats()
-        # if user_permissions:
-        #     return f"{stats} | {user_permissions}"
-        # else:
-        #     return stats
         return f"{BASE_URL}/{self.user}.html"
 
     def perms(self, parser):
@@ -149,7 +142,6 @@ class UserSoundeffectRouter(BaseRouter):
                     blacklisted_users=Command(parser.target_sfx).users()
                 )
 
-        # We  don't know why
         if parser.target_user and parser.target_sfx:
             return CommandSharer(
                 self.user, parser.target_sfx, parser.target_user
@@ -176,7 +168,6 @@ class UserSoundeffectRouter(BaseRouter):
             ).steal()
         else:
             return f"@{self.user} failed to steal: {' '.join(self.args)}"
-            # return f"Problem stealing {parser.target_command} {self.args}"
 
     def give(self):
         parser = CommandParser(
@@ -239,5 +230,4 @@ class UserSoundeffectRouter(BaseRouter):
             hate_count = len(result["detractors"])
             return f"!{parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
         else:
-            print("Doing Nothing")
-            return
+            return f"We are not sure who or what you trying to hate. Maybe try and focusing your hate better next time @{self.user}"
