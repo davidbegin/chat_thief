@@ -22,7 +22,7 @@ class TestDonator(DatabaseConfig):
         assert "young.thug" in Command("damn").users()
         assert "uzi" not in Command("clap").users()
         assert "uzi" not in Command("damn").users()
-        assert result == ["@young.thug was gifted !clap !damn"]
+        assert result == "@young.thug was gifted !clap !damn"
 
     def test_you_cannot_donate_your_theme(self):
         user = User("uzi")
@@ -36,4 +36,4 @@ class TestDonator(DatabaseConfig):
         assert "young.thug" in Command("clap").users()
         assert "young.thug" not in Command("uzi ").users()
         assert "uzi" not in Command("clap").users()
-        assert result == ["@young.thug was gifted !clap"]
+        assert result == "@young.thug was gifted !clap"

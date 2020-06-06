@@ -204,8 +204,7 @@ class TestUser(DatabaseConfig):
         ]
 
     def test_custom_css(self, user):
-        lahey = user('lahey')
+        lahey = user("lahey")
         custom_css = "https://gist.githubusercontent.com/davidbegin/efdbf338ecfcdc14fa9ed792c6056ed3/raw/d7bcdf2f3c9ae4b3e280646601061b0b4de3a2c8/beginfun"
         lahey.set_value("custom_css", custom_css)
         assert lahey.custom_css() == custom_css
-

@@ -35,11 +35,9 @@ def sync_main():
 
             # formatted_peasants = [f"@{peasant}" for peasant in peasants]
 
-
             # send_twitch_msg(
             #     f"Squid1 Enjoy your street cred: {' '.join(formatted_peasants)} Squid4"
             # )
-
 
             # Every 5 minutes, all the chatters have a chance at some street cred
             os.system("time make deploy")

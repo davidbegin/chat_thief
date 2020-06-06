@@ -30,7 +30,6 @@ if __name__ == "__main__":
     if args.breakpoint:
         # found_command = Proposal.db().get(Query().name == name)
         # found_command = Proposal.db().search(Query().user == "beginbot")
-
         breakpoint()
     elif response := CommandRouter(irc_response, logger).build_response():
         print(response)

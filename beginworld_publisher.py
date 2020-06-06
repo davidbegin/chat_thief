@@ -69,7 +69,7 @@ async def generate_home():
     commands = Command.by_cost()
     users = User.by_cool_points()
     static_dir = Path(__file__).parent.joinpath("chat_thief/static")
-    stylish_users = [ f.name[:-len(f.suffix)] for f in static_dir.glob("*.css") ]
+    stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
     # We could look at all css files here
     context = {
         "users": users,
