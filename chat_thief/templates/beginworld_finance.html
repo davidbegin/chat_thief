@@ -4,6 +4,9 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="https://www.beginworld.exchange/styles/cachesking.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://www.beginworld.exchange/styles/sana_rinomi.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://www.beginworld.exchange/styles/whatsinmyopsec.css"> -->
     <meta http-equiv="refresh" content="{{ refresh_time }}">
 </head>
 
@@ -15,7 +18,10 @@
     {% for user in users %}
         {% if user['name'] %}
           <li>
-            <a href="{{ base_url }}/{{ user['name'] }}.html"> {{ user['name'] }}</a> |
+            {% if user['name'] in stylish_users %}
+              &#128526;
+            {% endif %}
+            <a href="{{ base_url }}/{{ user['name'] }}.html"> {{ user['name'] }} </a> |
             Cool Points: {{ user['cool_points'] }} |
             Street Cred: {{ user['street_cred'] }}
             {% if user['ride_or_die'] %}

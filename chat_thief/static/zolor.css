@@ -1,0 +1,56 @@
+body {
+    font-family: "Helvetica";
+    background: url(https://image.freepik.com/free-vector/cute-unicorn-rainbow-seamless-pattern-background_42349-429.jpg);
+}
+
+h1 a{
+    color: #ceeef9;
+    text-shadow: 2px 2px #70c7f9;
+}
+
+
+h2 {
+    color: #ff9da3;
+    background-color: #ffe2e4;
+    font-size: 100px;
+    text-align: center;
+    display: inline-flexbox;
+    text-shadow: 2px 2px white;
+}
+
+h3 {
+    color: #ff9da3;
+    background-color: #ffe2e4;
+    text-align: center;
+    display: block;
+    text-shadow: 2px 2px white;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background: #ff9da3;
+    padding: 20px;
+}
+
+ul li {
+    background: #ffe5e5;
+    padding: 5px;
+    margin-left: 35px;
+}
+
+a {
+    color: lightyellow;
+    background: #ffe2e4;
+    text-shadow: 2px 2px #fcc84d;
+    text-decoration: none;
+}
+
+a:hover {
+    color: hotpink;
+    text-shadow: 2px 2px #fcc84d;
+    text-decoration: none;
+}

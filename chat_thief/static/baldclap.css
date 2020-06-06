@@ -1,23 +1,113 @@
-h1 {
-        color: white;
-        height: 400px;
-        background-repeat: no-repeat;
-        background-position: center;
-        text-align: center;
-        background-image: url(https://www.nickfarina.co.uk/welcome-to-my-site.gif);
-        background-size: auto 70%;
-        background-position: bottom;
- }
-h2 {
-		background-image: url(http://i.imgur.com/gRGoe.gif);
-		height: 100px;
-		background-size: auto 100%;
-		width: 100%;
+body {
+    background:black;
+    color: #0f0f0f;
+    font-size: 2em;
+    font-family: "Helvetica";
+    text-align:center;
+    max-width: 900px;
+    margin:0 auto;
+    background-image: url(https://imgur.com/Yaz9IbT.gif);
+    background-size:auto 50%;
+    background-position:bottom;
+    background-repeat:no-repeat;
+    height:100vh;
 }
-h3 {
-		background-image: url(https://media.giphy.com/media/14kqI3Y4urS3rG/giphy.gif);
-		height: 300px;
-		background-position: bottom;
-		background-repeat-y: no-repeat;
-		background-size: auto 80%;
+h1 a, h3 {
+    color:black;
+    text-shadow:2px 2px 0 #2f2f2f,2px 2px 0 #2f2f2f;
+
+  }
+  h2 {
+    font-size:1em;
+    background: black;
+    animation: example 1.82s infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration:none;
+  }
+  h3 {
+      font-size:1em;
+  }
+  @keyframes example {
+    100% {background: black; -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    55% {background: black; -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    0% {background: linear-gradient(180deg, rgba(254,255,0,1) 47%, rgba(0,255,239,1) 100%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    5% {background: linear-gradient(180deg, rgba(254,255,0,1) 0%, rgba(0,255,239,1) 45%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    10% {background: linear-gradient(180deg, rgba(0,255,239,1) 43%, rgba(9,255,0,1) 98%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    15% {background: linear-gradient(180deg, rgba(0,255,239,1) 0%, rgba(9,255,0,1) 47%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    20% {background: linear-gradient(180deg, rgba(9,255,0,1) 39%, rgba(255,0,241,1) 100%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    25% {background: linear-gradient(180deg, rgba(9,255,0,1) 0%, rgba(255,0,241,1) 45%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    30% {background: linear-gradient(180deg, rgba(255,0,241,1) 47%, rgba(255,0,0,1) 100%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    35% {background: linear-gradient(180deg, rgba(255,0,241,1) 0%, rgba(255,0,0,1) 46%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    40% {background: linear-gradient(180deg, rgba(255,0,0,1) 46%, rgba(0,18,255,1) 100%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    45% {background: linear-gradient(180deg, rgba(255,0,0,1) 0%, rgba(0,18,255,1) 46%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    50% {background: linear-gradient(180deg, rgba(0,18,255,1) 46%,rgba(0,0,0,1) 0% );-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+}
+h1 a {
+    text-decoration:none;
+}
+
+h2, h3 {
+    font-size:1em;
+}
+h2:first-of-type {
+    width:275px;
+    position:absolute;
+    bottom:450px;
+    left:50%;
+    margin-left:-125px;
+}
+h2:nth-of-type(2) {
+
+}
+ul:first-of-type {
+    width: 275px;
+    margin:0 auto 225px -125px;
+    font-size: .5em;
+    list-style-type: none;
+    text-align: center;
+    position:absolute;
+    bottom:0px;
+    left:50%;
+    overflow-y:auto;
+    height:185px;
+    padding:0;
+
+}
+ul:nth-of-type(2) {
+    width: 500px;
+    margin:0 auto;
+    font-size: .5em;
+    list-style-type: none;
+    text-align: center;
+    overflow-y:auto;
+    height:185px;
+    padding:0;
+
+}
+li {
+   display:contents; 
+}
+li a {
+    color: #0c1f15;
+    text-decoration:none;
+}
+li a:hover {
+    background: linear-gradient(176deg, rgba(0,255,98,1) 0%, rgba(0,0,0,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration:none;
 }

@@ -28,7 +28,7 @@ class Donator:
                 command.allow_user(new_user)
                 command.unallow_user(self.user)
 
-        return [
+        return " ".join([
             f"@{user} was gifted {' '.join([f'!{command}' for command in commands])}"
             for user, commands in results.items()
-        ]
+        ])

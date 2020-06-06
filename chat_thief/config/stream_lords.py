@@ -19,6 +19,9 @@ STREAM_MERCHANTS = []
 STREAM_PIMPS = ["disk1of5"]
 
 STREAM_LORDS = [
+    "beginbot",
+    "cachesking",
+    "waleeboy",
     "arbaya",
     "baldclap",
     "detlion1643",

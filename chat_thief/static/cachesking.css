@@ -1,0 +1,161 @@
+/*******************
+cya #00ffff rgb(0,255,255)
+mag #ff00ff rgb(255,0,255)
+yel #ffff00 rgb(255,255,0)
+********************/
+
+/* Make it move */
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+
+/* Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    white-space: normal
+  }
+  .marquee span {
+    animation: none;
+    padding-left: 0;
+  }
+}
+
+html body {
+  background-color: rgba(0,0,0);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
+body {
+  position: relative;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  font: 20px "Michroma", helvetica, sans-serif;
+  text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
+}
+
+body:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+body:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  -moz-animation: bar 0.5s infinite;
+  -webkit-animation: bar 0.5s infinite;
+  animation: bar 0.5s infinite;
+}
+
+li:nth-of-type(3n + 1) {
+  font-size: 1.25em;
+}
+
+li:nth-of-type(4n+3) {
+  font-size: 1.5em;
+}
+
+li:nth-of-type(5n - 3) {
+  font-size: 1em;
+}
+
+h3 {
+  position: fixed;
+  top: 0;
+  color: rgba(57,255,20);
+}
+
+h1 > a {
+  font: 50px "Garamond", serif;
+  color: rgba(255,0,255,1);
+}
+
+h2 {
+  animation: blinker 1s linear infinite;
+  margin-top: -.5em;
+  letter-spacing: .1em;
+  color: rgba(0,0,0,1);
+  font: 2em impact;
+}
+
+h3 {
+  width: 200%;
+  margin: 0 auto;
+  margin-bottom: 1.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-top: .2em;
+  padding-left: 100%;
+  will-change: transform;
+  /* show the marquee just outside the paragraph */
+  animation: marquee 15s linear infinite;
+  text-shadow: 0px 0px #000
+}
+
+h3:hover {
+  animation-play-state: paused
+}
+
+ul {
+  letter-spacing: 0.6em;
+  display: inline;
+  list-style-type: none;
+  margin: 1em 0 0 0;
+  padding: 0;
+}
+
+li {
+  display: inline;
+}
+
+
+a {
+  text-shadow: .1em, 0.5em;
+  color: rgba(0,255,255);
+  text-decoration: none;
+}
+
+li > a:hover {
+  color: #ffff00;
+}
+
+li > a:visited {
+  color: #ff00ff;
+}
+
+li:nth-of-type(3n + 1) {
+  font-size: 1.25em;
+  animation: blinker 3s linear infinite;
+}
+
+li:nth-of-type(4n+3) {
+  font-size: 1.5em;
+  animation: blinker 2s linear infinite;
+}
+
+li:nth-of-type(5n - 3) {
+  font-size: 1em;
+  animation: blinker 1s linear infinite;
+}

@@ -1,4 +1,7 @@
+from pathlib import Path
 import random
+
+import requests
 
 from chat_thief.prize_dropper import random_user as find_random_user
 from chat_thief.models.user import User
@@ -13,6 +16,7 @@ from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.command import Command
 from chat_thief.commands.command_buyer import CommandBuyer
+from chat_thief.config.stream_lords import STREAM_LORDS
 
 # BASE_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
 BASE_URL = "https://www.beginworld.exchange"
@@ -30,6 +34,21 @@ class UserSoundeffectRouter(BaseRouter):
         parser = CommandParser(
             user=self.user, command=self.command, args=self.args
         ).parse()
+
+
+        if self.command == "css":
+            if self.user in STREAM_LORDS:
+                custom_css = self.args[0]
+                User(self.user).set_value("custom_css", custom_css)
+
+                response = requests.get(custom_css)
+                new_css_path = Path(__file__).parent.parent.joinpath(f"static/{self.user}.css")
+                print(f"Saving Custom CSS for @{self.user} {new_css_path}")
+                with open(new_css_path, "w") as f:
+                    f.write(response.text)
+
+                # requests
+                return f"Thanks for the custom CSS @{self.user}! {BASE_URL}/{self.user}.html"
 
         if self.command in ["me", "perm"]:
             return f"{BASE_URL}/{self.user}.html"

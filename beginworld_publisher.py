@@ -65,10 +65,15 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
 
 
 async def generate_home():
+    # We just find fancy pages here
     commands = Command.by_cost()
     users = User.by_cool_points()
+    static_dir = Path(__file__).parent.joinpath("chat_thief/static")
+    stylish_users = [ f.name[:-len(f.suffix)] for f in static_dir.glob("*.css") ]
+    # We could look at all css files here
     context = {
         "users": users,
+        "stylish_users": stylish_users,
         "commands": commands,
         "base_url": DEPLOY_URL,
     }
@@ -98,10 +103,12 @@ async def generate_command_page(cmd_dict):
 async def generate_user_page(user_dict):
     name = user_dict["name"]
     commands = user_dict["commands"]
+    users_choice = user_dict.get("custom_css", None)
     stats = f"@{name} - Mana: {user_dict['mana']} | Street Cred: {user_dict['street_cred']} | Cool Points: {user_dict['cool_points']}"
 
     context = {
         "user": name,
+        "users_choice": users_choice,
         "commands": commands,
         "stats": stats,
         "base_url": DEPLOY_URL,

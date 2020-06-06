@@ -1,4 +1,7 @@
+from pathlib import Path
+
 import pytest
+
 from chat_thief.routers.user_soundeffect_router import UserSoundeffectRouter
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.models.command import Command
@@ -126,3 +129,15 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         command.allow_user(user)
         result = UserSoundeffectRouter(user, "share", ["damn", "uzi"]).route()
         assert result == "young.thug shared @uzi now has access to !damn"
+
+    def test_submit_custom_css(self):
+        user = "beginbotbot"
+        User(user).update_cool_points(10)
+        command = Command("damn")
+        command.allow_user(user)
+        result = UserSoundeffectRouter(user, "css", ["https://gist.githubusercontent.com/davidbegin/efdbf338ecfcdc14fa9ed792c6056ed3/raw/d7bcdf2f3c9ae4b3e280646601061b0b4de3a2c8/beginfun.css"]).route()
+        assert result == "Thanks for the custom CSS @beginbotbot! https://www.beginworld.exchange/beginbotbot.html"
+
+        # A File for beginbotbot should exist in
+        css_filepath = Path(__file__).parent.parent.parent.joinpath("build/beginworld_finance/styles/beginbotbot.css")
+        assert css_filepath.exists()

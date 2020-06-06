@@ -96,8 +96,9 @@ class User(BaseDbModel):
     # ====================================================================
 
     # We should set self.user here
-    def __init__(self, name):
+    def __init__(self, name, custom_css=None):
         self.name = name
+        self._custom_css = custom_css
         self._raw_user = self._find_or_create_user()
 
     # So this means, when we call, we find or init, thats fine!
@@ -117,6 +118,9 @@ class User(BaseDbModel):
 
     def cool_points(self):
         return self.user()["cool_points"]
+
+    def custom_css(self):
+        return self.user()["custom_css"]
 
     def mana(self):
         return self.user()["mana"]
@@ -227,6 +231,7 @@ class User(BaseDbModel):
     def doc(self):
         return {
             "name": self.name,
+            "custom_css": self._custom_css,
             "street_cred": 0,
             "cool_points": 0,
             "mana": 3,
