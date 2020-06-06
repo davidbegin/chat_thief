@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from chat_thief.routers.user_soundeffect_router import UserSoundeffectRouter
+from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
@@ -14,7 +15,7 @@ from tests.support.database_setup import DatabaseConfig
 class TestUserSoundeffectRouter(DatabaseConfig):
     @pytest.fixture
     def mock_find_random_user(self, monkeypatch):
-        users = ["young.thug", "future"]
+        users = ["birdman", "wheezy", "young.thug", "future"]
 
         def _fake_find_random_user(self):
             return users.pop()
@@ -22,15 +23,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         monkeypatch.setattr(
             UserSoundeffectRouter, "_random_user", _fake_find_random_user
         )
-
-    @pytest.fixture
-    def mock_find_random_user(self, monkeypatch):
-        def _fake_find_random_user(self):
-            return "young.thug"
-
-        monkeypatch.setattr(
-            UserSoundeffectRouter, "_random_user", _fake_find_random_user
-        )
+        monkeypatch.setattr(StreetCredTransfer, "_random_user", _fake_find_random_user)
 
     @pytest.fixture(autouse=True)
     def mock_present_users(self, monkeypatch):
@@ -88,14 +81,14 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         assert young_thug.street_cred() == 0
         assert uzi.street_cred() == 9
 
-    @pytest.mark.skip
+    # @pytest.mark.skip
     def test_props_random(self, mock_find_random_user):
         uzi = User("uzi")
         uzi.update_street_cred(10)
         result = UserSoundeffectRouter(uzi.name, "props", ["random", "2"]).route()
-        # result = UserSoundeffectRouter(uzi.name, "props", ['random']).route()
-        # This ain't what we want
-        assert result == "@uzi gave 1 Street Cred to @young.thug"
+        assert result == "@uzi gave 1 Street Cred to @future @young.thug each"
+        result = UserSoundeffectRouter(uzi.name, "props", ["random"]).route()
+        assert result == "@uzi gave 1 Street Cred to @wheezy"
 
     def test_steal_with_no_params(self, mock_present_users, mock_find_random_user):
         thugga = User("young.thug")

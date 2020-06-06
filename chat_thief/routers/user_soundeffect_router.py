@@ -56,7 +56,7 @@ class UserSoundeffectRouter(BaseRouter):
             "bigups",
             "endorse",
         ]:
-            return self.props(parser)
+            return self.props()
 
         if self.command in ["steal"]:
             return self.steal()
@@ -158,9 +158,20 @@ class UserSoundeffectRouter(BaseRouter):
             allow_random_user=True,
         ).parse()
 
+        # here is where we are habing a problem
         if parser.target_user == "random" and parser.target_sfx == "random":
-            parser.target_user = self._random_user()
-            parser.target_sfx = random.sample(User(parser.target_user).commands(), 1)[0]
+            looking_for_user = True
+            attempts = 0
+            while looking_for_user:
+                parser.target_user = self._random_user()
+                attempts += 1
+                commands = User(parser.target_user).commands()
+
+                if len(commands) > 0:
+                    looking_for_user = False
+                    parser.target_sfx = random.sample(commands, 1)[0]
+                elif attempts > 5:
+                    raise RuntimeError("Can't find user with commands to steal")
 
         if parser.target_user and parser.target_sfx:
             return CommandStealer(
@@ -199,9 +210,17 @@ class UserSoundeffectRouter(BaseRouter):
             user=self.user, command=parser.target_sfx, friend=parser.target_user,
         ).give()
 
-    def props(self, parser):
-        if parser.target_user == "random" or parser.target_user is None:
-            parser.target_user = self._random_user()
+    def props(self):
+        parser = CommandParser(
+            user=self.user,
+            command=self.command,
+            args=self.args,
+            allow_random_user=True,
+        ).parse()
+        # Here is the bug,
+        # this needs to occur inside the streetcred transfer
+        # if parser.target_user == "random" or parser.target_user is None:
+        #     parser.target_user = self._random_user()
 
         return StreetCredTransfer(
             user=self.user, cool_person=parser.target_user, amount=parser.amount
