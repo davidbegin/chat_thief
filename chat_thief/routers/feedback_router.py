@@ -11,13 +11,15 @@ class FeedbackRouter(BaseRouter):
         if self.command == "soundeffect":
             sfx_request = SoundeffectRequestParser(self.user, self.args).parse()
 
-            return SoundeffectRequest(
+            SoundeffectRequest(
                 user=self.user,
                 youtube_id=sfx_request.youtube_id,
                 command=sfx_request.command,
                 start_time=sfx_request.start_time,
                 end_time=sfx_request.end_time,
             ).save()
+
+            return f"Thank you for you're request @{self.user}, beginbotbot will you inform you when !{sfx_request.command} is available"
 
         # "!approve all"
         # "!approve 1"
