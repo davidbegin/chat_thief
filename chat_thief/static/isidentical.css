@@ -1,0 +1,29 @@
+html{
+    background-image:url('https://user-images.githubusercontent.com/47358913/83976033-0a87fd80-a900-11ea-8de7-1def45a939ed.png');
+    padding: 10rem;
+}
+body {
+  /* background-color: none..class{ */
+  background:rgba(0,0,0);
+  /* background: #000065; */
+  color: white;
+  font-size: 2em;
+  font-family: "Helvetica";
+}
+
+h1 a, h2, h3{
+    text-decoration:none;
+    color:#0050ff;
+    text-align:center;
+    letter-spacing: 4px;
+}
+h3 {
+    font-size:.9em;
+}
+ul {
+    list-style-type: none;
+}
+li a {
+    color:#2457b4;
+    text-decoration:none;
+}

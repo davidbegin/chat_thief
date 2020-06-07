@@ -18,22 +18,21 @@ while read -r HTML_FILE; do
          # HTML_FILE=$(echo $HTML_FILE | cut -d ' ' -f3)
          if [[ $HTML_FILE == *"old_build"* ]]; then
             DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $1 "/" $2}' | rev | sed 's/://')
-            echo "DELETING: ${DEST_PATH}"
+            # echo "DELETING: ${DEST_PATH}"
             aws s3 rm "s3://beginworld.exchange-f27cf15/${DEST_PATH}"
          fi
 
          if [[ $HTML_FILE == *"/build"* ]]; then
            FILE_PATH=$(echo $HTML_FILE | awk '{print $3 $4}' | sed 's/:/\//')
-           DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $1 "/" $2}' | rev | sed 's/://')
+           DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $1 "/" $2}' | rev | sed 's/://' | sed 's/beginworld_finance\///')
+
            echo "NEW FILE: ${DEST_PATH}"
            cp $FILE_PATH "${NEW_BEGINWORLD}/${DEST_PATH}"
          fi
        ;;
        *differ)
-         # echo "$HTML_FILE"
          DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $2 "/" $3}' | rev | sed 's/://' | sed 's/beginworld_finance\///')
-         # echo "FILE DIFF: ${DEST_PATH}"
-         # cp $(echo $HTML_FILE | cut -d ' ' -f2) $NEW_BEGINWORLD
+         echo "FILE DIFF: ${DEST_PATH}"
          cp $(echo $HTML_FILE | cut -d ' ' -f2) "${NEW_BEGINWORLD}/${DEST_PATH}"
        ;;
     esac
