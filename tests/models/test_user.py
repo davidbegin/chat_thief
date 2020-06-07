@@ -210,21 +210,22 @@ class TestUser(DatabaseConfig):
         lahey.set_value("custom_css", custom_css)
         assert lahey.custom_css() == custom_css
 
-    @pytest.mark.skip
     def test_top_eight(self, user):
         uzi = user("uzi")
         assert uzi.top_eight() == []
 
         uzi.add_to_top_eight("playboi.carti")
         assert uzi.top_eight() == ["playboi.carti"]
-        # uzi.add_to_top_eight("playboi.carti")
-        # assert uzi.top_eight() == ["playboi.carti"]
+        uzi.add_to_top_eight("playboi.carti")
+        assert uzi.top_eight() == ["playboi.carti"]
 
-        # uzi.remove_to_top_eight("playboi.carti")
-        # assert uzi.top_eight() == []
+        uzi.remove_to_top_eight("playboi.carti")
+        assert uzi.top_eight() == []
+        uzi.remove_to_top_eight("playboi.carti")
+        assert uzi.top_eight() == []
 
-        # for x in range(0,7):
-        #     uzi.add_to_top_eight(f"user_{x}")
+        for x in range(0,8):
+            uzi.add_to_top_eight(f"user_{x}")
 
-        # with pytest.raises(ValueError) as err:
-        #     uzi.add_to_top_eight("one too many")
+        with pytest.raises(ValueError) as err:
+            uzi.add_to_top_eight("one_too_many")

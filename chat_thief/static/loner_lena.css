@@ -111,7 +111,7 @@ li a:active {
   border-bottom: white solid 1px;
   color: ;
 }
-h1:before {
+h1 a:before {
   text-indent: 0;
   content: 'x';
   float: right;
@@ -129,9 +129,9 @@ h1:before {
   font-size: 14px;
   font-weight: normal;
 }
-h1:before:active {
+h1 a:active:before {
   text-indent: 0;
-  content: 'X';
+  content: 'x';
   float: right;
   color: black;
   background-color: #b8b8b8;

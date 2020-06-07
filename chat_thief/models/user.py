@@ -268,15 +268,22 @@ class User(BaseDbModel):
         if ride_or_die != self.name:
             return self.set_value("ride_or_die", ride_or_die)
 
-    def top_eight(self):
-        return []
-
     def add_to_top_eight(self, friend):
-        self.top_eight()
-        # if friend not in
+        current_eight = self.top_eight()
 
-        # self._top_eight
-        # pass
+        if len(current_eight) == 8:
+            raise ValueError("You can only have 8 in your Top 8!")
+
+        if friend not in current_eight and len(current_eight) < 8:
+            current_eight.append(friend)
+            self.set_value("top_eight", current_eight)
+
+
+    def remove_to_top_eight(self, enemy):
+        current_eight = self.top_eight()
+        if enemy in current_eight:
+            current_eight.remove(enemy)
+            self.set_value("top_eight", current_eight)
 
     # ===========
     # Punishments
