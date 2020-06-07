@@ -1,60 +1,113 @@
 html{
-    background-image:url('https://imgur.com/EcJGa2w.jpg');
-    background-size:auto 75%;
-    background-color:#fec600;
-    background-position:bottom;
-    background-repeat:no-repeat;
-    font-family:'Franklin Gothic Medium';
-    font-weight:700;
-    color:black;
-    height:100vh;
+    background:#e0e0e0;
+    font-family:arial;
 }
 body {
-    background:unset;
-    padding: 0 10vw;
-}
-h1 {
-    position:absolute;
-    bottom:25px;
-    left:50%;
-    padding:0px;
-    width: 400px;
-    margin: 0 0 0 -200px;
+    max-width:1000px;
+    background:white;
+    margin:0 auto;
+    min-height:100vh;
 }
 h1 a {
-    color:#fec600;
-    text-decoration:none;
+    color:white;
+    text-decoration: none;
 }
-a {
-    color:black;
-    text-decoration:none;
-}
-a:hover {
-    color:#fec600;
-}
-
-ul {
-    list-style-type: none;
-    column-count: 2;
-    column-gap: 50vw;
-    margin:50px 0 0 0;
-    padding:0;
-    text-align:center;
-
-}
-li a {
-    font-size:.6em;
-    
-}
-h2 {
-    text-align:center;
-    font-weight:700;
-    color:black;
-    font-size:1.2em;
- 
+h1 {
+    background:#02329a;
+    margin:0;
+    padding:50px 2%;
+    width:96%;
+    font-size:1.1em;
+    text-align:left;
 }
 h3 {
-    color:black; 
-    text-align:center;
+    background:#6797ce;
+    color:white;
+    width:96%;
+    font-size:0.7em;
+    padding:10px 2%;
+    margin:0;
+}
+h2 {
+    position:absolute;
+    top:200px;
+    display:block;
+    color:black;
+    font-size:.9em;
+    width:50%;
+    max-width:400px;
+    padding:0 2%;
+}
+h2::after {
+    display:block;
+    background-image:url('https://myspace.com/common/images/user.png');
+    background-size:200px 200px;
+    background-position:top left;
+    background-repeat:no-repeat;
+    height:400px;
+    font-size:.5em;
+    padding:0 10px 0px 210px;
+    content:"'What do I do with my hands'  California    United States";
+
+}
+ul:first-of-type::before {
+    border:1px solid black;
+    content:"but most of all, beginbot is my hero";
+    color:#000;
+    font-size:.7em;
+    padding:10px;
+}
+ul {
+    position:relative;
+    left:50%;
+    list-style-type: none;
+    padding:20px;
+    width:45%;
+}
+li:first-of-type {
+    border-top:20px solid #f4c996;
+    margin-top:20px;
+}
+li {
+    color: black;
+    font-size: .8em;
+}
+li a {
+    color:black;
     font-size:.8em;
+    text-decoration: none;
+}
+li a:hover {
+    color:#f4c996;
+}
+@media only screen and (max-width:640px){
+    ul {
+        left:0;
+        top:250px;
+        width:90%;
+        padding:5%;
+    }
+    h2{
+        width:90%;
+        padding:0 5%;
+    }
+    body{
+        padding-bottom: 250px;
+    }
+    
+}
+@media only screen and (max-width:375px){
+    h2 {
+        top:300px;
+    }
+    ul {
+        left:0;
+        top:300px;
+    }
+    ul::before {
+        font-size:.45em;
+    }
+    body{
+        padding-bottom: 300px;
+    }
 }

@@ -1,5 +1,35 @@
-body{
-	background-image: linear-gradient(120deg, #e2c35d, #d88771);
-	color: white;
-	font-family: monaco, Consolas, "Lucida Console", monospace;
+body {
+  background-image: linear-gradient(90deg, #e2c35d, #d88771);
+  color: white;
+  font-family: monaco, Consolas, "Lucida Console", monospace;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  font-size: 15rem;
+  font-variant: small-caps;
+}
+
+h2,
+h3 {
+  color: deeppink;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  color: deeppink;
+  text-align: center;
+}
+
+h1 {
+  padding-top: 2rem;
+  font-size: 3px;
+}
+
+h2:hover {
+  font-size: 0.1px;
 }

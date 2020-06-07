@@ -9,7 +9,7 @@ The goals of BeginWorld™ is to build a system where users who
 are able to add to the stream, through conversation, questions, jokes,
 stories etc. will be rewarded, with more ability to interact with the stream.
 
-<https://www.beginworld.exchange/>
+<https://mygeoangelfirespace.city/>
 
 ## See Your Current Permissions
 

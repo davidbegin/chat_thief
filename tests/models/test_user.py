@@ -200,6 +200,7 @@ class TestUser(DatabaseConfig):
                 "mana": 3,
                 "custom_css": custom_css,
                 "commands": ["damn"],
+                "top_eight": [],
             }
         ]
 
@@ -208,3 +209,22 @@ class TestUser(DatabaseConfig):
         custom_css = "https://gist.githubusercontent.com/davidbegin/efdbf338ecfcdc14fa9ed792c6056ed3/raw/d7bcdf2f3c9ae4b3e280646601061b0b4de3a2c8/beginfun"
         lahey.set_value("custom_css", custom_css)
         assert lahey.custom_css() == custom_css
+
+    @pytest.mark.skip
+    def test_top_eight(self, user):
+        uzi = user("uzi")
+        assert uzi.top_eight() == []
+
+        uzi.add_to_top_eight("playboi.carti")
+        assert uzi.top_eight() == ["playboi.carti"]
+        # uzi.add_to_top_eight("playboi.carti")
+        # assert uzi.top_eight() == ["playboi.carti"]
+
+        # uzi.remove_to_top_eight("playboi.carti")
+        # assert uzi.top_eight() == []
+
+        # for x in range(0,7):
+        #     uzi.add_to_top_eight(f"user_{x}")
+
+        # with pytest.raises(ValueError) as err:
+        #     uzi.add_to_top_eight("one too many")

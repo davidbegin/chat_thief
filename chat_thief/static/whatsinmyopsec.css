@@ -543,23 +543,29 @@ h1{
 }
 
 a{
-
 	color: #d4d4d4;
 	font-size: 1.5em;
 }
 ul {
-
   list-style-type: none;
   margin: 0;
   padding: 0;
+  text-align: center;
+}
+
+li {
+  display: inline-block;
+  margin: 12px;
+  margin-right: 0px;
+  margin-left: 0;
+  margin-bottom: 0;
 }
 
 h2 {
-
 	  animation-name: blurrr,stretch;
 	  animation-duration: 1s; 
-	  animation-timing-function: cubic-bezier(1.000, 0.000, 0.000, 1.000); 
-	  animation-delay: 0;
+	  animation-timing-function: cubic-bezier(1.000, 3.000, 0.000, 1.000); 
+	  animation-delay: 0.5s;
 	  animation-direction: alternate;
 	  animation-iteration-count: infinite;
 	  animation-fill-mode: none;
@@ -568,8 +574,8 @@ h2 {
 
 @keyframes stretch {
   0% {
-    transform: scale(.3);
-    background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+    transform: scale(.5);
+    background-image: url(https://smonk.club/2020/06/07/FilthyBurlywoodUrial.png?background=000000ff&noise=ffffff&density=61&opacity=20);
     border-radius: 100%;
   }
   50% {
@@ -577,7 +583,6 @@ h2 {
   }
   100% {
     transform: scale(4);
-    
   }
 }
 
@@ -617,7 +622,7 @@ h2 {
 }
 
  body {
- 	overflow: hidden;
+  overflow: hidden;	
   position: relative;
   left: 0;
   top: 0;
@@ -628,7 +633,7 @@ h2 {
   text-transform: uppercase;
   font: 20px "Michroma", helvetica, sans-serif;
   letter-spacing: 0.6em;
-  background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+  background-image: url(https://smonk.club/2020/06/07/FilthyBurlywoodUrial.png?background=000000ff&noise=ffffff&density=61&opacity=20);
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
   -moz-animation: noise 0.3s infinite;
   -webkit-animation: noise 0.3s infinite;
@@ -636,7 +641,7 @@ h2 {
 }
 
  body:before {
- 	overflow: hidden;
+  overflow: hidden;	
   content: "";
   display: inline-block;
   vertical-align: middle;
@@ -644,13 +649,14 @@ h2 {
 }
 
  body:after {
- 	overflow: hidden;
+  overflow: hidden;	
   content: "";
   display: block;
   position: absolute;
   left: 0;
   right: 0;
-  background: url(http://api.thumbr.it/whitenoise-361x370.png?background=000000ff&noise=ffffff&density=61&opacity=40);
+  background-image: url(https://smonk.club/2020/06/07/FilthyBurlywoodUrial.png?background=000000ff&noise=ffffff&density=61&opacity=20)
+  background-size: cover;
   -moz-animation: bar 0.5s infinite;
   -webkit-animation: bar 0.5s infinite;
   animation: bar 0.5s infinite;

@@ -1,0 +1,78 @@
+body {
+    color: white;
+    font-size: 2em;
+    background-image: url(https://i.imgur.com/bPjdzRC.gif);
+    background-repeat: repeat-x;
+    background-size: cover;
+    background-color: #bd828f;
+    background-position: bottom;
+    height: 100vh;
+}
+
+p {
+    color: white;
+    font-family: futura;
+    font-style: bold;
+}
+
+h1 {
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    margin-left: -328px;
+}
+
+h1 a {
+    color: #406282;
+    text-shadow: -3px -3px 0 #FFF, 1px -3px 0 #FFF, -3px 3px 0 #FFF, 3px 3px 0 #FFF;
+    font-family: "Arial";
+    background-color: #9c889f;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border-color: #8c5562;
+    border-style: solid;
+    text-decoration: none;
+}
+
+h1 a:hover {
+  background-image: url(https://i.imgur.com/JqMAKo9.png);
+  background-repeat: repeat;
+}
+
+h2 {
+  text-transform: capitalize;
+  font-family: "Roboto";
+  text-align: center;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.1rem;
+  color: white;
+  font-family: "Roboto";
+
+}
+
+ul {
+    column-count: 3;
+    text-decoration: none;
+    margin: 50px 0 0 0;
+    padding: 0;
+    text-align: center;
+    width: 100vw;
+    column-rule-style: solid;
+    list-style: none;
+}
+
+ul a {
+    text-decoration: none;
+    color: white;
+    font-family: "Roboto";
+}
+
+ul a:hover {
+    font-weight: bold;
+}

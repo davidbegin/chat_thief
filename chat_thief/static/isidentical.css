@@ -11,14 +11,33 @@ body {
   font-family: "Helvetica";
 }
 
+html:before {
+content: url(https://render-tron.appspot.com/screenshot/https://github.com/isidentical?width=1920&height=1080);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 h1 a, h2, h3{
     text-decoration:none;
     color:#0050ff;
     text-align:center;
     letter-spacing: 4px;
 }
+h1 {
+    display: none;
+}
+
+h2 {
+    font-size: .7em;
+}
+
+h2:after {
+    content: ' ( WAIT!!! THE PAGE IS STILL LOADING... ~3 seconds)';
+}
+
 h3 {
-    font-size:.9em;
+    font-size:.4em;
 }
 ul {
     list-style-type: none;
@@ -27,3 +46,4 @@ li a {
     color:#2457b4;
     text-decoration:none;
 }
+

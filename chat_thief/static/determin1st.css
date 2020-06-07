@@ -1,0 +1,175 @@
+@font-face
+{
+  font-family: 'FT40';
+  font-display: fallback;
+  src: url('ft40.ttf') format('truetype');/***/
+}
+@font-face
+{
+  font-family: 'PS2P';
+  font-display: fallback;
+  src: url('PressStart2P.ttf') format('truetype');
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /***/
+  display: flex;
+  justify-content: center;
+  background-color: black;
+}
+* {
+  box-sizing: border-box;
+}
+h1,h2,h3 {
+  margin: 0;
+  color: skyblue;
+  /***/
+  font-family: FT40, Arial Black, serif;
+  font-weight: normal;
+  /***/
+}
+h1 {
+  font-size: 48px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+h2 {
+  font-size: 32px;
+  padding-bottom: 8px;
+}
+h3 {
+  font-size: 18px;
+  padding-bottom: 2px;
+}
+img {
+  width: 100%;
+  height: auto;
+}
+p,ul {
+  font-family: PS2P, FT40, serif;
+  color: mediumspringgreen;
+  margin: 0;
+  padding: 0 12px;
+}
+ul {
+  margin-left: 16px;
+}
+
+.main
+{
+  width: 100%;
+  max-width: 1000px;
+  padding: 16px;
+}
+button
+{
+  width: 100%;
+  height: 80px;
+  margin-bottom: 8px;
+  font-family: PS2P, monospace;
+  font-size: 32px;
+  cursor: pointer;
+  padding: 8px 16px;
+  background-color: darkslategray;
+  color: lightgray;
+  outline-color: mediumspringgreen;
+  overflow: hidden;
+}
+button:disabled {
+  color: black;
+  background-color: black;
+}
+button:not(:disabled):hover {
+  color: rgb(64, 255, 64);
+}
+button:active {
+  background-color: black;
+}
+textarea
+{
+  width: 100%;
+  height: 8em;
+  resize: none;
+  margin: 2px 0;
+  padding: 8px 12px;
+  background-color: black;
+  color: rgb(64, 255, 64);
+  outline-color: mediumspringgreen;
+  font-family: monospace;
+  font-size: 14px;
+}
+textarea::placeholder
+{
+  color: lightgray;
+}
+.test
+{
+  width: 100%;
+}
+.test > div
+{
+  display: flex;
+  width: 100%;
+}
+.title > h3
+{
+  flex: 1 1 100%;
+}
+pre
+{
+  margin: 0;
+  /***
+  overflow-x: auto;
+  overflow-y: scroll;
+  /***/
+  width: 100%;
+}
+.javascript
+{
+  font-size: 18px;
+}
+
+
+
+.control > .split
+{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.test
+{
+  width: 100%;
+}
+.test > div
+{
+  display: flex;
+  width: 100%;
+}
+.title > h3
+{
+  flex: 1 1 100%;
+}
+.message > div
+{
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+}
+.message > div.client {}
+.message > div.server {}
+.message > div.action {
+  padding: 8px 4px;
+}
+.message > div.action > button
+{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+

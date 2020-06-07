@@ -96,7 +96,8 @@ class User(BaseDbModel):
     # ====================================================================
 
     # We should set self.user here
-    def __init__(self, name, custom_css=None):
+    def __init__(self, name, top_eight=[], custom_css=None):
+        self._top_eight = top_eight
         self.name = name
         self._custom_css = custom_css
         self._raw_user = self._find_or_create_user()
@@ -107,7 +108,6 @@ class User(BaseDbModel):
 
     def stats(self):
         return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
-        # return f"@{self.name} - Mana: {self.mana()} | Karma: {self.karma()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
     def commands(self):
         return Command.for_user(self.name)
@@ -124,6 +124,9 @@ class User(BaseDbModel):
 
     def mana(self):
         return self.user()["mana"]
+
+    def top_eight(self):
+        return self.user()["top_eight"]
 
     def update_mana(self, amount):
         return self._update_value("mana", amount)
@@ -235,6 +238,7 @@ class User(BaseDbModel):
             "street_cred": 0,
             "cool_points": 0,
             "mana": 3,
+            "top_eight": self._top_eight,
         }
 
     def save(self):
@@ -263,6 +267,16 @@ class User(BaseDbModel):
     def set_ride_or_die(self, ride_or_die):
         if ride_or_die != self.name:
             return self.set_value("ride_or_die", ride_or_die)
+
+    def top_eight(self):
+        return []
+
+    def add_to_top_eight(self, friend):
+        self.top_eight()
+        # if friend not in
+
+        # self._top_eight
+        # pass
 
     # ===========
     # Punishments
