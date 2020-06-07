@@ -20,21 +20,23 @@ BLACKLIST = []
 def sync_main():
     while True:
         try:
-            # peasants = ChatLogs().recent_stream_peasants()
-            # # We need to make this better
-            # result = drop_random_soundeffect_to_user(random.sample(peasants, 1)[0])
-            # send_twitch_msg(result)
+            peasants = ChatLogs().recent_stream_peasants()
+            # We need to make this better
+            result = drop_random_soundeffect_to_user(random.sample(peasants, 1)[0])
+            send_twitch_msg(result)
 
-            # for peasant in peasants:
-            #     if peasant not in BLACKLIST:
-            #         user = User(peasant)
-            #         user_karma = user.karma()
-            #         print(f"@{peasant} Karma: {user.karma()}")
-            #         user.update_street_cred(1 + user_karma)
-            #         user.revive(3 + user_karma)
+            for peasant in peasants:
+                if peasant not in BLACKLIST:
+                    user = User(peasant)
+                    user_karma = user.karma()
+                    print(f"@{peasant} Karma: {user.karma()}")
+                    user.update_street_cred(1 + user_karma)
+                    user.revive(3 + user_karma)
 
+            send_twitch_msg("CoolCat")
+            send_twitch_msg("CoolCat")
+            send_twitch_msg("CoolCat")
             # formatted_peasants = [f"@{peasant}" for peasant in peasants]
-
             # send_twitch_msg(
             #     f"Squid1 Enjoy your street cred: {' '.join(formatted_peasants)} Squid4"
             # )

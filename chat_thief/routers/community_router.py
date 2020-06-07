@@ -15,7 +15,6 @@ class CommunityRouter(BaseRouter):
     SUPPORT_REQUIREMENT = DEFAULT_SUPPORT_REQUIREMENT
 
     def route(self):
-        print("Trying to Route in the CommunityRouter")
 
         if self.command == "propose":
             print("CommunityRouter#propose")

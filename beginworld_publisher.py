@@ -17,7 +17,8 @@ template_path = Path(__file__).parent.joinpath("chat_thief/templates/")
 base_url = "/home/begin/code/chat_thief/build/beginworld_finance"
 
 # DEPLOY_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
-DEPLOY_URL = "https://www.beginworld.exchange"
+# DEPLOY_URL = "https://www.beginworld.exchange"
+DEPLOY_URL = "https://mygeoangelfirespace.city"
 
 
 # this handles setup and destroy

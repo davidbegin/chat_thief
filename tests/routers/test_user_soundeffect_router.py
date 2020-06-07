@@ -155,10 +155,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
                 "https://gist.githubusercontent.com/davidbegin/efdbf338ecfcdc14fa9ed792c6056ed3/raw/d7bcdf2f3c9ae4b3e280646601061b0b4de3a2c8/beginfun.css"
             ],
         ).route()
-        assert (
-            result
-            == "Thanks for the custom CSS @beginbotbot! https://www.beginworld.exchange/beginbotbot.html"
-        )
+        assert "Thanks for the custom CSS @beginbotbot!" in result
 
         css_filepath = Path(__file__).parent.parent.parent.joinpath(
             "build/beginworld_finance/styles/beginbotbot.css"

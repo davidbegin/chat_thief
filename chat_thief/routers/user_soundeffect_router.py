@@ -18,7 +18,8 @@ from chat_thief.models.command import Command
 from chat_thief.commands.command_buyer import CommandBuyer
 from chat_thief.config.stream_lords import STREAM_LORDS
 
-BASE_URL = "https://www.beginworld.exchange"
+# BASE_URL = "https://www.beginworld.exchange"
+BASE_URL = "https://mygeoangelfirespace.city"
 
 COMMANDS = {"give": {"aliases": ["transfer", "give"],}}
 
@@ -33,8 +34,8 @@ class UserSoundeffectRouter(BaseRouter):
         ).parse()
 
         if self.command == "css":
-            if self.user in STREAM_LORDS:
-                return self.set_css()
+            # if self.user in STREAM_LORDS:
+            return self.set_css()
 
         if self.command in ["me", "perm"]:
             return self.me()
@@ -102,8 +103,8 @@ class UserSoundeffectRouter(BaseRouter):
         return f"Thanks for the custom CSS @{self.user}! {BASE_URL}/{self.user}.html"
 
     def me(self):
-        # stats = User(self.user).stats()
-        return f"{BASE_URL}/{self.user}.html"
+        stats = User(self.user).stats()
+        return f"{stats} | {BASE_URL}/{self.user}.html"
 
     def perms(self, parser):
         if len(self.args) > 0 and not parser.target_sfx and not parser.target_user:
