@@ -11,6 +11,17 @@
   <h2>{{ user }}</h2>
   <h3>{{ stats }}</h3>
 
+
+	<table>
+		<tr>
+			{% for user in top8 %}
+				<td>
+					<a href="{{ base_url }}/{{ user }}.html"> {{ user }}</a>
+				</td>
+			{% endfor %}
+		</tr>
+	</table>
+
   <ul>
     {% for command in commands %}
       <li>

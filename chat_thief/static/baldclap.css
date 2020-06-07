@@ -1,113 +1,44 @@
+@font-face{ 
+	font-family: 'pokemon_hollownormal';
+	src: url('https://dillonupgradeit.github.io/css-fun/fonts/pokemon_hollownormal.woff2') format('woff2'),
+	     url('https://dillonupgradeit.github.io/css-fun/fonts/pokemon_hollownormal.woff') format('woff'),
+	     url('https://dillonupgradeit.github.io/css-fun/fonts/pokemon_hollownormal.ttf') format('truetype');
+}
 html{
-    background:#e0e0e0;
-    font-family:arial;
-}
+background:#fec90c;
+  background: rgb(255,0,0);
+  
+  background: linear-gradient(13deg, rgba(255,0,0,1) 0%, rgba(254,201,12,1) 78%);  }
 body {
-    max-width:1000px;
-    background:white;
-    margin:0 auto;
-    min-height:100vh;
+    
+    background:unset;
+    background-image:url('https://imgur.com/l30r8dK.png');
+    background-size:auto 70%;
+    background-position:bottom;
+    background-repeat:no-repeat;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    width:100%;
+    display:inline-table;
+    background-attachment: fixed;
 }
-h1 a {
-    color:white;
-    text-decoration: none;
-}
-h1 {
-    background:#02329a;
-    margin:0;
-    padding:50px 2%;
-    width:96%;
-    font-size:1.1em;
-    text-align:left;
+h1, h1 a, h2, h3{
+    text-decoration:none;
+    font-family: 'pokemon_hollownormal';
+    color:#fec90c;
+    -webkit-text-stroke: 2px #2457b4;
+    text-shadow:-4px 3px 2px #1b3374 ;
+    text-align:center;
+    letter-spacing: 4px;
 }
 h3 {
-    background:#6797ce;
-    color:white;
-    width:96%;
-    font-size:0.7em;
-    padding:10px 2%;
-    margin:0;
-}
-h2 {
-    position:absolute;
-    top:200px;
-    display:block;
-    color:black;
     font-size:.9em;
-    width:50%;
-    max-width:400px;
-    padding:0 2%;
-}
-h2::after {
-    display:block;
-    background-image:url('https://myspace.com/common/images/user.png');
-    background-size:200px 200px;
-    background-position:top left;
-    background-repeat:no-repeat;
-    height:400px;
-    font-size:.5em;
-    padding:0 10px 0px 210px;
-    content:"'What do I do with my hands'  California    United States";
-
-}
-ul:first-of-type::before {
-    border:1px solid black;
-    content:"but most of all, beginbot is my hero";
-    color:#000;
-    font-size:.7em;
-    padding:10px;
 }
 ul {
-    position:relative;
-    left:50%;
     list-style-type: none;
-    padding:20px;
-    width:45%;
-}
-li:first-of-type {
-    border-top:20px solid #f4c996;
-    margin-top:20px;
-}
-li {
-    color: black;
-    font-size: .8em;
 }
 li a {
-    color:black;
-    font-size:.8em;
-    text-decoration: none;
-}
-li a:hover {
-    color:#f4c996;
-}
-@media only screen and (max-width:640px){
-    ul {
-        left:0;
-        top:250px;
-        width:90%;
-        padding:5%;
-    }
-    h2{
-        width:90%;
-        padding:0 5%;
-    }
-    body{
-        padding-bottom: 250px;
-    }
-    
-}
-@media only screen and (max-width:375px){
-    h2 {
-        top:300px;
-    }
-    ul {
-        left:0;
-        top:300px;
-    }
-    ul::before {
-        font-size:.45em;
-    }
-    body{
-        padding-bottom: 300px;
-    }
+    color:#2457b4;
+    text-decoration:none;
 }

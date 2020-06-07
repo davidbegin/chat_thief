@@ -108,11 +108,14 @@ async def generate_user_page(user_dict):
     users_choice = user_dict.get("custom_css", None)
     stats = f"@{name} - Mana: {user_dict['mana']} | Street Cred: {user_dict['street_cred']} | Cool Points: {user_dict['cool_points']}"
 
+    top8 = user_dict.get("top_eight", [])
+
     context = {
         "user": name,
         "users_choice": users_choice,
         "commands": commands,
         "stats": stats,
+        "top8": top8,
         "base_url": DEPLOY_URL,
     }
 

@@ -126,7 +126,7 @@ class User(BaseDbModel):
         return self.user()["mana"]
 
     def top_eight(self):
-        return self.user()["top_eight"]
+        return self.user().get("top_eight", [])
 
     def update_mana(self, amount):
         return self._update_value("mana", amount)
@@ -277,7 +277,6 @@ class User(BaseDbModel):
         if friend not in current_eight and len(current_eight) < 8:
             current_eight.append(friend)
             self.set_value("top_eight", current_eight)
-
 
     def remove_from_top_eight(self, enemy):
         current_eight = self.top_eight()

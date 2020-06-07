@@ -224,7 +224,7 @@ class TestUser(DatabaseConfig):
         uzi.remove_from_top_eight("playboi.carti")
         assert uzi.top_eight() == []
 
-        for x in range(0,8):
+        for x in range(0, 8):
             uzi.add_to_top_eight(f"user_{x}")
 
         with pytest.raises(ValueError) as err:

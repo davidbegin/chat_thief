@@ -15,7 +15,6 @@ logger = setup_logger()
 
 
 class TestCommandRouter(DatabaseConfig):
-
     @pytest.fixture(autouse=True)
     def mock_present_users(self, monkeypatch):
         def _mock_present_users(self):

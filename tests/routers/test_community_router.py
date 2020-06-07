@@ -84,13 +84,9 @@ class TestCommunityRouter(DatabaseConfig):
     def test_top8(self):
         user = User("beginbot")
 
-        result = CommunityRouter(
-            "beginbot", "top8", ["@uzi"]
-        ).route()
+        result = CommunityRouter("beginbot", "top8", ["@uzi"]).route()
         assert result == "@uzi is now in @beginbot's Top 8!"
         assert user.top_eight() == ["uzi"]
 
-        result = CommunityRouter(
-            "beginbot", "hate8", ["@uzi"]
-        ).route()
+        result = CommunityRouter("beginbot", "hate8", ["@uzi"]).route()
         assert result == "@uzi is no longer in @beginbot's Top 8"

@@ -1,3 +1,48 @@
+/*For animation*/
+h1 {
+  margin: 0 auto;
+  width: 100vw;
+  height: inherit;
+  position: absolute;
+  overflow: hidden;
+}
+
+h1 a {
+  display: block;
+  box-shadow: inset -5px -5px 5px rgba(0,0,0,.6), 15px 15px 2px rgba(0,0,0,.04);
+  position: absolute;
+  -webkit-animation: moveX 6.00s linear 0s infinite alternate, moveY 6.40s linear 0s infinite alternate;
+  -moz-animation: moveX 6.00s linear 0s infinite alternate, moveY 6.40s linear 0s infinite alternate;
+  -o-animation: moveX 6.00s linear 0s infinite alternate, moveY 6.40s linear 0s infinite alternate;
+  animation: moveX 6.00s linear 0s infinite alternate, moveY 6.40s linear 0s infinite alternate;
+}
+
+@-webkit-keyframes moveX {
+  from { left: 0; } to { left: 60vw; }
+}
+@-moz-keyframes moveX {
+  from { left: 0; } to { left: 60vw; }
+}
+@-o-keyframes moveX {
+  from { left: 0; } to { left: 60vw; }
+}
+@keyframes moveX {
+  from { left: 0; } to { left: 60vw; }
+}
+@-webkit-keyframes moveY {
+  from { top: 50vh; } to { top: 90vh; }
+}
+@-moz-keyframes moveY {
+  from { top: 50vh; } to { top: 90vh; }
+}
+@-o-keyframes moveY {
+  from { top: 50vh; } to { top: 90vh; }
+}
+@keyframes moveY {
+  from { top: 50vh; } to { top: 90vh; }
+}
+
+/*Static CSS*/
 body {
     color: white;
     font-size: 2em;
@@ -16,11 +61,11 @@ p {
 }
 
 h1 {
-    text-align: center;
+/*    text-align: center;*/
     position: absolute;
     bottom: 0px;
-    left: 50%;
-    margin-left: -328px;
+/*    left: 50%;*/
+/*    margin-left: -328px;*/
 }
 
 h1 a {
