@@ -2,19 +2,32 @@ table {
   padding-left:10em;
   float:right;
   padding-top:1em;
+  margin:0;
 }
 
 table:before{
-  content:"\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0 STREAM CHAT \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+content:"\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0 STREAM CHAT \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
   color:grey;
   border:1px solid grey;
   background-color: #1F1F23;
   font-size: 20px;
+  position:relative;
+  bottom:4.9em;
+  z-index: 3;
   font-style: bolder;
+  padding-top:1em;
+  padding-bottom:1em;
 }
 
-table th{
-  content:"test";
+table:after{ content:"\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+ color:grey;
+  border-left:0.3px solid grey;
+  border-right:0.3px solid grey;
+  width:100%;
+  background-color: #1F1F23;
+  font-size: 20px;
+  font-style: bolder;
+  height: 100px;
 }
 
 tr td{
@@ -23,6 +36,14 @@ tr td{
   font-size:20px;
   background-color: #1F1F23;
   height: 100%;
+}
+
+td{
+    border-left: .3px solid;
+    border-right: .3px solid;
+    border-color: grey;
+    position:relative;
+    bottom:4.5em;
 }
 
 td:before{
@@ -52,9 +73,9 @@ body {
 
 
 h1:before{
- background-image: url('https://www.freepnglogos.com/uploads/twitch-app-logo-png-3.png');
- background-position: 5px;
-background-size: 60px 40px;
+ background-image: url('https://www.freepnglogos.com/uploads/twitch-app-logo-png-3.png'), url('https://puu.sh/FTOeH/7c66183101.png'), url('https://puu.sh/FTOiQ/52722d5495.png');
+ background-position: 5px, 780px, 1600px;
+background-size: 60px 40px, 380px 50px, 280px 50px;
 background-repeat:no-repeat;
 display: block;
 width: 100%; 
@@ -88,28 +109,37 @@ h2{
 h3{
   margin:0;
   text-align:center;
-  
+  color:white;
+  position:relative;
+  bottom:2.5em;
+  left:30em;
+  font-size:15px;
+  font-weight: bold;
 }
 
 h3:after{
 background-image: url('https://puu.sh/FTNoR/c825765167.png'), url(' https://puu.sh/FTNpT/579a49609a.png');
-background-position: 470px, 1250px;
+background-position: 170px, 980px;
 background-size: 60px 40px, 250px 50px;
 background-repeat:no-repeat, no-repeat;
 display: block;
-height:35px;
-
 display: block;
 height:35px;
-content:"\00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0 Zanuss \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0  \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 Home \00a0\00a0\00a0\00a0\00a0 Videos \00a0\00a0\00a0\00a0\00a0 Clips \00a0\00a0\00a0\00a0\00a0 Followers ";
-  
+content:"Zanuss \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0  \00a0\00a0\00a0\00a0\00a0 \00a0 \00a0 Home \00a0\00a0\00a0\00a0\00a0 Videos \00a0\00a0\00a0\00a0\00a0 Clips \00a0\00a0\00a0\00a0\00a0 Followers ";
 text-align:left;
 font-size:20px;
 padding-left: 5em;
 padding-top: 1em;;
 color:white;
+position:relative;
+right: 10em;
+top:1em;
   
  
+}
+
+h3:after:hover {
+  color:#9147ff;
 }
 
 
@@ -125,27 +155,38 @@ ul:before{
   font-size:20px;
 }
 ul{
+  position:relative;
+  bottom:2.25em;
   padding-top:5px;
-  width:10em;
+  width:8em;
   list-style:none;
   list-style-type:none;
   text-align:left;
   background-color: #1F1F23;
+  overflow:hidden;
+  margin:0;
+  
 }
 li{
   padding-bottom:1em;
+  font-size:23px;
+  padding-top:1em;
 }
 li a{
   color:white;
+  padding-right:5em;
+  text-decoration: none;
 }
 li:after{
-  height: 25px;
-  width: 25px;
+  height: 15px;
+  width: 15px;
   background-color: red;
   border-radius: 50%;
   display: inline-block;
   font-size: 18px;
-  content:"\00a0\00a0 \00a0\00a0 \00a0\00a0 \00a0\00a0 10K";
+  content:"\00a0\00a0 \00a0\00a0 \00a0 69";
   color:white;
   content-align:right;
+  position:absolute;
+  right: 20%;
 }

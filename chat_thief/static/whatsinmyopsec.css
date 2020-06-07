@@ -554,7 +554,8 @@ ul {
   -moz-animation: noise 0.3s infinite;
   -webkit-animation: noise 0.3s infinite;
   animation: noise 0.3s infinite;
-  border-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
   
 }
 
@@ -708,12 +709,28 @@ table tbody tr td a {
   text-decoration: none;
   font-weight: bold;
   margin-right: 8px;
+
+}
+
+table tbody tr td a:before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  float: left;
+  background-size: contain;
+  margin-right: 4px;
 }
  
  table {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+  -moz-animation: noise 0.3s infinite;
+  -webkit-animation: noise 0.3s infinite;
+  animation: noise 0.3s infinite;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
 }
 
 table:before {

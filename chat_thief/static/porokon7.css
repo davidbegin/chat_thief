@@ -1,33 +1,203 @@
-/* Start http://www.cursors-4u.com */ * {cursor: url(http://cur.cursors-4u.net/cursors/cur-2/cur197.ani), url(http://cur.cursors-4u.net/cursors/cur-2/cur197.png), auto !important;} /* End http://www.cursors-4u.com */
-@keyframes example {
-
-	0% {
-		transform: rotate(0turn) scale(1);
-	}
-
-	80% {
-		transform: rotate(20turn) scale(0);
-	}
-
-	80.01% {
-		transform: rotate(0turn) scale(1) skewX(89deg) skewY(1.1deg);
-	}
-
-	83% {
-		transform: rotate(0turn) scale(0);
-	}
-
-	100% {
-		transform: rotate(0turn) scale(0);
-	}
-}
 body {
-background-image: url("https://poro.tokyo/wineuncle.jpg");
-background-size: cover;
-border: 2px solid black;
-padding: 25px;
-font-family: "Comic Sans MS", "Comic Sans", cursive;
+  background:#b8b8b8;
+  color: black;
+  font-family: "sans-serif" !important;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  margin: 128px;
+  margin-right: 512px;
+  margin-left: 512px;
+  user-select: none;
+  font-size:0;
+  
 }
-h1 h2 h3 h4 h5 a p ul li body {
-animation: example 999s linear;
-  }
+h1 {
+  text-align: left;
+  height: 20px;
+  font-size: 12px;
+  text-decoration: none;
+  background-image: linear-gradient(to right,#000080,#1084d0);
+  margin: 2px;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+h1 a:visited {
+  color: white;
+}
+h2 {
+  color: black;
+  font-size: 12px;
+  margin: 2px;
+  font-weight: normal;
+  padding: 4px;
+  display: inline-block;
+  margin-top: 0;
+}
+h2::first-letter {
+  text-decoration: underline;
+  text-transform: capitalize;
+}
+h1 a {
+  margin-left: 4px;
+  text-decoration: none;
+  cursor: unset;
+}
+h2:hover {
+  color: white;
+  background-color: #000080;
+}
+h3 {
+  position: absolute;
+  height: 10vh;
+  width: 100vw;
+  top: 18vh;
+  left: 0;
+  color: transparent;
+  background-image: url("https://static-cdn.jtvnw.net/emoticons/v1/301751641/3.0");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  pointer-events: none;
+  background-position: center;
+  z-index: -1;
+  transition:all 2s;
+}
+ul {
+  list-style-type: none;
+  margin: 2px;
+  padding: 0;
+  margin-top: 0;
+  text-align: center;
+  border-top: black solid 1px;
+  border-left: black solid 1px;
+  border-bottom: white solid 1px;
+  border-right: white solid 1px;
+  padding-bottom: 12px;
+}
+li {
+  display: inline-block;
+  margin: 12px;
+  margin-right: 0px;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+li a {
+  text-decoration: none;
+  color: black;
+  padding-left: ;
+  padding: 4px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-left: white solid 1px;
+  border-top: white solid 1px;
+  border-right: 1px solid black;
+  border-bottom: black solid 1px;
+  font-size: 12px;
+  cursor: unset;
+  margin: 4px;
+}
+html {
+  background-image: url("https://i.pinimg.com/originals/c5/b9/10/c5b910844ccadb26eb7895b5507cceb0.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+li a:active {
+  border-top: black solid 1px;
+  border-left: black solid 1px;
+  border-right: white solid 1px;
+  border-bottom: white solid 1px;
+  color: ;
+}
+h1 a:before {
+  text-indent: 0;
+  content: 'x';
+  float: right;
+  color: black;
+  background-color: #b8b8b8;
+  height: 14px;
+  width: 14px;
+  text-align: center;
+  line-height: 14px;
+  margin: 2px;
+  border-left: white solid 1px;
+  border-top: white solid 1px;
+  border-bottom: black solid 1px;
+  border-right: black solid 1px;
+  font-size: 14px;
+  font-weight: normal;
+}
+h1 a:active:before {
+  text-indent: 0;
+  content: 'x';
+  float: right;
+  color: black;
+  background-color: #b8b8b8;
+  height: 14px;
+  width: 14px;
+  text-align: center;
+  line-height: 14px;
+  margin: 2px;
+  border-left: black solid 1px;
+  border-top: black solid 1px;
+  border-bottom: white solid 1px;
+  border-right: white solid 1px;
+  font-size: 14px;
+  font-weight: normal;
+}
+li a:visited {
+  color: black;
+}
+h2:hover + h3 {
+  opacity: 1;
+  top:5vh;
+  transition: all 2s;
+}
+h1::before {
+  background-image: url("https://raw.githubusercontent.com/grassmunk/Chicago95/master/Icons/Chicago95/emotes/32/face-heart.png");
+  content: ' ';
+  float: left;
+  height: 8px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 15px;
+  width: 14px;
+  line-height: ;
+  margin: ;
+  margin-top: ;
+  margin: 2px;
+  margin-right: 0;
+  margin-left: 4px;
+}
+table tbody tr td a {
+  font-size: 14px;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 8px;
+}
+table tbody tr td a:before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background-image: url("https://raw.githubusercontent.com/grassmunk/Chicago95/master/Icons/Chicago95/emotes/32/face-kiss.png");
+  background-repeat: no-repeat;
+  float: left;
+  background-size: contain;
+  margin-right: 4px;
+}
+table {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+table:before {
+  content: "BESTIES";
+  font-size: 28px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
