@@ -23,7 +23,7 @@ h1 {
   line-height: 20px;
   margin-bottom: 0;
 }
-a:visited {
+h1 a:visited {
   color: white;
 }
 h2 {
@@ -102,8 +102,7 @@ html {
   background-image: url("https://i.pinimg.com/originals/c5/b9/10/c5b910844ccadb26eb7895b5507cceb0.gif");
   background-size: cover;
   background-repeat: no-repeat;
-}
-a {
+  background-attachment: fixed;
 }
 li a:active {
   border-top: black solid 1px;
@@ -171,4 +170,34 @@ h1::before {
   margin: 2px;
   margin-right: 0;
   margin-left: 4px;
+}
+table tbody tr td a {
+  font-size: 14px;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 8px;
+}
+table tbody tr td a:before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background-image: url("https://raw.githubusercontent.com/grassmunk/Chicago95/master/Icons/Chicago95/emotes/32/face-kiss.png");
+  background-repeat: no-repeat;
+  float: left;
+  background-size: contain;
+  margin-right: 4px;
+}
+table {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+table:before {
+  content: "BESTIES";
+  font-size: 28px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
 }

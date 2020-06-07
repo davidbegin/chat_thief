@@ -1,0 +1,6 @@
+h2:after {
+    content: url(https://nethistorian.files.wordpress.com/2013/07/underconstruction.gif);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

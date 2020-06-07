@@ -1,0 +1,19 @@
+h2 {
+    background: transparent url(https://res.cloudinary.com/mrdemonwolf/image/upload/mrdemonwolf/text_logo.png) no-repeat;
+    padding-left:(width-of-image)px;
+    color: transparent;
+    height: 100px;
+}
+
+a {
+    color: #303059;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    transition-duration: 500ms;
+}
+body {
+    background: #00aced;
+}

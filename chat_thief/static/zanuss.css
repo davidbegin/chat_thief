@@ -1,3 +1,47 @@
+table {
+  padding-left:10em;
+  float:right;
+  padding-top:1em;
+}
+
+table:before{
+  content:"\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0 STREAM CHAT \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+  color:grey;
+  border:1px solid grey;
+  background-color: #1F1F23;
+  font-size: 20px;
+  font-style: bolder;
+}
+
+table th{
+  content:"test";
+}
+
+tr td{
+  padding: 20px 40px;
+  display: block;
+  font-size:20px;
+  background-color: #1F1F23;
+  height: 100%;
+}
+
+td:before{
+  content:"00:00 ";
+  color:grey;
+}
+
+td:after{
+  content:": Hey @Zanuss !";
+  color:white;
+  font-size: 18px;
+}
+
+td a{
+  color:#F54301;
+  text-decoration:none;
+  
+}
+
 body {
   background-color:#18181B;
   color: #4F3970;
@@ -46,15 +90,26 @@ h3{
   text-align:center;
   
 }
+
 h3:after{
+background-image: url('https://puu.sh/FTNoR/c825765167.png'), url(' https://puu.sh/FTNpT/579a49609a.png');
+background-position: 470px, 1250px;
+background-size: 60px 40px, 250px 50px;
+background-repeat:no-repeat, no-repeat;
 display: block;
 height:35px;
-content:"\00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0 beginbot \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0  \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0 Home \00a0\00a0\00a0\00a0\00a0 Videos \00a0\00a0\00a0\00a0\00a0 Clips \00a0\00a0\00a0\00a0\00a0 Followers ";
+
+display: block;
+height:35px;
+content:"\00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0 Zanuss \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0  \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 Home \00a0\00a0\00a0\00a0\00a0 Videos \00a0\00a0\00a0\00a0\00a0 Clips \00a0\00a0\00a0\00a0\00a0 Followers ";
+  
 text-align:left;
 font-size:20px;
 padding-left: 5em;
 padding-top: 1em;;
 color:white;
+  
+ 
 }
 
 
@@ -89,7 +144,7 @@ li:after{
   background-color: red;
   border-radius: 50%;
   display: inline-block;
-  
+  font-size: 18px;
   content:"\00a0\00a0 \00a0\00a0 \00a0\00a0 \00a0\00a0 10K";
   color:white;
   content-align:right;

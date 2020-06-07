@@ -11,10 +11,10 @@ h1 a {
   display: block;
   box-shadow: inset -5px -5px 5px rgba(0,0,0,.6), 15px 15px 2px rgba(0,0,0,.04);
   position: absolute;
-  -webkit-animation: moveX 6.00s linear 0s infinite alternate, moveY 6.40s linear 0s infinite alternate;
-  -moz-animation: moveX 6.00s linear 0s infinite alternate, moveY 6.40s linear 0s infinite alternate;
-  -o-animation: moveX 6.00s linear 0s infinite alternate, moveY 6.40s linear 0s infinite alternate;
-  animation: moveX 6.00s linear 0s infinite alternate, moveY 6.40s linear 0s infinite alternate;
+  -webkit-animation: moveX 6.00s linear 0s infinite alternate, moveY 7.711s linear 0s infinite alternate;
+  -moz-animation: moveX 6.00s linear 0s infinite alternate, moveY 7.711s linear 0s infinite alternate;
+  -o-animation: moveX 6.00s linear 0s infinite alternate, moveY 7.711s linear 0s infinite alternate;
+  animation: moveX 6.00s linear 0s infinite alternate, moveY 7.711s linear 0s infinite alternate;
 }
 
 @-webkit-keyframes moveX {
@@ -44,6 +44,7 @@ h1 a {
 
 /*Static CSS*/
 body {
+    z-index: -1;
     color: white;
     font-size: 2em;
     background-image: url(https://i.imgur.com/bPjdzRC.gif);
@@ -61,6 +62,7 @@ p {
 }
 
 h1 {
+ z-index: 1;
 /*    text-align: center;*/
     position: absolute;
     bottom: 0px;
@@ -69,6 +71,7 @@ h1 {
 }
 
 h1 a {
+    z-index: 1;
     color: #406282;
     text-shadow: -3px -3px 0 #FFF, 1px -3px 0 #FFF, -3px 3px 0 #FFF, 3px 3px 0 #FFF;
     font-family: "Arial";
@@ -81,27 +84,54 @@ h1 a {
 }
 
 h1 a:hover {
-  background-image: url(https://i.imgur.com/JqMAKo9.png);
-  background-repeat: repeat;
+    background-image: url(https://i.imgur.com/JqMAKo9.png);
+    background-repeat: repeat;
 }
 
 h2 {
-  text-transform: capitalize;
-  font-family: "Roboto";
-  text-align: center;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
+    z-index: 2;
+    text-transform: capitalize;
+    font-family: "Roboto";
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    position: relative;
 }
 
 h3 {
-  text-align: center;
-  font-size: 1.1rem;
-  color: white;
-  font-family: "Roboto";
+    z-index: 2;
+    text-align: center;
+    font-size: 1.1rem;
+    color: white;
+    font-family: "Roboto";
+    position: relative;
+}
 
+table a {
+    z-index: 2;
+    text-decoration: none;
+    color: white;
+    font-family: "Roboto";
+}
+
+table a:hover {
+    font-weight: bold;
+}
+
+
+table {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    text-align: center;
+    font-size: 1.1rem;
+    color: white;
+    font-family: "Roboto";
 }
 
 ul {
+  position: relative;
+    z-index: 2;
     column-count: 3;
     text-decoration: none;
     margin: 50px 0 0 0;
@@ -113,6 +143,7 @@ ul {
 }
 
 ul a {
+    z-index: 2;
     text-decoration: none;
     color: white;
     font-family: "Roboto";

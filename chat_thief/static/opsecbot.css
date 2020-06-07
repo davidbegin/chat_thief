@@ -402,7 +402,9 @@ ul {
 }
 
 li {
+  
   display: inline-block;
+  font-size: .8em;
   margin: 12px;
   margin-right: 0px;
   margin-left: 0;
@@ -475,7 +477,7 @@ h2 {
 
 
  body {
-overflow: hidden;
+overflow-x: hidden;
   position: relative;
   left: 0;
   top: 0;
@@ -510,4 +512,27 @@ overflow: hidden;
   left: 0;
   right: 0;
  
+}
+
+table tbody tr td a {
+  font-size: 14px;
+  color:red;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 8px;
+}
+ 
+ table {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+table:before {
+  content: "LOVERS";
+  font-size: 28px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
 }

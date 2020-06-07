@@ -86,6 +86,7 @@ class TestCommand(DatabaseConfig):
 
     def test_all_data(self):
         damn_cmd = Command("damn")
+
         damn_cmd.save()
         chain_cmd = Command("mchdtmd")
         chain_cmd.save()
@@ -94,6 +95,7 @@ class TestCommand(DatabaseConfig):
             {
                 "name": "damn",
                 "user": "beginbot",
+                "command_file": None,
                 "permitted_users": [],
                 "health": 3,
                 "cost": 1,
@@ -101,6 +103,7 @@ class TestCommand(DatabaseConfig):
             },
             {
                 "name": "mchdtmd",
+                "command_file": "/home/begin/stream/Stream/Samples/mchdtmd.mp3",
                 "user": "beginbot",
                 "permitted_users": [],
                 "health": 3,

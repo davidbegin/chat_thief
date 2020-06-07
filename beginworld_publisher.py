@@ -89,6 +89,7 @@ async def generate_command_page(cmd_dict):
     if len(cmd_dict["permitted_users"]) > -1:
         context = {
             "name": cmd_dict["name"],
+            "command_file": cmd_dict.get("command_file", None),
             "users": cmd_dict["permitted_users"],
             "cost": cmd_dict["cost"],
             "like_to_hate_ratio": cmd_dict["like_to_hate_ratio"],
