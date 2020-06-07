@@ -279,7 +279,7 @@ class User(BaseDbModel):
             self.set_value("top_eight", current_eight)
 
 
-    def remove_to_top_eight(self, enemy):
+    def remove_from_top_eight(self, enemy):
         current_eight = self.top_eight()
         if enemy in current_eight:
             current_eight.remove(enemy)

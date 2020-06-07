@@ -1,35 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Shojumaru&display=swap");
 body {
-  background-image: linear-gradient(90deg, #e2c35d, #d88771);
-  color: white;
-  font-family: monaco, Consolas, "Lucida Console", monospace;
+  background-image: url("https://cdn.statically.io/img/wallpapercave.com/wp/wp2625452.png");
+  background-size: 1920px;
+  background-position: 0px -110px;
+  color: black;
 }
 
-h1 {
+* {
   text-align: center;
 }
 
-h2 {
-  font-size: 15rem;
-  font-variant: small-caps;
-}
-
+h1,
 h2,
 h3 {
-  color: deeppink;
-  text-align: center;
+  font-family: "Shojumaru", cursive;
 }
 
 ul {
+  display: flex;
+  padding-left: 3rem;
+  padding-top: 3rem;
+}
+
+li {
+  display: block;
+  margin: 0;
+  padding: 1rem 0.9rem 36px 20px;
   list-style: none;
-  color: deeppink;
-  text-align: center;
-}
-
-h1 {
-  padding-top: 2rem;
-  font-size: 3px;
-}
-
-h2:hover {
-  font-size: 0.1px;
+  background-image: url("https://i.ya-webdesign.com/images/transparent-folders-logo-3.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60px;
+  padding-left: 0.1rem;
+  padding-top: 8rem;
+  font-size: 1rem;
+  margin-left: 5.9rem;
 }

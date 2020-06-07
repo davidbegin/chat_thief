@@ -622,7 +622,7 @@ h2 {
 }
 
  body {
-  overflow: hidden;	
+  	
   position: relative;
   left: 0;
   top: 0;
@@ -641,7 +641,7 @@ h2 {
 }
 
  body:before {
-  overflow: hidden;	
+  	
   content: "";
   display: inline-block;
   vertical-align: middle;
@@ -649,7 +649,7 @@ h2 {
 }
 
  body:after {
-  overflow: hidden;	
+  	
   content: "";
   display: block;
   position: absolute;

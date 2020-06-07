@@ -219,9 +219,9 @@ class TestUser(DatabaseConfig):
         uzi.add_to_top_eight("playboi.carti")
         assert uzi.top_eight() == ["playboi.carti"]
 
-        uzi.remove_to_top_eight("playboi.carti")
+        uzi.remove_from_top_eight("playboi.carti")
         assert uzi.top_eight() == []
-        uzi.remove_to_top_eight("playboi.carti")
+        uzi.remove_from_top_eight("playboi.carti")
         assert uzi.top_eight() == []
 
         for x in range(0,8):

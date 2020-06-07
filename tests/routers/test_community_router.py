@@ -1,7 +1,7 @@
 import pytest
 
-#
 
+from chat_thief.models.user import User
 from chat_thief.models.command import Command
 from chat_thief.models.proposal import Proposal
 from chat_thief.models.sfx_vote import SFXVote
@@ -80,3 +80,17 @@ class TestCommunityRouter(DatabaseConfig):
         result = CommunityRouter("uzi", "support", []).route()
         assert "@beginbot Thanks You for the support @uzi" in result
         assert BreakingNews.count() == 1
+
+    def test_top8(self):
+        user = User("beginbot")
+
+        result = CommunityRouter(
+            "beginbot", "top8", ["@uzi"]
+        ).route()
+        assert result == "@uzi is now in @beginbot's Top 8!"
+        assert user.top_eight() == ["uzi"]
+
+        result = CommunityRouter(
+            "beginbot", "hate8", ["@uzi"]
+        ).route()
+        assert result == "@uzi is no longer in @beginbot's Top 8"

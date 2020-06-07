@@ -1,11 +1,12 @@
 import pytest
 
 from chat_thief.command_router import CommandRouter
-from chat_thief.models.command import Command
-from chat_thief.models.breaking_news import BreakingNews
-from chat_thief.models.user import User
-from chat_thief.models.proposal import Proposal
 from chat_thief.config.log import logger
+from chat_thief.models.breaking_news import BreakingNews
+from chat_thief.models.command import Command
+from chat_thief.models.proposal import Proposal
+from chat_thief.models.user import User
+from chat_thief.welcome_committee import WelcomeCommittee
 
 from tests.support.database_setup import DatabaseConfig
 from tests.support.utils import setup_logger
@@ -14,6 +15,14 @@ logger = setup_logger()
 
 
 class TestCommandRouter(DatabaseConfig):
+
+    @pytest.fixture(autouse=True)
+    def mock_present_users(self, monkeypatch):
+        def _mock_present_users(self):
+            return ["miles.davis"]
+
+        monkeypatch.setattr(WelcomeCommittee, "present_users", _mock_present_users)
+
     @pytest.fixture
     def irc_msg(self):
         def _irc_msg(user, msg):
@@ -89,3 +98,14 @@ class TestCommandRouter(DatabaseConfig):
         assert (
             "@bill.evans Not enough cool_points (0/1) to share !damn with @" in result
         )
+
+    # We aren't finding the target user,
+    # Because miles ain't valid
+    def test_top_8_features(self, irc_msg):
+        user = User("bill.evans")
+        miles = User("miles.davis")
+        miles.save()
+        irc_response = irc_msg("bill.evans", "!top8 miles.davis")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert result == "@miles.davis is now in @bill.evans's Top 8!"
+        assert user.top_eight() == ["miles.davis"]

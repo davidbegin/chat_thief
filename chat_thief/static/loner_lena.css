@@ -50,18 +50,19 @@ h2:hover {
 }
 h3 {
   position: absolute;
-  background-color: #000096;
-  height: 100vh;
+  height: 10vh;
   width: 100vw;
-  top: 0;
+  top: 18vh;
   left: 0;
   color: transparent;
-  background-image: url("https://cdn.hipwallpaper.com/i/48/7/GmLxwS.jpg");
+  background-image: url("https://static-cdn.jtvnw.net/emoticons/v1/301751641/3.0");
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0;
   pointer-events: none;
   background-position: center;
+  z-index: -1;
+  transition:all 2s;
 }
 ul {
   list-style-type: none;
@@ -152,4 +153,22 @@ li a:visited {
 }
 h2:hover + h3 {
   opacity: 1;
+  top:5vh;
+  transition: all 2s;
+}
+h1::before {
+  background-image: url("https://raw.githubusercontent.com/grassmunk/Chicago95/master/Icons/Chicago95/emotes/32/face-heart.png");
+  content: ' ';
+  float: left;
+  height: 8px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 15px;
+  width: 14px;
+  line-height: ;
+  margin: ;
+  margin-top: ;
+  margin: 2px;
+  margin-right: 0;
+  margin-left: 4px;
 }
