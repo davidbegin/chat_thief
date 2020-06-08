@@ -54,10 +54,6 @@ body {
       white-space: pre-line;
   }
 
- table::before{
-    content:" Da Boiz: \A"
-  }
-
   ul,table {
     width: 1000px;
   }

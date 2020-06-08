@@ -95,7 +95,7 @@ class TestCommand(DatabaseConfig):
             {
                 "name": "damn",
                 "user": "beginbot",
-                "command_file": None,
+                "command_file": "damn.opus",
                 "permitted_users": [],
                 "health": 3,
                 "cost": 1,
@@ -103,7 +103,7 @@ class TestCommand(DatabaseConfig):
             },
             {
                 "name": "mchdtmd",
-                "command_file": "/home/begin/stream/Stream/Samples/mchdtmd.mp3",
+                "command_file": "mchdtmd.mp3",
                 "user": "beginbot",
                 "permitted_users": [],
                 "health": 3,

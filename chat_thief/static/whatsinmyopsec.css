@@ -80,6 +80,7 @@
     transform: skew(85deg);
   }
 }
+
 @-webkit-keyframes body {
   0% {
     -webkit-transform: skew(-73deg);
@@ -162,6 +163,7 @@
     transform: skew(-31deg);
   }
 }
+
 @keyframes body {
   0% {
     -moz-transform: skew(-4deg);
@@ -284,6 +286,7 @@
     transform: skew(1deg);
   }
 }
+
 @-moz-keyframes noise {
   0% {
     background-position: -25px 40px;
@@ -316,6 +319,7 @@
     background-position: 57px -27px;
   }
 }
+
 @-webkit-keyframes noise {
   0% {
     background-position: -15px 3px;
@@ -348,6 +352,7 @@
     background-position: 34px 58px;
   }
 }
+
 @keyframes noise {
   0% {
     background-position: 69px 38px;
@@ -380,6 +385,7 @@
     background-position: 12px -10px;
   }
 }
+
 @-moz-keyframes bar {
   0% {
     height: 118px;
@@ -432,6 +438,7 @@
     opacity: 0.16;
   }
 }
+
 @-webkit-keyframes bar {
   0% {
     height: 32px;
@@ -484,6 +491,7 @@
     opacity: 0.57;
   }
 }
+
 @keyframes bar {
   0% {
     height: 247px;
@@ -539,16 +547,17 @@
 
 a{
 	color: #d4d4d4;
-
-	
 }
-ul {
+
+ul {  
   list-style-type: none;
   margin: 2px;
   padding: 0;
   margin-top: 0;
   text-align: center;
-  background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+  background-image: url(https://smonk.club/2020/06/08/CheapPointedStickleback.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+  opacity: 0.9;
+  background-blend-mode: screen;
   -moz-animation: noise 0.3s infinite;
   -webkit-animation: noise 0.3s infinite;
   animation: noise 0.3s infinite;
@@ -568,12 +577,9 @@ li {
   
 }
 
-
 h1{
   color:#e0e0e0;
-
 }
-
 
 h2 {
 	  animation-name: blurrr,stretch;
@@ -586,16 +592,16 @@ h2 {
 	  animation-play-state: running;
 }
 
-
 @keyframes stretch {
   0% {
     transform: scale(.1);
 
-    background-image: url(https://smonk.club/2020/06/07/FilthyBurlywoodUrial.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+    background-image: url(https://smonk.club/2020/06/08/CheapPointedStickleback.png);
     border-radius: 100%;
+
   }
   50% {
-    background-color: #0C0C0C;
+    background-color: #770100;
   }
   100% {
     transform: scale(4);
@@ -669,18 +675,25 @@ h2 {
   font: 20px "roboto", helvetica, sans-serif;
   letter-spacing: 0.6em;
   
-  background-color: #010101;
+  background: repeating-linear-gradient(
+  45deg,
+  rgba(0, 0, 0, 0.2),
+  rgba(0, 0, 0, 0.2) 10px,
+  rgba(0, 0, 0, 0.3) 10px,
+  rgba(0, 0, 0, 0.3) 20px
+   ), 
+  url(https://smonk.club/2020/06/08/OnerlookedConfusedStarling.jpg); 
+  background-size: cover;
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
   
 }
-
 
  body:before {
   overflow: hidden;
   animation: marquee 1s cubic-bezier(1.000, 0.000, 0.000, 1.000) infinite;
   content: "_______________________________________________________________________________________________________________________________";
   color: green;
-  
+  font-size: 3em;
   letter-spacing: -2px;
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
   display: inline-block;
@@ -724,6 +737,7 @@ table tbody tr td a:before {
   justify-content: center;
   flex-wrap: wrap;
   background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+  opacity: 0.9;
   -moz-animation: noise 0.3s infinite;
   -webkit-animation: noise 0.3s infinite;
   animation: noise 0.3s infinite;
@@ -739,4 +753,3 @@ table:before {
   text-align: center;
   font-weight: bold;
 }
-

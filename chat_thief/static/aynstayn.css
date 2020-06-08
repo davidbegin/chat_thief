@@ -1,0 +1,64 @@
+ul{
+  font: normal normal 14px/20px Helvetica, Arial, sans-serif;  
+  list-style-type: none;
+  margin-left: 0 0 0 10px;
+  padding: 0;
+  position: relative;   
+  overflow:hidden;    
+}
+
+
+ul::before::before {
+    font-weight: bold;
+    color:limegreen;
+    content: '╭─aynstayn@beginworld.exchange ~ \A ╰─➤ tree /bin';
+    white-space: pre-wrap;
+}
+
+ul::before {
+    font-weight: bold;
+    color:limegreen;
+    /* content: '╭─aynstayn@beginworld.exchange ~ \A ╰─➤ tree /bin'; */
+    content: url('test.js');
+    white-space: pre-wrap;
+}
+
+li{
+  margin: 0;
+  padding: 0 12px;  
+  position: relative;   
+}
+  
+li::before, li::after{
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+/* horizontal line on inner list items */
+li::before{
+  border-top: 1px solid limegreen;
+  top: 10px;
+  width: 10px;
+  height: 0;    
+}
+
+/* vertical line on list items */   
+li:after{
+  border-left: 1px solid limegreen;
+  height: 100%;
+  width: 0px;
+  top: -10px; 
+}
+
+/* lower line on list items from the first level because they don't have parents */
+ul > li::after{
+  top: 10px;
+}
+li a:link, li a:visited, li a:hover, li a:active {
+    color:limegreen;
+}
+/* hide line from the last of the first level list items */
+ul > li:last-child::after{
+  display: none;
+}

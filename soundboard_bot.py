@@ -43,6 +43,9 @@ def sync_main():
                     warning(msg)
                 elif user_allowed_to_play and command_health > 0 and user_mana > 0:
                     soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
+
+                    print(f"WE ARE TRYING TO PLAY: {soundfile}")
+
                     if soundfile:
                         AudioPlayer.play_sample(
                             soundfile.resolve(), sfx["notification"]

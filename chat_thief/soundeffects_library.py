@@ -11,6 +11,7 @@ class SoundeffectsLibrary:
         samples = [
             sample
             for sample in SoundeffectsLibrary.fetch_soundeffect_samples()
+            if name == sample.name[:-len(sample.suffix)]
         ]
         if samples:
             return samples[0]

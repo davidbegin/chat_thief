@@ -39,7 +39,10 @@ class Command(BaseDbModel):
                 (vote for vote in votes if vote["command"] == cmd_dict["name"]), None
             )
 
-            matching_effects = [ sfx for sfx in all_sfxs if cmd_dict['name'] == sfx.name[:-len(sfx.suffix)] ]
+            matching_effects = [
+                sfx for sfx in all_sfxs
+                if cmd_dict['name'] == sfx.name[:-len(sfx.suffix)]
+            ]
             if matching_effects:
                 command_file = matching_effects[0]
                 cmd_dict["command_file"] = command_file.name

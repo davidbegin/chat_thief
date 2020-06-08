@@ -64,15 +64,15 @@ class ModeratorRouter(BaseRouter):
 
         for user in User.all():
             User(user).bankrupt()
-        for command_name in Command.db().all():
-            command_name = command_name["name"]
-            print(command_name)
-            command = Command(command_name)
-            command_cost = command.cost()
-            if command_cost < 2:
-                command.set_value("cost", 1)
-            else:
-                command.set_value("cost", int(command_cost / 2))
-            for user in command.users():
-                print(command.unallow_user(user))
+        # for command_name in Command.db().all():
+        #     command_name = command_name["name"]
+        #     print(command_name)
+        #     command = Command(command_name)
+        #     command_cost = command.cost()
+        #     if command_cost < 2:
+        #         command.set_value("cost", 1)
+        #     else:
+        #         command.set_value("cost", int(command_cost / 2))
+        #     for user in command.users():
+        #         print(command.unallow_user(user))
         return "Society now must rebuild"
