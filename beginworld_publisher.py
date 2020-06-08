@@ -119,6 +119,7 @@ async def generate_user_page(user_dict):
 
     context = {
         "user": name,
+        "command_file": user_dict.get("command_file", None),
         "users_choice": users_choice,
         "commands": commands,
         "stats": stats,

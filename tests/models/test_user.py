@@ -184,17 +184,18 @@ class TestUser(DatabaseConfig):
         assert watto.cool_points() < 3
 
     def test_all_data(self):
-        watto = User("watto")
-        watto.save()
-        watto.update_cool_points(3)
-        Command("damn").allow_user("watto")
+        baldclap = User("baldclap")
+        baldclap.save()
+        baldclap.update_cool_points(3)
+        Command("damn").allow_user("baldclap")
         custom_css = "https://gist.githubusercontent.com/davidbegin/efdbf338ecfcdc14fa9ed792c6056ed3/raw/d7bcdf2f3c9ae4b3e280646601061b0b4de3a2c8/beginfun"
-        watto.set_value("custom_css", custom_css)
+        baldclap.set_value("custom_css", custom_css)
         all_data = User.all_data()
 
         assert all_data == [
             {
-                "name": "watto",
+                "name": "baldclap",
+                "command_file": "baldclap.opus",
                 "street_cred": 0,
                 "cool_points": 3,
                 "mana": 3,
