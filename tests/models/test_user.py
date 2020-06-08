@@ -230,3 +230,6 @@ class TestUser(DatabaseConfig):
 
         with pytest.raises(ValueError) as err:
             uzi.add_to_top_eight("one_too_many")
+
+        uzi.clear_top_eight()
+        assert uzi.top_eight() == []

@@ -36,6 +36,11 @@ class CommunityRouter(BaseRouter):
         user.remove_from_top_eight(parser.target_user)
         return f"@{parser.target_user} is no longer in @{self.user}'s Top 8"
 
+    def clear8(self):
+        user = User(self.user)
+        user.clear_top_eight()
+        return f"@{self.user} doesn't need friends, they disappoint them."
+
     def route(self):
 
         if self.command == "top8":
@@ -43,6 +48,9 @@ class CommunityRouter(BaseRouter):
 
         if self.command == "hate8":
             return self.hate8()
+
+        if self.command == "clear8":
+            return self.clear8()
 
         if self.command == "propose":
             print("CommunityRouter#propose")

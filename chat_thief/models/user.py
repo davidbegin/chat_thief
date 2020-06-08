@@ -295,6 +295,9 @@ class User(BaseDbModel):
             current_eight.remove(enemy)
             self.set_value("top_eight", current_eight)
 
+    def clear_top_eight(self):
+        self.set_value("top_eight", [])
+
     # ===========
     # Punishments
     # ===========
