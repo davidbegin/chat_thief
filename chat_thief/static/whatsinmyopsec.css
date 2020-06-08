@@ -549,7 +549,16 @@ a{
 	color: #d4d4d4;
 }
 
+ul:before{
+  content: "Sounds";
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
 ul {  
+
   list-style-type: none;
   margin: 2px;
   padding: 0;
@@ -567,6 +576,7 @@ ul {
 }
 
 li {
+
   font: impact;
   display: inline-block;
   font-size: .8em;
@@ -590,18 +600,19 @@ h2 {
 	  animation-iteration-count: infinite;
 	  animation-fill-mode: none;
 	  animation-play-state: running;
+
 }
 
 @keyframes stretch {
   0% {
     transform: scale(.1);
-
-    background-image: url(https://smonk.club/2020/06/08/CheapPointedStickleback.png);
+    background-color: dimgray;
     border-radius: 100%;
-
   }
   50% {
-    background-color: #770100;
+
+    background-color: darkgray;
+    opacity: 0.7;
   }
   100% {
     transform: scale(4);
@@ -646,6 +657,7 @@ h2 {
 
 @keyframes marquee {
   0% {
+    
     transform: translate(-100%, 0);
   }
   25%{
@@ -658,6 +670,7 @@ h2 {
     transform: translate(50%, 0);
   }
   100% {
+
     transform: translate(100%, 0);
   }
 }
@@ -674,16 +687,15 @@ h2 {
   text-transform: uppercase;
   font: 20px "roboto", helvetica, sans-serif;
   letter-spacing: 0.6em;
-  
   background: repeating-linear-gradient(
   45deg,
   rgba(0, 0, 0, 0.2),
   rgba(0, 0, 0, 0.2) 10px,
   rgba(0, 0, 0, 0.3) 10px,
   rgba(0, 0, 0, 0.3) 20px
-   ), 
-  url(https://smonk.club/2020/06/08/OnerlookedConfusedStarling.jpg); 
-  background-size: cover;
+   );
+  background-color: dimgray;
+  
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
   
 }
@@ -691,9 +703,9 @@ h2 {
  body:before {
   overflow: hidden;
   animation: marquee 1s cubic-bezier(1.000, 0.000, 0.000, 1.000) infinite;
-  content: "_______________________________________________________________________________________________________________________________";
-  color: green;
-  font-size: 3em;
+  content: "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\";
+  color: chartreuse;
+  font-size: 2em;
   letter-spacing: -2px;
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
   display: inline-block;
@@ -715,34 +727,29 @@ h2 {
 }
 
 table tbody tr td a {
+
   font-size: 14px;
   color:salmon;
   text-decoration: none;
   font-weight: bold;
   margin-right: 8px;
+  text-align: center;
 
 }
 
-table tbody tr td a:before {
-  content: '';
-  width: 14px;
-  height: 14px;
-  float: left;
-  background-size: contain;
-  margin-right: 4px;
-}
- 
+
  table {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+  background-image: url(https://smonk.club/2020/06/08/CheapPointedStickleback.png?background=000000ff&noise=ffffff&density=61&opacity=20);
   opacity: 0.9;
   -moz-animation: noise 0.3s infinite;
   -webkit-animation: noise 0.3s infinite;
   animation: noise 0.3s infinite;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
+
 }
 
 table:before {
@@ -753,3 +760,10 @@ table:before {
   text-align: center;
   font-weight: bold;
 }
+
+tbody:after {
+  content: ".......................................................................................";
+  font-size: 2em;
+  text-align: center;
+  letter-spacing: -9px;
+  }

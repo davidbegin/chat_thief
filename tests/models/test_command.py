@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from chat_thief.models.command import Command
+from chat_thief.models.user import User
 from chat_thief.models.sfx_vote import SFXVote
 
 from tests.support.database_setup import DatabaseConfig
@@ -111,3 +112,14 @@ class TestCommand(DatabaseConfig):
                 "like_to_hate_ratio": 100,
             },
         ]
+
+    def test_purge_theme_songs(self):
+        uzi = User("uzi")
+        illegal_cmd = Command("beginbot")
+        illegal_cmd.save()
+        illegal_cmd.allow_user("uzi")
+        Command("damn").save()
+        assert Command.count() == 2
+        Command.purge_theme_songs()
+        assert Command.count() == 1
+        assert uzi.commands() == []

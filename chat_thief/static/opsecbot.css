@@ -488,7 +488,14 @@ overflow-x: hidden;
   text-transform: uppercase;
   font: 20px "Michroma", helvetica, sans;
   letter-spacing: 0.6em;
-  background-image: url(https://colibriwp.com/blog/wp-content/uploads/2020/01/colors-that-go-with-green.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+  background: repeating-linear-gradient(
+  45deg,
+  rgba(0, 0, 0, 0.2),
+  rgba(0, 0, 0, 0.2) 10px,
+  rgba(0, 0, 0, 0.3) 10px,
+  rgba(0, 0, 0, 0.3) 20px
+   ),
+  url(https://colibriwp.com/blog/wp-content/uploads/2020/01/colors-that-go-with-green.png?background=000000ff&noise=ffffff&density=61&opacity=20);
   background-size: cover;
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
   -moz-animation: noise 0.3s infinite;

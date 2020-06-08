@@ -25,6 +25,23 @@ class Command(BaseDbModel):
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
     @classmethod
+    def purge_theme_songs(cls):
+        themes = SoundeffectsLibrary.fetch_theme_songs()
+
+        to_delete = []
+        for cmd in cls.db().all():
+            name = cmd["name"]
+            if name in themes:
+
+                print("ILLEGAL COMMAND")
+                command = Command(name)
+                illegal_users = command.users()
+                for user in illegal_users:
+                    command.unallow_user(user)
+                to_delete.append(cmd.doc_id)
+        cls.delete(to_delete)
+
+    @classmethod
     def all_data(cls):
         cmd_data = cls.db().all()
         votes = SFXVote.db().all()
@@ -40,8 +57,9 @@ class Command(BaseDbModel):
             )
 
             matching_effects = [
-                sfx for sfx in all_sfxs
-                if cmd_dict['name'] == sfx.name[:-len(sfx.suffix)]
+                sfx
+                for sfx in all_sfxs
+                if cmd_dict["name"] == sfx.name[: -len(sfx.suffix)]
             ]
             if matching_effects:
                 command_file = matching_effects[0]

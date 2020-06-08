@@ -2,6 +2,8 @@ from argparse import ArgumentParser
 from pathlib import Path
 from shutil import copyfile, rmtree, copytree
 import asyncio
+import time
+from datetime import datetime
 
 import jinja2
 from jinja2 import Template
@@ -72,7 +74,11 @@ async def generate_home():
     static_dir = Path(__file__).parent.joinpath("chat_thief/static")
     stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
     winner = User.richest_cool_points()["name"]
+
+    updated_at = datetime.now().isoformat()
+
     context = {
+        "updated_at": updated_at,
         "winner": winner,
         "users": users,
         "stylish_users": stylish_users,

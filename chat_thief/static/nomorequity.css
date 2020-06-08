@@ -1,7 +1,14 @@
 :root {
-	--delay: 0;
-	--duration: 800ms;
-	--iterations: 1;
+    --delay: 5;
+    --duration: 800ms;
+    --iterations: 3;
+}
+
+html {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url("https://media.giphy.com/media/BHNfhgU63qrks/giphy.gif");
 }
 
 
@@ -11,103 +18,102 @@
 }
 
 a {
-	text-decoration: none;
+    text-decoration: none;
         color: white;
 }
 
 h1,
 h1::after {
-	-webkit-animation-delay: var(--animation-delay, 2s);
-	        animation-delay: var(--animation-delay, 2s);
-	-webkit-animation-iteration-count: var(--iterations, 1);
-	        animation-iteration-count: var(--iterations, 1);
-	-webkit-animation-duration: var(--duration, 800ms);
-	        animation-duration: var(--duration, 800ms);
-	-webkit-animation-fill-mode: both;
-	        animation-fill-mode: both;
-	-webkit-animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
-	        animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    -webkit-animation-delay: var(--animation-delay, 2s);
+            animation-delay: var(--animation-delay, 2s);
+    -webkit-animation-iteration-count: var(--iterations, 1);
+            animation-iteration-count: var(--iterations, 1);
+    -webkit-animation-duration: var(--duration, 800ms);
+            animation-duration: var(--duration, 800ms);
+    -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+    -webkit-animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+            animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 
 h1 {
-	--animation-delay: var(--delay, 0);
-	--animation-duration: var(--duration, 800ms);
-	--animation-iterations: var(--iterations, 1);
-	position: relative;
-	-webkit-animation-name: clip-text;
-	        animation-name: clip-text;
-	color: #FFF;
-	cursor: default;
+    --animation-delay: var(--delay, 0);
+    --animation-duration: var(--duration, 800ms);
+    --animation-iterations: var(--iterations, 1);
+    position: relative;
+    -webkit-animation-name: clip-text;
+            animation-name: clip-text;
+    color: #FFF;
+    cursor: default;
     font-family: neon;
     color: #426DFB;
-    text-shadow: 0 0 3vw #2356FF;
 }
 
 h1::after {
-		content: "";
-		position: absolute;
-		z-index: 999;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: #426DFB;
-		-webkit-transform: scaleX(0);
-		        transform: scaleX(0);
-		-webkit-transform-origin: 0 50%;
-		        transform-origin: 0 50%;
-		pointer-events: none;
-		-webkit-animation-name: text-revealer;
-		        animation-name: text-revealer;
-	}
+        content: "";
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #426DFB;
+        -webkit-transform: scaleX(0);
+                transform: scaleX(0);
+        -webkit-transform-origin: 0 50%;
+                transform-origin: 0 50%;
+        pointer-events: none;
+        -webkit-animation-name: text-revealer;
+                animation-name: text-revealer;
+    }
 
 
 @-webkit-keyframes clip-text {
-	from {
-		-webkit-clip-path: inset(0 100% 0 0);
-		        clip-path: inset(0 100% 0 0);
-	}
-	to {
-		-webkit-clip-path: inset(0 0 0 0);
-		        clip-path: inset(0 0 0 0);
-	}
+    from {
+        -webkit-clip-path: inset(0 100% 0 0);
+                clip-path: inset(0 100% 0 0);
+    }
+    to {
+        -webkit-clip-path: inset(0 0 0 0);
+                clip-path: inset(0 0 0 0);
+    }
 }
 
 
 @keyframes clip-text {
-	from {
-		-webkit-clip-path: inset(0 100% 0 0);
-		        clip-path: inset(0 100% 0 0);
-	}
-	to {
-		-webkit-clip-path: inset(0 0 0 0);
-		        clip-path: inset(0 0 0 0);
-	}
+    from {
+        -webkit-clip-path: inset(0 100% 0 0);
+                clip-path: inset(0 100% 0 0);
+    }
+    to {
+        -webkit-clip-path: inset(0 0 0 0);
+                clip-path: inset(0 0 0 0);
+    }
 }
 
 
 @-webkit-keyframes text-revealer {
-	
-	0%, 50% {
-		-webkit-transform-origin: 0 50%;
-		        transform-origin: 0 50%;
-	}
-	
-	60%, 100% {
-		-webkit-transform-origin: 100% 50%;
-		        transform-origin: 100% 50%;		
-	}
 
-	
-	60% {
-		-webkit-transform: scaleX(1);
-		        transform: scaleX(1);
-	}
-	
-	100% {
-		-webkit-transform: scaleX(0);
-		        transform: scaleX(0);
-	}
+    0%, 50% {
+        -webkit-transform-origin: 0 50%;
+                transform-origin: 0 50%;
+    }
+
+    60%, 100% {
+        -webkit-transform-origin: 100% 50%;
+                transform-origin: 100% 50%;
+    }
+
+
+    60% {
+        -webkit-transform: scaleX(1);
+                transform: scaleX(1);
+    }
+
+    100% {
+        -webkit-transform: scaleX(0);
+                transform: scaleX(0);
+    }
 }
 
 h2 {
@@ -151,9 +157,13 @@ h2 {
 
 
 body {
-  background-color: black;
-  height: 100vh;
   text-align: center;
+  background: none;
+}
+
+h3 {
+  font-family: neon;
+  color: #426DFB;
 }
 
 ul {
@@ -163,5 +173,5 @@ ul {
 
 li {
    float: left;
-   margin-left: 20px;
+   margin-left: 5%;
 }

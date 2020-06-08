@@ -9,8 +9,10 @@ class BaseDbModel(abc.ABC):
     database_folder = ""
 
     @classmethod
-    def delete(cls, doc_id):
-        return cls.db().remove(doc_ids=[doc_id])
+    def delete(cls, doc_ids):
+        if not isinstance(doc_ids, list):
+            doc_ids = [doc_ids]
+        return cls.db().remove(doc_ids=doc_ids)
 
     @classmethod
     def count(cls):

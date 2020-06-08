@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  background-color: black;
+}
+
+@keyframes star {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) translateY(-0.75em);
+  }
+  20% {
+    opacity: 1;
+  }
+  89% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(-100em);
+    transform: scale(10);
+  }
+}
+
+body h1 a:after {
+  content: "WARS";
+}
+
+body h1 a {
+  position: absolute;
+  top: 0px;
+  transform: none;
+  animation: star 10s ease-out infinite;
+  color: yellow;
+  left: 0px;
+  font-size: 10rem;
+  transform-origin: none;
+}
+
+h2,
+h3 {
+  position: relative;
+  top: 10 rem;
+  text-align: center;
+
+  animation: scroll 100s linear 1s;
+}
+
+ul li a {
+  color: yellow;
+  text-decoration: none;
+}
+
+body:nth-child(5) {
+  font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+  transform: perspective(300px) rotateX(25deg);
+  transform-origin: 50% 100%;
+  text-align: justify;
+  position: absolute;
+  margin-left: -9em;
+  font-weight: bold;
+  overflow: hidden;
+  font-size: 350%;
+  height: 50em;
+  width: 18em;
+  left: 50%;
+  position: absolute;
+}
+
+body ul:after {
+  position: absolute;
+  content: " ";
+  bottom: 60%;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+ul {
+  animation: scroll 100s linear 0s;
+  position: absolute;
+  top: 100%;
+}
+
+@keyframes scroll {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -170%;
+  }
+}
