@@ -50,7 +50,7 @@ h2::after {
     content:"'What do I do with my hands'  California    United States";
 
 }
-ul:first-of-type::before {
+table::before {
     border:1px solid black;
     content:"but most of all, beginbot is my hero";
     color:#000;
@@ -78,6 +78,52 @@ li a {
 }
 li a:hover {
     color:#f4c996;
+}
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    display:inline;
+    vertical-align: baseline;
+    background: transparent;
+}
+table {
+    position:relative;
+    left:50%;
+    display:block;
+    padding:20px;
+    width:49%;
+    border-collapse: collapse;
+}
+tbody {
+    display:inline-block;
+}
+tr {
+    border-top:20px solid #f4c996;
+    margin-top:20px;
+    column-count: 4;
+    font-size: .5em;
+    column-gap: 11%;
+    display: block;
+
+}
+td {
+    text-align: center;
+    display: list-item;
+}
+td a {
+    color:black;
+}
+a:hover {
+    color:#02329a;
+}
+table tbody tr td a::after {
+    height:100px;
+    display:block;
+    background-image:url('https://myspace.com/common/images/user.png');
+    background-size:100% auto;
 }
 @media only screen and (max-width:640px){
     ul {
