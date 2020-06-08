@@ -4,6 +4,7 @@ from shutil import copyfile, rmtree, copytree
 import asyncio
 import time
 from datetime import datetime
+import filecmp
 
 import jinja2
 from jinja2 import Template
@@ -77,7 +78,16 @@ async def generate_home():
 
     updated_at = datetime.now().isoformat()
 
+    new_styles = Path(__file__).parent.joinpath("chat_thief/static/")
+    old_styles = Path(__file__).parent.joinpath(
+        "tmp/old_build/beginworld_finance/styles/"
+    )
+
+    recently_updated_users = [
+        f.split(".")[0] for f in filecmp.dircmp(new_styles, old_styles).diff_files
+    ]
     context = {
+        "recently_updated_users": recently_updated_users,
         "updated_at": updated_at,
         "winner": winner,
         "users": users,

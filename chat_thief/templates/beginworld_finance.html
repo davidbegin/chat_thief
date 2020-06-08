@@ -11,6 +11,18 @@
 <body>
   <h1>BeginWorld Finance</h1>
   <span>{{ updated_at }}</span>
+
+  {% if recently_updated_users %}
+    <h3>Recently Updated Pages</h3>
+    <ul>
+      {% for user in recently_updated_users %}
+          <li>
+            <a href="{{ base_url }}/{{ user }}.html"> {{ user }} </a>
+          </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
   <h2>Users</h2>
 
   <ul>
