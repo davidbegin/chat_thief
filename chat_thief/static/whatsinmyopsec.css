@@ -558,7 +558,7 @@ ul:before{
 }
 
 ul {  
-
+  justify-content: center;
   list-style-type: none;
   margin: 2px;
   padding: 0;
@@ -570,8 +570,7 @@ ul {
   -moz-animation: noise 0.3s infinite;
   -webkit-animation: noise 0.3s infinite;
   animation: noise 0.3s infinite;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
+  
   
 }
 
@@ -687,7 +686,7 @@ h2 {
   text-transform: uppercase;
   font: 20px "roboto", helvetica, sans-serif;
   letter-spacing: 0.6em;
-  background: repeating-linear-gradient(
+  background-image: repeating-linear-gradient(
   45deg,
   rgba(0, 0, 0, 0.2),
   rgba(0, 0, 0, 0.2) 10px,
@@ -695,6 +694,7 @@ h2 {
   rgba(0, 0, 0, 0.3) 20px
    );
   background-color: dimgray;
+  background-size: : cover;
   
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
   
@@ -721,9 +721,7 @@ h2 {
   right: 0;
   background-image: url(https://smonk.club/2020/06/07/FilthyBurlywoodUrial.png?background=000000ff&noise=ffffff&density=61&opacity=20)
   background-size: cover;
-  -moz-animation: bar 0.5s infinite;
-  -webkit-animation: bar 0.5s infinite;
-  animation: bar 0.5s infinite;
+  
 }
 
 table tbody tr td a {
@@ -767,3 +765,27 @@ tbody:after {
   text-align: center;
   letter-spacing: -9px;
   }
+
+figure{
+  content: "\A\AMy song"
+}
+figcaption{
+  content: "";
+
+}
+figure{
+  color:pink;
+ 
+  background-image: url(https://smonk.club/2020/06/08/CheapPointedStickleback.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+  opacity: 0.9;
+  -moz-animation: noise 0.3s infinite;
+  -webkit-animation: noise 0.3s infinite;
+  animation: noise 0.3s infinite;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  margin: 2px; 
+  text-align: center;
+  
+}
+
+

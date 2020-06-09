@@ -426,12 +426,12 @@ h2 {
 @keyframes stretch {
   0% {
     transform: scale(.5);
-    background-image: url(https://colibriwp.com/blog/wp-content/uploads/2020/01/colors-that-go-with-green.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+    background-color: 	mistyrose;
 
     border-radius: 100%;
   }
   50% {
-    background-color: #00ff00;
+    background-color: 	mistyrose;
   }
   100% {
     transform: scale(4);
@@ -494,13 +494,11 @@ overflow-x: hidden;
   rgba(0, 0, 0, 0.2) 10px,
   rgba(0, 0, 0, 0.3) 10px,
   rgba(0, 0, 0, 0.3) 20px
-   ),
-  url(https://colibriwp.com/blog/wp-content/uploads/2020/01/colors-that-go-with-green.png?background=000000ff&noise=ffffff&density=61&opacity=20);
+   );
+  background-color: 	mistyrose;
   background-size: cover;
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
-  -moz-animation: noise 0.3s infinite;
-  -webkit-animation: noise 0.3s infinite;
-  animation: noise 0.3s infinite;
+  
 }
 
  body:before {
@@ -536,10 +534,15 @@ table tbody tr td a {
 }
 
 table:before {
-  content: "LOVERS";
+  content: "SIMPS";
   font-size: 28px;
   display: block;
   width: 100%;
   text-align: center;
   font-weight: bold;
+}
+
+span:before{
+
+content: "Look at this nasty time date format:  ";
 }

@@ -1,48 +1,54 @@
 /*For animation*/
+
 h1 {
-  margin: 0 auto;
-  width: 100vw;
-  height: inherit;
-  position: absolute;
-  overflow: hidden;
+    margin: 0 auto;
+    width: 100%;
+    height: inherit;
+    position: absolute;
+    overflow: hidden;
 }
 
 h1 a {
-  display: block;
-  box-shadow: inset -5px -5px 5px rgba(0,0,0,.6), 15px 15px 2px rgba(0,0,0,.04);
-  position: absolute;
-  -webkit-animation: moveX 6.00s linear 0s infinite alternate, moveY 7.711s linear 0s infinite alternate;
-  -moz-animation: moveX 6.00s linear 0s infinite alternate, moveY 7.711s linear 0s infinite alternate;
-  -o-animation: moveX 6.00s linear 0s infinite alternate, moveY 7.711s linear 0s infinite alternate;
-  animation: moveX 6.00s linear 0s infinite alternate, moveY 7.711s linear 0s infinite alternate;
+    display: block;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 4px 0 rgba(255, 255, 255, .4), inset 0 0 6px 0 rgba(0, 0, 0, .4), inset 0 0 6px 10px rgba(0, 0, 0, .05), 2px 2px 4px 0 rgba(0, 0, 0, .25);
+    position: absolute;
+    left: 0;
+    top: 50vh;
+    -webkit-animation: moveX 6.00s linear 0.5s infinite alternate, moveY 7.711s linear 0.5s infinite alternate;
+    -moz-animation: moveX 6.00s linear 0.5s infinite alternate, moveY 7.711s linear 0.5s infinite alternate;
+    -o-animation: moveX 6.00s linear 0.5s infinite alternate, moveY 7.711s linear 0.5s infinite alternate;
+    animation: moveX 6.00s linear 0.5s infinite alternate, moveY 7.711s linear 0.5s infinite alternate;
 }
 
 @-webkit-keyframes moveX {
-  from { left: 0; } to { left: 60vw; }
+    from { left: 0; } to { left: 80vw; }
 }
 @-moz-keyframes moveX {
-  from { left: 0; } to { left: 60vw; }
+    from { left: 0; } to { left: 80vw; }
 }
 @-o-keyframes moveX {
-  from { left: 0; } to { left: 60vw; }
+    from { left: 0; } to { left: 80vw; }
 }
 @keyframes moveX {
-  from { left: 0; } to { left: 60vw; }
+    from { left: 0; } to { left: 80vw; }
 }
 @-webkit-keyframes moveY {
-  from { top: 50vh; } to { top: 90vh; }
+    from { top: 50vh; } to { top: 80vh; }
 }
 @-moz-keyframes moveY {
-  from { top: 50vh; } to { top: 90vh; }
+    from { top: 50vh; } to { top: 80vh; }
 }
 @-o-keyframes moveY {
-  from { top: 50vh; } to { top: 90vh; }
+    from { top: 50vh; } to { top: 80vh; }
 }
 @keyframes moveY {
-  from { top: 50vh; } to { top: 90vh; }
+    from { top: 50vh; } to { top: 80vh; }
 }
 
+
 /*Static CSS*/
+
 body {
     z-index: -1;
     color: white;
@@ -51,8 +57,10 @@ body {
     background-repeat: repeat-x;
     background-size: cover;
     background-color: #bd828f;
-    background-position: bottom;
-    height: 100vh;
+    background-position: top;
+    height: 95vh;
+    width: auto;
+    margin: 0px;
 }
 
 p {
@@ -62,25 +70,28 @@ p {
 }
 
 h1 {
- z-index: 1;
-/*    text-align: center;*/
+    z-index: 1;
     position: absolute;
     bottom: 0px;
-/*    left: 50%;*/
-/*    margin-left: -328px;*/
 }
 
 h1 a {
+    width: 20vw;
+    /* height: 2vw; */
+    overflow: visible;
     z-index: 1;
     color: #406282;
-    text-shadow: -3px -3px 0 #FFF, 1px -3px 0 #FFF, -3px 3px 0 #FFF, 3px 3px 0 #FFF;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
     font-family: "Arial";
+    font-size: 3.5vw;
+    text-align: center;
     background-color: #9c889f;
-    padding: 1rem;
-    border-radius: 0.5rem;
+    padding: 0.2rem;
+    border-radius: 0.4rem;
     border-color: #8c5562;
     border-style: solid;
     text-decoration: none;
+
 }
 
 h1 a:hover {
@@ -96,12 +107,14 @@ h2 {
     font-weight: 800;
     margin-bottom: 0.5rem;
     position: relative;
+    font-size: 3.2vw;
+    margin-top: 0.2rem;
 }
 
 h3 {
     z-index: 2;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1.5vw;
     color: white;
     font-family: "Roboto";
     position: relative;
@@ -112,34 +125,73 @@ table a {
     text-decoration: none;
     color: white;
     font-family: "Roboto";
+    padding: 0px 1rem;
+    font-size: 1vw;
 }
 
 table a:hover {
     font-weight: bold;
 }
 
+table tr td:before {
+    content: "The Crew:";
+    text-align: center;
+    font-size: 1vw;
+    font-weight: bold;
+    padding-right: 1rem;
+}
 
 table {
+    border: solid 1px;
+    width: content;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     position: relative;
     z-index: 2;
-    width: 100vw;
+    width: 100%;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1vw;
     color: white;
     font-family: "Roboto";
 }
 
+table tr td:not(:first-child)::before {
+    content: "|";
+    font-weight: bold;
+    font-size: 1vw;
+}
+
+table tr td:not(:first-child)::after {
+    content: "\00a0 ";
+    font-weight: bold;
+    font-size: 1vw;
+}
+
+ul::before {
+    content: "Sounds";
+    display: block;
+    text-decoration: underline;
+    width: 100%;
+    text-align: center;
+    font-family: "Roboto";
+    font-weight: bold;
+}
+
 ul {
-  position: relative;
+    position: relative;
     z-index: 2;
-    column-count: 3;
     text-decoration: none;
     margin: 50px 0 0 0;
     padding: 0;
     text-align: center;
-    width: 100vw;
+    width: 100%;
     column-rule-style: solid;
     list-style: none;
+}
+
+ul li {
+    display: inline-block;
 }
 
 ul a {
@@ -147,8 +199,38 @@ ul a {
     text-decoration: none;
     color: white;
     font-family: "Roboto";
+    font-size: 1vw;
 }
 
 ul a:hover {
     font-weight: bold;
+}
+
+figure {
+    z-index: 2;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 1rem 0;
+    background: url(https://i.imgur.com/qx5zjtp.png);
+    background-size: auto 100%;
+    width: 45px;
+    height: 40px;
+    background-repeat: no-repeat;
+}
+
+figure figcaption {
+    display: none;
+}
+
+figure audio {
+    z-index: 2;
+    display: inline;
+    opacity: 0;
+}
+
+audio {
+    width: 4rem;
+    height: 4rem;
+    vertical-align: center;
 }

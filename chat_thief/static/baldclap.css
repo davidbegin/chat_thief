@@ -113,7 +113,7 @@ tr {
 }
 td {
     text-align: center;
-    display: list-item;
+    width: 100%;
 }
 td a {
     color:black;
@@ -125,17 +125,116 @@ a:hover {
 table tbody tr td a::after {
     display:block;
     background-image:url('https://myspace.com/common/images/user.png');
-    background-size:100px auto;
+    background-size:100% auto;
     background-position:top left;
     background-repeat:no-repeat;
-    height:400px;
+    height:120px;
     padding:0 10px 0px 100%;
     content:" ";
 }
+figure{
+    background:url('https://www.dummies.com/wp-content/uploads/138543.image0.jpg');
+     background-size:100% auto;
+     width:45%;
+     color:transparent;
+     position:relative;
+     top:-200px;
+     right:10px;
+     height:8vw;
+     max-height:85px;
+ }
+ audio::-webkit-media-controls-enclosure{
+    background:transparent;
+    border-radius:0px
+}
+ figcaption{
+     display:none;
+ }
+ audio {
+     opacity:.0;
+     width:100%;
+ height:70px
+ }
+ /* audio::-webkit-media-controls-panel {
+     background:linear-gradient(13deg, rgba(217,217,217,1) 0%, rgba(161,161,161,1) 45%, rgba(233,233,233,1) 98%);
+ 
+ } */
+ 
+
+ 
+ audio::-webkit-media-controls-play-button{
+    background:transparent;
+     position:absolute;
+     left:19%;
+     top:10%;
+     width:17%;
+     height:40px;
+     display:block;
+ }
+ 
+ audio::-webkit-media-controls-timeline-container{
+    
+ }
+ 
+ audio::-webkit-media-controls-current-time-display{
+     color:#0e0e0e;
+     position:absolute;
+     left:45%;
+     width:7%;
+     top:55px;
+     display:block;
+ }
+ 
+ audio::-webkit-media-controls-time-remaining-display{
+     display:none;
+ }
+ 
+ audio::-webkit-media-controls-timeline{
+      color:#0e0e0e;
+     position:absolute;
+     left:55%;
+     width:40%;
+     top:40px;
+     display:block;
+ }
+ 
+ audio::-webkit-media-controls-volume-slider:nth-child(){
+     color:#0e0e0e;
+     position:absolute;
+     left:15%;
+     width:40%;
+     top:40%;
+     display:block;
+ }
+ audio::-webkit-media-controls-mute-button {
+    color:#0e0e0e;
+    background:transparent;
+    position:absolute;
+    left:17%;
+    width:500%;
+    top:25%;
+    display:block;
+    z-index:999999;
+}
+ audio::-webkit-media-controls-volume-slider{
+      color:#0e0e0e;
+  
+     position:absolute;
+     left:27%;
+     width:160%;
+     top:25%;
+     display:block;
+     z-index:9999999;
+ }
+ @media only screen and (max-width:925px){
+    td a {
+        font-size:1.5vw;
+    }
+ }
 @media only screen and (max-width:640px){
     ul {
         left:0;
-        top:250px;
+        top:300px;
         width:90%;
         padding:5%;
     }
@@ -146,7 +245,17 @@ table tbody tr td a::after {
     body{
         padding-bottom: 250px;
     }
-    
+    table {
+        left:0;
+        top:350px;
+        width:90%;
+        padding:5%;
+    }
+    figure {
+        top:-350px;
+        width:90%;
+
+    }
 }
 @media only screen and (max-width:375px){
     h2 {

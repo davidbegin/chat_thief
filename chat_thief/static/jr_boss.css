@@ -1,38 +1,63 @@
-@import url("https://fonts.googleapis.com/css2?family=Shojumaru&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap");
 body {
-  background-image: url("https://cdn.statically.io/img/wallpapercave.com/wp/wp2625452.png");
-  background-size: 1920px;
-  background-position: 0px -110px;
-  color: black;
+  background-image: url("https://i.pinimg.com/originals/22/3c/17/223c1747e7bc9c1e5956d988e5329841.png");
+  color: white;
+  animation-name: background;
+  animation-duration: 0.15s;
+  animation-delay: 3s;
+  animation-iteration-count: 4;
 }
 
 * {
   text-align: center;
+  font-family: "Metal Mania", cursive;
 }
 
-h1,
-h2,
+h1 {
+  padding-top: 25rem;
+  font-size: 70px;
+}
+
+h2 {
+  font-size: 60px;
+}
+
 h3 {
-  font-family: "Shojumaru", cursive;
+  font-size: 30px;
+}
+
+a {
+  color: white;
 }
 
 ul {
-  display: flex;
-  padding-left: 3rem;
-  padding-top: 3rem;
+  list-style: none;
+  font-size: 30px;
 }
 
-li {
-  display: block;
-  margin: 0;
-  padding: 1rem 0.9rem 36px 20px;
-  list-style: none;
-  background-image: url("https://i.ya-webdesign.com/images/transparent-folders-logo-3.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 60px;
-  padding-left: 0.1rem;
-  padding-top: 8rem;
-  font-size: 1rem;
-  margin-left: 5.9rem;
+*:hover {
+  cursor: not-allowed;
+}
+
+@keyframes background {
+  from {
+    background-image: url("https://i.pinimg.com/originals/22/3c/17/223c1747e7bc9c1e5956d988e5329841.png");
+    background-size: 1920px 1080px;
+  }
+  to {
+    background-image: url("https://static-23.sinclairstoryline.com/resources/media/d60d4f1c-9fcc-4ae4-8058-05e885080e19-large16x9_momo2.PNG?1551379953599");
+    background-size: 1920px 1080px;
+  }
+}
+
+h1:hover {
+  animation-name: flash;
+  animation-duration: 1s;
+  animation-delay: 0s;
+}
+
+audio {
+  border-radius: 3px;
+  border: #6c0202;
+  border-style: solid;
 }
