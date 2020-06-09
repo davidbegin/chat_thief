@@ -22,11 +22,11 @@ class CubeCasino:
 
         winning_duration, winners = self._winners(all_bets)
 
-        # CubeStats(
-        #     winning_duration=winning_duration,
-        #     winners=winners,
-        #     bets=all_bets
-        # ).save()
+        CubeStats(
+            winning_duration=winning_duration,
+            winners=winners,
+            all_bets=all_bets
+        ).save()
 
         return self._winner_winner_chicken_dinnner(winners, winning_duration)
 

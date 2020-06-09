@@ -151,9 +151,9 @@ figure{
      display:none;
  }
  audio {
-     opacity:.0;
+     opacity:.1;
      width:100%;
- height:70px
+    height:70px
  }
  /* audio::-webkit-media-controls-panel {
      background:linear-gradient(13deg, rgba(217,217,217,1) 0%, rgba(161,161,161,1) 45%, rgba(233,233,233,1) 98%);
@@ -171,9 +171,9 @@ figure{
      height:40px;
      display:block;
  }
- 
- audio::-webkit-media-controls-timeline-container{
-    
+ audio::-webkit-media-controls-play-button:hover{
+    background:#0e0e0e;
+
  }
  
  audio::-webkit-media-controls-current-time-display{
@@ -207,6 +207,7 @@ figure{
      display:block;
  }
  audio::-webkit-media-controls-mute-button {
+    background:transparent;
     color:#0e0e0e;
     background:transparent;
     position:absolute;

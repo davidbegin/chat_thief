@@ -1,3 +1,30 @@
+figure{
+     position: relative;
+    left: 8em;
+    bottom: 196.5em;
+    background-color: grey;
+    width: 64%;
+    height: 500px;
+}
+
+figcaption{
+  color:white;
+  position:relative;
+  top:19em;
+  left:1em;
+  font-size:27px;
+}
+
+figcaption:after{
+  content:"\00a0\00a0 Building a Twitch Clone \00a0\00a0\00a0\00a0\00a0\00a0 ";
+}
+
+audio{
+  position:relative;
+  top:12.5em;
+  width:100%;
+}
+
 table {
   padding-left:10em;
   float:right;

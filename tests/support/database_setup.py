@@ -13,11 +13,13 @@ from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
+from chat_thief.models.cube_stats import CubeStats
 
 MODEL_CLASSES = [
     BreakingNews,
     Command,
     CubeBet,
+    CubeStats,
     Issue,
     Notification,
     PlaySoundeffectRequest,

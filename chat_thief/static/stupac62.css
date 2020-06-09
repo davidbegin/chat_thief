@@ -1,0 +1,61 @@
+html {
+    
+  background-image: url("https://raw.githubusercontent.com/qtile/qtile/master/logo.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: .9;
+}  
+body {
+  background-color: black;
+  background-image: radial-gradient(
+    rgba(63, 8, 105, 0.75), black 120%
+  );
+  opacity: .9;
+  color: white;
+  font-size: 1.4em;
+  font-family: 'Fira Code', monospace;
+  text-shadow: 0 0 1px #C8C8C8;
+}
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(black, 0.15),
+    rgba(black, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+::selection {
+  background: #0080FF;
+  text-shadow: none;
+}
+pre {
+  margin: 0;
+}
+a {
+  color: rgba(105, 8, 87, 0.8);
+}
+h1 {
+  font-size: 2em;
+}
+h1::before {
+  content: "[Qtile] -- ";
+  
+}
+h1::after {
+  content: " -- [is the greatest WM. qtile.org]"; 
+}
+li::before {
+  color: white;
+  content: "Qtile: ";
+}
+li {
+  list-style: none;
+}
