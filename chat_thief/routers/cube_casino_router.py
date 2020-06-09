@@ -2,6 +2,7 @@ import datetime
 
 from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.cube_bet import CubeBet
+from chat_thief.models.cube_stats import CubeStats
 from chat_thief.commands.cube_casino import CubeCasino
 from chat_thief.chat_parsers.command_parser import CommandParser
 

@@ -1,6 +1,7 @@
 import pytest
 
 from chat_thief.models.cube_bet import CubeBet
+from chat_thief.models.cube_stats import CubeStats
 from chat_thief.routers.cube_casino_router import CubeCasinoRouter
 from chat_thief.welcome_committee import WelcomeCommittee
 from tests.support.database_setup import DatabaseConfig
@@ -43,9 +44,11 @@ class TestCubeCasinoRouter(DatabaseConfig):
         CubeCasinoRouter("future", "bet", ["108"]).route()
         CubeCasinoRouter("uzi", "bet", ["32"]).route()
         assert CubeBet.count() == 2
+        assert CubeStats.count() == 0
         result = CubeCasinoRouter("beginbotbot", "cubed", ["00:00:41"]).route()
         assert CubeBet.count() == 0
         assert result == ["Winner: @uzi Won 1 commands"]
+        assert CubeStats.count() == 1
 
     def test_new_cube(self):
         CubeCasinoRouter("future", "bet", ["108"]).route()
