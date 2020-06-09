@@ -18,29 +18,25 @@ class CubeCasino:
             raise Exception("YOU CAN'T BET WHILE THE BEGIN IS SOLVING")
 
     def gamble(self):
-        all_bets = CubeBet.all_bets()
-
-        winning_duration, winners = self._winners(all_bets)
+        winning_duration, winners, all_bets = self._winners()
 
         CubeStats(
-            winning_duration=winning_duration,
-            winners=winners,
-            all_bets=all_bets
+            winning_duration=winning_duration, winners=winners, all_bets=all_bets
         ).save()
 
         return self._winner_winner_chicken_dinnner(winners, winning_duration)
 
-    def _winners(self, all_bets):
+    def _winners(self):
+        all_bets = CubeBet.all_bets()
+
         if all_bets == []:
             return (None, [])
 
         exact_winners = [bet[0] for bet in all_bets if bet[1] == self._solve_time]
 
+        winning_duration = 1000
         if exact_winners:
-            return (self._solve_time, exact_winners)
-            winning_duration = 1000
-        else:
-            winning_duration = self._solve_time
+            return (self._solve_time, exact_winners, all_bets)
 
         for user, guess in all_bets:
             bet_diff = guess - self._solve_time
@@ -53,6 +49,7 @@ class CubeCasino:
         return (
             winning_duration,
             [bet[0] for bet in all_bets if bet[1] == winning_duration],
+            all_bets,
         )
 
     def _winner_winner_chicken_dinnner(self, winners, winning_duration):

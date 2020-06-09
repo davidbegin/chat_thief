@@ -1,10 +1,10 @@
-html {
-    
+html {  
   background-image: url("https://raw.githubusercontent.com/qtile/qtile/master/logo.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   opacity: .9;
+  background-color: black;
 }  
 body {
   background-color: black;
@@ -58,4 +58,10 @@ li::before {
 }
 li {
   list-style: none;
+}
+h3::after {
+  content: ".8675309e7 | => STREAMGOD"
+}
+ul::after {
+  content: "Qtile: stupac62 made all the sounds."
 }

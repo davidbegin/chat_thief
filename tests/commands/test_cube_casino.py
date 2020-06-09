@@ -14,25 +14,36 @@ class TestCubeCasino(DatabaseConfig):
         CubeBet("erik.statie", 420).save()
 
         CubeBet("gucci.mane", 107).save()
-        assert subject._winners() == (107, ["gucci.mane"])
+        winning_duration, winners, all_bets = subject._winners()
+        assert winning_duration == 107
+        assert winners == ["gucci.mane"]
 
         CubeBet("playboi.carti", 109).save()
-        assert subject._winners() == (107, ["gucci.mane"])
+        winning_duration, winners, all_bets = subject._winners()
+        assert winning_duration == 107
+        assert winners == ["gucci.mane"]
 
     def test_exact_winner(self):
         solve_time = 108
         subject = CubeCasino(solve_time)
+        result = subject._winners()
         assert subject._winners() == (None, [])
 
         CubeBet("erik.statie", 420).save()
         CubeBet("playboi.carti", 108).save()
-        assert subject._winners() == (108, ["playboi.carti"])
+        winning_duration, winners, all_bets = subject._winners()
+        assert winning_duration == 108
+        assert winners == ["playboi.carti"]
 
     def test_over_winner(self):
         solve_time = 108
         subject = CubeCasino(solve_time)
+        result = subject._winners()
         assert subject._winners() == (None, [])
 
         CubeBet("erik.statie", 420).save()
         CubeBet("playboi.carti", 109).save()
-        assert subject._winners() == (109, ["playboi.carti"])
+        result = subject._winners()
+        winning_duration, winners, all_bets = subject._winners()
+        assert winning_duration == 109
+        assert winners == ["playboi.carti"]

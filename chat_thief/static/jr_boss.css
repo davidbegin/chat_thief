@@ -6,6 +6,7 @@ body {
   animation-duration: 0.15s;
   animation-delay: 3s;
   animation-iteration-count: 4;
+  background-repeat: repeat-x;
 }
 
 * {
@@ -60,4 +61,9 @@ audio {
   border-radius: 3px;
   border: #6c0202;
   border-style: solid;
+}
+
+table {
+  list-style: none;
+  display: flex;
 }

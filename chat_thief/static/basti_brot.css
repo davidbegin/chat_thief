@@ -1,0 +1,18 @@
+h2 {
+  animation: textwelle 2s;
+}
+
+@keyframes textwelle {
+  0 {
+    font-size: 0;
+    opacity: 0;
+  }
+  90% {
+    font-size: 220%;
+    opacity: 1;
+  }
+  100% {
+    font-size: 200%;
+    opacity: 1;	
+  }
+}
