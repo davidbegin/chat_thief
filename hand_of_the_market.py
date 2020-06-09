@@ -30,7 +30,8 @@ def sync_main():
                     user = User(peasant)
                     user_karma = user.karma()
                     print(f"@{peasant} Karma: {user.karma()}")
-                    user.update_street_cred(1 + user_karma)
+                    user.update_street_cred(1)
+                    # user.update_street_cred(1 + user_karma)
                     user.revive(3 + user_karma)
 
             send_twitch_msg("CoolCat")

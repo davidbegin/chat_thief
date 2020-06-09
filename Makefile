@@ -48,6 +48,9 @@ invalidate_cdn:
 deploy_all:
 	aws s3 sync ./build/beginworld_finance s3://beginworld.exchange-f27cf15
 
+sync_json:
+	aws s3 sync ./db/ s3://beginworld.exchange-f27cf15/db
+
 sync_sounds:
 	aws s3 sync --exclude "*" \
 		--include "*.mp3"       \
