@@ -38,7 +38,7 @@ sync:
 beginworld_html:
 	python beginworld_publisher.py | lolcat
 
-deploy: beginworld_html sync invalidate_cdn
+deploy: beginworld_html sync sync_json invalidate_cdn
 
 invalidate_cdn:
 	aws cloudfront create-invalidation \

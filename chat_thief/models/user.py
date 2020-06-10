@@ -121,7 +121,7 @@ class User(BaseDbModel):
         return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()}"
 
     def commands(self):
-        return Command.for_user(self.name)
+        return [permission["name"] for permission in Command.for_user(self.name)]
 
     # Seems like it should be factored away
     def street_cred(self):
@@ -298,9 +298,15 @@ class User(BaseDbModel):
     def clear_top_eight(self):
         self.set_value("top_eight", [])
 
-    # ===========
-    # Punishments
-    # ===========
+    # Cool Points
+    # Street Creds
+    # Total Number of Soundeffects + Cost of Each
+    def top_wealth(self):
+        user_data = self.user()
+        user_commands = Command.for_user(self.name)
+        total_command_wealth = sum([command["cost"] for command in user_commands])
+
+        return user_data["cool_points"] + total_command_wealth
 
     def remove_all_commands(self):
         for command in self.commands():

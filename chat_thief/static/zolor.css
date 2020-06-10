@@ -31,6 +31,8 @@ ul {
     background: #ff9da3;
     padding: 20px;
     text-align: center;
+    width: fit-content;
+    margin: auto;
 }
 
 ul li {
@@ -49,4 +51,19 @@ a:hover {
     color: hotpink;
     text-shadow: 2px 2px #fcc84d;
     text-decoration: none;
+}
+
+figure {
+    display: block;
+    background: #ffe2e4;
+    color: #ff9da3;
+    text-shadow: 2px 2px white;
+    text-align: center;
+    width: fit-content;
+    border: 10px;
+    border-style: solid;
+    border-color: #ff9da3;
+    position: absolute;
+    top: 8px;
+    left: 16px;
 }

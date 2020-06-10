@@ -113,7 +113,7 @@ class Command(BaseDbModel):
             return current_user in permitted_users
 
         return [
-            permission["name"]
+            permission
             for permission in cls.db().search(
                 Query().permitted_users.test(in_permitted_users, user)
             )

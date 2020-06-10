@@ -233,3 +233,14 @@ class TestUser(DatabaseConfig):
 
         uzi.clear_top_eight()
         assert uzi.top_eight() == []
+
+    def test_total_wealth(self, user):
+        subject = user("bill.evans")
+        assert subject.top_wealth() == 0
+        subject.update_cool_points(1)
+        assert subject.top_wealth() == 1
+        command = Command("damn")
+        command.allow_user("bill.evans")
+        assert subject.top_wealth() == 2
+        command.set_value("cost", 10)
+        assert subject.top_wealth() == 11

@@ -133,14 +133,14 @@ table tbody tr td a::after {
     content:" ";
 }
 figure{
-    background:url('https://www.dummies.com/wp-content/uploads/138543.image0.jpg');
-     background-size:100% auto;
-     width:45%;
+    background:url('https://imgur.com/gtxRSyM.png');
+     background-size:100%;
+     width:400px;
      color:transparent;
-     position:relative;
-     top:-200px;
-     right:10px;
-     height:8vw;
+     position:absolute;
+     top:500px;
+     left:-25px;
+     height:75px;
      max-height:85px;
  }
  audio::-webkit-media-controls-enclosure{
@@ -148,40 +148,44 @@ figure{
     border-radius:0px
 }
  figcaption{
-     display:none;
+    display:none;
+
  }
+
  audio {
-     opacity:.1;
+     opacity:1;
      width:100%;
-    height:70px
+    height:100%;
  }
  /* audio::-webkit-media-controls-panel {
      background:linear-gradient(13deg, rgba(217,217,217,1) 0%, rgba(161,161,161,1) 45%, rgba(233,233,233,1) 98%);
  
  } */
  
-
+ audio::-webkit-media-controls-play-button:hover{
+    background-image:url('https://imgur.com/sUTj19O.png');
+    background-size:100%;
+ }
  
  audio::-webkit-media-controls-play-button{
-    background:transparent;
-     position:absolute;
-     left:19%;
-     top:10%;
-     width:17%;
-     height:40px;
-     display:block;
+     background-color:transparent;
+    background-image:url('https://imgur.com/t2pbcK0.png');
+    background-size:100%;
+    position:absolute;
+    left:83px;
+     top:14px;
+     width:55px;
+     height:25px;
+    display:block;
  }
- audio::-webkit-media-controls-play-button:hover{
-    background:#0e0e0e;
 
- }
  
  audio::-webkit-media-controls-current-time-display{
      color:#0e0e0e;
      position:absolute;
-     left:45%;
+     left:175px;
      width:7%;
-     top:55px;
+     top:53px;
      display:block;
  }
  
@@ -192,20 +196,12 @@ figure{
  audio::-webkit-media-controls-timeline{
       color:#0e0e0e;
      position:absolute;
-     left:55%;
-     width:40%;
-     top:40px;
+     left:197px;
+     width:180px;
+     top:33px;
      display:block;
  }
- 
- audio::-webkit-media-controls-volume-slider:nth-child(){
-     color:#0e0e0e;
-     position:absolute;
-     left:15%;
-     width:40%;
-     top:40%;
-     display:block;
- }
+
  audio::-webkit-media-controls-mute-button {
     background:transparent;
     color:#0e0e0e;
@@ -221,9 +217,9 @@ figure{
       color:#0e0e0e;
   
      position:absolute;
-     left:27%;
-     width:160%;
-     top:25%;
+     left:24px;
+     width:140px;
+     top:2px;
      display:block;
      z-index:9999999;
  }
@@ -232,7 +228,7 @@ figure{
         font-size:1.5vw;
     }
  }
-@media only screen and (max-width:640px){
+@media only screen and (max-width:800px){
     ul {
         left:0;
         top:300px;
@@ -244,7 +240,7 @@ figure{
         padding:0 5%;
     }
     body{
-        padding-bottom: 250px;
+        padding-bottom: 300px;
     }
     table {
         left:0;
@@ -253,9 +249,13 @@ figure{
         padding:5%;
     }
     figure {
-        top:-350px;
-        width:90%;
-
+        position: absolute;
+        left:-15px;
+        top:450px;
+        background-size:100% auto;
+        height:16vw;
+        max-width:400px;
+        max-height:76;
     }
 }
 @media only screen and (max-width:375px){
