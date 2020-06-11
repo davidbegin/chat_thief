@@ -244,3 +244,12 @@ class TestUser(DatabaseConfig):
         assert subject.top_wealth() == 2
         command.set_value("cost", 10)
         assert subject.top_wealth() == 11
+
+    def test_wealthiest(self, user):
+        subject = user("bill.evans")
+        subject = user("sammy.davis")
+        subject.update_cool_points(1)
+        command = Command("damn")
+        command.allow_user("bill.evans")
+        command.set_value("cost", 10)
+        assert User.wealthiest() == 'bill.evans'

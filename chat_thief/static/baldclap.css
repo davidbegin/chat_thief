@@ -71,7 +71,8 @@ li:first-of-type {
 }
 li {
     color: #5f5f5f;
-    font-size: .8em;
+    font-size: 16px;
+    padding:10px 0;
 }
 li a {
     color:black;
@@ -139,9 +140,9 @@ figure{
      color:transparent;
      position:absolute;
      top:500px;
-     left:-25px;
      height:75px;
      max-height:85px;
+     margin:2%;
  }
  audio::-webkit-media-controls-enclosure{
     background:transparent;
@@ -250,17 +251,57 @@ figure{
     }
     figure {
         position: absolute;
-        left:-15px;
-        top:450px;
+        margin-left:5%;
+        top:470px;
         background-size:100% auto;
         height:16vw;
         max-width:400px;
-        max-height:76;
+        max-height:76px;
+        width:90%;
     }
+    
 }
-@media only screen and (max-width:375px){
+@media only screen and (max-width:469px) {
+    audio::-webkit-media-controls-play-button{
+      
+        left:18vw;
+         top:1vw;
+         width:11vw;
+         height:10vw;
+       
+     }
+    audio::-webkit-media-controls-mute-button {
+        position:relative;
+        left:17%;
+        width:100px;
+        top:25%;
+
+    }
+    audio::-webkit-media-controls-volume-slider{
+  
+        left:20%;
+        width:45%;
+        top:1.6vw;
+    }
+   audio::-webkit-media-controls-timeline{
+  
+    left:48.5%;
+    width:45%;
+    top:6vw;
+   
+}
+audio::-webkit-media-controls-current-time-display{
+  
+    left:12vw;
+    width:30vw;
+    top:11vw;
+   
+ 
+}
+}
+@media only screen and (max-width:369px){
     h2 {
-        top:300px;
+        top:275px;
     }
     ul {
         left:0;
@@ -271,5 +312,8 @@ figure{
     }
     body{
         padding-bottom: 300px;
+    }
+    figure {
+        top:550px;
     }
 }

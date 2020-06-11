@@ -1,0 +1,33 @@
+body {
+  background-color:darkslategray;
+  color: limegreen;
+  font-size: 12;
+  font-family: "Kentucky Fried";
+}
+
+h1 {
+  color: azure;
+  text-align: right;
+}
+
+p {
+  color: Red;
+  font-family: serif;
+  font-style: bold;
+}
+
+a:link {
+  background-color: midnightblue;
+}
+
+a:visited {
+  background-color: navy;
+}
+
+a:hover {
+  background-color: darkblue;
+}
+
+a:active {
+  background-color: mediumblue;
+} 

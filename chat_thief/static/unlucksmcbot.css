@@ -1,0 +1,370 @@
+/* Home Page CSS */
+body.home {
+    font-family: Roboto;
+    justify-content: center;
+}
+/*********************************/
+body.home > h1 {/*BeginWorld Finance*/
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+
+    /* height: inherit; */
+    height: min-content;
+    /* position: absolute; */
+    position: static;
+
+}
+
+body.home > h1 a {
+    display: block;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+    box-shadow: inset 0 0 4px 0 rgba(255, 255, 255, .4), inset 0 0 6px 0 rgba(0, 0, 0, .4), inset 0 0 6px 10px rgba(0, 0, 0, .05), 2px 2px 4px 0 rgba(0, 0, 0, .25);
+    position: absolute;
+    left: 0;
+    top: 0;
+    -webkit-animation: moveX 6.00s linear 0.5s infinite alternate, moveYHome 7.711s linear 0.5s infinite alternate;
+    -moz-animation: moveX 6.00s linear 0.5s infinite alternate, moveYHome 7.711s linear 0.5s infinite alternate;
+    -o-animation: moveX 6.00s linear 0.5s infinite alternate, moveYHome 7.711s linear 0.5s infinite alternate;
+    animation: moveX 6.00s linear 0.5s infinite alternate, moveYHome 7.711s linear 0.5s infinite alternate;
+}
+
+@-webkit-keyframes moveYHome {
+    from { top: 0vh; } to { top: 80vh; }
+}
+@-moz-keyframes moveYHome {
+    from { top: 0vh; } to { top: 80vh; }
+}
+@-o-keyframes moveYHome {
+    from { top: 0vh; } to { top: 80vh; }
+}
+@keyframes moveYHome {
+    from { top: 0vh; } to { top: 80vh; }
+}
+
+
+/*********************************/
+
+body.home > span {
+    z-index: 2;
+    position: relative;
+    margin-top: 0vh;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+}
+
+body.home > span::after {
+    content: "\A \01F3B5 \00a0 !love me, !love me, say that you !love @unlucksmcgee\00a0 \01F3B5";
+    white-space: pre;
+    font-weight: bold;
+    font-size: 2rem;
+    overflow: auto;
+}
+
+body.home > h2 { /*Users*/
+    z-index: 2;
+    position: relative;
+    font-family: "Roboto";
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    font-size: 2.5vw;
+}
+
+body.home > h3 { /*Recently Updated*/
+    z-index: 2;
+    position: relative;
+    font-family: "Roboto";
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 0;
+    text-decoration: underline;
+    font-size: 1rem;
+}
+
+body.home ul::before {
+    content: none;
+}
+
+body.home ul {
+    z-index: 2;
+    text-decoration: none;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    column-rule-style: none;
+    font-size: 1rem;
+    max-height: 80%;
+    max-width: 40vw;
+    overflow: auto;
+    color: rgb(80, 80, 80);
+    
+}
+
+@media only screen and (max-width: 900px){ 
+    body.home ul {
+        max-width: 80vw; 
+        font-size: 2rem;
+    }
+}
+
+body.home ul li {
+    display: block;
+    margin: 0;
+    padding: 10px 0;
+    font-size: 1.5rem;
+}
+
+body.home ul li *:nth-child(1) {
+    font-size: 1.5rem;
+}
+body.home ul li *:nth-child(2) { /*ride or die*/
+    font-size: 1rem;
+    font-style: italic;
+}
+
+body.home ul li a {
+    z-index: 2;
+    text-decoration: none;
+    color: white;
+    font-family: "Roboto";
+    font-size: 1rem;
+}
+
+body.home::after {
+    font-size: 1rem;
+    width: 70vw;
+    white-space: pre;
+    /* Find regex:"$\n" Replace: "\A " */
+    /* Find regex:" " Replace: "\00a0 " */
+    /* Find:"\A\00a0 \A\00a0 " Replace: "\A\00a0 " */
+    content: "BeginWorld\00a0 Will\00a0 Have\00a0 7\00a0 Servers:\A\00a0 \00a0 \00a0 \00a0 \00a0 Arch\A\00a0 \00a0 \00a0 \00a0 \00a0 Debian\A\00a0 \00a0 \00a0 \00a0 \00a0 Fedora\A\00a0 \00a0 \00a0 \00a0 \00a0 FreeBSD\A\00a0 \00a0 \00a0 \00a0 \00a0 Gentoo\A\00a0 \00a0 \00a0 \00a0 \00a0 NixOS\A\00a0 \00a0 \00a0 \00a0 \00a0 Void\00a0 Linux\A\00a0 \00a0 Alts:\A\00a0 \00a0 \00a0 \00a0 \00a0 Qubes\00a0 OS\A\00a0 \00a0 \00a0 \00a0 \00a0 Wind\00a0 OS\A\00a0 \00a0 \00a0 \00a0 \00a0 Shrine\00a0 (Temple\00a0 OS\00a0 with\00a0 Networking)\A\00a0 \00a0 \00a0 \00a0 \00a0 Centos\00a0 or\00a0 Redhat\00a0 versus\00a0 Fedora\A\00a0 All\00a0 on\00a0 different\00a0 machines,\00a0 doing\00a0 different\00a0 stuff\00a0 for\00a0 my\00a0 stream.\00a0 When\00a0 someone\00a0 comes\00a0 in\00a0 with\00a0 a\00a0 problem,\00a0 I\00a0 want\00a0 to\00a0 just\00a0 have\00a0 a\00a0 server\00a0 to\00a0 SSH\00a0 into\00a0 that\00a0 is\00a0 being\00a0 used\00a0 on\00a0 stream.\A\00a0 Fake\00a0 Breakdown\00a0 of\00a0 How\00a0 the\00a0 Computers\00a0 could\00a0 work:\A\00a0 Arch\00a0 :\00a0 Run\00a0 24/7\00a0 Stream\00a0 Debian\00a0 :\00a0 Host\00a0 Website\00a0 that\00a0 contains\00a0 market\00a0 data\A \00a0 Fedora\00a0 :\00a0 Hosts\00a0 our\00a0 Database\00a0 for\00a0 the\00a0 Economy\A \00a0 FreeBSD\00a0 :\00a0 Handles\00a0 controlling\00a0 hardware,\00a0 to\00a0 control\00a0 my\00a0 guitar\00a0 pedals\A \00a0 Gentoo\00a0 :\00a0 Generate\00a0 Images\00a0 and\00a0 Videos\00a0 for\00a0 the\00a0 Stream\A \00a0 NixOS\00a0 :\00a0 Run\00a0 Data\00a0 Analysis\00a0 on\00a0 Economy\00a0 and\00a0 Stream\A \00a0 Void\00a0 Linux\00a0 :\00a0 Security\00a0 /\00a0 Monitoring\00a0 System\A\00a0 This\00a0 will\00a0 lead\00a0 to\00a0 nearly\00a0 infinite\00a0 rabbit\00a0 holes\A\00a0\A  Goal:\A\00a0 \00a0 \00a0 \00a0 \00a0 No\00a0 Cross\00a0 Over\A\00a0 \00a0 \00a0 \00a0 \00a0 Different\00a0 Tasks\00a0 on\00a0 Each\00a0 OS/Hardward\A\00a0 \00a0 \00a0 \00a0 \00a0 When\00a0 someone\00a0 comes\00a0 in\00a0 the\00a0 stream\00a0 and\00a0 asks\00a0 what\00a0 distro\00a0 I\00a0 use:\00a0 \'I\00a0 want\00a0 to\00a0 say\00a0 ALL\00a0 OF\00a0 THEM\'\A\00a0 \00a0 \00a0 \00a0 \00a0 Long\00a0 Run:\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Dedicated\00a0 Hardware:\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Various\00a0 Raspberry\00a0 Pis\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 What\00a0 OS\00a0 on\00a0 for\00a0 our\00a0 Server\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Arch\00a0 (The\00a0 Obvious\00a0 Choice):\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 We\00a0 are\00a0 using\00a0 Arch!\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 More\00a0 Arch\00a0 Practice!\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Gentoo???\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 For\00a0 the\00a0 Memes\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 For\00a0 the\00a0 compiling\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 For\00a0 the\00a0 learning\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 For\00a0 the\00a0 Friendship\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 NixOS\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 FreeBSD\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \'Oh\00a0 that\'s\00a0 Good\00a0 Distro\00a0 for\00a0 Servers\'\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Debian\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Rasbian\00a0 (Easy\00a0 Mode)\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Fedora\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Solaris\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Alpine\00a0 Linux\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Not\00a0 excited\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 https://github.com/minexew/Shrine\00a0 https://aws.amazon.com/sumerian/\A\00a0 \00a0 \00a0 \00a0 \00a0 A\00a0 serious\00a0 of\00a0 small\00a0 computers,\00a0 all\00a0 hosted\00a0 the\00a0 bots,\00a0 able\00a0 to\00a0 talk\00a0 to\00a0 each\00a0 other,\00a0 or\00a0 whatever.\A\00a0 \00a0 \00a0 \00a0 \00a0 20\00a0 Various\00a0 Pis,\00a0 junk\00a0 computers,\00a0 all\00a0 running\00a0 various\00a0 Linux\00a0 distros\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 All\00a0 managing\00a0 my\00a0 stream\A\00a0 \00a0 \00a0 \00a0 \00a0 This\00a0 is\00a0 to\00a0 try\00a0 OS's\00a0 people\00a0 say\00a0 they\00a0 actual\00a0 like.\A\00a0 Why:\A\00a0 \00a0 \00a0 \00a0 \00a0 Get\00a0 experience,\00a0 running\00a0 actual\00a0 services\00a0 on\00a0 small\00a0 computer\00a0 hardware,\00a0 with\00a0 various\00a0 linuxes,\00a0 and\00a0 then\00a0 all\00a0 the\00a0 problems\00a0 that\00a0 will\00a0 occur.\A\00a0 \00a0 \00a0 \00a0 \00a0 Guitars\00a0 Solos\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Small\00a0 Devices\00a0 that\00a0 can\00a0 trigger\00a0 guitar\00a0 pedals\00a0 and\00a0 move\00a0 knobs\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Continue\00a0 our\00a0 songwriting/music\00a0 video\00a0 bot\A\00a0 \00a0 \00a0 \00a0 \00a0 Rubix\00a0 Cube\00a0 Betting\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Build\00a0 out\00a0 a\00a0 more\00a0 a\00a0 full\00a0 fledged\00a0 betting\00a0 market\A\00a0 \00a0 \00a0 \00a0 \00a0 Economy\00a0 Soundboard\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 We\00a0 need\00a0 host\00a0 a\00a0 market\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 We\00a0 need\00a0 host\00a0 24/7\00a0 station\00a0 where\00a0 the\00a0 market\00a0 is\00a0 always\00a0 running\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Data\00a0 Opportunities,\00a0 Stats\00a0 and\00a0 Fun\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Potential\00a0 Machine\00a0 Learn\00a0 (Throw\00a0 it\00a0 in\00a0 AWS\00a0 with\00a0 the\00a0 default\00a0 ALGs)\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Small\00a0 Devices\00a0 with\00a0 Different\00a0 Distros\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Infrastructure\00a0 Problems\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Networking\00a0 and\00a0 Security\A\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 Avatar\00a0 News\00a0 People\00a0 Delivering\00a0 Breaking\00a0 News";
+}
+
+/*For animation*/
+
+h1 {
+    margin: 0 auto;
+    width: 100%;
+    height: inherit;
+    position: absolute;
+    overflow: hidden;
+}
+
+h1 a {
+    display: block;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 4px 0 rgba(255, 255, 255, .4), inset 0 0 6px 0 rgba(0, 0, 0, .4), inset 0 0 6px 10px rgba(0, 0, 0, .05), 2px 2px 4px 0 rgba(0, 0, 0, .25);
+    position: absolute;
+    left: 0;
+    top: 50vh;
+    -webkit-animation: moveX 6.00s linear 0.5s infinite alternate, moveY 7.711s linear 0.5s infinite alternate;
+    -moz-animation: moveX 6.00s linear 0.5s infinite alternate, moveY 7.711s linear 0.5s infinite alternate;
+    -o-animation: moveX 6.00s linear 0.5s infinite alternate, moveY 7.711s linear 0.5s infinite alternate;
+    animation: moveX 6.00s linear 0.5s infinite alternate, moveY 7.711s linear 0.5s infinite alternate;
+}
+
+@-webkit-keyframes moveX {
+    from { left: 0; } to { left: 78vw; }
+}
+@-moz-keyframes moveX {
+    from { left: 0; } to { left: 78vw; }
+}
+@-o-keyframes moveX {
+    from { left: 0; } to { left: 78vw; }
+}
+@keyframes moveX {
+    from { left: 0; } to { left: 78vw; }
+}
+@-webkit-keyframes moveY {
+    from { top: 50vh; } to { top: 80vh; }
+}
+@-moz-keyframes moveY {
+    from { top: 50vh; } to { top: 80vh; }
+}
+@-o-keyframes moveY {
+    from { top: 50vh; } to { top: 80vh; }
+}
+@keyframes moveY {
+    from { top: 50vh; } to { top: 80vh; }
+}
+
+
+/*Static CSS*/
+
+body {
+    z-index: -1;
+    color: white;
+    font-size: 2em;
+    background-image: url(https://i.imgur.com/bPjdzRC.gif);
+    background-repeat: repeat-x;
+    background-size: cover;
+    background-color: #bd828f;
+    background-position: bottom;
+    background-attachment: fixed;
+    height: 95vh;
+    width: auto;
+    margin: 0px;
+}
+
+p {
+    color: white;
+    font-family: futura;
+    font-style: bold;
+}
+
+h1 {
+    z-index: 1;
+    position: absolute;
+    bottom: 0px;
+}
+
+h1 a {
+    width: 20vw;
+    overflow: visible;
+    z-index: 1;
+    color: #406282;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+    font-family: "Arial";
+    font-size: 3.5vw;
+    text-align: center;
+    background-color: #9c889f !important;
+    padding: 0.2rem;
+    border-radius: 0.4rem;
+    border-color: #8c5562;
+    border-style: solid;
+    text-decoration: none;
+
+}
+
+h1 a:hover {
+    background-image: url(https://i.imgur.com/JqMAKo9.png);
+    background-repeat: repeat;
+}
+
+h2 {
+    z-index: 2;
+    text-transform: capitalize;
+    font-family: "Roboto";
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    position: relative;
+    font-size: 3.2vw;
+    margin-top: 0.2rem;
+}
+
+h3 {
+    z-index: 2;
+    text-align: center;
+    font-size: 1.5vw;
+    color: white;
+    font-family: "Roboto";
+    position: relative;
+}
+
+table a {
+    z-index: 2;
+    text-decoration: none;
+    color: white;
+    font-family: "Roboto";
+    padding: 0px 1rem;
+    font-size: 1vw;
+}
+
+table a:hover {
+    font-weight: bold;
+}
+
+table tr td:before {
+    content: "The Crew:";
+    text-align: center;
+    font-size: 1vw;
+    font-weight: bold;
+    padding-right: 1rem;
+}
+
+table {
+    border: solid 1px;
+    width: content;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    font-size: 1vw;
+    color: white;
+    font-family: "Roboto";
+}
+
+table tr td:not(:first-child)::before {
+    content: "|";
+    font-weight: bold;
+    font-size: 1vw;
+}
+
+table tr td:not(:first-child)::after {
+    content: "\00a0 ";
+    font-weight: bold;
+    font-size: 1vw;
+}
+
+ul::before {
+    content: "Sounds";
+    display: block;
+    text-decoration: underline;
+    width: 100%;
+    text-align: center;
+    font-family: "Roboto";
+    font-weight: bold;
+}
+
+ul {
+    position: relative;
+    z-index: 2;
+    text-decoration: none;
+    margin: 50px 0 0 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    column-rule-style: solid;
+    list-style: none;
+}
+
+ul li {
+    display: inline-block;
+}
+
+ul a {
+    z-index: 2;
+    text-decoration: none;
+    color: white;
+    font-family: "Roboto";
+    font-size: 1vw;
+}
+
+ul a:hover {
+    font-weight: bold;
+}
+
+figure {
+    z-index: 2;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
+}
+
+figure figcaption {
+    display: none;
+}
+
+figure audio {
+    z-index: 2;
+    vertical-align: center;
+}

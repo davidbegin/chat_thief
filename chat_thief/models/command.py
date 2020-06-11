@@ -33,7 +33,7 @@ class Command(BaseDbModel):
             name = cmd["name"]
             if name in themes:
 
-                print("ILLEGAL COMMAND")
+                print(f"ILLEGAL COMMAND: {name}")
                 command = Command(name)
                 illegal_users = command.users()
                 for user in illegal_users:

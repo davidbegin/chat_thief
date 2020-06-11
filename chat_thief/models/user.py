@@ -305,8 +305,17 @@ class User(BaseDbModel):
         user_data = self.user()
         user_commands = Command.for_user(self.name)
         total_command_wealth = sum([command["cost"] for command in user_commands])
-
         return user_data["cool_points"] + total_command_wealth
+
+    @classmethod
+    def wealthiest(cls):
+        richest = [
+            (user['name'], User(user['name']).top_wealth()) for
+            user in cls.db().all()
+        ]
+
+        return sorted(richest, key=lambda user: user[1])[-1][0]
+
 
     def remove_all_commands(self):
         for command in self.commands():

@@ -1,175 +1,95 @@
-figure{
-     position: relative;
-    left: 8em;
-    bottom: 196.5em;
-    background-color: grey;
-    width: 64%;
-    height: 500px;
-}
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap);
 
-figcaption{
-  color:white;
-  position:relative;
-  top:19em;
-  left:1em;
-  font-size:27px;
-}
 
-figcaption:after{
-  content:"\00a0\00a0 Building a Twitch Clone \00a0\00a0\00a0\00a0\00a0\00a0 ";
-}
-
-audio{
-  position:relative;
-  top:12.5em;
-  width:100%;
-}
-
-table {
-  padding-left:10em;
+span{
   float:right;
-  padding-top:1em;
-  margin:0;
-}
-
-table:before{
-content:"\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0 STREAM CHAT \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
-  color:grey;
-  border-left:1px solid grey;
-  border-right:1px solid grey;
-  border-top:1px solid black;
-  border-bottom:1px solid grey;
-  background-color: #1F1F23;
-  font-size: 20px;
   position:relative;
-  bottom:4.9em;
-  font-style: bolder;
-  padding-top:1em;
-  padding-bottom:1em;
-}
-
-table:after{ 
- white-space:pre; content:"\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\A ";
- color:grey;
-  background-color: #1F1F23;
-  font-size: 20px;
-  position: relative;
-  bottom:5em;
-  display:block;
-  height:1700px;
-}
-
-tr td{
-  padding: 20px 40px;
-  display: block;
-  font-size:20px;
-  background-color: #1F1F23;
-  height: 100%;
-}
-
-td{
-    border-color: grey;
-    position:relative;
-    bottom:4.1em;
-}
-
-td:before{
-  content:"00:00 ";
-  color:grey;
-}
-
-td:after{
-  content:": Hey @Zanuss !";
-  color:white;
-  font-size: 18px;
-}
-
-td a{
-  color:#F54301;
-  text-decoration:none;
-  
+  bottom: 4em;
 }
 
 body {
-  background-color:#18181B;
-  color: #4F3970;
-  font-size: 2em;
-  font-family: "Roobert,Helvetica Neue,Helvetica,Arial,sans-  serif!important";
+  text-transform: uppercase;
+  background-color:black;
+  color:#ffffff;
+  font-family: 'Press Start 2P', monospace !important;
+  width:80%;
+  margin:auto;
+  padding:2em;
+  background-image: url('https://i.imgur.com/0V6eap6.png');
+  background-position: 765px 600px;
+  background-size: 50% 50%;
+  background-repeat:no-repeat;
 }
 
 
-
-h1:before{
- background-image: url('https://www.freepnglogos.com/uploads/twitch-app-logo-png-3.png'), url('https://puu.sh/FTOeH/7c66183101.png'), url('https://puu.sh/FTOiQ/52722d5495.png');
- background-position: 5px, 780px, 1600px;
-background-size: 60px 40px, 380px 50px, 280px 50px;
-background-repeat:no-repeat;
-display: block;
-width: 100%; 
-height:35px;
-z-index:100;
-content:"Following \00a0\00a0\00a0\00a0\00a0 Browse \00a0\00a0\00a0    Esports  \00a0\00a0\00a0   Music  \00a0\00a0\00a0 ...";
-text-align:left;
-font-size:20px;
-padding-left: 5em;
-padding-top: 1em;
+h1{
+   text-transform: uppercase;
+   padding:20px 0px;
+   text-shadow: 0px -7px 0px black;
+   background-image: url('https://i.imgur.com/eeO7iW8.png');
+   background-position: 95% 0px;
+   background-size: 10% 100%;
+   background-repeat:no-repeat;
+}
+h1, h1 a{
+    text-align:center;
+    background-color:#0000ff;
+    color:#ffff00;
+    margin:0;
+    font-size: 40px;
+    letter-spacing:5px;
 }
 
-/*h1:after{
-  font-size:20px;
-  content:"Notification";
-  align-content:right;
-}*/
-
-h1 {
-  margin:0;
-  color: white;
-  text-align: center;
-  border: 3px solid black;
-  background-color:#18181B;
-  font-size: 0px;
-}
-
-h2{
-  font-size:0px;
-}
-
-h3{
-  margin:0;
-  text-align:center;
-  color:white;
-  position:relative;
-  bottom:2.5em;
-  left:30em;
-  font-size:15px;
-  font-weight: bold;
-}
-
-h3:after{
-background-image: url('https://puu.sh/FTNoR/c825765167.png'), url(' https://puu.sh/FTNpT/579a49609a.png');
-background-position: 170px, 980px;
-background-size: 60px 40px, 250px 50px;
-background-repeat:no-repeat, no-repeat;
-display: block;
-display: block;
-height:35px;
-content:"Zanuss \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0  \00a0\00a0\00a0\00a0\00a0 \00a0 \00a0 Home \00a0\00a0\00a0\00a0\00a0 Videos \00a0\00a0\00a0\00a0\00a0 Clips \00a0\00a0\00a0\00a0\00a0 Followers ";
-text-align:left;
-font-size:20px;
-padding-left: 5em;
-padding-top: 1em;;
-color:white;
-position:relative;
-right: 10em;
-top:1em;
+h2:before{
+   content:"                             ";
+  display:block;
+  height:6px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:10px 0px;
   
- 
 }
 
-h3:after:hover {
-  color:#9147ff;
+h2:after{
+   content:"                             ";
+  display:block;
+  height:6px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:10px 0px;
+  
 }
 
+
+h2 {
+    margin:auto;
+    text-align:center;
+    color:#ffff00;
+    margin:0;
+    font-size: 40px;
+    letter-spacing: 20px;
+  }
+
+h3 {
+  color:#ffffff;
+  font-size:25px;
+}
+
+a { 
+  text-decoration: none;
+}
+
+tr a:visited{
+  color:#20DC0A;
+}
+
+tr{
+   color:#20DC0A;
+}
 
 p {
   color: white;
@@ -177,44 +97,101 @@ p {
   font-style: bold;
 }
 
-ul:before{
-  content:"FOLLOWED CHANNELS";
-  color:white;
+td {
+  display:block;
   font-size:20px;
-}
-ul{
-  position:relative;
-  bottom:2.25em;
-  padding-top:5px;
-  width:8em;
-  list-style:none;
-  list-style-type:none;
+  color: #00ffff;
   text-align:left;
-  background-color: #1F1F23;
-  overflow:hidden;
-  margin:0;
+  padding-bottom:0.5em;
+   color:#20DC0A;
+}
+
+td:after{
+  content: "    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .    .    .    .    .    .";
+  color:#20DC0A;
+}
+
+tr{
+  width:100%;
+}
+
+table{
+  width:100%;
+  font-size: 23px;
+  padding-bottom: 1em;
+  color:#20DC0A;
   
 }
+
+table:after{
+  content:"                             ";
+  display:block;
+  height:6px;
+  width:100%;
+  color:#0000ff;
+  background-color:#0000ff;
+  border:1px solid #0000ff;
+  margin:10px 0px;
+}
+
+table:before{
+  content:"                             ";
+  display:block;
+  height:6px;
+  width:100%;
+  border-top:15px dashed #17EEF5;
+  padding-bottom:0.5em;
+  
+}
+
+ul{
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  margin:0;
+  list-style-type:none;
+  padding:0;
+}
 li{
+  list-style:none;
   padding-bottom:1em;
   font-size:23px;
-  padding-top:1em;
+  margin-left: 0px;
+  color:white;
 }
+
+li:visited{
+   color:#ffff00;
+}
+
 li a{
-  color:white;
-  padding-right:5em;
-  text-decoration: none;
+   color:#ffff00;
 }
+
 li:after{
-  height: 15px;
-  width: 15px;
-  background-color: red;
-  border-radius: 50%;
-  display: inline-block;
-  font-size: 18px;
-  content:"\00a0\00a0 \00a0\00a0 \00a0 69";
-  color:white;
-  content-align:right;
-  position:absolute;
-  right: 20%;
+  color: #17EEF5;
+  content:" .   .    .    .    .    .    .    .    ";
+}
+
+figure{
+  background-color:#20DC0A;
+  width:100.3%;
+  position:relative;
+  right:2.8em;
+  height:6em;
+}
+
+figcaption{
+  color: #0000FF;
+  padding-top:25px;
+  padding-left: 3em;
+  font-size: 50px;
+  letter-spacing: 8px;
+}
+
+audio{
+  position:relative;
+  left: 62%;
+  bottom: 3.5em;
+  width:30%;
 }

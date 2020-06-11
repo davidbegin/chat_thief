@@ -74,7 +74,8 @@ async def generate_home():
     users = User.by_cool_points()
     static_dir = Path(__file__).parent.joinpath("chat_thief/static")
     stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
-    winner = User.richest_cool_points()["name"]
+
+    winner = User.wealthiest()
 
     updated_at = datetime.now().isoformat()
 
@@ -143,6 +144,9 @@ async def generate_user_page(user_dict):
 # cyberbeni: Isn't asyncio single threaded? I think you need a
 # ProcessPoolExecutor or a ThreadPoolExecutor to speed it up.
 async def main():
+    # In the main function
+    # We should grab all data upfront
+    #  and have it sorted
     warning("Fetching Users")
     users = User.all_data()
     success("Finished Fetching Users")
@@ -151,6 +155,13 @@ async def main():
     commands = Command.all_data()
     success("Finished Fetching Commands")
     warning("Setting Up Tasks")
+
+    # Take all the User and Command Data
+    # stitch it together and Sort
+    # Stitch
+
+    # StitchAndSort
+
     tasks = (
         [generate_home()]
         + [generate_user_page(user_dict) for user_dict in users]
