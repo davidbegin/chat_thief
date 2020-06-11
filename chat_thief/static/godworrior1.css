@@ -1,0 +1,22 @@
+body {
+  background:#6891C3;
+  color: #FDFD95;
+  text-align: center;
+  font-family: monospace;
+}
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+a {
+  color: #FF756D;
+  text-decoration: none;
+  padding: 7px;
+  transition: 0.4s;
+}
+a:hover {
+  margin: auto;
+  background-color: #FFF49C;
+  border-radius: 60px;
+  opacity: 1;
+}

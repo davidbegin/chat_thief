@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="devise-layout-html">
-<script nonce="GgSBXf9GLjjPT18i2MQiPQ==">
+<script nonce="sA+O5KexJHdgOR27n09O0A==">
 //<![CDATA[
 if (window.location.hash === '#register-pane') {
   window.location.replace("/users/sign_up")
@@ -29,26 +29,27 @@ if (window.location.hash === '#register-pane') {
 <title>Sign in · GitLab</title>
 <meta content="GitLab.com" name="description">
 <link rel="shortcut icon" type="image/png" href="https://gitlab.com/assets/favicon-7901bd695fb93edb07975966062049829afb56cf11511236e61bcf425070e36e.png" id="favicon" data-original-href="https://gitlab.com/assets/favicon-7901bd695fb93edb07975966062049829afb56cf11511236e61bcf425070e36e.png" />
-<link rel="stylesheet" media="all" href="https://assets.gitlab-static.net/assets/application-b1fb9ce8b414dc96b07ee0b58866fa1a43a49461b84f3cc8e3f289b957d8f538.css" />
+<link rel="stylesheet" media="all" href="https://assets.gitlab-static.net/assets/application-79a5de6f484339b2d55df6ad971286e7dfbe32f855e0a99cbfbeabd95077b2df.css" />
 <link rel="stylesheet" media="print" href="https://assets.gitlab-static.net/assets/print-74c3df10dad473d66660c828e3aa54ca3bfeac6d8bb708643331403fe7211e60.css" />
 
 
 <link rel="stylesheet" media="all" href="https://assets.gitlab-static.net/assets/highlight/themes/white-a20fa0d18cb98944b079c02ad5a6f46cb362f986ffd703fda24b3e8e2a4a8874.css" />
-<script nonce="GgSBXf9GLjjPT18i2MQiPQ==">
+<script nonce="sA+O5KexJHdgOR27n09O0A==">
 //<![CDATA[
 window.gon={};
 //]]>
 </script>
 
-<script src="https://assets.gitlab-static.net/assets/webpack/runtime.246cdd49.bundle.js" defer="defer"></script>
-<script src="https://assets.gitlab-static.net/assets/webpack/main.cd2dddfa.chunk.js" defer="defer"></script>
-<script src="https://assets.gitlab-static.net/assets/webpack/sentry.f57e4c64.chunk.js" defer="defer"></script>
-<script src="https://assets.gitlab-static.net/assets/webpack/commons~pages.admin.sessions~pages.groups.omniauth_callbacks~pages.ldap.omniauth_callbacks~pages.omn~c0fb5ac0.12a3e2f3.chunk.js" defer="defer"></script>
-<script src="https://assets.gitlab-static.net/assets/webpack/pages.sessions.new.bc900b43.chunk.js" defer="defer"></script>
+<script src="https://assets.gitlab-static.net/assets/webpack/runtime.7fda3257.bundle.js" defer="defer"></script>
+<script src="https://assets.gitlab-static.net/assets/webpack/main.ce07607d.chunk.js" defer="defer"></script>
+<script src="https://assets.gitlab-static.net/assets/webpack/commons~pages.admin.clusters.index~pages.admin.clusters.show~pages.groups.clusters.index~pages.group~54b37686.8c3278e9.chunk.js" defer="defer"></script>
+<script src="https://assets.gitlab-static.net/assets/webpack/sentry.df5d628a.chunk.js" defer="defer"></script>
+<script src="https://assets.gitlab-static.net/assets/webpack/commons~pages.admin.sessions~pages.groups.omniauth_callbacks~pages.ldap.omniauth_callbacks~pages.omn~c0fb5ac0.8feb5972.chunk.js" defer="defer"></script>
+<script src="https://assets.gitlab-static.net/assets/webpack/pages.sessions.new.6d49c7ab.chunk.js" defer="defer"></script>
 
 <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="nmW4nicN6Fv7gowi7mlT7R0O3oWPM12JRQWZIxc1vWNCetCDzyZPw2FBVX57qm/6EJ9Uq5DjbEluFfgQldP6bg==" />
-<meta name="csp-nonce" content="GgSBXf9GLjjPT18i2MQiPQ==" />
+<meta name="csrf-token" content="GHW5x1N+tuto/8Rg8jsWV64vp0i+HSvrruSYeJ7N7yC7VP5tzWv8/EgYXUVCCjcagA4srgsJKpEGu4EOa9+oKg==" />
+<meta name="csp-nonce" content="sA+O5KexJHdgOR27n09O0A==" />
 <meta name="action-cable-url" content="/-/cable" />
 <meta content="origin-when-cross-origin" name="referrer">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
@@ -63,7 +64,7 @@ window.gon={};
 
 
 
-<script nonce="GgSBXf9GLjjPT18i2MQiPQ==">
+<script nonce="sA+O5KexJHdgOR27n09O0A==">
 //<![CDATA[
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
@@ -79,7 +80,7 @@ window.snowplowOptions = {"namespace":"gl","hostname":"snowplow.trx.gitlab.net",
 
 <body class="application gl-browser-generic gl-platform-other login-page navless ui-indigo" data-page="sessions:new" data-qa-selector="login_page">
 
-<script nonce="GgSBXf9GLjjPT18i2MQiPQ==">
+<script nonce="sA+O5KexJHdgOR27n09O0A==">
 //<![CDATA[
 gl = window.gl || {};
 gl.client = {"isGeneric":true,"isOther":true};
@@ -135,7 +136,7 @@ GitLab.com
 <div class="tab-content">
 <div class="login-box tab-pane active" id="login-pane" role="tabpanel">
 <div class="login-body">
-<form class="new_user gl-show-field-errors" id="new_user" aria-live="assertive" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="PHA2J/azyjBD0gd5XISarWHdblcew1ElsWfOn8cQQ6fgb146HphtqNkR3iXJR6a6bEzkeQETYOWad6+sRfYEqg==" /><div class="form-group">
+<form class="new_user gl-show-field-errors" id="new_user" aria-live="assertive" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="FiP0AIsnXYeDUbc8vmldbCEW1YAaiYgWN76CODjkIEW1ArOqFTIXkKO2LhkOWHwhDzdeZq+diWyf4ZtOzfZnTw==" /><div class="form-group">
 <label for="user_login" class="label-bold">Username or email</label>
 <input class="form-control top" autofocus="autofocus" autocapitalize="off" autocorrect="off" required="required" title="This field is required." data-qa-selector="login_field" type="text" name="user[login]" id="user_login" />
 </div>
@@ -166,10 +167,10 @@ Don&#39;t have an account yet?
 
 <div class="tab-pane login-box" id="register-pane" role="tabpanel">
 <div class="login-body">
-<form class="new_new_user gl-show-field-errors" id="new_new_user" aria-live="assertive" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="uR22oCMZjIae2i/0wmI6Tng5Z8c9jr2qUHQs1hdYyUhlAt69yzIrHgQZ9qhXoQZZdajt6SJejGp7ZE3llb6ORQ==" /><div class="devise-errors">
+<form class="new_new_user gl-show-field-errors" id="new_new_user" aria-live="assertive" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="wAOABZGi1Xg7P999k6h1FLjOvfV6IhGqqXK+bAuV+ptjIsevD7efbxvYRlgjmVRZlu82E882ENABLaca/oe9kQ==" /><div class="devise-errors">
 
 </div>
-<div class="lastname_1591716800"><style media="screen">.lastname_1591716800 {position:absolute!important;top:-9999px;left:-9999px;}</style><label for="lastname">If you are human, please ignore this field.</label><input type="text" name="lastname" id="lastname" autocomplete="off" tabindex="-1" /></div>
+<div class="firstname_1591887073"><style media="screen">.firstname_1591887073 {display:none;}</style><label for="firstname">If you are human, please ignore this field.</label><input type="text" name="firstname" id="firstname" autocomplete="off" tabindex="-1" /></div>
 <div class="name form-group">
 <label class="label-bold" for="new_user_name">Full name</label>
 <input class="form-control top js-block-emoji js-validate-length" data-max-length="255" data-max-length-message="Name is too long (maximum is 255 characters)." data-qa-selector="new_user_name_field" required="required" title="This field is required." type="text" name="new_user[name]" id="new_user_name" />
@@ -242,27 +243,27 @@ Don&#39;t have an account yet?
 Sign in with
 </label>
 <div class="d-flex justify-content-between flex-wrap">
-<a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-google_oauth2" rel="nofollow" data-method="post" href="/users/auth/google_oauth2"><img alt="Google" title="Sign in with Google" data-src="https://assets.gitlab-static.net/assets/auth_buttons/google_64-9ab7462cd2115e11f80171018d8c39bd493fc375e83202fbb6d37a487ad01908.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+<form class="button_to" method="post" action="/users/auth/google_oauth2"><button id="oauth-login-google_oauth2" class="btn d-flex align-items-center omniauth-btn text-left oauth-login " type="submit"><img alt="Google" title="Sign in with Google" data-src="https://assets.gitlab-static.net/assets/auth_buttons/google_64-9ab7462cd2115e11f80171018d8c39bd493fc375e83202fbb6d37a487ad01908.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
 <span>
 Google
 </span>
-</a><a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-github" rel="nofollow" data-method="post" href="/users/auth/github"><img alt="GitHub" title="Sign in with GitHub" data-src="https://assets.gitlab-static.net/assets/auth_buttons/github_64-84041cd0ea392220da96f0fb9b9473c08485c4924b98c776be1bd33b0daab8c0.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+</button><input type="hidden" name="authenticity_token" value="OpIAmHWqyYRg6dLnunD7cSJDgVKgpDtWUOZiysm0cWyZs0cy67+Dk0AOS8IKQdo8DGIKtBWwOiz4uXu8PKY2Zg==" /></form><form class="button_to" method="post" action="/users/auth/github"><button id="oauth-login-github" class="btn d-flex align-items-center omniauth-btn text-left oauth-login " type="submit"><img alt="GitHub" title="Sign in with GitHub" data-src="https://assets.gitlab-static.net/assets/auth_buttons/github_64-84041cd0ea392220da96f0fb9b9473c08485c4924b98c776be1bd33b0daab8c0.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
 <span>
 GitHub
 </span>
-</a><a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-twitter" rel="nofollow" data-method="post" href="/users/auth/twitter"><img alt="Twitter" title="Sign in with Twitter" data-src="https://assets.gitlab-static.net/assets/auth_buttons/twitter_64-86860edb139fb2f62fc25ef62a4213a5c8b20122fd8752ab0df09e740eb53deb.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+</button><input type="hidden" name="authenticity_token" value="DcaS3hxOzQ88U+z1b9MHY8zJOdaKaD9dOIXkp4RgCpyu59V0gluHGBy0ddDf4iYu4uiyMD98PieQ2v3RcXJNlg==" /></form><form class="button_to" method="post" action="/users/auth/twitter"><button id="oauth-login-twitter" class="btn d-flex align-items-center omniauth-btn text-left oauth-login " type="submit"><img alt="Twitter" title="Sign in with Twitter" data-src="https://assets.gitlab-static.net/assets/auth_buttons/twitter_64-86860edb139fb2f62fc25ef62a4213a5c8b20122fd8752ab0df09e740eb53deb.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
 <span>
 Twitter
 </span>
-</a><a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-bitbucket" rel="nofollow" data-method="post" href="/users/auth/bitbucket"><img alt="Bitbucket" title="Sign in with Bitbucket" data-src="https://assets.gitlab-static.net/assets/auth_buttons/bitbucket_64-267f322b8bedf1a39970bc215a2eb9e862c8c8033ff2390840607cb0e2dd0daf.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+</button><input type="hidden" name="authenticity_token" value="ZTEgkDUMAUnVtkvG8jGUVqfYonPSplTvoYOIcyzVZCHGEGc6qxlLXvVR0uNCALUbifkplWeyVZUJ3JEF2ccjKw==" /></form><form class="button_to" method="post" action="/users/auth/bitbucket"><button id="oauth-login-bitbucket" class="btn d-flex align-items-center omniauth-btn text-left oauth-login " type="submit"><img alt="Bitbucket" title="Sign in with Bitbucket" data-src="https://assets.gitlab-static.net/assets/auth_buttons/bitbucket_64-267f322b8bedf1a39970bc215a2eb9e862c8c8033ff2390840607cb0e2dd0daf.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
 <span>
 Bitbucket
 </span>
-</a><a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-salesforce" rel="nofollow" data-method="post" href="/users/auth/salesforce"><img alt="Salesforce" title="Sign in with Salesforce" data-src="https://assets.gitlab-static.net/assets/auth_buttons/salesforce_64-3f0cb95b231cc615e09bb96d54ccaf562d729b21f255270e03d98b17466bd61f.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+</button><input type="hidden" name="authenticity_token" value="p+nyWsW0s+vlnY9mpK9iAa+JzOSklo9EfPwrI4afeyAEyLXwW6H5/MV6FkMUnkNMgahHAhGCjj7UozJVc408Kg==" /></form><form class="button_to" method="post" action="/users/auth/salesforce"><button id="oauth-login-salesforce" class="btn d-flex align-items-center omniauth-btn text-left oauth-login " type="submit"><img alt="Salesforce" title="Sign in with Salesforce" data-src="https://assets.gitlab-static.net/assets/auth_buttons/salesforce_64-3f0cb95b231cc615e09bb96d54ccaf562d729b21f255270e03d98b17466bd61f.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
 <span>
 Salesforce
 </span>
-</a></div>
+</button><input type="hidden" name="authenticity_token" value="Kz98ZejSbvYWzKb/RY1jJ/MjEw2DNkcUo6buwBRx/LeIHjvPdsck4TYrP9r1vEJq3QKY6zYiRm4L+fe24WO7vQ==" /></form></div>
 <fieldset class="remember-me">
 <label>
 <input type="checkbox" name="remember_me" id="remember_me" class="remember-me-checkbox" />

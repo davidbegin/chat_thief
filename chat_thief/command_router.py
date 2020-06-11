@@ -47,6 +47,11 @@ class CommandRouter:
         if self.user == "nightbot":
             return
 
+        # if self.user == 'samharnack':
+        #     BreakingNews(
+        #         scope="Staff Gets Beginbot off of Twitch", category="iasip"
+        #     ).save()
+
         if self.user not in BLACKLISTED_LOG_USERS:
             self._logger.info(f"{self.user}: {self.msg}")
             WelcomeCommittee().welcome_new_users(self.user)

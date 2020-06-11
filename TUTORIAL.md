@@ -105,3 +105,16 @@ You can steal a command from someone else as well, and they will lose access
 
 Beginbot will look at these issues, and delete them once completed
 
+## Revolution System
+
+- Vote for either !peace or !revolution
+- If you don't Vote you are a Fence-Sitter
+- When someone triggers a coup, which everside has more votes win:
+
+Peace Keepers Win:
+
+- Keep all their sounds, and are even distrbuted sounds from revolutionaries
+
+Revolutionaries Win:
+
+- All sounds are removed from everyone and redistibuted to revolutionaries

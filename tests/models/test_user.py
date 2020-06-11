@@ -252,4 +252,4 @@ class TestUser(DatabaseConfig):
         command = Command("damn")
         command.allow_user("bill.evans")
         command.set_value("cost", 10)
-        assert User.wealthiest() == 'bill.evans'
+        assert User.wealthiest() == "bill.evans"

@@ -310,12 +310,10 @@ class User(BaseDbModel):
     @classmethod
     def wealthiest(cls):
         richest = [
-            (user['name'], User(user['name']).top_wealth()) for
-            user in cls.db().all()
+            (user["name"], User(user["name"]).top_wealth()) for user in cls.db().all()
         ]
 
         return sorted(richest, key=lambda user: user[1])[-1][0]
-
 
     def remove_all_commands(self):
         for command in self.commands():

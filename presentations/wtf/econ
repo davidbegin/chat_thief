@@ -143,14 +143,14 @@ More harsh during revolution
 
 🧞 Submit a Soundeffect
 
-!soundeffect YOUTUBE_ID command 00:00 00:04
+!soundeffect YOUTUBE_URL command 00:00 00:04
 
 Must be 5 seconds or less
 
 Must NOT be terrible
 
-YOUTUBE ID
 YOUTUBE URL
 TWITCH URL
+CBS URL
 
 (Note: A !streamlord must approve the command)

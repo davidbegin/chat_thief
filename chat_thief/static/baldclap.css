@@ -8,6 +8,7 @@ body {
     margin:0 auto;
     min-height:100vh;
 }
+
 h1 a {
     color:white;
     text-decoration: none;
@@ -20,7 +21,7 @@ h1 {
     font-size:1.1em;
     text-align:left;
 }
-h3 {
+h3, span {
     background:#6797ce;
     color:white;
     width:96%;
@@ -49,6 +50,9 @@ h2::after {
     padding:0 10px 0px 210px;
     content:"'What do I do with my hands'  California    United States";
 
+}
+ h2:nth-of-type(2) {
+    display:none;
 }
 table::before {
     border:1px solid black;
