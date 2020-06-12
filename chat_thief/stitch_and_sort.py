@@ -33,11 +33,10 @@ class StitchAndSort:
                 command_file = matching_effects[0]
                 user_dict["command_file"] = command_file.name
 
-            command_info = self.command_users[user_dict['name']]["commands"]
-
-            # return user_data["cool_points"] + total_command_wealth
-            total_propery_value = sum([command["cost"] for command in command_info])
-            user_dict["wealth"] = user_dict["cool_points"] + total_propery_value
+            if user_dict["name"] in self.command_users:
+                command_info = self.command_users[user_dict["name"]]["commands"]
+                total_propery_value = sum([command["cost"] for command in command_info])
+                user_dict["wealth"] = user_dict["cool_points"] + total_propery_value
 
             user_dict["commands"] = [
                 cmd["name"]
@@ -82,7 +81,7 @@ class StitchAndSort:
                 cmd_dict["like_to_hate_ratio"] = 100
 
             results.append(cmd_dict)
-        return results
+        return list(reversed(sorted(results, key=lambda user: user.get("wealth", 0))))
 
     def _setup_command_users(self):
         command_users = {}
@@ -92,4 +91,3 @@ class StitchAndSort:
                     command_users[user] = {"commands": []}
                 command_users[user]["commands"].append(command)
         return command_users
-

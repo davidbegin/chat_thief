@@ -12,8 +12,16 @@ class TestStitchandSort(DatabaseConfig):
     def test_stitchin_and_sortin(self):
         baldclap = User("baldclap")
         baldclap.update_cool_points(3)
-        damn_cmd = Command("damn")
+        baldclap.update_cool_points(1)
+
         Command("damn").allow_user("baldclap")
+
+        momoko = User("momoko")
+        mclovin = Command("mclovin")
+        mclovin.allow_user(momoko.name)
+
+        damn_cmd = Command("damn")
+
         custom_css = "https://gist.githubusercontent.com/davidbegin/sfkgsjh"
         baldclap.set_value("custom_css", custom_css)
         chain_cmd = Command("mchdtmd")
@@ -21,38 +29,54 @@ class TestStitchandSort(DatabaseConfig):
 
         result = StitchAndSort().call()
 
-        assert result["users"] == [
-            {
-                "name": "baldclap",
-                "command_file": "baldclap.opus",
-                "wealth": 4,
-                "street_cred": 0,
-                "cool_points": 3,
-                "mana": 3,
-                "custom_css": custom_css,
-                "commands": ["damn"],
+        assert result["users"][0] == {
+            "name": "baldclap",
+            "command_file": "baldclap.opus",
+            "wealth": 5,
+            "street_cred": 0,
+            "cool_points": 4,
+            "mana": 3,
+            "custom_css": custom_css,
+            "commands": ["damn"],
+            "top_eight": [],
+        }
+        assert result["users"][1] == {
+            "name": "momoko",
+            "custom_css": None,
+            "street_cred": 0,
+            "cool_points": 0,
+            "mana": 3,
+            "top_eight": [],
+            "wealth": 1,
+            "commands": ["mclovin"],
+        }
 
-                "top_eight": [],
-            }
-        ]
+        assert {
+            "name": "mclovin",
+            "user": "beginbot",
+            "permitted_users": ["momoko"],
+            "health": 3,
+            "cost": 1,
+            "command_file": "mclovin.opus",
+            "like_to_hate_ratio": 100,
+        } in result["commands"]
 
-        assert result["commands"] == [
-            {
-                "name": "damn",
-                "user": "beginbot",
-                "command_file": "damn.opus",
-                "permitted_users": ["baldclap"],
-                "health": 3,
-                "cost": 1,
-                "like_to_hate_ratio": 100,
-            },
-            {
-                "name": "mchdtmd",
-                "command_file": "mchdtmd.mp3",
-                "user": "beginbot",
-                "permitted_users": [],
-                "health": 3,
-                "cost": 1,
-                "like_to_hate_ratio": 100,
-            },
-        ]
+        assert {
+            "name": "damn",
+            "user": "beginbot",
+            "permitted_users": ["baldclap"],
+            "health": 3,
+            "cost": 1,
+            "command_file": "damn.opus",
+            "like_to_hate_ratio": 100,
+        } in result["commands"]
+
+        assert {
+            "name": "mchdtmd",
+            "user": "beginbot",
+            "permitted_users": [],
+            "health": 3,
+            "cost": 1,
+            "command_file": "mchdtmd.mp3",
+            "like_to_hate_ratio": 100,
+        } in result["commands"]

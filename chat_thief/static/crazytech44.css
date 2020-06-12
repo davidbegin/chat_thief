@@ -1,27 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Arima+Madurai:300');
-
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
+body
+{
+    background-color: White;
+    color: White;
 }
 
-h1 {
-	font-family: 'Arima Madurai', cursive;
-	color: black;
-	font-size: 4rem;
-	letter-spacing: -3px;
-	text-shadow: 0px 1px 1px rgba(255,255,255,0.6);
-	position: relative;
-	z-index: 3;
-}
+mark
+{
 
-.container {
-	z-index: 1;
-	position: relative;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	// min-height: 100vh;
-	min-height: 35rem;
+    background-color: red;
+   color: red;
+}

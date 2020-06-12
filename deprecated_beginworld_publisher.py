@@ -14,8 +14,6 @@ from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.config.log import success, warning, error
 
-from chat_thief.stitch_and_sort import StitchAndSort
-
 
 rendered_template_path = Path(__file__).parent.joinpath("build/beginworld_finance")
 template_path = Path(__file__).parent.joinpath("chat_thief/templates/")
@@ -70,12 +68,10 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     success(f"Finished Writing Template: {file_name}")
 
 
-async def generate_home(all_data):
+async def generate_home():
     # We just find fancy pages here
-    commands = all_data["commands"]
     commands = Command.by_cost()
     users = User.by_cool_points()
-
     static_dir = Path(__file__).parent.joinpath("chat_thief/static")
     stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
 
@@ -148,30 +144,28 @@ async def generate_user_page(user_dict):
 # cyberbeni: Isn't asyncio single threaded? I think you need a
 # ProcessPoolExecutor or a ThreadPoolExecutor to speed it up.
 async def main():
-    warning("Fetching All Data")
-    all_data = StitchAndSort().call()
-    print(all_data)
-    success("All Data Fetched...Creating Tasks")
-
     # In the main function
     # We should grab all data upfront
     #  and have it sorted
-    # warning("Fetching Users")
-    # users = User.all_data()
-    # success("Finished Fetching Users")
-    # warning("Fetching Commands")
-    # commands = Command.all_data()
-    # success("Finished Fetching Commands")
-    # warning("Setting Up Tasks")
+    warning("Fetching Users")
+    users = User.all_data()
+    success("Finished Fetching Users")
+
+    warning("Fetching Commands")
+    commands = Command.all_data()
+    success("Finished Fetching Commands")
+    warning("Setting Up Tasks")
+
     # Take all the User and Command Data
     # stitch it together and Sort
     # Stitch
+
     # StitchAndSort
 
     tasks = (
-        [generate_home(all_data)]
-        # + [generate_user_page(user_dict) for user_dict in users]
-        # + [generate_command_page(command) for command in commands]
+        [generate_home()]
+        + [generate_user_page(user_dict) for user_dict in users]
+        + [generate_command_page(command) for command in commands]
     )
     success("Finished Setting Up Tasks")
 
