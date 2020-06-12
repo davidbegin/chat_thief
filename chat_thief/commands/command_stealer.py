@@ -11,6 +11,10 @@ class CommandStealer:
     def steal(self):
         command = Command(self.command)
         user = User(self.thief)
+
+        if command.name not in User(self.victim).commands():
+            raise ValueError(f"{command.name} is not owned by {user.name}")
+
         cool_points = user.cool_points()
 
         if cool_points >= command.cost():

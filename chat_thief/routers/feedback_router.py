@@ -19,7 +19,7 @@ class FeedbackRouter(BaseRouter):
                 end_time=sfx_request.end_time,
             ).save()
 
-            return f"Thank you for you're request @{self.user}, beginbotbot will you inform you when !{sfx_request.command} is available"
+            return f"Thank you for your request @{self.user}, beginbotbot will you inform you when !{sfx_request.command} is available"
 
         # "!approve all"
         # "!approve 1"

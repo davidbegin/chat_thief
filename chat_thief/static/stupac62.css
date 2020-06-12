@@ -3,7 +3,7 @@ html {
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 1);
 
 }  
 body {
