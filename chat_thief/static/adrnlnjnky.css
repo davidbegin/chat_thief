@@ -1,5 +1,6 @@
 body {
-    background: url(https://www.pixelstalk.net/wp-content/uploads/2016/08/1920x1080-Library-Wallpaper.jpg)
+    background-color: pink;
+    background-image: url(https://www.pixelstalk.net/wp-content/uploads/2016/08/1920x1080-Library-Wallpaper.jpg)
     font-family: "Arial"
 }
 
@@ -7,16 +8,17 @@ h1 {
     position: relative;
     color: #F8B021;
     font-style: inherit;
-    font-size: xlarge;
+    font-size: large;
     font-weight: 800;
-    transform: noidea 8s infinite;
+    transform: blinker  8s infinite;
 }
 
 h2 {
     position: relative;
     padding:
+    animation: noidea 15s rotate infinite;
     text-shadow: 4px 3px 4px 0px green;
-    font-size: small;
+    font-size: large;
     color: #90fc04;
     text-align: center;
     width: fit-content;
@@ -24,12 +26,30 @@ h2 {
 }
 
 h3 {
+animation: MoveUpDown 1s linear infinite;
+  position: absolute;
+  left: 0;
+  bottom: 0;
     position: relative;
     padding 10px 10px 10px 10px;
-    font-size: large;
+    font-size: small;
     font-weight: 800;
 }
 @keyframe noidea {
    0% (0px, 15px, 50px, 80px);
 `  50% (80px, 25px, 244px, 80px);
    100% (0px, 15px, 50px, 80px);
+
+@keyframe blinker {
+  60"% {
+    opacity: .1;
+    }
+    }
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 100px;
+  }

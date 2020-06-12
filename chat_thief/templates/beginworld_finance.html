@@ -35,6 +35,7 @@
             <a href="{{ base_url }}/{{ user['name'] }}.html"> {{ user['name'] }} </a> |
             Cool Points: {{ user['cool_points'] }} |
             Street Cred: {{ user['street_cred'] }}
+            Wealth: {{ user['wealth'] }}
             {% if user['ride_or_die'] %}
               | Ride Or Die: <a href="{{ base_url }}/{{ user['ride_or_die'] }}.html">
                 {{ user['ride_or_die'] }}</a>

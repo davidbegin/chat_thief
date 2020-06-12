@@ -73,8 +73,7 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
 async def generate_home(all_data):
     # We just find fancy pages here
     commands = all_data["commands"]
-    commands = Command.by_cost()
-    users = User.by_cool_points()
+    users = all_data["users"]
 
     static_dir = Path(__file__).parent.joinpath("chat_thief/static")
     stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
@@ -152,6 +151,9 @@ async def main():
     all_data = StitchAndSort().call()
     print(all_data)
     success("All Data Fetched...Creating Tasks")
+    breakpoint()
+
+
 
     # In the main function
     # We should grab all data upfront
