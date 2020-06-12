@@ -10,40 +10,39 @@ class StitchAndSort:
         self._all_users = User.db().all()
         self._all_cmds = Command.db().all()
         self._all_sfxs = SoundeffectsLibrary.fetch_soundeffect_samples()
+        self.command_users = self._setup_command_users()
 
     def call(self):
         cmd_data = self._cmd_data()
         user_data = self._user_data()
         return {"commands": cmd_data, "users": user_data}
 
-    # Total Wealth
-    # user_data = self.user()
-    # user_commands = Command.for_user(self.name)
-    # total_command_wealth = sum([command["cost"] for command in user_commands])
-    # return user_data["cool_points"] + total_command_wealth
-
     def _user_data(self):
         results = []
 
+        # Iterate through each user
         for user_dict in self._all_users:
+
+            # Looking for Matching Soundeffects
             matching_effects = [
                 sfx
                 for sfx in self._all_sfxs
                 if user_dict["name"] == sfx.name[: -len(sfx.suffix)]
             ]
-
             if matching_effects:
                 command_file = matching_effects[0]
                 user_dict["command_file"] = command_file.name
+
+            command_info = self.command_users[user_dict['name']]["commands"]
+
+            # return user_data["cool_points"] + total_command_wealth
+            total_propery_value = sum([command["cost"] for command in command_info])
+            user_dict["wealth"] = user_dict["cool_points"] + total_propery_value
 
             user_dict["commands"] = [
                 cmd["name"]
                 for cmd in self._all_cmds
                 if user_dict["name"] in cmd["permitted_users"]
-            ]
-
-            commands = [
-                cmd for cmd in self._all_cmds if cmd["name"] in user_dict["commands"]
             ]
 
             results.append(user_dict)
@@ -84,3 +83,13 @@ class StitchAndSort:
 
             results.append(cmd_dict)
         return results
+
+    def _setup_command_users(self):
+        command_users = {}
+        for command in self._all_cmds:
+            for user in command["permitted_users"]:
+                if user not in command_users:
+                    command_users[user] = {"commands": []}
+                command_users[user]["commands"].append(command)
+        return command_users
+

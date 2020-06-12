@@ -25,11 +25,13 @@ class TestStitchandSort(DatabaseConfig):
             {
                 "name": "baldclap",
                 "command_file": "baldclap.opus",
+                "wealth": 4,
                 "street_cred": 0,
                 "cool_points": 3,
                 "mana": 3,
                 "custom_css": custom_css,
                 "commands": ["damn"],
+
                 "top_eight": [],
             }
         ]
