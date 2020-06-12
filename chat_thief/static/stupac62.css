@@ -3,19 +3,19 @@ html {
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  opacity: .9;
   background-color: black;
+
 }  
 body {
-  background-color: black;
-  background-image: radial-gradient(
-    rgba(63, 8, 105, 0.75), black 120%
-  );
-  opacity: .9;
-  color: white;
-  font-size: 1.4em;
+  
+  color: #39ff14;
+  font-size: 1.1em;
   font-family: 'Fira Code', monospace;
   text-shadow: 0 0 1px #C8C8C8;
+}
+body::before {
+  content: "Qtile Page";
+  color: #333;
 }
 body::after {
   content: "";
@@ -32,29 +32,18 @@ body::after {
     transparent 2px
   );
 }
-::selection {
-  background: #0080FF;
-  text-shadow: none;
-}
+
 pre {
   margin: 0;
 }
 a {
-  color: rgba(105, 8, 87, 0.8);
+  color: rgba(57, 255, 20, 0.8);
 }
-h1 {
-  font-size: 2em;
-}
-h1::before {
-  content: "[Qtile] -- ";
-  
-}
-h1::after {
-  content: " -- [is the greatest WM. qtile.org]"; 
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
 }
 li::before {
-  color: white;
-  content: "Qtile: ";
+  content: "Qtile# ";
 }
 li {
   list-style: none;
@@ -63,5 +52,15 @@ h3::after {
   content: ".8675309e7 | => STREAMGOD"
 }
 ul::after {
-  content: "Qtile: stupac62 made all the sounds."
+  content: "#: stupac62 made all the sounds."
 }
+ul {
+  padding-left: 0px;
+}
+figure {
+  
+}
+
+figcaption{
+  display:none;
+ }

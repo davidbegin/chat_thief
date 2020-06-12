@@ -546,6 +546,7 @@
 }
 
 a{
+  font-family: "Geomanist-Regular",sans-serif;
 	color: #d4d4d4;
 }
 
@@ -560,7 +561,7 @@ ul:before{
 ul {  
   justify-content: center;
   list-style-type: none;
-  margin: 2px;
+  margin: 0px;
   padding: 0;
   margin-top: 0;
   text-align: center;
@@ -591,6 +592,7 @@ h1{
 }
 
 h2 {
+  font: "Geomanist-Regular",sans-serif;
 	  animation-name: blurrr,stretch;
 	  animation-duration: 1s; 
 	  animation-timing-function: cubic-bezier(1.000, 3.000, 0.000, 1.000); 
@@ -614,7 +616,7 @@ h2 {
     opacity: 0.7;
   }
   100% {
-    transform: scale(4);
+    transform: scale(3);
   }
 }
 
@@ -684,7 +686,8 @@ h2 {
   color: #fff;
   text-align: center;
   text-transform: uppercase;
-  font: 20px "roboto", helvetica, sans-serif;
+  font: 20px "Geomanist-Regular",sans-serif;
+
   letter-spacing: 0.6em;
   background-image: repeating-linear-gradient(
   45deg,
@@ -702,19 +705,19 @@ h2 {
 
  body:before {
   overflow: hidden;
-  animation: marquee 1s cubic-bezier(1.000, 0.000, 0.000, 1.000) infinite;
-  content: "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\";
-  color: chartreuse;
-  font-size: 2em;
-  letter-spacing: -2px;
-  text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
+ 
   display: inline-block;
   vertical-align: middle;
   height: 100%;
 }
 
  body:after {
-  content: "";
+   animation: marquee 1s cubic-bezier(1.000, 0.000, 0.000, 1.000) infinite;
+  content: "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\";
+  color: chartreuse;
+  font-size: 2em;
+  letter-spacing: -2px;
+  text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
   display: block;
   position: absolute;
   left: 0;
@@ -752,6 +755,7 @@ table tbody tr td a {
 
 table:before {
   content: "LOVERS";
+  font-family: "Geomanist-Regular",sans-serif;
   font-size: 28px;
   display: block;
   width: 100%;
@@ -766,16 +770,29 @@ tbody:after {
   letter-spacing: -9px;
   }
 
+
+
+
+
+
+
+
+figcaption:before{
+  
+  content: "My song"
+  font-size: 2em;
+}
+
 figure{
   content: "\A\AMy song"
 }
 figcaption{
-  content: "";
+  display: none;
 
 }
 figure{
   color:pink;
- 
+ content: "test";
   background-image: url(https://smonk.club/2020/06/08/CheapPointedStickleback.png?background=000000ff&noise=ffffff&density=61&opacity=20);
   opacity: 0.9;
   -moz-animation: noise 0.3s infinite;
@@ -783,9 +800,24 @@ figure{
   animation: noise 0.3s infinite;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
-  margin: 2px; 
+  margin: 0px; 
   text-align: center;
+  display: block;
+}
+
+audio{
   
+  padding-top: 20px;
+  
+
+}
+
+body.home {
+    font-family: "Geomanist-Regular",sans-serif;
+    justify-content: center;
 }
 
 
+body.home > span:before{
+content: "The local time for Begin is:   ";
+}

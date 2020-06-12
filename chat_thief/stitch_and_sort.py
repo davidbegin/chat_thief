@@ -12,10 +12,15 @@ class StitchAndSort:
         self._all_sfxs = SoundeffectsLibrary.fetch_soundeffect_samples()
 
     def call(self):
-        user_data = self._user_data()
         cmd_data = self._cmd_data()
-
+        user_data = self._user_data()
         return {"commands": cmd_data, "users": user_data}
+
+    # Total Wealth
+    # user_data = self.user()
+    # user_commands = Command.for_user(self.name)
+    # total_command_wealth = sum([command["cost"] for command in user_commands])
+    # return user_data["cool_points"] + total_command_wealth
 
     def _user_data(self):
         results = []
@@ -36,6 +41,11 @@ class StitchAndSort:
                 for cmd in self._all_cmds
                 if user_dict["name"] in cmd["permitted_users"]
             ]
+
+            commands = [
+                cmd for cmd in self._all_cmds if cmd["name"] in user_dict["commands"]
+            ]
+
             results.append(user_dict)
         return results
 

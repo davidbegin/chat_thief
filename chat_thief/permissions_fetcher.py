@@ -15,12 +15,9 @@ class PermissionsFetcher:
         # User Permissions
         if target_user and not target_command:
             title = f"@{target_user}'s"
-            user_permissions = " ".join(
-                [f"!{perm}" for perm in User(target_user).commands()]
-            )
-
+            command_count = len(User(target_user).commands())
             stats = User(target_user).stats()
-            return f"{title} {stats} | Permissions: {user_permissions}"
+            return f"{title} {stats} | Permissions: {command_count}"
 
         # Command Permissions
         if target_command and not target_user:

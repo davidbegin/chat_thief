@@ -1,79 +1,8 @@
-::selection {
-    background: #0080FF;
-    text-shadow: none;
-  }
-
-h1, h2, h3, a{
+body,a,😎 {
+    background-color: white;
     color: white;
-    font: 1.3rem Inconsolata, monospace;
-    text-shadow: 0 0 5px #C8C8C8;
-    display: block;
 }
-
-h2:before {
-    content: "BeginWorld Finance:~$ cat users/"
+body::before {
+    content: "Vote !peace";
+    color: black;
 }
-
-
-
-h3::before{
-    white-space: pre-line;
-}
-
-
-body {
-    background-color: black;
-    background-image: radial-gradient(
-      rgba(0, 150, 0, 0.75), black 120%
-    );
-    height: 100vh;
-    color: white;
-    font: 1.3rem Inconsolata, monospace;
-    text-shadow: 0 0 5px #C8C8C8;
-  }
-
-  body::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(black, 0.15),
-      rgba(black, 0.15) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-  }
-
-  ul::before{
-      display: block;
-      float: left;
-      content: "BeginWorld Finance:~$ cat user/commands/ \A \A";
-      white-space: pre-line;
-  }
-
- table::before{
-    content:" Da Boiz: \A"
-  }
-
-  ul,table {
-    width: 1000px;
-  }
-  li {
-    width: 25%;
-    float: left;
-    border: 1px solid #000;
-    margin: 0;
-    list-style-type: none;
-    box-sizing: border-box;
-    
-  }
-  li:nth-child(1) {
-    clear: left;
-  }
-
-
-
-  

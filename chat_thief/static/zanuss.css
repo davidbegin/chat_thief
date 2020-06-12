@@ -1,6 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap);
 
-
 span{
   float:right;
   position:relative;
@@ -9,16 +8,16 @@ span{
 
 body {
   text-transform: uppercase;
-  background-color:black;
+  background-color:black !important;
   color:#ffffff;
   font-family: 'Press Start 2P', monospace !important;
   width:80%;
   margin:auto;
-  padding:2em;
-  background-image: url('https://i.imgur.com/0V6eap6.png');
-  background-position: 765px 600px;
-  background-size: 50% 50%;
-  background-repeat:no-repeat;
+  padding:2em !important;
+  background-image: url('https://i.imgur.com/0V6eap6.png')!important;
+  background-position: 82.5% 90% !important;
+  background-size: 850px 700px !important;
+  background-repeat:no-repeat !important;
 }
 
 
@@ -41,7 +40,7 @@ h1, h1 a{
 }
 
 h2:before{
-   content:"                             ";
+  content:"                             ";
   display:block;
   height:6px;
   width:100%;
@@ -49,7 +48,6 @@ h2:before{
   background-color:red;
   border:1px solid red;
   margin:10px 0px;
-  
 }
 
 h2:after{
@@ -66,12 +64,11 @@ h2:after{
 
 
 h2 {
-    margin:auto;
     text-align:center;
     color:#ffff00;
-    margin:0;
     font-size: 40px;
     letter-spacing: 20px;
+    margin:auto
   }
 
 h3 {
@@ -85,6 +82,10 @@ a {
 
 tr a:visited{
   color:#20DC0A;
+}
+
+tr a{
+   color:#20DC0A;
 }
 
 tr{
@@ -103,12 +104,13 @@ td {
   color: #00ffff;
   text-align:left;
   padding-bottom:0.5em;
-   color:#20DC0A;
+  color:#20DC0A;
+  letter-spacing: 5px;
 }
 
 td:after{
-  content: "    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .    .    .    .    .    .";
-  color:#20DC0A;
+  content: "    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .    .    .     ."; 
+ color:#20DC0A;
 }
 
 tr{
@@ -158,6 +160,7 @@ li{
   font-size:23px;
   margin-left: 0px;
   color:white;
+  letter-spacing: 5px;
 }
 
 li:visited{
@@ -170,28 +173,91 @@ li a{
 
 li:after{
   color: #17EEF5;
-  content:" .   .    .    .    .    .    .    .    ";
+  content:" .   .    .    .    .    .";
 }
 
-figure{
-  background-color:#20DC0A;
+/* figure{
+  background-color:#FF00FF;
   width:100.3%;
   position:relative;
-  right:2.8em;
-  height:6em;
-}
+  right:3%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding-bottom:20px;
+} */
 
-figcaption{
+/* figcaption{
   color: #0000FF;
   padding-top:25px;
   padding-left: 3em;
   font-size: 50px;
   letter-spacing: 8px;
+  text-shadow: 0px -5px 0px black;
+} */
+
+figcaption{
+  display:none;
 }
 
+figure{
+    background-size: 100%;
+    width: 100%;
+    color: transparent;
+    top: 500px;
+    height: 75px;
+    max-height: 85px;
+    margin: 0 auto; 
+}
+
+
 audio{
-  position:relative;
-  left: 62%;
-  bottom: 3.5em;
-  width:30%;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+}
+
+ audio::-webkit-media-controls-enclosure{
+    background:transparent;
+    border-radius:0px
+}
+
+audio::-webkit-media-controls-panel {
+     background-color:#FF00FF;
+ } 
+audio::-webkit-media-controls-play-button:hover{
+    
+    background-size:100%;
+ }
+  
+ audio::-webkit-media-controls-play-button{
+    background-color:transparent;
+    background-image:url('https://i.imgur.com/qhgVKHB.png');
+    background-size:100%;
+    display:block;
+    
+ }
+
+ 
+ audio::-webkit-media-controls-current-time-display{
+     color: #0000FF;
+     left:175px;
+     width:7%;
+     top:53px;
+     display:block;
+     font-family: 'Press Start 2P', monospace !important;
+ }
+ 
+audio::-webkit-media-controls-time-remaining-display{
+   font-family: 'Press Start 2P', monospace !important;
+   color: #0000FF;
+ }
+ 
+ audio::-webkit-media-controls-timeline{
+    color: #0000FF;
+    display:block;
+ }
+
+ audio::-webkit-media-controls-mute-button {
+    background:transparent;
 }

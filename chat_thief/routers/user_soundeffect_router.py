@@ -109,6 +109,7 @@ class UserSoundeffectRouter(BaseRouter):
     def perms(self, parser):
         if len(self.args) > 0 and not parser.target_sfx and not parser.target_user:
             raise ValueError(f"Could not find user or command: {' '.join(self.args)}")
+
         return PermissionsFetcher.fetch_permissions(
             user=self.user,
             target_user=parser.target_user,
