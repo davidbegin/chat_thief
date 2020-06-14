@@ -47,7 +47,7 @@ class BeginFund:
             grouped_results = defaultdict(list)
 
             for user, command in results:
-                grouped_results[command].append(user)
+                grouped_results[command].append(f"@{user}")
 
             return " | ".join(
                 [
