@@ -64,19 +64,32 @@ class SoundeffectRequest(BaseDbModel):
 
         clip_id = request["youtube_id"]
 
+        pt = SoundeffectRequest.sfx_cut_time(request['start_time'])
+
         if is_valid_url(clip_id):
             if "youtu" in clip_id:
-                pt = datetime.strptime(request["start_time"], "%M:%S")
-                total_seconds = pt.second + pt.minute * 60
-                return f"{clip_id}?t={total_seconds}"
+                if pt:
+                    total_seconds = pt.second + pt.minute * 60
+                    return f"{clip_id}?t={total_seconds}"
+                else:
+                    return clip_id
 
             # Assuming Twitch
             else:
                 return clip_id
         else:
-            pt = datetime.strptime(request["start_time"], "%M:%S")
-            total_seconds = pt.second + pt.minute * 60
-            return f"https://youtu.be/{request['youtube_id']}?t={total_seconds}"
+            if pt:
+                total_seconds = pt.second + pt.minute * 60
+                return f"https://youtu.be/{request['youtube_id']}?t={total_seconds}"
+            else:
+                return f"https://youtu.be/{request['youtube_id']}"
+
+    @staticmethod
+    def sfx_cut_time(cut_time):
+        try:
+            return datetime.strptime(cut_time, "%M:%S")
+        except Exception as e:
+            print(f"Error formatting Time: {cut_time}\n{e}")
 
     @classmethod
     def pop_all_off(cls):

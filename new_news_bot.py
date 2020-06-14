@@ -79,7 +79,7 @@ class BreakingNewsBot:
             os.system("scene news")
 
         self.last_breaking_time = datetime.now()
-        os.system("time make deploy")
+        # os.system("time make deploy")
 
 
 if __name__ == "__main__":

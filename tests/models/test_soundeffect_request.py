@@ -148,12 +148,6 @@ class TestSoundEffectRequest(DatabaseConfig):
         result = SoundeffectRequest.stats()
 
         expected = {
-            "whatsinmyopsec": {1: "bullyme"},
-            "kevinsjoberg": {2: "@kevinsjoberg",},
-            "c4tfive": {3: "tootsie"},
-        }
-
-        expected = {
             "kevinsjoberg": {
                 2: {
                     "name": "@kevinsjoberg",

@@ -4,56 +4,67 @@ body {
     text-align: center;
     font-family: 'Fira Code';
 }
-
-a {
+ 
+h1 a {
     text-decoration: none;
     border: 3px solid #444157;
-	padding: 7px;
+    padding: 7px;
     border-radius: 30px;
     color: #444157;
     font-size: 75pt;
 }
-
+ 
 h1 {
     margin-top: 100px;
 }
-
+ 
 a:hover {
     cursor: pointer;
     background-color: #444157;
     color: #F1ECEB;
     box-shadow: 0 5px 10px #666;
 }
-
+ 
 a:active {
     transform: translateY(4px);
     color: #444157;
     background-color: #F1ECEB;
   }
-
+ 
 h2 {
     margin-top: 50px;
     font-size: 50pt;
     text-transform: uppercase;
 }
-
+ 
 h3 {
     font-size: 25pt;
 }
-
+ 
 ul {
     text-align: left;
     width: 50%;
     margin: auto;
+    margin-bottom: 10%;
 }
-
+ 
 li {
     text-align: left;
     display: inline-table;
     margin-top: 50px;
 }
-
+ 
 li a {
+    text-decoration: none;
+    border: 3px solid #444157;
+    padding: 7px;
+    border-radius: 30px;
+    color: #444157;
     text-align: left;
     font-size: 15pt;
+}
+ 
+ 
+ul + span, a[href="https://pastebin.com/"], a[href="https://gist.github.com/"], a[href="https://gist.github.com/"] + br + span {
+    visibility: hidden;
 }

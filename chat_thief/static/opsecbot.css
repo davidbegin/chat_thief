@@ -603,6 +603,22 @@ h2 {
 
 }
 
+@keyframes stretchy {
+  0% {
+    transform: scale(.1);
+    background-color: dimgray;
+    border-radius: 100%;
+  }
+  50% {
+
+    background-color: darkgray;
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2);
+  }
+}
+
 @keyframes stretch {
   0% {
     transform: scale(.1);
@@ -688,7 +704,8 @@ h2 {
   text-transform: uppercase;
   font: 20px "Geomanist-Regular",sans-serif;
   letter-spacing: 0.6em;
-  background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d );
+ background: linear-gradient(to right, #59C173, #a17fe0, #5D26C1); 
+
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
 }
 
@@ -805,6 +822,7 @@ body.home {
     justify-content: center;
     background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29); 
 
+
 }
 
 
@@ -820,11 +838,12 @@ body.home > span:before {
   content: "Change the world  ";
   }
 
-body.home > h2 {
+h2.users {
   visibility: hidden;
+  padding-left: 100px;
 }
 
-body.home > h2:before {
+h2.users:before {
   padding-left: 7%;
   padding-right: 2%;
   text-align: center;
@@ -832,7 +851,33 @@ body.home > h2:before {
   content: "Gamer Girls";
 }
 
-body.home > h2:nth-of-type(2):before{
+h2.stylish_users {
+  visibility: hidden;
+  font: "Geomanist-Regular",sans-serif;
+    animation-name: blurrr,stretchy;
+    animation-duration: 1s; 
+    animation-timing-function: cubic-bezier(1.000, 3.000, 0.000, 0.900); 
+    
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running;
+
+padding-left: 200px;
+}
+
+h2.stylish_users:before {
+
+  visibility: visible;
+  content: "Stylized Gamer Girls";
+}
+
+h2.commands {
+  visibility: hidden;
+  padding-left: 200px;
+}
+
+h2.commands:before{
   padding-left: 7%;
   padding-right: 2%;
   text-align: center;
@@ -861,4 +906,8 @@ body.home > li:before {
   visibility: visible;
 }
 
-
+body.home > hr{
+  border: 10px outset #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
+}

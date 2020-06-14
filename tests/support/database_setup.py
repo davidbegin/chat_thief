@@ -14,6 +14,7 @@ from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
 from chat_thief.models.cube_stats import CubeStats
+from chat_thief.models.the_fed import TheFed
 
 MODEL_CLASSES = [
     BreakingNews,
@@ -26,6 +27,7 @@ MODEL_CLASSES = [
     Proposal,
     SFXVote,
     SoundeffectRequest,
+    TheFed,
     User,
     Vote,
 ]

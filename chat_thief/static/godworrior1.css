@@ -8,6 +8,18 @@ ul {
   padding: 0;
   list-style-type: none;
 }
+li {
+  color: #FF756D;
+  padding: 5px;
+  display: inline-block;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: 120%;
+  vertical-align: top;
+}
+li:hover {
+  cursor: pointer;
+}
 a {
   color: #FF756D;
   text-decoration: none;
