@@ -1,66 +1,197 @@
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
 html {  
   background-image: url("https://raw.githubusercontent.com/qtile/qtile/master/logo.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-color: rgba(0, 0, 0, 1);
-
 }  
 body {
-  
+  background-color: rgba(0, 0, 0, .6);
   color: #39ff14;
   font-size: 1.1em;
   font-family: 'Fira Code', monospace;
   text-shadow: 0 0 1px #C8C8C8;
+  opacity: 1;
+  margin: 0 0 0 0;
+  padding: 8px 8px 8px 8px;
 }
-body::before {
-  content: "Qtile Page";
-  color: #333;
-}
-body::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(black, 0.15),
-    rgba(black, 0.15) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-}
-
 pre {
   margin: 0;
 }
 a {
-  color: rgba(57, 255, 20, 0.8);
+  color: rgba(57, 255, 20, 1);
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  text-decoration: underline;
 }
 h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
+  font-weight: normal;
 }
-li::before {
-  content: "Qtile# ";
+h2 {
+  display: none;
 }
-li {
-  list-style: none;
+h2 .users::before {
+  content: "[Qtile ~]# ";
+}
+h3::before {
+  content: "[Qtile ~]$ whoami";
+  display: flex;
 }
 h3::after {
-  content: ".8675309e7 | => STREAMGOD"
+  content: ".8675309e7 =>> STREAMGOD"
+}
+ul::before {
+  content: "[Qtile ~]$ ls";
 }
 ul::after {
-  content: "#: stupac62 made all the sounds."
+  content: "Author note: stupac62 made all the sounds."
 }
 ul {
   padding-left: 0px;
+  list-style: none;
+  counter-reset: my-awesome-counter;
 }
-figure {
+ul li::before {
+  content: counter(my-awesome-counter) ": ";
+}
+ul li {
+  counter-increment: my-awesome-counter;
   
 }
-
-figcaption{
-  display:none;
+figure {
+  padding: 0;
+  margin: 15px auto;
+  width: 100%;
+  background-size: 100%;
+  color: rgba(57, 255, 20, 1);
+  height: auto;
+}
+figcaption::before {
+  content: "[Qtile ~]# !stupac62";
+  display: flex;
+}
+figcaption {
+  padding-left: 0;
+  display: inline;
  }
+audio{
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  height: 45px;
+  
+}
+audio::-webkit-media-controls-enclosure{
+    background:transparent;
+    
+}
+audio::-webkit-media-controls-panel {
+     background-color: transparent;
+ } 
+audio::-webkit-media-controls-play-button:hover{
+    
+    background-size:100%;
+ }
+audio::-webkit-media-controls-play-button{
+    background-size:100%;
+    display:block;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjMzlmZjE0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeD0iMHB4IiB5PSIwcHgiPjx0aXRsZT5tdXNpYywgcGxheSwgbWVkaWEsIHBsYXlpbmcsIHZpZGVvPC90aXRsZT48cGF0aCBkPSJNNy41NTUsMy4xNjhBMSwxLDAsMCwwLDYsNFYyMGExLDEsMCwwLDAsMS41NTUuODMybDEyLThhMSwxLDAsMCwwLDAtMS42NjRaTTgsMTguMTMxVjUuODY5TDE3LjIsMTJaIj48L3BhdGg+PC9zdmc+");
+  
+}
+audio::-webkit-media-controls-current-time-display{
+  color: rgba(57, 255, 20, 1);
+  left:175px;
+  width:64px;
+  
+  display:block;
+  font-family: 'Press Start 2P', monospace !important;
+ }
+ 
+audio::-webkit-media-controls-time-remaining-display{
+   font-family: 'Press Start 2P', monospace !important;
+   color: rgba(57, 255, 20, 1);
+ }
+ 
+ audio::-webkit-media-controls-timeline{
+    color: rgba(57, 255, 20, 1);
+    display:block;
+ }
+
+ audio::-webkit-media-controls-mute-button {
+    background:transparent;
+}
+
+figure::after {
+  content: "[Qtile ~]$ ";
+  display: inline;
+  
+}
+body::after { 
+  display: inline;
+  content: "|";
+  font-weight: 100;
+  font-size: 30px;
+  color: #eee;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-moz-keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-ms-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-o-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}

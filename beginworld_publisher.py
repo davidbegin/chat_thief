@@ -53,7 +53,6 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     warning(f"Rendering Template: {dest_filename}")
     template = jinja2.Environment(
         loader=jinja2.FileSystemLoader(template_path),
-        # enable_async=True
     ).get_template(file_name)
 
     rendered_template = template.render(context)
@@ -62,6 +61,7 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     warning(f"Writing Template: {file_name}")
     if dest_filename:
         html_file = dest_filename
+
     else:
         html_file = file_name
 
@@ -121,13 +121,17 @@ async def generate_command_page(cmd_dict):
         )
 
 
-# We need to fetch all the info upfront
-# Fetching the info from the DB is blocking!
 async def generate_user_page(user_dict):
     name = user_dict["name"]
     commands = user_dict["commands"]
     users_choice = user_dict.get("custom_css", None)
-    stats = f"@{name} - Mana: {user_dict['mana']} | Street Cred: {user_dict['street_cred']} | Cool Points: {user_dict['cool_points']}"
+
+    stats = (f"@{name} - Mana: {user_dict['mana']} | "
+        f"Street Cred: {user_dict['street_cred']} | "
+        f"Cool Points: {user_dict['cool_points']}")
+
+    if wealth := user_dict.get("wealth", None):
+        stats += f" | Wealth: {user_dict['wealth']}"
 
     top8 = user_dict.get("top_eight", [])
 
@@ -143,37 +147,18 @@ async def generate_user_page(user_dict):
 
     await _render_and_save_html("user.html", context, f"{name}.html")
 
-
 # cyberbeni: Isn't asyncio single threaded? I think you need a
 # ProcessPoolExecutor or a ThreadPoolExecutor to speed it up.
 async def main():
     warning("Fetching All Data")
     all_data = StitchAndSort().call()
-    print(all_data)
     success("All Data Fetched...Creating Tasks")
-    breakpoint()
 
-
-
-    # In the main function
-    # We should grab all data upfront
-    #  and have it sorted
-    # warning("Fetching Users")
-    # users = User.all_data()
-    # success("Finished Fetching Users")
-    # warning("Fetching Commands")
-    # commands = Command.all_data()
-    # success("Finished Fetching Commands")
-    # warning("Setting Up Tasks")
-    # Take all the User and Command Data
-    # stitch it together and Sort
-    # Stitch
-    # StitchAndSort
-
+    warning("Setting Up Tasks")
     tasks = (
         [generate_home(all_data)]
-        # + [generate_user_page(user_dict) for user_dict in users]
-        # + [generate_command_page(command) for command in commands]
+        + [generate_user_page(user_dict) for user_dict in all_data['users'] ]
+        + [generate_command_page(command) for command in all_data['commands']]
     )
     success("Finished Setting Up Tasks")
 

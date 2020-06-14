@@ -29,5 +29,5 @@ class TestCommandStealer(DatabaseConfig):
         subject = CommandStealer(
             thief=thief.name, command="fake_command", victim=victim.name,
         )
-        with pytest.raises(ValueError) as err:
-            subject.steal()
+        result = subject.steal()
+        '@hamburgler BROKE BOI!'

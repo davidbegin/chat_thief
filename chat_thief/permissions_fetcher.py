@@ -9,15 +9,15 @@ class PermissionsFetcher:
         if not target_command and not target_user:
             user = User(user)
             stats = user.stats()
-            user_permissions = " ".join([f"!{perm}" for perm in user.commands()])
-            return f"{stats} | {user_permissions}"
+            sfx_count = len(user.commands())
+            return f"{stats} | SFX Count: {sfx_count}"
 
         # User Permissions
         if target_user and not target_command:
             title = f"@{target_user}'s"
-            command_count = len(User(target_user).commands())
+            sfx_count = len(User(target_user).commands())
             stats = User(target_user).stats()
-            return f"{title} {stats} | Permissions: {command_count}"
+            return f"{title} {stats} | SFX Count: {sfx_count}"
 
         # Command Permissions
         if target_command and not target_user:
@@ -28,6 +28,4 @@ class PermissionsFetcher:
 
             like_ratio = SFXVote(target_command).like_to_hate_ratio()
             stats = f"!{target_command} | Cost: {command.cost()} | Health: {command.health()} | Like Ratio {round(like_ratio)}%"
-            if user_permissions:
-                stats += f" | {user_permissions}"
             return stats

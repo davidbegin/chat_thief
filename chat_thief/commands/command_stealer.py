@@ -13,7 +13,7 @@ class CommandStealer:
         user = User(self.thief)
 
         if command.name not in User(self.victim).commands():
-            raise ValueError(f"{command.name} is not owned by {user.name}")
+            f"{command.name} is not owned by {user.name}"
 
         cool_points = user.cool_points()
 

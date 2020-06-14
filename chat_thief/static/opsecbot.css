@@ -688,10 +688,7 @@ h2 {
   text-transform: uppercase;
   font: 20px "Geomanist-Regular",sans-serif;
   letter-spacing: 0.6em;
- /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #5D26C1, #a17fe0, #59C173);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #5D26C1, #a17fe0, #59C173); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d );
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
 }
 
@@ -806,8 +803,7 @@ audio{
 body.home {
     font-family: "Geomanist-Regular",sans-serif;
     justify-content: center;
-    background: linear-gradient(to right, #59C173, #a17fe0, #5D26C1); 
-
+    background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29); 
 
 }
 
