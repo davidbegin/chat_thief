@@ -1,42 +1,70 @@
-div {
-  width: 200px;
+</style>
+<script>
+document..onload = function() {myFunction()};
+function myFunction() {
+  alert("I am an alert box!");
 }
- 
+</script>
+<style>
+body
+{
+  background: rgb(65,61,117);
+  background: -moz-linear-gradient(90deg, rgba(65,61,117,1) 0%, rgba(204,212,87,1) 41%, rgba(55,212,66,1) 70%, rgba(0,212,255,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(65,61,117,1) 0%, rgba(204,212,87,1) 41%, rgba(55,212,66,1) 70%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(90deg, rgba(65,61,117,1) 0%, rgba(204,212,87,1) 41%, rgba(55,212,66,1) 70%, rgba(0,212,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#413d75",endColorstr="#00d4ff",GradientType=1);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+h1 {
+    margin: 0;
+    padding-bottom: 6rem;
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 1;
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+    text-transform: uppercase;
+    animation: glow 2s ease-in-out infinite alternate;
+    text-align: center;
+  }
+  a {
+    font-family: 'Dancing Script', cursive;
+    color: #4db1bc;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+    justify-self: center;
+    padding-bottom: 1rem;
+  }
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 20px #eb4034;
+    }
+    to {
+      text-shadow: 0 0 30px #dbc12c, 0 0 10px #b88e1c;
+    }
+  }
+}
+
 h2 {
-  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
+  font-size: 150px;
+  font-family: 'Dancing Script', cursive;
+  transform: translateY(-600px);
+  animation: 1.2s slideIn ease-in-out forwards 1s;
+  z-index: 10;
+  opacity: 0;
+  position: relative;
 }
- 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
- 
-li {
-  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
-  border-bottom: 1px solid #ccc;
-}
- 
-li:last-child {
-  border: none;
-}
- 
-li a {
-  text-decoration: none;
-  color: #000;
-  display: block;
-  width: 200px;
- 
-  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
-  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
-  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
-  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
-  transition: font-size 0.3s ease, background-color 0.3s ease;
-}
- 
-li a:hover {
-  font-size: 30px;
-  background: #f6f6f6;
+
+h2::before {
+    content: '';
+    width: 0%;
+    height: 76px;
+    position: absolute;
+    bottom: -10px;
+    animation: 1s underline ease-in-out forwards 2s;
+    mix-blend-mode: screen;
 }
