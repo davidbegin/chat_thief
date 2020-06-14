@@ -23,15 +23,19 @@
     </ul>
   {% endif %}
 
+  <h2 class="stylish_users">Stylish Users</h2>
+    {% for user in stylish_users %}
+      <a href="{{ base_url }}/{{ user }}.html"> {{ user }} </a>
+    {% endfor %}
+
+  <hr />
+
   <h2 class="users">Users</h2>
 
   <ul>
     {% for user in users %}
         {% if user['name'] %}
           <li>
-            {% if user['name'] in stylish_users %}
-              &#128526;
-            {% endif %}
             <a href="{{ base_url }}/{{ user['name'] }}.html"> {{ user['name'] }} </a> |
             Cool Points: {{ user['cool_points'] }} |
             Street Cred: {{ user['street_cred'] }} |
