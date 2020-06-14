@@ -4,8 +4,50 @@ body {
     text-align: center;
     font-family: 'Fira Code';
 }
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: #444157;
+    border: 3px solid #444157;
+    padding: 7px;
+    border-radius: 30px;
+    margin: 5px;
+}
+
+a:hover {
+    background-color: #444157;
+    color: #F1ECEB;
+}
+
+a:active {
+    background-color: #F1ECEB;
+    color: #444157;
+}
+
+.stylish_users, .users, .commands {
+    border: 3px solid #444157;
+    padding: 7px;
+    border-radius: 30px;
+    color: #444157;
+    width: 50%;
+    margin: 50px auto 20px auto;
+}
+
+.home h1 {
+    border: 3px solid #444157;
+    padding: 7px;
+    border-radius: 30px;
+    color: #444157;
+    font-size: 75pt;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
  
 h1 a {
+    display: inline;
     text-decoration: none;
     border: 3px solid #444157;
     padding: 7px;
@@ -14,22 +56,22 @@ h1 a {
     font-size: 75pt;
 }
  
-h1 {
+.user h1 {
     margin-top: 100px;
 }
  
-a:hover {
+li a:hover, h1 a:hover {
     cursor: pointer;
     background-color: #444157;
     color: #F1ECEB;
     box-shadow: 0 5px 10px #666;
 }
  
-a:active {
+li a:active {
     transform: translateY(4px);
     color: #444157;
     background-color: #F1ECEB;
-  }
+}
  
 h2 {
     margin-top: 50px;
@@ -41,9 +83,16 @@ h3 {
     font-size: 25pt;
 }
  
-ul {
+.user ul {
     text-align: left;
     width: 50%;
+    margin: auto;
+    margin-bottom: 10%;
+}
+
+.users ul {
+    text-align: left;
+    width: 100%;
     margin: auto;
     margin-bottom: 10%;
 }
@@ -55,6 +104,7 @@ li {
 }
  
 li a {
+    display: inline;
     text-decoration: none;
     border: 3px solid #444157;
     padding: 7px;
@@ -66,5 +116,18 @@ li a {
  
  
 ul + span, a[href="https://pastebin.com/"], a[href="https://gist.github.com/"], a[href="https://gist.github.com/"] + br + span {
-    visibility: hidden;
+    display: none;
+}
+
+.commands ~ ul li a, .commands ~ ul li {
+    display: inline-block;
+}
+
+.commands ~ ul li {
+    width: 500px;;
+}
+
+.commands ~ ul li a {
+    display: inline-block;
+    width: auto;
 }

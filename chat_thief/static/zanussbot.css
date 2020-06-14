@@ -1,0 +1,91 @@
+@import url{'https://fonts.googleapis.com/css2?family=Michroma&display=swap'};
+
+@import url{'https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap'}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red;
+  }
+  to {
+    text-shadow: 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247;
+  }
+}
+
+
+body {
+  font-family: 'Michroma', sans-serif;
+  background-color:#296E01 !important;
+  color: white;
+  font-size: 2em;
+}
+
+h1, h1 a{
+  font-family: 'Michroma', sans-serif;
+  color: white;
+  text-align: center;
+}
+
+h2{
+  padding-left:5%;
+  text-align:left;
+  color:white;
+  font-size:25px;
+  position:relative;
+  z-index:100;
+  background-image: url('https://i.imgur.com/pmThs87.png');
+  background-size: 300px 300px !important;
+  background-repeat:no-repeat !important;
+  background-position: 1% 15%!important;
+  width: 100%;
+  height:260px;
+  padding-top:8%;
+}
+
+
+h3{
+  text-align:center;
+  position:relative;
+  left: 20%;
+  bottom:270px;
+  font-size:23px;
+  font-family: 'Orbitron', sans-serif !important;
+  background-image: url('https://i.imgur.com/EDnquoB.png');
+  background-size: 100% 300px !important;
+  background-repeat:no-repeat !important;
+  background-position: -12% 15%!important;
+  border:solid grey 3px;
+  width:40%;
+  color: red;
+  -webkit-animation: glow 4s ease-in-out infinite alternate;
+  -moz-animation: glow 4s ease-in-out infinite alternate;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+table, th, td{
+  border: 2px solid white;
+  color: gold;
+}
+
+th a, td a{ 
+  color:gold;
+  text-decoration: none;
+}
+
+ul, li{
+  color:white;
+  list-style:none;
+}
+
+ul a, li a{
+  color:white;
+  text-decoration:none;
+}
+
+ul li::before {
+  content: "\2022";
+  color: gold;
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
+}

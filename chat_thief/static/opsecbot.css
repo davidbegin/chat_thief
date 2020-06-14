@@ -704,7 +704,7 @@ h2 {
   text-transform: uppercase;
   font: 20px "Geomanist-Regular",sans-serif;
   letter-spacing: 0.6em;
- background: linear-gradient(to right, #59C173, #a17fe0, #5D26C1); 
+ background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d ); 
 
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
 }
@@ -816,6 +816,16 @@ audio{
   
 
 }
+
+body.user > span {
+  visibility: hidden;
+}
+
+body.user > code {
+  visibility: hidden;
+}
+
+
 
 body.home {
     font-family: "Geomanist-Regular",sans-serif;

@@ -73,7 +73,7 @@ h2 {
 
 h3 {
   color:#ffffff;
-  font-size:25px;
+  font-size:23px;
 }
 
 a { 
@@ -260,4 +260,16 @@ audio::-webkit-media-controls-time-remaining-display{
 
  audio::-webkit-media-controls-mute-button {
     background:transparent;
+}
+
+span{
+  display:none;
+}
+
+body.user > a:nth-of-type(1){
+  display:none;
+}
+
+body.user > a:nth-of-type(2){
+  display:none;
 }

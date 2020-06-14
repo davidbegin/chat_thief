@@ -1,6 +1,6 @@
 body {
     background-size: 1920x1080;
-    background-image: url(https://www.pixelstalk.net/wp-content/uploads/2016/08/1920x1080-Library-Wallpaper.jpg);
+    background-color: #FFD700;
     font-style: Bold Helvetica;
 }
 
@@ -14,100 +14,70 @@ h1 {
     animation-name: Box;
     animation-duration: 15s;
     animation-iteration-count: 2;
-    animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.335);
-    animation-name: Blinker;
-    animation-delay: 5s;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
 
 }
 
 h2 {
     position: relative;
-    width: fit-content;
-    padding: 2em, 2em, 2em, 2em;
-    color: #00FF7F;
-    font-size: x-large;
-    font-weight: 600;
-    text-shadow: 4px 9px 0px 0px #940206;
-    text-align: center;
-    text-decoration: double underline;
-    animation-name: Box;
-    animation-duration:15s;
-    animation-iteration-count: 2;
-}
-
-h3 {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    position: relative;
-    box-sizing: 400px;
-    font-size: medium;
-    font-weight: 800;
-    padding: 10px 10px 10px 10px;
-    animation: MoveUpDown 5s linear infinite;
-}
-
-table {
-    padding-block-start: 40px;
-    offset: 74px;
-    color: #00FF7F;
-    font-size: large;
-    font-size-adjust: large;
-    text-decoration: dashed;
-    animation-name: Drop;
-    animation-duration: 10s;
-    animation-iteration-count: 2;
-}
-@keyframes MoveUpDown {
-  0%, 100% {bottom: 0;}
-  50% {bottom: 100px;}
-  }
-
-@keyframes Box {
-  0% {left:0px; top:0px;}
-  25% {left:250px; top:0px;}
-  50% {left:250px; top:250px;}
-  75% {left:0px; top:250px;}
-  100% {left:0px; top:0px;}
-  }
-
-@keyframes Drop {
-    000% {left:0px; top: 300px;}
-    001% {left:0px; top: 299px;}
-    002% {left:0px; top: 298px;}
-    003% {left:0px; top: 297px;}
-    004% {left:0px; top: 296px;}
-    005% {left:0px; top: 295px;}
-    006% {left:0px; top: 294px;}
-    007% {left:0px; top: 293px;}
-    008% {left:0px; top: 292px;}
-    009% {left:0px; top: 291px;}
-    000% {left:0px; top: 290px;}
-    001% {left:0px; top: 209px;}
-    002% {left:0px; top: 208px;}
-    003% {left:0px; top: 207px;}
-    004% {left:0px; top: 206px;}
-    005% {left:0px; top: 205px;}
-    006% {left:0px; top: 204px;}
-    007% {left:0px; top: 203px;}
-    008% {left:0px; top: 202px;}
-    009% {left:0px; top: 201px;}
-    010% {left:0px; top: 200px;}
-    011% {left:0px; top: 199px;}
-    015% {left:0px; top: 198px;}
-    016% {left:0px; top: 197px;}
-    017% {left:0px; top: 196px;}
-    018% {left:0px; top: 195px;}
-    019% {left:0px; top: 194px;}
-    020% {left:0px; top: 193px;}
-    021% {left:0px; top: 196px;}
-    022% {left:0px; top: 195px;}
-    023% {left:0px; top: 194px;}
-    024% {left:0px; top: 193px;}
-    025% {left:0px; top: 196px;}
-    026% {left:0px; top: 195px;}
-    028% {left:0px; top: 194px;}
-    100% {left:0px; top: 000px;}
+    width: fit-content;                                                                                                 │
+    padding: 2em, 2em, 2em, 2em;                                                                                        │
+    color: #00FF7F;                                                                                                     │
+    font-size: x-large;                                                                                                 │
+    font-weight: 600;                                                                                                   │
+    text-shadow: 4px 9px 0px 0px #940206;                                                                               │
+    text-align: center;                                                                                                 │
+    text-decoration: double underline;                                                                                  │
+    animation-name: Box;                                                                                                │
+    animation-duration:15s;                                                                                             │
+    animation-iteration-count: 2;                                                                                       │
+}                                                                                                                       │
+                                                                                                                        │
+h3 {                                                                                                                    │
+    position: absolute;                                                                                                 │
+    left: 0;                                                                                                            │
+    bottom: 0;                                                                                                          │
+    position: relative;                                                                                                 │
+    box-sizing: 400px;                                                                                                  │
+    font-size: medium;                                                                                                  │
+    font-weight: 800;                                                                                                   │
+    padding: 10px 10px 10px 10px;                                                                                       │
+    animation: MoveUpDown 5s linear infinite;                                                                           │
+}                                                                                                                       │
+                                                                                                                        │
+table {                                                                                                                 │
+    position: relative;                                                                                                 │
+    right: 0em;                                                                                                         │
+    bottom: 0em;                                                                                                        │
+    padding-block-start: 40px;                                                                                          │
+    offset: 74px;                                                                                                       │
+    color: #00FF7F;                                                                                                     │
+    font-size: large;                                                                                                   │
+    font-size-adjust: large;                                                                                            │
+    text-decoration: dashed;                                                                                            │
+    animation-name: Drop;                                                                                               │
+    animation-duration: 10s;                                                                                            │
+    animation-iteration-count: 2;                                                                                       │
+}                                                                                                                       │
+                                                                                                                        │
+@keyframes MoveUpDown {                                                                                                 │
+  0%, 100% {bottom: 0;}                                                                                                 │
+  50% {bottom: 100px;}                                                                                                  │
+  }                                                                                                                     │
+                                                                                                                        │
+@keyframes Box {                                                                                                        │
+  0% {left:0px; top:0px;}                                                                                               │
+  25% {left:250px; top:0px;}                                                                                            │
+  50% {left:250px; top:250px;}                                                                                          │
+  75% {left:0px; top:250px;}                                                                                            │
+  100% {left:0px; top:0px;}                                                                                             │
+  }                                                                                                                     │
+                                                                                                                        │
+@keyframes Drop {                                                                                                       │
+    000% {left:0px; top: 300px;}                                                                                        │
+    005% {left:0px; top: 290px;}                                                                                        │
+    010% {left:0px; top: 200px;}                                                                                        │
+    024% {left:0px; top: 193px;}                                                                                        │
+    056% {left:0px; top: 195px;}                                                                                        │
+    078% {left:0px; top: 194px;}                                                                                        │
+    100% {left:0px; top: 000px;}                                                                                        │
 }

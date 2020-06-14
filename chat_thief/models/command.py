@@ -17,11 +17,11 @@ class Command(BaseDbModel):
     table_name = "commands"
     database_path = "db/commands.json"
 
-    def __init__(self, name):
+    def __init__(self, name, inital_cost=1):
         self.name = name
         self.permitted_users = []
         self.inital_health = 3
-        self.inital_cost = 1
+        self.inital_cost = inital_cost
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
     @classmethod
