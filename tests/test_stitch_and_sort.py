@@ -38,6 +38,7 @@ class TestStitchandSort(DatabaseConfig):
             "mana": 3,
             "custom_css": custom_css,
             "commands": ["damn"],
+            "sfx_count": 1,
             "top_eight": [],
         }
         assert result["users"][1] == {
@@ -48,6 +49,7 @@ class TestStitchandSort(DatabaseConfig):
             "mana": 3,
             "top_eight": [],
             "wealth": 1,
+            "sfx_count": 1,
             "commands": ["mclovin"],
         }
 

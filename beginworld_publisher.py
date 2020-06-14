@@ -127,9 +127,11 @@ async def generate_user_page(user_dict):
     users_choice = user_dict.get("custom_css", None)
     ride_or_die = user_dict.get("ride_or_die", None)
 
-    stats = (f"@{name} - Mana: {user_dict['mana']} | "
+    stats = (
+        f"@{name} - Mana: {user_dict['mana']} | "
         f"Street Cred: {user_dict['street_cred']} | "
-        f"Cool Points: {user_dict['cool_points']}")
+        f"Cool Points: {user_dict['cool_points']}"
+    )
 
     if wealth := user_dict.get("wealth", None):
         stats += f" | Wealth: {user_dict['wealth']}"
@@ -148,6 +150,7 @@ async def generate_user_page(user_dict):
 
     await _render_and_save_html("user.html", context, f"{name}.html")
 
+
 # cyberbeni: Isn't asyncio single threaded? I think you need a
 # ProcessPoolExecutor or a ThreadPoolExecutor to speed it up.
 async def main():
@@ -158,8 +161,8 @@ async def main():
     warning("Setting Up Tasks")
     tasks = (
         [generate_home(all_data)]
-        + [generate_user_page(user_dict) for user_dict in all_data['users'] ]
-        + [generate_command_page(command) for command in all_data['commands']]
+        + [generate_user_page(user_dict) for user_dict in all_data["users"]]
+        + [generate_command_page(command) for command in all_data["commands"]]
     )
     success("Finished Setting Up Tasks")
 

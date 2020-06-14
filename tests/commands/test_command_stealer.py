@@ -30,4 +30,4 @@ class TestCommandStealer(DatabaseConfig):
             thief=thief.name, command="fake_command", victim=victim.name,
         )
         result = subject.steal()
-        '@hamburgler BROKE BOI!'
+        "@hamburgler BROKE BOI!"
