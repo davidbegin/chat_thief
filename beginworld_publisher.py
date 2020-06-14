@@ -125,6 +125,7 @@ async def generate_user_page(user_dict):
     name = user_dict["name"]
     commands = user_dict["commands"]
     users_choice = user_dict.get("custom_css", None)
+    ride_or_die = user_dict.get("ride_or_die", None)
 
     stats = (f"@{name} - Mana: {user_dict['mana']} | "
         f"Street Cred: {user_dict['street_cred']} | "

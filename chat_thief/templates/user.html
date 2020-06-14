@@ -11,6 +11,13 @@
   <h2>{{ user }}</h2>
   <h3>{{ stats }}</h3>
 
+  <span>
+  {% if ride_or_die %}
+    | Ride Or Die: <a href="{{ base_url }}/{{ ride_or_die }}.html">
+      {{ ride_or_die }}</a>
+  {% endif %}
+  </span>
+
 	<table>
 		<tr>
 			{% for user in top8 %}

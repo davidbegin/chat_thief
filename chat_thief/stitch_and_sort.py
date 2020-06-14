@@ -44,6 +44,8 @@ class StitchAndSort:
                 if user_dict["name"] in cmd["permitted_users"]
             ]
 
+            user_dict["sfx_count"] = len(user_dict["commands"])
+
             results.append(user_dict)
         return list(reversed(sorted(results, key=lambda user: user.get("wealth", 0))))
 
