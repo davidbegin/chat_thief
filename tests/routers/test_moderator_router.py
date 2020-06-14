@@ -59,7 +59,7 @@ class TestModeratorRouter(DatabaseConfig):
     # It is relying on real users existing
     def test_dropeffects(self, mock_random_user):
         result = ModeratorRouter("beginbotbot", "dropeffect").route()
-        assert "now has access" in result[0]
-        assert "now has access to Sound Effect: !dropeffect" not in result[0]
+        assert "now has access" in result
+        assert "now has access to Sound Effect: !dropeffect" not in result
         result = ModeratorRouter("beginbotbot", "dropreward").route()
         assert "now has access" in result

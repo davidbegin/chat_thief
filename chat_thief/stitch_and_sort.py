@@ -83,7 +83,9 @@ class StitchAndSort:
                 cmd_dict["like_to_hate_ratio"] = 100
 
             results.append(cmd_dict)
-        return list(reversed(sorted(results, key=lambda command: command.get("cost", 0))))
+        return list(
+            reversed(sorted(results, key=lambda command: command.get("cost", 0)))
+        )
 
     def _setup_command_users(self):
         command_users = {}

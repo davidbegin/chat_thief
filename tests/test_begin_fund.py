@@ -6,6 +6,7 @@ from chat_thief.models.command import Command
 
 from tests.support.database_setup import DatabaseConfig
 
+
 class TestBeginFund(DatabaseConfig):
     def test_dropeffect(self):
         result = BeginFund().dropeffect()
@@ -24,6 +25,9 @@ class TestBeginFund(DatabaseConfig):
         TheFed.collect_taxes()
         assert TheFed.reserve() == 5
         result = BeginFund(target_user="uzi", target_command="damn").dropeffect()
-        assert "@uzi now has access to the Soundeffect: !damn" in result
+        assert result == "@uzi now has access to !damn"
         assert TheFed.reserve() == 4
 
+        result = BeginFund(target_command="damn", amount=2).dropeffect()
+        assert "now has access to !damn" in result
+        assert TheFed.reserve() == 2

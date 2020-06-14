@@ -19,12 +19,11 @@ class TheFed(BaseDbModel):
 
     def collect_taxes(self):
         for command in Command.db().all():
-            if command['cost'] > 1:
+            if command["cost"] > 1:
                 print(f"Taxing {command['name']}")
-                new_cost =  int(command['cost'] / 2)
-                Command(command['name']).set_value("cost", new_cost)
+                new_cost = int(command["cost"] / 2)
+                Command(command["name"]).set_value("cost", new_cost)
                 self.collect_tax(new_cost)
-
 
     def collect_tax(self, tax):
         if self.db().search(Query().version == self.version):
@@ -44,11 +43,9 @@ class TheFed(BaseDbModel):
             return transform
 
         from tinyrecord import transaction
+
         with transaction(self.db()) as tr:
             tr.update_callable(_update_that_value(), Query().version == self.version)
 
     def doc(self):
-        return {
-            "version": self.version,
-            "reserve": self._reserve
-        }
+        return {"version": self.version, "reserve": self._reserve}

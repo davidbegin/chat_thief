@@ -5,6 +5,7 @@ from chat_thief.models.command import Command
 
 from tests.support.database_setup import DatabaseConfig
 
+
 class TestTheFed(DatabaseConfig):
     def test_taxes(self):
         result = TheFed.reserve()

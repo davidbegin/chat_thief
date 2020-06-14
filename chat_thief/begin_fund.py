@@ -1,6 +1,7 @@
 import random
 from pathlib import Path
 import traceback
+from collections import defaultdict
 
 from chat_thief.models.command import Command
 from chat_thief.models.the_fed import TheFed
@@ -10,6 +11,7 @@ from chat_thief.chat_logs import ChatLogs
 
 INVALID_USERS = ["nightbot", ".tim.twitch.tv"] + STREAM_GODS
 CONNECTING_MSG = '{"message": "Connecting to #beginbot as beginbotbot"}'
+
 
 def random_soundeffect():
     return random.sample(SoundeffectsLibrary.soundeffects_only(), 1)[0]
@@ -21,7 +23,7 @@ def drop_effect(user, soundeffect):
         command = Command(soundeffect)
         TheFed.pay(command.cost())
         command.allow_user(user)
-        return f"@{user} now has access to the Soundeffect: !{soundeffect}"
+        return (user, soundeffect)
 
 
 class BeginFund:
@@ -41,8 +43,21 @@ class BeginFund:
             results = []
             for i in range(0, self._amount):
                 results.append(self._drop())
-            return results
-        return self._drop()
+
+            grouped_results = defaultdict(list)
+
+            for user, command in results:
+                grouped_results[command].append(user)
+
+            return " | ".join(
+                [
+                    f"{', '.join(users)} now has access to !{command}"
+                    for command, users in grouped_results.items()
+                ]
+            )
+
+        user, command = self._drop()
+        return f"@{user} now has access to !{command}"
 
     def _drop(self):
         if self._target_user and self._target_command:
@@ -78,4 +93,3 @@ class BeginFund:
             return user
         except:
             traceback.print_exc()
-

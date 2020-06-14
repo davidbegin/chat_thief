@@ -64,7 +64,7 @@ class SoundeffectRequest(BaseDbModel):
 
         clip_id = request["youtube_id"]
 
-        pt = SoundeffectRequest.sfx_cut_time(request['start_time'])
+        pt = SoundeffectRequest.sfx_cut_time(request["start_time"])
 
         if is_valid_url(clip_id):
             if "youtu" in clip_id:

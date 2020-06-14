@@ -72,4 +72,3 @@ class Airdrop:
             return user
         except:
             traceback.print_exc()
-

@@ -6,6 +6,7 @@ from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
 from chat_thief.models.breaking_news import BreakingNews
+from chat_thief.begin_fund import BeginFund
 
 
 class ModeratorRouter(BaseRouter):
@@ -50,7 +51,7 @@ class ModeratorRouter(BaseRouter):
                 user=self.user, command=self.command, args=self.args
             ).parse()
 
-            return Airdrop(
+            return BeginFund(
                 target_user=parser.target_user,
                 target_command=parser.target_sfx,
                 amount=parser.amount,
