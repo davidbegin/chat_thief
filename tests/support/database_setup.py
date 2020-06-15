@@ -15,6 +15,7 @@ from chat_thief.models.user import User
 from chat_thief.models.vote import Vote
 from chat_thief.models.cube_stats import CubeStats
 from chat_thief.models.the_fed import TheFed
+from chat_thief.models.user_event import UserEvent
 
 MODEL_CLASSES = [
     BreakingNews,
@@ -29,6 +30,7 @@ MODEL_CLASSES = [
     SoundeffectRequest,
     TheFed,
     User,
+    UserEvent,
     Vote,
 ]
 

@@ -34,6 +34,7 @@ STREAM_LORDS = [
     "kiekaemodaiwieco",
     "mondaynightfreehotdogs",
     "sketchyscripts",
+    "whatsinmyopsec",
     "spfar",
     "sweeku",
     "tramstarzz",

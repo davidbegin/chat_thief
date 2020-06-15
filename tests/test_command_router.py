@@ -6,6 +6,7 @@ from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.command import Command
 from chat_thief.models.proposal import Proposal
 from chat_thief.models.user import User
+from chat_thief.models.user_event import UserEvent
 from chat_thief.welcome_committee import WelcomeCommittee
 
 from tests.support.database_setup import DatabaseConfig
@@ -108,3 +109,16 @@ class TestCommandRouter(DatabaseConfig):
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "@miles.davis is now in @bill.evans's Top 8!"
         assert user.top_eight() == ["miles.davis"]
+
+    def test_user_events(self, irc_msg):
+        user = User("bill.evans")
+        miles = User("miles.davis")
+        miles.save()
+        irc_response = irc_msg("bill.evans", "!top8 miles.davis")
+        result = CommandRouter(irc_response, logger).build_response()
+
+        last_event = UserEvent.last()
+        assert last_event["user"] == "bill.evans"
+        assert last_event["msg"] == "!top8 miles.davis"
+        assert last_event["result"] == "@miles.davis is now in @bill.evans's Top 8!"
+        assert last_event["command"] == "top8"

@@ -70,14 +70,14 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
         f.write(rendered_template)
     success(f"Finished Writing Template: {file_name}")
 
+
 async def generate_stats_page(stats):
     context = {
         "base_url": DEPLOY_URL,
     }
 
-    await _render_and_save_html(
-        "stats.html", {**context, **stats}, "stats.html"
-    )
+    await _render_and_save_html("stats.html", {**context, **stats}, "stats.html")
+
 
 async def generate_home(all_data):
     # We just find fancy pages here

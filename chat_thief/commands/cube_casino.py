@@ -76,10 +76,7 @@ class CubeCasino:
 
                 if command:
                     msg = CommandGiver(
-                            user=winner,
-                            command=command,
-                            friend=loser,
-
+                        user=winner, command=command, friend=loser,
                     ).give()
                     send_twitch_msg(msg)
         return msg
