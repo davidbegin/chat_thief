@@ -7,6 +7,23 @@ from chat_thief.models.user_event import UserEvent
 from tests.support.database_setup import DatabaseConfig
 
 
+# Information Commands
+#   Examples:
+#     - !me
+#     - !perms
+#
+# Economy Commands
+#    Examples:
+#      - !buy
+#      - !steal
+#
+#  Philanthropic Commands
+#      - !donate
+#      - !give
+#
+# Market Manipulators
+
+
 class TestUserEvent(DatabaseConfig):
     def test_count(self):
         assert UserEvent.count() == 0
@@ -20,3 +37,6 @@ class TestUserEvent(DatabaseConfig):
         assert user_event["user"] == "beginbot"
         assert user_event["command"] == "me"
         assert "created_at" in user_event
+
+    def test_buy(self):
+        pass

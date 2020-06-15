@@ -122,3 +122,13 @@ class TestCommandRouter(DatabaseConfig):
         assert last_event["msg"] == "!top8 miles.davis"
         assert last_event["result"] == "@miles.davis is now in @bill.evans's Top 8!"
         assert last_event["command"] == "top8"
+
+    def test_buying_event(self, irc_msg):
+        user = User("bill.evans")
+        user.update_cool_points(10)
+        irc_response = irc_msg("bill.evans", "!buy gcc")
+        result = CommandRouter(irc_response, logger).build_response()
+        last_event = UserEvent.last()
+        assert last_event["user"] == "bill.evans"
+        assert last_event["msg"] == "!buy gcc"
+        # assert last_event["cool_point_diff"] == 1

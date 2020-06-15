@@ -71,12 +71,23 @@ class CommandRouter:
         for Router in ROUTERS:
             try:
                 if result := Router(self.user, self.command, self.args).route():
+
+                    # 2 Routes:
+                    #   - Build the user_event up piece, by piece
+                    #     pass it around
+                    #        - pass it around
+                    #        - maintaining state
+                    #   - Have all our Command Classes, return the proper
+                    #     metadata to create the UserEvent at the end of the
+                    #     result
+
                     UserEvent(
                         user=self.irc_msg.user,
                         command=self.irc_msg.command,
                         msg=self.irc_msg.msg,
                         result=result,
                     ).save()
+
                     return result
             except Exception as e:
                 traceback.print_exc()

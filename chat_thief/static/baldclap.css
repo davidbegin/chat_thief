@@ -1,3 +1,4 @@
+/* curl https://mygeoangelfirespace.city/db/commands.json | jq */
 html{
     background:#e0e0e0;
     font-family:arial;
@@ -21,7 +22,7 @@ h1 {
     font-size:1.1em;
     text-align:left;
 }
-h3, span {
+h3 {
     background:#6797ce;
     color:white;
     width:96%;
@@ -227,6 +228,9 @@ figure{
      top:2px;
      display:block;
      z-index:9999999;
+ }
+ span{
+     display:none;
  }
  @media only screen and (max-width:925px){
     td a {
