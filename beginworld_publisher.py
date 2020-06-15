@@ -15,6 +15,7 @@ from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.config.log import success, warning, error
 
 from chat_thief.stitch_and_sort import StitchAndSort
+from chat_thief.stats_department import StatsDepartment
 
 
 rendered_template_path = Path(__file__).parent.joinpath("build/beginworld_finance")
@@ -69,6 +70,14 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
         f.write(rendered_template)
     success(f"Finished Writing Template: {file_name}")
 
+async def generate_stats_page(stats):
+    context = {
+        "base_url": DEPLOY_URL,
+    }
+
+    await _render_and_save_html(
+        "stats.html", {**context, **stats}, "stats.html"
+    )
 
 async def generate_home(all_data):
     # We just find fancy pages here
@@ -156,11 +165,13 @@ async def generate_user_page(user_dict):
 async def main():
     warning("Fetching All Data")
     all_data = StitchAndSort().call()
+    stats = StatsDepartment().stats()
     success("All Data Fetched...Creating Tasks")
 
     warning("Setting Up Tasks")
     tasks = (
         [generate_home(all_data)]
+        + [generate_stats_page(stats)]
         + [generate_user_page(user_dict) for user_dict in all_data["users"]]
         + [generate_command_page(command) for command in all_data["commands"]]
     )

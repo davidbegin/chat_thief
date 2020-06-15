@@ -9,7 +9,7 @@ from chat_thief.models.cube_bet import CubeBet
 from chat_thief.models.cube_stats import CubeStats
 from chat_thief.models.user import User
 from chat_thief.models.database import db_table
-from chat_thief.commands.command_stealer import CommandStealer
+from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 from chat_thief.irc import send_twitch_msg
 
@@ -75,9 +75,12 @@ class CubeCasino:
                 loser, command = self._find_command(losers)
 
                 if command:
-                    msg = CommandStealer(
-                        thief=winner, victim=loser, command=command
-                    ).steal()
+                    msg = CommandGiver(
+                            user=winner,
+                            command=command,
+                            friend=loser,
+
+                    ).give()
                     send_twitch_msg(msg)
         return msg
 

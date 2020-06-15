@@ -16,6 +16,7 @@ class StatsDepartment:
                 cmd["cost"] * len(cmd["permitted_users"])
                 for cmd in all_cmds
                 if len(cmd["permitted_users"]) > 0
+
             ]
         )
 
