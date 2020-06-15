@@ -6,6 +6,7 @@ from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
 from chat_thief.models.breaking_news import BreakingNews
+from chat_thief.models.the_fed import TheFed
 from chat_thief.begin_fund import BeginFund
 
 
@@ -77,7 +78,9 @@ class ModeratorRouter(BaseRouter):
             if command_cost < 2:
                 command.set_value("cost", 1)
             else:
-                command.set_value("cost", int(command_cost / 2))
+                new_cost = int(command_cost / 2)
+                TheFed.collect_tax(new_cost)
+                command.set_value("cost", new_cost)
 
             # for user in command.users():
             #     print(command.unallow_user(user))
