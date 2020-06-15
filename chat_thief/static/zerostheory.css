@@ -1,0 +1,48 @@
+html {
+				background-color: black;
+}
+body {
+				background-color: #1a001a;
+				margin: 0 auto;
+				width: 960px;
+				font-family: arial, helvetica, sans-serif;
+				color: #ffffff;
+}
+
+a {
+				text-decoration: none;
+				color: #ebccff;
+}
+
+/* HEADER */
+
+header {
+				height: 200px;
+				padding-top: 30px;
+				padding-bottom: 30px;
+				padding-left: 20px;
+				padding-right; 20px;
+}
+
+/* ul and li style */
+
+ul {
+		padding: 10;
+}
+
+li {
+		padding: 10px;
+}
+
+/* THE RIGHT DIV */
+
+.right {
+				width: 360px;
+				float: right;
+}
+/* WELCOME DIV */
+
+.welcome {
+				float: right;
+}
+ 	 
