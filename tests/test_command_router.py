@@ -130,6 +130,5 @@ class TestCommandRouter(DatabaseConfig):
         result = CommandRouter(irc_response, logger).build_response()
         last_event = UserEvent.last()
         assert last_event["user"] == "bill.evans"
-        # TODO: Update This
         assert last_event["msg"] == "!buy gcc"
         # assert last_event["cool_point_diff"] == -1

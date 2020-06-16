@@ -7,6 +7,9 @@ class SoundeffectRequestParser:
     def __init__(self, user, args):
         self.user = user
         self.args = args
+        self.start_time = "00:00"
+        self.end_time = "00:04"
+        self.youtube_id = None
 
         self._set_youtube_id_and_command()
         self._set_start_and_end_time()
@@ -15,6 +18,9 @@ class SoundeffectRequestParser:
         # Santize the command
         if self.command.startswith("@") or self.command.startswith("!"):
             self.command = self.command[1:]
+
+        if self.youtube_id is None:
+            raise ValueError("Could not Find Valid URL")
 
         return SoundeffectRequest(
             user=self.user,
@@ -25,30 +31,31 @@ class SoundeffectRequestParser:
         )
 
     def _set_youtube_id_and_command(self):
-        if self._valid_youtube_id(self.args[0]):
-            self.youtube_id = self.args[0]
-            self.command = self.args[1]
-        elif self._valid_youtube_id(self.args[1]):
-            self.youtube_id = self.args[1]
-            self.command = self.args[0]
+        for arg in self.args:
+            if self._valid_youtube_id(arg):
+                self.youtube_id = arg
+
+        if len(self.args) > 1:
+            new_args = self.args.copy()
+            if self.youtube_id:
+                new_args.remove(self.youtube_id)
+            self.command = new_args[0]
         else:
+            self.command = self.user
+
+        if self.youtube_id is None and self.command is None:
             raise ValueError(f"Did not find a valid Youtube ID in {self.args}")
 
+    # TODO: handle only a starting time
+    # Warn if the time difference is too much
     def _set_start_and_end_time(self):
-        # TODO: handle only a starting time
-        # Warn if the time difference is too much
-        if len(self.args) == 2:
-            self.start_time = "00:00"
-            self.end_time = "00:04"
-        elif len(self.args) == 3:
+        if len(self.args) == 3:
             self.command = self.user
             self.start_time = self.args[1]
             self.end_time = self.args[2]
         elif len(self.args) == 4:
             self.start_time = self.args[2]
             self.end_time = self.args[3]
-        else:
-            raise ValueError("Must pass in a start_time and end_time")
 
     def _is_valid_url(self, youtube_id):
         regex = re.compile(

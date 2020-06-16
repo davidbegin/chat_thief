@@ -115,7 +115,7 @@ li a {
 }
  
  
-ul + span, a[href="https://pastebin.com/"], a[href="https://gist.github.com/"], a[href="https://gist.github.com/"] + br + span {
+ul ~ span{
     display: none;
 }
 

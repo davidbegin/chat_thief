@@ -1,6 +1,8 @@
 from chat_thief.new_commands.result import Result
 from chat_thief.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.user import User, PurchaseResult
+from chat_thief.models.command import Command
+
 
 class PurchaseReceipt:
     def __init__(self, user, sfx, result, cool_points, cost=None):
@@ -16,8 +18,10 @@ class PurchaseReceipt:
     def __repr__(self):
         return f"PurchaseReceipt({self.user}, {self.sfx}, {self.result.name}, {self.cool_points}, {self.cost})"
 
+
 # This sometimes Buys 1, othertimes many
 # Should all Generic command class, be a single command
+# Need a unifed return type for all
 class Buyer:
     def __init__(self, user, target_sfx, amount=1):
         self._user = user
@@ -32,7 +36,9 @@ class Buyer:
             print(result)
             results.append(result)
 
-        return Result(user=self._user, command="buy", results=results)
+        metadata = {"purchase_results": results}
+
+        return Result(user=self._user, command="buy", metadata=metadata)
 
     def _try_and_buy(self):
         user = User(self._user)
@@ -44,15 +50,14 @@ class Buyer:
 
         print(f"@{user} Attempting to buy {target_sfx}")
 
+        return self._buy_sfx(user, target_sfx)
 
-        self.buy_sfx(user, target_sfx)
-
-    def _buy_sfx(self, user, target_sfx):
+    def _buy_sfx(self, user, effect):
         current_cool_points = user.cool_points()
 
         if effect not in SoundeffectsLibrary.fetch_soundeffect_names():
             return PurchaseReceipt(
-                user=self.name,
+                user=user.name,
                 sfx=effect,
                 result=PurchaseResult.InvalidSFX,
                 cool_points=current_cool_points,
@@ -61,9 +66,9 @@ class Buyer:
         command = Command(effect)
         command_cost = command.cost()
 
-        if Command(effect).allowed_to_play(self.name):
+        if Command(effect).allowed_to_play(user.name):
             return PurchaseReceipt(
-                user=self.name,
+                user=user.name,
                 sfx=effect,
                 cost=command_cost,
                 result=PurchaseResult.AlreadyOwn,
@@ -71,12 +76,12 @@ class Buyer:
             )
 
         if current_cool_points >= command_cost:
-            self.update_cool_points(-command_cost)
-            command.allow_user(self.name)
+            user.update_cool_points(-command_cost)
+            command.allow_user(user.name)
             command.increase_cost()
 
             return PurchaseReceipt(
-                user=self.name,
+                user=user.name,
                 sfx=effect,
                 cool_points=current_cool_points,
                 result=PurchaseResult.SuccessfulPurchase,
@@ -84,7 +89,7 @@ class Buyer:
             )
         else:
             return PurchaseReceipt(
-                user=self.name,
+                user=user.name,
                 sfx=effect,
                 cool_points=current_cool_points,
                 result=PurchaseResult.TooPoor,

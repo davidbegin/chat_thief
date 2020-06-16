@@ -45,6 +45,13 @@ class TestFeedbackRouter(DatabaseConfig):
         sfx = SoundeffectRequest.last()
         assert sfx["command"] == "cool_user"
 
+    def test_requesting_sfx_with_no_timestamps(self):
+        result = FeedbackRouter("cool_user", "soundeffect", ["VW2yff3su0U"],).route()
+        assert SoundeffectRequest.count() == 1
+        sfx = SoundeffectRequest.last()
+        assert sfx["command"] == "cool_user"
+        assert sfx["requester"] == "cool_user"
+
     # We must mock out the WelcomeCommittee
     def test_approving_sfx(self, mock_present_users):
         result = FeedbackRouter(

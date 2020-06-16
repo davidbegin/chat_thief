@@ -8,7 +8,7 @@ class TestSoundeffectRequestParser:
         user = "fake_user"
         args = ["httpasdfsdss$@@//youtu.be/j_QLzthSkfM", "nice", "00:01", "00:05"]
         with pytest.raises(ValueError) as err_info:
-            subject = SoundeffectRequestParser(user, args)
+            subject = SoundeffectRequestParser(user, args).parse()
 
     def test_parse_for_youtube_url(self):
         user = "fake_user"
@@ -56,10 +56,10 @@ class TestSoundeffectRequestParser:
         assert result.start_time == "00:00"
         assert result.end_time == "00:04"
 
-        # args = ["nice", "-RzBr6wof1mw"]
-        # subject = SoundeffectRequestParser(user, args)
-        # result = subject.parse()
-        # assert result.youtube_id == "RzBr6wof1mw"
-        # assert result.command == "nice"
-        # assert result.start_time == "00:00"
-        # assert result.end_time == "00:04"
+        args = ["RzBr6wof1mw"]
+        subject = SoundeffectRequestParser(user, args)
+        result = subject.parse()
+        assert result.youtube_id == "RzBr6wof1mw"
+        assert result.command == "fake_user"
+        assert result.start_time == "00:00"
+        assert result.end_time == "00:04"

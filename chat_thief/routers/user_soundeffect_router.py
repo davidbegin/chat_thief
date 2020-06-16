@@ -63,6 +63,18 @@ class UserSoundeffectRouter(BaseRouter):
         if self.command in ["steal"]:
             return self.steal()
 
+        if self.command == "new_buy":
+            parser = CommandParser(
+                user=self.user,
+                command=self.command,
+                args=self.args,
+                allow_random_sfx=True,
+            ).parse()
+
+            return Buyer(
+                user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
+            ).buy()
+
         if self.command in ["buy"]:
             return self.buy()
 
@@ -122,13 +134,13 @@ class UserSoundeffectRouter(BaseRouter):
             user=self.user, command=self.command, args=self.args, allow_random_sfx=True,
         ).parse()
 
-        return Buyer(
-            user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
-        ).buy()
-
-        # return CommandBuyer(
+        # return Buyer(
         #     user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
-        # ).new_buy()
+        # ).buy()
+
+        return CommandBuyer(
+            user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
+        ).new_buy()
 
     def share(self):
         parser = CommandParser(
