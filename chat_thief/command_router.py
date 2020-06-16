@@ -20,6 +20,7 @@ from chat_thief.routers.revolution_router import RevolutionRouter
 from chat_thief.routers.community_router import CommunityRouter
 from chat_thief.routers.user_soundeffect_router import UserSoundeffectRouter
 from chat_thief.welcome_committee import WelcomeCommittee
+from chat_thief.new_commands.result import Result
 
 BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot"]
 
@@ -81,12 +82,22 @@ class CommandRouter:
                     #     metadata to create the UserEvent at the end of the
                     #     result
 
-                    UserEvent(
-                        user=self.irc_msg.user,
-                        command=self.irc_msg.command,
-                        msg=self.irc_msg.msg,
-                        result=result,
-                    ).save()
+                    if isinstance(result, Result):
+                        # TODO: Update This
+                        UserEvent(
+                            user=self.irc_msg.user,
+                            command=self.irc_msg.command,
+                            msg=self.irc_msg.msg,
+                            result=[],
+                            # result=result,
+                        ).save()
+                    else:
+                        UserEvent(
+                            user=self.irc_msg.user,
+                            command=self.irc_msg.command,
+                            msg=self.irc_msg.msg,
+                            result=result,
+                        ).save()
 
                     return result
             except Exception as e:

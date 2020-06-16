@@ -1,0 +1,10 @@
+h1 {
+  color: #5362F6;
+  text-shadow: 6px 6px #E485F8;
+  position: relative;
+  animation: scatter 1.75s infinite;
+}
+
+body {
+   background: -webkit-linear-gradient(360deg, #FD6F46 10%, #FB9832 360%); /* Chrome 10+, Saf5.1+ */ background: -moz-linear-gradient(360deg, #FD6F46 10%, #FB9832 360%); /* FF3.6+ */ background: linear-gradient(360deg, #FD6F46 10%, #FB9832 360%);
+}

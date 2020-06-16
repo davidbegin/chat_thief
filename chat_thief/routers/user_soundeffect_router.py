@@ -16,6 +16,7 @@ from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.command import Command
 from chat_thief.commands.command_buyer import CommandBuyer
+from chat_thief.new_commands.buyer import Buyer
 from chat_thief.config.stream_lords import STREAM_LORDS
 
 # BASE_URL = "https://www.beginworld.exchange"
@@ -121,9 +122,13 @@ class UserSoundeffectRouter(BaseRouter):
             user=self.user, command=self.command, args=self.args, allow_random_sfx=True,
         ).parse()
 
-        return CommandBuyer(
+        return Buyer(
             user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
-        ).new_buy()
+        ).buy()
+
+        # return CommandBuyer(
+        #     user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
+        # ).new_buy()
 
     def share(self):
         parser = CommandParser(
