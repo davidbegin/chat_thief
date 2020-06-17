@@ -63,7 +63,7 @@ class UserSoundeffectRouter(BaseRouter):
         if self.command in ["steal"]:
             return self.steal()
 
-        if self.command == "new_buy":
+        if self.command == "buy":
             parser = CommandParser(
                 user=self.user,
                 command=self.command,
@@ -75,7 +75,7 @@ class UserSoundeffectRouter(BaseRouter):
                 user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
             ).buy()
 
-        if self.command in ["buy"]:
+        if self.command in ["new_buy"]:
             return self.buy()
 
         # So What are the aliases here

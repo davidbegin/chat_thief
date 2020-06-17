@@ -1,1 +1,39 @@
-.
+@import 'https://fonts.googleapis.com/css?family=Ubuntu';
+
+* {
+  text-align: center;
+}
+
+body {
+  /* background-color: none..class{ */
+  background-color: black;
+  /* background: #000065; */
+  color: white;
+  font-size: 2em;
+  font-family: 'Ubuntu', sans-serif; 
+}
+
+h1 {
+  color: white;
+  background-color: green;
+  text-align: center;
+}
+
+h2, h3 {
+  background-color: blue;
+}
+
+ul {
+  background-color: yellow;
+  color: green;
+}
+
+figure {
+  background-color: red;
+}
+
+p {
+  color: white;
+  font-family: futura;
+  font-style: bold;
+}

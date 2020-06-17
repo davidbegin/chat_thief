@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap');
+
 @-moz-keyframes body {
   0% {
     -moz-transform: skew(-55deg);
@@ -545,20 +547,21 @@
   }
 }
 
-a{
+body.user > a{
   font-family: "Geomanist-Regular",sans-serif;
 	color: #d4d4d4;
 }
 
+
 ul:before{
-  content: "Sounds";
+  
   display: block;
   width: 100%;
   text-align: center;
   font-weight: bold;
 }
 
-ul {  
+body.user> ul {  
   justify-content: center;
   list-style-type: none;
   margin: 0px;
@@ -574,7 +577,7 @@ ul {
 
 }
 
-li {
+body.user >li {
 
   font: impact;
   display: inline-block;
@@ -691,7 +694,7 @@ h2 {
   }
 }
 
- body {
+ body.user {
  
   	overflow-x: hidden;
   position: relative;
@@ -709,7 +712,7 @@ h2 {
   text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
 }
 
- body:before {
+ body.user:before {
   visibility: visible;
   overflow: hidden;
   display: inline-block;
@@ -717,7 +720,7 @@ h2 {
   height: 100%;
 }
 
- body:after {
+ body.user:after {
   visibility: visible;
    animation: marquee 1s cubic-bezier(1.000, 0.000, 0.000, 1.000) infinite;
   content: "\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C";
@@ -734,7 +737,7 @@ h2 {
   
 }
 
-table tbody tr td a {
+body.user > table tbody tr td a {
 
   font-size: 14px;
   color:salmon;
@@ -760,7 +763,7 @@ table tbody tr td a {
 
 }
 
-table:before {
+body.user > table:before {
   content: "LOVERS";
   font-family: "Geomanist-Regular",sans-serif;
   font-size: 28px;
@@ -772,8 +775,7 @@ table:before {
 
 tbody:after {
   content: ".......................................................................................";
-  font-size: 2em;
-  text-align: center;
+  font-size: 2em  text-align: center;
   letter-spacing: -9px;
   }
 
@@ -825,16 +827,73 @@ body.user > code {
   visibility: hidden;
 }
 
-
-
-body.home {
-    font-family: "Geomanist-Regular",sans-serif;
-    justify-content: center;
-    background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29); 
-
-
+body.home:before {
+  visibility: visible;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
 }
 
+ body.home {
+  overflow-x: hidden;
+  position: relative;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  width:90%;
+  margin:auto;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Trade Winds', cursive;
+  font: 20px 'Trade Winds', cursive;
+  letter-spacing: 0.05em;
+  background-color: black;
+  text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
+}
+
+ body.home:after {
+  visibility: visible;
+   animation: marquee 1s cubic-bezier(1.000, 0.000, 0.000, 1.000) infinite;
+  content: "\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C\005C";
+  color: chartreuse;
+  font-size: 2em;
+  letter-spacing: -2px;
+  text-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
+  display: block;
+  position: absolute;
+
+  left: 0;
+  right: 0;
+ 
+  
+}
+
+
+body.home > a {
+  font: 'Trade Winds', cursive;
+  color: #999999;
+letter-spacing: 0.2em;
+  text-decoration:none;
+  
+}
+
+body.home > span a {
+  font: 'Trade Winds', cursive;
+  color: #d4d4d4;
+  text-decoration:none;
+  
+}
+
+body.home > ul li a {
+  font: 'Trade Winds', cursive;
+  color: #d4d4d4;
+
+  text-decoration:none;
+  
+}
 
 body.home > span {
   
@@ -851,22 +910,35 @@ body.home > span:before {
 h2.users {
   visibility: hidden;
   padding-left: 100px;
+  font: 'Trade Winds', cursive;
+    animation-name: blurrr,stretch;
+    animation-duration: 1s; 
+    animation-timing-function: cubic-bezier(1.000, 2.000, 0.000, 0.900); 
+    
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running;
 }
 
 h2.users:before {
+
   padding-left: 7%;
   padding-right: 2%;
+  letter-spacing: .1em;
   text-align: center;
   visibility: visible;
-  content: "Gamer Girls";
+  content: "Users";
 }
+
+
 
 h2.stylish_users {
   visibility: hidden;
   font: "Geomanist-Regular",sans-serif;
     animation-name: blurrr,stretchy;
     animation-duration: 1s; 
-    animation-timing-function: cubic-bezier(1.000, 3.000, 0.000, 0.900); 
+    animation-timing-function: cubic-bezier(1.000, 2.000, 0.000, 0.900); 
     
     animation-direction: alternate;
     animation-iteration-count: infinite;
@@ -877,9 +949,9 @@ padding-left: 200px;
 }
 
 h2.stylish_users:before {
-
+letter-spacing: .1em;
   visibility: visible;
-  content: "Stylized Gamer Girls";
+  content: "The coolest users";
 }
 
 h2.commands {
@@ -888,36 +960,88 @@ h2.commands {
 }
 
 h2.commands:before{
-  padding-left: 7%;
-  padding-right: 2%;
+  letter-spacing: .1em;
+  
+  padding-right: 3%;
   text-align: center;
   visibility: visible;
-  content: "Bath Water";
+  content: "Hot sounds to play";
 }
 
 body.home > ul {
   
-  /*visibility: hidden;*/
+  column-count: 3;
+  column-gap: 50px;
+  margin:0;
+  list-style-type:none;
+  padding:0;
 }
 
 body.home > ul:before {
-  content: "Quality of gamer girls";
+  content:"                             ";      
+  display:block;
+  height:1px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:0px 0px; 
   visibility: visible;
   padding-bottom: 1%;
+
+}
+
+body.home > h1:after {
+   content:"                 ";      
+  display:block;
+  height:.1em;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:0px 0px; 
+  padding-bottom: .1em;
 }
 
 body.home > ul:nth-of-type(2):before {
-  content: "Quality of gamer girl bath water";
+  content:"                             ";      
+  display:block;
+  height:1px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:0px 0px;                     
   visibility: visible;
   padding-bottom: 1%;
+
 }
 
 body.home > li:before {
   visibility: visible;
 }
 
+body.home > li {
+  font-size: 2em;
+  list-style:none;
+  color: #4d4d4d;
+  padding-bottom:1em;
+  font-size:23px;
+  margin-left: 0px;
+  color:white;
+  letter-spacing: 5px;
+}
+
+
 body.home > hr{
   border: 10px outset #e0e0e0;
   border-radius: 5px;
   box-shadow: 2px 0 1px #f6050a, -2px 0 1px #1cf2f2;
+}
+body.user > a:nth-of-type(1){
+  display:none;
+}
+
+body.user > a:nth-of-type(2){
+  display:none;
 }

@@ -44,4 +44,5 @@ STREAM_LORDS = [
     "andrelamus",
     "syoonee",
     "loner_lena",
+    "aquafunkalisticbootywhap",
 ] + STREAM_GODS
