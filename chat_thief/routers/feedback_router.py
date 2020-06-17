@@ -3,13 +3,17 @@ from chat_thief.chat_parsers.request_approver_parser import RequestApproverParse
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.routers.base_router import BaseRouter
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.config.help_menu import HELP_COMMANDS
 from chat_thief.models.issue import Issue
 
 
 class FeedbackRouter(BaseRouter):
     def route(self):
         if self.command == "soundeffect":
-            sfx_request = SoundeffectRequestParser(self.user, self.args).parse()
+            try:
+                sfx_request = SoundeffectRequestParser(self.user, self.args).parse()
+            except Exception as e:
+                return f'@{self.user} Correct Syntax: {HELP_COMMANDS["soundeffect"]}'
 
             SoundeffectRequest(
                 user=self.user,

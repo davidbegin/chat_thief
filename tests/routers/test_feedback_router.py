@@ -69,6 +69,7 @@ class TestFeedbackRouter(DatabaseConfig):
 
     def test_denying_sfx(self, mock_present_users):
         result = FeedbackRouter(
+
             "not_streamlord",
             "soundeffect",
             ["VW2yff3su0U", "storm_seeker", "00:01", "00:04"],
@@ -89,3 +90,7 @@ class TestFeedbackRouter(DatabaseConfig):
         assert result == ["@not_streamlord ID: 1 - THIS THING DOESN'T WORK"]
         FeedbackRouter("beginbotbot", "delete_issue", ["not_streamlord"],).route()
         assert Issue.count() == 0
+
+    def test_soundeffect_request_with_no_args(self):
+        result = FeedbackRouter("fake_user", "soundeffect", [],).route()
+        assert result == "@fake_user Correct Syntax: !soundeffect YOUTUBE_URL COMMAND_NAME 00:01 00:05 - Must be less than 5 second"

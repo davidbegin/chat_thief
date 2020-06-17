@@ -255,6 +255,7 @@ class EconomyRouter(BaseRouter):
         else:
             return f"We are not sure who or what you trying to hate. Maybe try and focusing your hate better next time @{self.user}"
 
+    # formatters/purchase_formatter
     def _format_result(self, result):
         if "purchase_results" in result.metadata:
             results = result.metadata["purchase_results"]

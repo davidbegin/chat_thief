@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+
+body{
+    background-image: url(https://zer0xeon.xyz/img/Starfield.png)!important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+    font-family: 'Major Mono Display', monospace!important;
+    text-align: center!important;
+}
