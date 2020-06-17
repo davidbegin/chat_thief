@@ -73,3 +73,12 @@ class TestBuyer(DatabaseConfig):
         result = Buyer(user, "random").buy()
         assert "clap" not in User(user_with_points).commands()
         assert User(user).cool_points() < initial_cool_points
+
+    def test_buying_same_command(self, user_with_points, mock_affordable_commands):
+        user = User(user_with_points)
+        assert len(user.commands()) == 0
+        command = Command("mchdtmd").save()
+        result = Buyer(user.name, command.name).buy()
+        assert len(user.commands()) == 1
+        result = Buyer(user.name, command.name).buy()
+        assert len(user.commands()) == 1
