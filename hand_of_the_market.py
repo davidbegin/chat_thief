@@ -10,6 +10,7 @@ from chat_thief.config.log import logger
 from chat_thief.irc import send_twitch_msg
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.soundeffect_request import SoundeffectRequest
+from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.user import User
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 
@@ -18,6 +19,8 @@ BLACKLIST = []
 
 # I feel like this could also handle checking for the news
 def sync_main():
+    PlaySoundeffectRequest(user="beginbotbot", command="openingbell").save()
+
     while True:
         try:
             peasants = ChatLogs().recent_stream_peasants()
