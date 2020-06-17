@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from chat_thief.routers.user_soundeffect_router import UserSoundeffectRouter
+from chat_thief.routers.economy_router import EconomyRouter
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.models.command import Command
@@ -12,7 +12,7 @@ from chat_thief.models.sfx_vote import SFXVote
 from tests.support.database_setup import DatabaseConfig
 
 
-class TestUserSoundeffectRouter(DatabaseConfig):
+class TestEconomyRouter(DatabaseConfig):
     @pytest.fixture
     def mock_find_random_user(self, monkeypatch):
         users = ["birdman", "wheezy", "young.thug", "future"]
@@ -20,9 +20,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         def _fake_find_random_user(self):
             return users.pop()
 
-        monkeypatch.setattr(
-            UserSoundeffectRouter, "_random_user", _fake_find_random_user
-        )
+        monkeypatch.setattr(EconomyRouter, "_random_user", _fake_find_random_user)
         monkeypatch.setattr(StreetCredTransfer, "_random_user", _fake_find_random_user)
 
     @pytest.fixture(autouse=True)
@@ -33,11 +31,11 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         monkeypatch.setattr(WelcomeCommittee, "present_users", _mock_present_users)
 
     def test_me(self):
-        result = UserSoundeffectRouter("beginbotbot", "me", []).route()
+        result = EconomyRouter("beginbotbot", "me", []).route()
         assert "beginbotbot" in result
 
     def test_perms(self):
-        result = UserSoundeffectRouter("beginbotbot", "perms", ["clap"]).route()
+        result = EconomyRouter("beginbotbot", "perms", ["clap"]).route()
         assert result == "!clap | Cost: 1 | Health: 0 | Like Ratio 100%"
 
     def test_donate(self, mock_present_users, mock_find_random_user):
@@ -45,7 +43,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         Command("clap").allow_user(user.name)
         assert "uzi" in Command("clap").users()
         assert "young.thug" not in Command("clap").users()
-        result = UserSoundeffectRouter("uzi", "donate", ["young.thug"]).route()
+        result = EconomyRouter("uzi", "donate", ["young.thug"]).route()
         assert "young.thug" in Command("clap").users()
         assert "uzi" not in Command("clap").users()
         assert "was gifted" in result
@@ -53,14 +51,14 @@ class TestUserSoundeffectRouter(DatabaseConfig):
     def test_hate_and_like_command(self):
         assert SFXVote("clap").supporter_count() == 0
         assert SFXVote("clap").detractor_count() == 0
-        result = UserSoundeffectRouter("thugga", "like", ["clap"]).route()
+        result = EconomyRouter("thugga", "like", ["clap"]).route()
         assert SFXVote("clap").supporter_count() == 1
-        result = UserSoundeffectRouter("future", "hate", ["clap"]).route()
+        result = EconomyRouter("future", "hate", ["clap"]).route()
         assert SFXVote("clap").detractor_count() == 1
 
     def test_you_cannot_love_yourself(self):
         user = "young.thug"
-        result = UserSoundeffectRouter("young.thug", "love", ["@young.thug"]).route()
+        result = EconomyRouter("young.thug", "love", ["@young.thug"]).route()
         assert (
             result
             == "You can love yourself in real life, but not in Beginworld @young.thug"
@@ -76,7 +74,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         assert young_thug.street_cred() == 0
         assert uzi.street_cred() == 10
 
-        result = UserSoundeffectRouter(uzi.name, "props", [young_thug.name]).route()
+        result = EconomyRouter(uzi.name, "props", [young_thug.name]).route()
         assert young_thug.cool_points() == 1
         assert young_thug.street_cred() == 0
         assert uzi.street_cred() == 9
@@ -85,9 +83,9 @@ class TestUserSoundeffectRouter(DatabaseConfig):
     def test_props_random(self, mock_find_random_user):
         uzi = User("uzi")
         uzi.update_street_cred(10)
-        result = UserSoundeffectRouter(uzi.name, "props", ["random", "2"]).route()
+        result = EconomyRouter(uzi.name, "props", ["random", "2"]).route()
         assert result == "@uzi gave 1 Street Cred to @future @young.thug each"
-        result = UserSoundeffectRouter(uzi.name, "props", ["random"]).route()
+        result = EconomyRouter(uzi.name, "props", ["random"]).route()
         assert result == "@uzi gave 1 Street Cred to @wheezy"
 
     def test_steal_with_no_params(self, mock_present_users, mock_find_random_user):
@@ -96,7 +94,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         Command("damn").allow_user("young.thug")
         user = User("beginbot")
         user.update_cool_points(10)
-        result = UserSoundeffectRouter(user.name, "steal", []).route()
+        result = EconomyRouter(user.name, "steal", []).route()
         result == "@beginbot stole from @young.thug"
         assert user.cool_points() == 9
 
@@ -105,14 +103,14 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         Command("clap").allow_user("uzi")
         user = User("young.thug")
         user.update_cool_points(10)
-        result = UserSoundeffectRouter(user.name, "steal", ["fakesound"]).route()
+        result = EconomyRouter(user.name, "steal", ["fakesound"]).route()
         assert result == "@young.thug failed to steal: fakesound"
         assert user.cool_points() == 10
 
     def test_buying_random(self, mock_find_random_user):
         user = "young.thug"
         User(user).update_cool_points(10)
-        result = UserSoundeffectRouter(user, "buy", ["clap"]).route()
+        result = EconomyRouter(user, "buy", ["clap"]).route()
 
         # This returns a Result Object right now
         # We have not decided all the proper boundaries
@@ -123,7 +121,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         user = User("young.thug")
         user.update_cool_points(10)
         assert user.commands() == []
-        result = UserSoundeffectRouter(user.name, "buy", ["random", 3]).route()
+        result = EconomyRouter(user.name, "buy", ["random", 3]).route()
         assert len(user.commands()) == 3
         assert user.cool_points() < 10
 
@@ -132,7 +130,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         User(user).update_cool_points(10)
         command = Command("damn")
         command.allow_user(user)
-        result = UserSoundeffectRouter(user, "give", ["damn", "uzi"]).route()
+        result = EconomyRouter(user, "give", ["damn", "uzi"]).route()
         assert result == [
             "@uzi now has access to !damn",
             "@young.thug lost access to !damn",
@@ -143,7 +141,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         User(user).update_cool_points(10)
         command = Command("damn")
         command.allow_user(user)
-        result = UserSoundeffectRouter(user, "share", ["damn", "uzi"]).route()
+        result = EconomyRouter(user, "share", ["damn", "uzi"]).route()
         assert result == "young.thug shared @uzi now has access to !damn"
 
     def test_submit_custom_css(self):
@@ -151,7 +149,7 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         User(user).update_cool_points(10)
         command = Command("damn")
         command.allow_user(user)
-        result = UserSoundeffectRouter(
+        result = EconomyRouter(
             user,
             "css",
             [

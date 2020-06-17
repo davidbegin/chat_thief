@@ -17,8 +17,8 @@ from chat_thief.routers.cube_casino_router import CubeCasinoRouter
 from chat_thief.routers.feedback_router import FeedbackRouter
 from chat_thief.routers.moderator_router import ModeratorRouter
 from chat_thief.routers.revolution_router import RevolutionRouter
+from chat_thief.routers.economy_router import EconomyRouter
 from chat_thief.routers.community_router import CommunityRouter
-from chat_thief.routers.user_soundeffect_router import UserSoundeffectRouter
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.new_commands.result import Result
 
@@ -30,7 +30,7 @@ ROUTERS = [
     FeedbackRouter,
     CubeCasinoRouter,
     RevolutionRouter,
-    UserSoundeffectRouter,
+    EconomyRouter,
     BeginworldHelpRouter,
     CommunityRouter,
 ]

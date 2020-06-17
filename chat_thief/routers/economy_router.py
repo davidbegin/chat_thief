@@ -4,7 +4,7 @@ import random
 import requests
 
 from chat_thief.prize_dropper import random_user as find_random_user
-from chat_thief.models.user import User
+from chat_thief.models.user import User, PurchaseResult
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.commands.command_giver import CommandGiver
@@ -24,7 +24,7 @@ BASE_URL = "https://mygeoangelfirespace.city"
 COMMANDS = {"give": {"aliases": ["transfer", "give"],}}
 
 
-class UserSoundeffectRouter(BaseRouter):
+class EconomyRouter(BaseRouter):
     def route(self):
         # This is the default parser
         # if a command wants to handle more
@@ -121,9 +121,11 @@ class UserSoundeffectRouter(BaseRouter):
             user=self.user, command=self.command, args=self.args, allow_random_sfx=True,
         ).parse()
 
-        return Buyer(
+        result = Buyer(
             user=self.user, target_sfx=parser.target_sfx, amount=parser.amount
         ).buy()
+
+        return self._format_result(result)
 
     def share(self):
         parser = CommandParser(
@@ -252,3 +254,24 @@ class UserSoundeffectRouter(BaseRouter):
             return f"!{parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
         else:
             return f"We are not sure who or what you trying to hate. Maybe try and focusing your hate better next time @{self.user}"
+
+    def _format_result(self, result):
+        if "purchase_results" in result.metadata:
+            results = result.metadata["purchase_results"]
+
+            total_spent = sum([result.cost for result in results])
+            sfx_names = " ".join(["!" + result.sfx for result in results])
+
+            successful_purchase = all(
+                [
+                    result.result == PurchaseResult.SuccessfulPurchase
+                    for result in results
+                ]
+            )
+            if successful_purchase:
+                return f"@{self.user} bought {len(results)} SFXs: {sfx_names} for a Total of {total_spent} Cool Points"
+            else:
+                if len(results) == 1:
+                    return results[0].message
+                else:
+                    return [result.message for result in results]
