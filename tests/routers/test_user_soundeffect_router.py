@@ -119,15 +119,6 @@ class TestUserSoundeffectRouter(DatabaseConfig):
         # assert "@young.thug bought 1 SFXs: !clap" in result
         assert User(user).cool_points() < 10
 
-    def test_new_buying_random(self, mock_find_random_user):
-        user = "young.thug"
-        User(user).update_cool_points(10)
-        result = UserSoundeffectRouter(user, "new_buy", ["clap"]).route()
-        # This returns a Result Object right now
-        # We have not decided all the proper boundaries
-        assert "@young.thug bought 1 SFXs: !clap" in result
-        assert User(user).cool_points() < 10
-
     def test_buy_more_than_one_random(self):
         user = User("young.thug")
         user.update_cool_points(10)
