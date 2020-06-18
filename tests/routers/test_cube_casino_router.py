@@ -35,20 +35,20 @@ class TestCubeCasinoRouter(DatabaseConfig):
         assert result == "Thank you for your bet: @random_user: 42s"
 
     def test_cubed(self, mock_present_users):
-        future = User("future")
-        future.save()
-        command = Command("handbag")
-        command.save()
+        future = User("future").save()
+        command = Command("handbag").save()
         command.allow_user("future")
+        big_loser = User("chuck").save()
+        Command("barney").save().allow_user("chuck")
+        CubeCasinoRouter("chuck", "bet", ["1008"]).route()
         CubeCasinoRouter("future", "bet", ["108"]).route()
         CubeCasinoRouter("uzi", "bet", ["32"]).route()
-        assert CubeBet.count() == 2
+        assert CubeBet.count() == 3
         result = CubeCasinoRouter("beginbotbot", "cubed", ["41"]).route()
         assert CubeBet.count() == 0
-        assert result == [
-            "@uzi now has access to !handbag",
-            "@future lost access to !handbag",
-        ]
+        assert "@uzi now has access to" in result[0]
+        assert "@future lost access to !handbag" in result
+        assert "@chuck lost access to !barney" in result
 
     def test_cubed_with_a_timestamp(self, mock_present_users):
         future = User("future")

@@ -1,9 +1,104 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap);
 
 body {
   background: #000;
-  color: #ff0;
-  font-size: .8em;
-  font-family: 'Fira Code', monospace;
+  font-family: 'Press Start 2P', monospace;
   text-align: center;
+  font-size: 0.5em;
+  text-transform: uppercase;
+}
+
+h1 {
+  -webkit-animation: rainbow 3s infinite;  /* Chrome, Safari, Opera */
+  -ms-animation: rainbow 3s infinite;  /* Internet Explorer */
+  animation: rainbow 3s infinite;  /* Standard Syntax */
+}
+
+h2 {
+  box-shadow: 0px 0px 10px 10px rgba(255,0,255,0.5);
+  padding: 8px;
+  border-radius: 2000px;
+}
+
+h2:after {
+  content: url('https://upload.wikimedia.org/wikipedia/en/0/03/Aybabtu.png');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+h3:before {
+  content: "\A\A Another one got caught today, it's all over the papers.\"Teenager\A Arrested in Computer Crime Scandal\", \"Hacker Arrested after Bank Tampering\"...\A Damn kids.They're all alike.\A \A But did you, in your three-piece psychology and 1950's technobrain,\A ever take a look behind the eyes of the hacker?Did you ever wonder what\A made him tick, what forces shaped him, what may have molded him?\A I am a hacker, enter my world...\A Mine is a world that begins with school... I'm smarter than most of\A the other kids, this crap they teach us bores me...\A Damn underachiever.They're all alike.\A \A I'm in junior high or high school.I've listened to teachers explain\A for the fifteenth time how to reduce a fraction.I understand it.\"No, Ms.\A Smith, I didn't show my work.I did it in my head...\"\A Damn kid.Probably copied it.They're all alike.\A \A I made a discovery today.I found a computer.Wait a second, this is\A cool.It does what I want it to.If it makes a mistake, it's because I\A screwed it up.Not because it doesn't like me...\A Or feels threatened by me...\A Or thinks I'm a smart ass...\A Or doesn't like teaching and shouldn't be here...\A Damn kid.All he does is play games.They're all alike.\A \A And then it happened... a door opened to a world... rushing through\A the phone line like heroin through an addict's veins, an electronic pulse is\A sent out, a refuge from the day-to-day incompetencies is sought... a board is\A found.\A \"This is it... this is where I belong...\"\A I know everyone here... even if I've never met them, never talked to\A them, may never hear from them again... I know you all...\A Damn kid.Tying up the phone line again.They're all alike...\A \A You bet your ass we're all alike... we've been spoon-fed baby food at\A school when we hungered for steak... the bits of meat that you did let slip\A through were pre-chewed and tasteless.We've been dominated by sadists, or\A ignored by the apathetic.The few that had something to teach found us will-\A ing pupils, but those few are like drops of water in the desert.\A \A This is our world now... the world of the electron and the switch, the\A beauty of the baud.We make use of a service already existing without paying\A for what could be dirt-cheap if it wasn't run by profiteering gluttons, and\A you call us criminals.We explore... and you call us criminals.We seek\A after knowledge... and you call us criminals.We exist without skin color,\A without nationality, without religious bias... and you call us criminals.\A You build atomic bombs, you wage wars, you murder, cheat, and lie to us\A and try to make us believe it's for our own good, yet we're the criminals.\A \A Yes, I am a criminal.My crime is that of curiosity.My crime is\A that of judging people by what they say and think, not what they look like.\A My crime is that of outsmarting you, something that you will never forgive me\A for.\A \A I am a hacker, and this is my manifesto.You may stop this individual,\A but you can't stop us all... after all, we're all alike.\A\A";
+  white-space: pre;
+}
+
+h3 {
+  background: repeating-linear-gradient(to bottom, orange , cyan 5%, violet 10%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+span {
+  color: grey;
+}
+
+figcaption {
+  display: none;
+}
+
+ul {
+  -webkit-animation: rainbow 3s infinite; -ms-animation: rainbow 3s infinite; animation: rainbow 3s infinite;
+  font-size: 2.0em;
+  padding-left: 0px;
+  list-style: none;
+  counter-reset: my-awesome-counter;
+}
+
+ul li::before {
+  content: counter(my-awesome-counter);
+}
+
+ul li {
+  counter-increment: my-awesome-counter;
+}
+
+a {
+  -webkit-animation: rainbow 3s infinite; -ms-animation: rainbow 3s infinite; animation: rainbow 3s infinite;
+  text-decoration: none;
+
+}
+
+code {
+  font-size: 2.0em;
+}
+
+audio {
+  width: 100%;
+  height: 20px;
+}
+
+audio::-webkit-media-controls-panel {
+  background: rgb(100,0,100);
+}
+
+@-webkit-keyframes rainbow { /* Chrome, Safari, Opera */
+  0%{color: orange;}	
+  30%{color: violet;}
+  70%{color: cyan;}
+	100%{color: orange;}
+}
+
+@-ms-keyframes rainbow { /* Internet Explorer */
+  0%{color: orange;}	
+  30%{color: violet;}
+  70%{color: cyan;}
+	100%{color: orange;}
+}
+
+@keyframes rainbow { /* Standard Syntax */
+  0%{color: orange;}	
+  30%{color: violet;}
+  70%{color: cyan;}
+	100%{color: orange;}
 }

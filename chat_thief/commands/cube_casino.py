@@ -8,6 +8,7 @@ from tinydb import Query
 from chat_thief.models.cube_bet import CubeBet
 from chat_thief.models.cube_stats import CubeStats
 from chat_thief.models.user import User
+from chat_thief.models.command import Command
 from chat_thief.models.database import db_table
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
@@ -28,10 +29,25 @@ class CubeCasino:
             winning_duration=winning_duration, winners=winners, all_bets=all_bets
         ).save()
 
+        results = []
         try:
-            return self._winner_winner_chicken_dinnner(
+            loser_commands = self._winner_winner_chicken_dinnner(
                 winners, winning_duration, iter(losers)
             )
+            losers_diff = list(set(losers) - set([ loser for loser, command in loser_commands ]))
+            winners_circle = cycle(winners)
+            for (loser, command) in loser_commands:
+                result = CommandGiver(
+                    user=loser, command=command, friend=next(winners_circle),
+                ).give()
+                results += result
+
+            for loser in losers_diff:
+                result = Command( User(loser).commands()[0]).unallow_user(loser)
+                results.append(result)
+
+            send_twitch_msg(results)
+            return results
         except Exception as e:
             print(e)
             return f"There were not enough losers to give the {winners} their winnings"
@@ -75,6 +91,11 @@ class CubeCasino:
         for winner in winners:
             msg.append(f"Winner: @{winner} Won {sfx_per_user} commands")
 
+            # We need to find the commands
+            # that we are giving to the winner
+            # Find all the losers, who we are just removing a command
+
+            spoils_of_war = []
             for _ in range(0, sfx_per_user):
                 looking_for_loser = True
 
@@ -88,12 +109,15 @@ class CubeCasino:
 
                     if command:
                         looking_for_loser = False
+                        spoils_of_war.append((loser, command))
 
-                        msg = CommandGiver(
-                            user=loser, command=command, friend=winner,
-                        ).give()
-                        send_twitch_msg(msg)
-        return msg
+                        # msg = CommandGiver(
+                        #     user=loser, command=command, friend=winner,
+                        # ).give()
+
+                        # send_twitch_msg(msg)
+        # return msg
+        return spoils_of_war
 
     @staticmethod
     def is_stopwatch_running():
