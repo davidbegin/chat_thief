@@ -34,7 +34,9 @@ class CubeCasino:
             loser_commands = self._winner_winner_chicken_dinnner(
                 winners, winning_duration, iter(losers)
             )
-            losers_diff = list(set(losers) - set([ loser for loser, command in loser_commands ]))
+            losers_diff = list(
+                set(losers) - set([loser for loser, command in loser_commands])
+            )
             winners_circle = cycle(winners)
             for (loser, command) in loser_commands:
                 result = CommandGiver(
@@ -43,7 +45,7 @@ class CubeCasino:
                 results += result
 
             for loser in losers_diff:
-                result = Command( User(loser).commands()[0]).unallow_user(loser)
+                result = Command(User(loser).commands()[0]).unallow_user(loser)
                 results.append(result)
 
             send_twitch_msg(results)

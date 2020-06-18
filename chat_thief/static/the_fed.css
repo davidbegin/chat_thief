@@ -1,0 +1,12 @@
+@import url(https://fonts.googleapis.com/css2?family=Federant&display=swap);
+
+body {
+  text-align:center;
+  background-image: url(https://i.imgur.com/8eBCzyJ.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: #85bb65;
+  font-size: 2em;
+  font-family: 'Federant', cursive;
+}
+

@@ -3,20 +3,22 @@ import random
 
 import requests
 
-from chat_thief.prize_dropper import random_user as find_random_user
-from chat_thief.models.user import User, PurchaseResult
 from chat_thief.chat_parsers.command_parser import CommandParser
-from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
-from chat_thief.permissions_fetcher import PermissionsFetcher
+
+# from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.commands.donator import Donator
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
-from chat_thief.routers.base_router import BaseRouter
-from chat_thief.models.sfx_vote import SFXVote
-from chat_thief.models.command import Command
-from chat_thief.new_commands.buyer import Buyer
 from chat_thief.config.stream_lords import STREAM_LORDS
+from chat_thief.models.command import Command
+from chat_thief.models.sfx_vote import SFXVote
+from chat_thief.models.user import User, PurchaseResult
+from chat_thief.new_commands.buyer import Buyer
+from chat_thief.new_commands.stealer import Stealer
+from chat_thief.permissions_fetcher import PermissionsFetcher
+from chat_thief.prize_dropper import random_user as find_random_user
+from chat_thief.routers.base_router import BaseRouter
 
 # BASE_URL = "https://www.beginworld.exchange"
 BASE_URL = "https://mygeoangelfirespace.city"
@@ -178,9 +180,14 @@ class EconomyRouter(BaseRouter):
                     raise RuntimeError("Can't find user with commands to steal")
 
         if parser.target_user and parser.target_sfx:
-            return CommandStealer(
-                thief=self.user, victim=parser.target_user, command=parser.target_sfx,
+            return Stealer(
+                thief=self.user,
+                victim=parser.target_user,
+                target_sfx=parser.target_sfx,
             ).steal()
+            # return CommandStealer(
+            #     thief=self.user, victim=parser.target_user, command=parser.target_sfx,
+            # ).steal()
         else:
             return f"@{self.user} failed to steal: {' '.join(self.args)}"
 
