@@ -5,6 +5,18 @@ from chat_thief.models.command import Command
 from tests.support.database_setup import DatabaseConfig
 
 
+# ThiefBot
+# BotDetective
+# jr_bots: @cachesking has sent a total of 100 chats! Congrats PartyHat
+# zanuss: Maybe it doesn't always return to the user though.
+# bopojoe_: scaling punishments
+# zanuss: Stolen goods aren't always recovered
+
+# ThiefAttempt
+# StealAttempt
+# Heist
+
+# Police Record
 class TestCommandStealer(DatabaseConfig):
     def test_steal(self):
         thief = User("hamburgler")
