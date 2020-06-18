@@ -107,6 +107,14 @@ class TestEconomyRouter(DatabaseConfig):
         assert result == "@young.thug failed to steal: fakesound"
         assert user.cool_points() == 10
 
+    def test_try_steal_unowned_sound(self, mock_present_users, mock_find_random_user):
+        User("uzi").update_cool_points(10)
+        user = User("young.thug")
+        user.update_cool_points(10)
+        result = EconomyRouter(user.name, "steal", ["clap", "uzi"]).route()
+        assert result == "!clap is not owned by @uzi"
+        assert user.cool_points() == 10
+
     def test_buying_random(self, mock_find_random_user):
         user = "young.thug"
         User(user).update_cool_points(10)

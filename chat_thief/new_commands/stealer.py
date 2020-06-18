@@ -13,21 +13,25 @@ class Stealer:
     def steal(self):
         command = Command(self._target_sfx)
         thief = User(self._thief)
-
-        if command.name not in User(self._victim).commands():
-            f"{command.name} is not owned by {thief.name}"
-
         cool_points = thief.cool_points()
 
-        if cool_points >= command.cost():
-            thief.update_cool_points(-command.cost())
-            command.allow_user(self._thief)
-            command.unallow_user(self._victim)
-            command.increase_cost(command.cost() * 2)
+        if self._target_sfx not in User(self._victim).commands():
             self.metadata[
                 "stealing_result"
-            ] = f"@{self._thief} stole from @{self._victim}"
+            ] = f"!{self._target_sfx} is not owned by @{self._victim}"
+        elif cool_points >= command.cost():
+            # We need another piece of logic whether stealing is succesful
+            # if not CaughtStealing(thief, command).call():
+            #     self._steal(command, thief)
+            self._steal(command, thief)
         else:
             self.metadata["stealing_result"] = f"@{self._thief} BROKE BOI!"
 
         return Result(user=self._thief, command="steal", metadata=self.metadata)
+
+    def _steal(self, command, thief):
+        thief.update_cool_points(-command.cost())
+        command.allow_user(self._thief)
+        command.unallow_user(self._victim)
+        command.increase_cost(command.cost() * 2)
+        self.metadata["stealing_result"] = f"@{self._thief} stole from @{self._victim}"

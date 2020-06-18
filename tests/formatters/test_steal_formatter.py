@@ -11,7 +11,11 @@ class TestStealFormatter(DatabaseConfig):
         result = Result(
             user="uzi",
             command="steal",
-            metadata={"victim": "future", "target_sfx": "handbag"},
+            metadata={
+                "victim": "future",
+                "target_sfx": "handbag",
+                "stealing_result": "@uzi stole !handbag from @future"
+            }
         )
 
         expected_message = "@uzi stole !handbag from @future"

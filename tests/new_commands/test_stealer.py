@@ -22,3 +22,18 @@ class TestStealer(DatabaseConfig):
         assert "handbag" not in bowie.commands()
 
         result.metadata["stealing_result"] == "@madonna stole from @bowie"
+
+    def test_trying_to_steal_sound_you_do_not_own(self):
+        madonna = User("madonna")
+        madonna.set_value("cool_points", 10)
+        bowie = User("bowie")
+        subject = Stealer(thief="madonna", target_sfx="handbag", victim="bowie")
+        assert "handbag" not in madonna.commands()
+        assert "handbag" not in bowie.commands()
+        result = subject.steal()
+        assert isinstance(result, Result)
+        assert "handbag" not in madonna.commands()
+        assert "handbag" not in bowie.commands()
+        result.metadata[
+            "stealing_result"
+        ] == "@madonna failed to steal !handbag from @bowie"

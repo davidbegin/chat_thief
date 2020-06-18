@@ -20,6 +20,8 @@ from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.prize_dropper import random_user as find_random_user
 from chat_thief.routers.base_router import BaseRouter
 
+from chat_thief.formatters.steal_formatter import StealFormatter
+
 # BASE_URL = "https://www.beginworld.exchange"
 BASE_URL = "https://mygeoangelfirespace.city"
 
@@ -164,7 +166,7 @@ class EconomyRouter(BaseRouter):
             allow_random_user=True,
         ).parse()
 
-        # here is where we are habing a problem
+        # here is where we are having a problem
         if parser.target_user == "random" and parser.target_sfx == "random":
             looking_for_user = True
             attempts = 0
@@ -179,15 +181,15 @@ class EconomyRouter(BaseRouter):
                 elif attempts > 5:
                     raise RuntimeError("Can't find user with commands to steal")
 
+        # We aren't getting a target_user or target_sfx
         if parser.target_user and parser.target_sfx:
-            return Stealer(
+            result = Stealer(
                 thief=self.user,
                 victim=parser.target_user,
                 target_sfx=parser.target_sfx,
             ).steal()
-            # return CommandStealer(
-            #     thief=self.user, victim=parser.target_user, command=parser.target_sfx,
-            # ).steal()
+
+            return StealFormatter(result).format()
         else:
             return f"@{self.user} failed to steal: {' '.join(self.args)}"
 
