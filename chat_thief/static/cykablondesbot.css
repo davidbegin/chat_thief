@@ -1,8 +1,114 @@
-body,a,😎 {
-    background-color: white;
-    color: white;
+html {
+    background: #003645;
+  }
+  
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.7) 100%);
+    height: 10vh;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .user{
+    flex: 0 0 100%;
+    padding: 2vw 0;
+    margin: 0;
+    color: transparent;
+    text-align: center;
+    z-index: 5;
+    -webkit-user-select: none;
+  }
+  
+  h2,h3,ul {
+    background-image: url(https://i.imgur.com/j3FRJoO.png);
+    background-size: 100vw;
+    flex: 0 0 100%;
+    padding: 2vw 0;
+    margin: 0;
+    color: red;
+    text-shadow: 0 0 .1vw #F3BCBC, 0 0 .5vw #F12F21, 0 0 1.5vw #f00;
+    text-align: center;
+    z-index: 5;
+    -webkit-user-select: none;
+    text-transform: uppercase;
+  }
+  h2{
+    animation: Flicker .55s infinite;
+  }
+
+  .user h2::after{
+      content: "The Boss";
+      animation: Flicker .5s infinite;
+  }
+  table a{
+    font: 3vw Warnes;
+    text-shadow: 0 0 .1vw #F3BCBC, 0 0 .5vw #F12F21, 0 0 1.5vw #f00;
+  }
+
+  a {
+    font: 4vw Warnes;
+    text-shadow: 0 0 .1vw #F3BCBC, 0 0 .5vw #F12F21, 0 0 1.5vw #f00;
+  }
+
+
+
+ h2:nth-of-type(1) {
+    font: 9vw Warnes;
+    text-shadow: 0 0 .1vw #F3BCBC, 0 0 .5vw #F12F21, 0 0 1.5vw #f00;
+  }
+ h2:nth-of-type(2) {
+    font: 22vw 'Hello Denver';
+    text-transform: uppercase;
+    text-shadow: 0 0 .1vw #F7CEEA, .5vw .5vw .5vw #E0018D, -.5vw -.5vw .5vw #E0018D, .5vw -.5vw .5vw #E0018D, -.5vw .5vw .5vw #E0018D, 0 -.5vw .5vw #E0018D, 0 .5vw .5vw #E0018D, .5vw .5vw .5vw #E0018D, 0 0 5vw #000;
+    letter-spacing: 2vw;
+  }
+
+ h2:nth-of-type(3) {
+    font: 13vw 'Neon Lights', 'Hello Denver';
+    text-transform: uppercase;
+    text-shadow: 0 0 .1vw #95B4DA, 0 0 1vw #008EFF;
+  }
+  
+  
+  @keyframes Flicker {
+    60%, 80% {
+      text-shadow: 0 0 0.1vw #DCD5DA, 0.5vw 0.5vw 0.5vw rgba(224, 1, 141, 0.2), -0.5vw -0.5vw 0.5vw rgba(224, 1, 141, 0.2), 0.5vw -0.5vw 0.5vw rgba(224, 1, 141, 0.2), -0.5vw 0.5vw 0.5vw rgba(224, 1, 141, 0.2), 0 -0.5vw 0.5vw rgba(224, 1, 141, 0.2), 0 0.5vw 0.5vw rgba(224, 1, 141, 0.2), 0.5vw 0 0.5vw rgba(224, 1, 141, 0.2), 0 0 #FFF;
+    }
+    70%, 100% {
+      text-shadow: 0 0 0.1vw #FFEFFA, 0.8vw 0.8vw 0.8vw rgba(224, 1, 141, 0.4), -0.8vw -0.8vw 0.8vw rgba(224, 1, 141, 0.4), 0.8vw -0.8vw 0.8vw rgba(224, 1, 141, 0.4), -0.8vw 0.8vw 0.5vw rgba(224, 1, 141, 0.4), 0 -0.8vw 0.5vw rgba(224, 1, 141, 0.4), 0 0.8vw 0.8vw rgba(224, 1, 141, 0.4);
+    }
+  }
+
+  figure{
+    background-color:#014051;
+    width:100.3%;
+    position:relative;
+    right:3%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding-bottom:20px;
+  }
+  
+  figcaption{
+    color: #0000FF;
+    padding-top:25px;
+    padding-left: 3em;
+    font-size: 50px;
+    letter-spacing: 8px;
+    text-shadow: 0px -5px 0px black;
+    animation: Flicker .23s infinite;
+  }
+  
+
+
+audio{
+    color: transparent;
+    background-color: transparent;
 }
-body::before {
-    content: "Vote !peace";
-    color: black;
-}
+
+

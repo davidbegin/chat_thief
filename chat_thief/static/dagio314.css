@@ -1,0 +1,46 @@
+body {
+  perspective: 500px;
+  background-color: rgba(0, 255, 255);
+  color: rgba(100, 0, 100, 0.9);
+}
+ul {
+  list-style-type: none;
+  font-size: 50px;
+  text-align: center;
+  animation-name: spin, depth;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+ul::before,
+ul::after {
+display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  transform: rotateY(0.5deg);
+  transform-origin: 0 50%;
+}
+ul::after {
+  transform: rotateY(-0.5deg);
+  transform-origin: 100% 50%;
+}
+@keyframes spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-360deg); }
+}
+@keyframes depth {
+  0% { text-shadow: 0 0 purple; }
+  25% { text-shadow: 1px 0 purple, 2px 0 purple, 3px 0 purple, 4px 0 purple, 5px 0 black, 6px 0 purple; }
+  50% { text-shadow: 0 0 purple; }
+  75% { text-shadow: -1px 0 purple, -2px 0 purple, -3px 0 purple, -4px 0 purple, -5px 0 purple, -6px 0 purple; }
+  100% { text-shadow: 0 0 purple; }
+}
+
+li a {
+	color: rgba(255, 0, 255, 0.5);
+    text-decoration: none;
+}

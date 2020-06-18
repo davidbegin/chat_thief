@@ -15,4 +15,3 @@ HELP_COMMANDS = {
     "soundeffect": "!soundeffect YOUTUBE_URL COMMAND_NAME 00:01 00:05 - Must be less than 5 second",
     "vote": "!vote (peace|revolution) - Where you stand when a coup happens.  Should all sounds be redistributed, or should the trouble makes lose their sounds and the rich get richer",
 }
-

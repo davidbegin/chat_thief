@@ -1,83 +1,40 @@
 body {
-    background-size: 1920x1080;
-    background-color: #FFD700;
-    font-style: Bold Helvetica;
+  background: rgba(78, 255, 180, 0.7);
+  /* background: #000065; */
+  color: rgba(99, 63, 8, 0.7);
+  font-size: 1em;
+  font-family: "Helvetica";
+  text-align: center;
+  font-size: xx-small;
 }
 
 h1 {
-    position: absolute;
-    padding: .5em, 1em;
-    color: #00FF7F;
-    font-style: inherit;
-    font-size: large;
-    font-weight: 800;
-    animation-name: Box;
-    animation-duration: 15s;
-    animation-iteration-count: 2;
-
+  color: rgba(9, 255, 95, 0.9);
+  text-align: center;
+  font-size: xx-large;
 }
 
 h2 {
-    position: relative;
-    width: fit-content;                                                                                                 │
-    padding: 2em, 2em, 2em, 2em;                                                                                        │
-    color: #00FF7F;                                                                                                     │
-    font-size: x-large;                                                                                                 │
-    font-weight: 600;                                                                                                   │
-    text-shadow: 4px 9px 0px 0px #940206;                                                                               │
-    text-align: center;                                                                                                 │
-    text-decoration: double underline;                                                                                  │
-    animation-name: Box;                                                                                                │
-    animation-duration:15s;                                                                                             │
-    animation-iteration-count: 2;                                                                                       │
-}                                                                                                                       │
-                                                                                                                        │
-h3 {                                                                                                                    │
-    position: absolute;                                                                                                 │
-    left: 0;                                                                                                            │
-    bottom: 0;                                                                                                          │
-    position: relative;                                                                                                 │
-    box-sizing: 400px;                                                                                                  │
-    font-size: medium;                                                                                                  │
-    font-weight: 800;                                                                                                   │
-    padding: 10px 10px 10px 10px;                                                                                       │
-    animation: MoveUpDown 5s linear infinite;                                                                           │
-}                                                                                                                       │
-                                                                                                                        │
-table {                                                                                                                 │
-    position: relative;                                                                                                 │
-    right: 0em;                                                                                                         │
-    bottom: 0em;                                                                                                        │
-    padding-block-start: 40px;                                                                                          │
-    offset: 74px;                                                                                                       │
-    color: #00FF7F;                                                                                                     │
-    font-size: large;                                                                                                   │
-    font-size-adjust: large;                                                                                            │
-    text-decoration: dashed;                                                                                            │
-    animation-name: Drop;                                                                                               │
-    animation-duration: 10s;                                                                                            │
-    animation-iteration-count: 2;                                                                                       │
-}                                                                                                                       │
-                                                                                                                        │
-@keyframes MoveUpDown {                                                                                                 │
-  0%, 100% {bottom: 0;}                                                                                                 │
-  50% {bottom: 100px;}                                                                                                  │
-  }                                                                                                                     │
-                                                                                                                        │
-@keyframes Box {                                                                                                        │
-  0% {left:0px; top:0px;}                                                                                               │
-  25% {left:250px; top:0px;}                                                                                            │
-  50% {left:250px; top:250px;}                                                                                          │
-  75% {left:0px; top:250px;}                                                                                            │
-  100% {left:0px; top:0px;}                                                                                             │
-  }                                                                                                                     │
-                                                                                                                        │
-@keyframes Drop {                                                                                                       │
-    000% {left:0px; top: 300px;}                                                                                        │
-    005% {left:0px; top: 290px;}                                                                                        │
-    010% {left:0px; top: 200px;}                                                                                        │
-    024% {left:0px; top: 193px;}                                                                                        │
-    056% {left:0px; top: 195px;}                                                                                        │
-    078% {left:0px; top: 194px;}                                                                                        │
-    100% {left:0px; top: 000px;}                                                                                        │
+  color: rgba(222, 130, 90, 0.8);
+  font-size: x-large;
+}
+
+h3 {
+  color: rgba(155,90,90);
+  text-align: right;
+  font-size: large;
+}
+
+table {
+  color: rgba(255,4,56,0.9);
+  font-size: large;
+}
+ul {
+  padding: 3em;
+  color: rgba(255,255,255,0.9);
+  font-size: large;
+}
+
+il {
+  font-size: small;
 }

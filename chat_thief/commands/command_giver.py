@@ -1,4 +1,5 @@
-from chat_thief.models.user import Command
+from chat_thief.models.user import User
+from chat_thief.models.command import Command
 
 from chat_thief.config.stream_lords import STREAM_GODS
 
@@ -16,10 +17,10 @@ class CommandGiver:
         if self.user in STREAM_GODS:
             return f"YOU'RE A STREAM GOD @{self.user} YOU DON'T NEED TO SWAP PERMS"
 
-        permitted_users = Command(self.command).users()
+        command = Command(self.command)
+        permitted_users = command.users()
         print(f"Permitted Users For: !{self.command} {permitted_users}")
 
-        command = Command(self.command)
         if self.user in permitted_users:
             if self.friend in permitted_users:
                 return (

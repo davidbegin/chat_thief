@@ -28,9 +28,13 @@ class CubeCasino:
             winning_duration=winning_duration, winners=winners, all_bets=all_bets
         ).save()
 
-        return self._winner_winner_chicken_dinnner(
-            winners, winning_duration, cycle(losers)
-        )
+        try:
+            return self._winner_winner_chicken_dinnner(
+                winners, winning_duration, iter(losers)
+            )
+        except Exception as e:
+            print(e)
+            return f"There were not enough losers to give the {winners} their winnings"
 
     def _winners(self):
         all_bets = CubeBet.all_bets()
@@ -72,24 +76,24 @@ class CubeCasino:
             msg.append(f"Winner: @{winner} Won {sfx_per_user} commands")
 
             for _ in range(0, sfx_per_user):
-                loser, command = self._find_command(losers)
+                looking_for_loser = True
 
-                if command:
-                    msg = CommandGiver(
-                        user=winner, command=command, friend=loser,
-                    ).give()
-                    send_twitch_msg(msg)
+                while looking_for_loser:
+                    command = None
+                    loser = next(losers)
+                    commands = User(loser).commands()
+
+                    if commands:
+                        command = random.sample(commands, 1)[0]
+
+                    if command:
+                        looking_for_loser = False
+
+                        msg = CommandGiver(
+                            user=loser, command=command, friend=winner,
+                        ).give()
+                        send_twitch_msg(msg)
         return msg
-
-    def _find_command(self, losers):
-        loser = next(losers)
-        commands = User(loser).commands()
-
-        if commands:
-            command = random.sample(commands, 1)
-            return loser, command
-        else:
-            return loser, None
 
     @staticmethod
     def is_stopwatch_running():
