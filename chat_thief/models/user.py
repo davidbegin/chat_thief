@@ -107,10 +107,11 @@ class User(BaseDbModel):
     # ====================================================================
 
     # We should set self.user here
-    def __init__(self, name, top_eight=[], custom_css=None):
+    def __init__(self, name, notoriety=0, top_eight=[], custom_css=None):
         self._top_eight = top_eight
         self.name = name
         self._custom_css = custom_css
+        self._notoriety = notoriety
         self._raw_user = self._find_or_create_user()
 
     # So this means, when we call, we find or init, thats fine!
@@ -135,6 +136,9 @@ class User(BaseDbModel):
 
     def mana(self):
         return self.user()["mana"]
+
+    def notoriety(self):
+        return self.user().get("notoriety", 0)
 
     def top_eight(self):
         return self.user().get("top_eight", [])
@@ -246,6 +250,7 @@ class User(BaseDbModel):
         return {
             "name": self.name,
             "custom_css": self._custom_css,
+            "notoriety": self._notoriety,
             "street_cred": 0,
             "cool_points": 0,
             "mana": 3,
@@ -323,3 +328,9 @@ class User(BaseDbModel):
         self.update_street_cred(-self.street_cred())
         self.update_cool_points(-self.cool_points())
         return f"@{self.name} is now Bankrupt"
+
+    def wealth(self):
+        return (
+            sum([Command(command).cost() for command in self.commands()])
+            + self.cool_points()
+        )

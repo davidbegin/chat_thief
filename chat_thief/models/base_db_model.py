@@ -83,6 +83,9 @@ class BaseDbModel(abc.ABC):
 
         return self
 
+    def update_value(self, field, amount=1):
+        return self._update_value(field, amount=1)
+
     def _update_value(self, field, amount=1):
         def _update_that_value():
             def transform(doc):

@@ -69,3 +69,31 @@ class TestStealer(DatabaseConfig):
             result.metadata["stealing_result"]
             == "@madonna has no Mana to steal from @bowie"
         )
+
+    def test_notoriety(self):
+        random.seed(1)
+        madonna = User("madonna")
+        bowie = User("bowie")
+        handbag = Command("handbag").save().allow_user("bowie")
+        subject = Stealer(thief="madonna", target_sfx="handbag", victim="bowie")
+        result = subject.steal()
+        assert madonna.notoriety() == 1
+
+    def test_stealing_from_a_rich_person(self):
+        random.seed(1)
+        madonna = User("madonna")
+        bowie = User("bowie")
+        bowie.set_value("cool_points", 10)
+        handbag = Command("handbag").save().allow_user("bowie")
+        subject = Stealer(thief="madonna", target_sfx="handbag", victim="bowie")
+        result = subject.steal()
+
+    def test_stealing_from_a_rich_person(self):
+        random.seed(1)
+        madonna = User("madonna")
+        madonna.set_value("cool_points", 1)
+        bowie = User("bowie")
+        bowie.set_value("cool_points", 10)
+        handbag = Command("handbag").save().allow_user("bowie")
+        subject = Stealer(thief="madonna", target_sfx="handbag", victim="bowie")
+        result = subject.steal()

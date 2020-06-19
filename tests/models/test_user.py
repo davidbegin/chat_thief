@@ -199,6 +199,7 @@ class TestUser(DatabaseConfig):
                 "street_cred": 0,
                 "cool_points": 3,
                 "mana": 3,
+                "notoriety": 0,
                 "custom_css": custom_css,
                 "commands": ["damn"],
                 "top_eight": [],
@@ -253,3 +254,14 @@ class TestUser(DatabaseConfig):
         command.allow_user("bill.evans")
         command.set_value("cost", 10)
         assert User.wealthiest() == "bill.evans"
+
+    def test_notoriety(self, user):
+        subject = user("lilb")
+        subject.notoriety() == 0
+
+    def test_wealth(self, user):
+        subject = user("bill.evans")
+        subject.update_cool_points(11)
+        command = Command("damn", 10)
+        command.allow_user("bill.evans")
+        assert subject.wealth() == 21

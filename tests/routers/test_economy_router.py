@@ -16,7 +16,7 @@ from tests.support.database_setup import DatabaseConfig
 class TestEconomyRouter(DatabaseConfig):
     @pytest.fixture(autouse=True)
     def control_chaos(self):
-        random.seed(1)
+        random.seed(0)
 
     @pytest.fixture
     def mock_find_random_user(self, monkeypatch):
@@ -99,8 +99,10 @@ class TestEconomyRouter(DatabaseConfig):
         Command("damn").allow_user("young.thug")
         user = User("beginbot")
         user.update_cool_points(10)
+        assert user.mana() == 3
         result = EconomyRouter(user.name, "steal", []).route()
         result == "@beginbot stole from @young.thug"
+        # breakpoint()
         assert user.mana() == 2
 
     def test_try_steal_fake_sound(self, mock_present_users, mock_find_random_user):

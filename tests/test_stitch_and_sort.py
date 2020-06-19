@@ -35,6 +35,7 @@ class TestStitchandSort(DatabaseConfig):
             "wealth": 5,
             "street_cred": 0,
             "cool_points": 4,
+            "notoriety": 0,
             "mana": 3,
             "custom_css": custom_css,
             "commands": ["damn"],
@@ -49,6 +50,7 @@ class TestStitchandSort(DatabaseConfig):
             "mana": 3,
             "top_eight": [],
             "wealth": 1,
+            "notoriety": 0,
             "sfx_count": 1,
             "commands": ["mclovin"],
         }

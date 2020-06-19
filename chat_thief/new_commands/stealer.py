@@ -11,6 +11,13 @@ class Stealer:
         self._victim = victim
         self.metadata = {"victim": self._victim, "target_sfx": self._target_sfx}
 
+    # How many times getting caught stealing, should make it
+    # almost impossible
+    # joehaaga: what if notoriety was PROBABILITY_OF_SUCCESSFUL_STEAL, and
+    # exponential backoff decreases that probability each time you steal
+    # zanuss: Ride or die gives increased street and mana regen speed right? We
+    # were looking for something to help victims of caught thieves weren't we?
+
     def steal(self):
         command = Command(self._target_sfx)
         thief = User(self._thief)
@@ -30,6 +37,7 @@ class Stealer:
             ).call()
 
             if was_caught_stealing:
+                thief.update_value("notoriety", 1)
                 self.metadata[
                     "stealing_result"
                 ] = f"@{self._thief} WAS CAUGHT STEALING!"
