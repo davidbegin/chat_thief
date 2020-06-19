@@ -16,6 +16,7 @@ from chat_thief.models.vote import Vote
 from chat_thief.models.cube_stats import CubeStats
 from chat_thief.models.the_fed import TheFed
 from chat_thief.models.user_event import UserEvent
+from chat_thief.models.rap_sheet import RapSheet
 
 MODEL_CLASSES = [
     BreakingNews,
@@ -26,6 +27,7 @@ MODEL_CLASSES = [
     Notification,
     PlaySoundeffectRequest,
     Proposal,
+    RapSheet,
     SFXVote,
     SoundeffectRequest,
     TheFed,

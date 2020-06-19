@@ -1,3 +1,5 @@
+import random
+
 import pytest
 
 from tests.support.database_setup import DatabaseConfig
@@ -8,6 +10,10 @@ from chat_thief.models.user import User
 
 
 class TestStealer(DatabaseConfig):
+    @pytest.fixture(autouse=True)
+    def control_chaos(self):
+        random.seed(1)
+
     def test_stealing(self):
         madonna = User("madonna")
         madonna.set_value("cool_points", 10)

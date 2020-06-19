@@ -1,0 +1,31 @@
+body {
+  background-image:
+  linear-gradient(45deg, #808080 25%, transparent 25%), 
+  linear-gradient(-45deg, #808080 25%, transparent 25%),
+  linear-gradient(45deg, transparent 75%, #808080 75%),
+  linear-gradient(-45deg, transparent 75%, #808080 75%);
+
+  background-size:20px 20px;    
+  background-position:0 0, 10px 0, 10px -10px, 0px 10px;
+
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+
+  @-webkit-keyframes spincube {
+    from,to  { -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+    16%      { -webkit-transform: rotateY(-90deg);                           }
+    33%      { -webkit-transform: rotateY(-90deg) rotateZ(90deg);            }
+    50%      { -webkit-transform: rotateY(-180deg) rotateZ(90deg);           }
+    66%      { -webkit-transform: rotateY(90deg) rotateX(90deg);             }
+    83%      { -webkit-transform: rotateX(90deg);                            }
+  }
+
+  body {
+    -webkit-animation-name: spincube;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 12s;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform-origin: 60px 60px 0;
+  }

@@ -14,8 +14,8 @@ class TestStealFormatter(DatabaseConfig):
             metadata={
                 "victim": "future",
                 "target_sfx": "handbag",
-                "stealing_result": "@uzi stole !handbag from @future"
-            }
+                "stealing_result": "@uzi stole !handbag from @future",
+            },
         )
 
         expected_message = "@uzi stole !handbag from @future"

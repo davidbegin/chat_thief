@@ -1,3 +1,6 @@
+table, caption, tbody, tfoot, thead, tr, th, td {
+    all: unset;
+}
 table, th, td {
   border: 1px solid blue;
 }

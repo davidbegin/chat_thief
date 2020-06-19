@@ -1,6 +1,7 @@
 from chat_thief.new_commands.result import Result
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
+from chat_thief.caught_stealing import CaughtStealing
 
 
 class Stealer:
@@ -20,10 +21,16 @@ class Stealer:
                 "stealing_result"
             ] = f"!{self._target_sfx} is not owned by @{self._victim}"
         elif cool_points >= command.cost():
-            # We need another piece of logic whether stealing is succesful
-            # if not CaughtStealing(thief, command).call():
-            #     self._steal(command, thief)
-            self._steal(command, thief)
+            steal_attempt = CaughtStealing(
+                self._thief, self._target_sfx, self._victim
+            ).call()
+
+            if steal_attempt:
+                self._steal(command, thief)
+            else:
+                self.metadata[
+                    "stealing_result"
+                ] = f"@{self._thief} WAS CAUGHT STEALING!"
         else:
             self.metadata["stealing_result"] = f"@{self._thief} BROKE BOI!"
 

@@ -10,18 +10,18 @@ body {
 
 h1 {
   color: rgba(9, 255, 95, 0.9);
-  text-align: center;
   font-size: xx-large;
+  font: 
 }
 
 h2 {
+  font: omnibus-type;
   color: rgba(222, 130, 90, 0.8);
   font-size: x-large;
 }
 
 h3 {
   color: rgba(155,90,90);
-  text-align: right;
   font-size: large;
 }
 
