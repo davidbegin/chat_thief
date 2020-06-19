@@ -1,4 +1,5 @@
 from pathlib import Path
+import random
 
 import pytest
 
@@ -13,6 +14,10 @@ from tests.support.database_setup import DatabaseConfig
 
 
 class TestEconomyRouter(DatabaseConfig):
+    @pytest.fixture(autouse=True)
+    def control_chaos(self):
+        random.seed(1)
+
     @pytest.fixture
     def mock_find_random_user(self, monkeypatch):
         users = ["birdman", "wheezy", "young.thug", "future"]

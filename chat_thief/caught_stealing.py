@@ -1,3 +1,5 @@
+from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
+
 # jr_boss: But then make the change of getting "caught" while stealing 50%
 
 # artmattdank: unless they are in the thieves guild?!?
@@ -42,13 +44,19 @@ class CaughtStealing:
         self.target_sfx = target_sfx
         self.victim = victim
 
-    def call(self):
+    def call(self) -> bool:
         was_caught_stealing = random() < 0.5
 
         if was_caught_stealing:
+            print("Caught Stealing!!!")
+            PlaySoundeffectRequest(user="beginbotbot", command="thieves").save()
             RapSheet(
                 user=self.thief,
                 action="caught_stealing",
-                metadata={"target_sfx": self.target_sfx, "victim": self.victim,},
+                metadata={"target_sfx": self.target_sfx, "victim": self.victim},
             ).save()
+        else:
+            print("YOU GOT AWAY WITH STEALING!!!")
+            PlaySoundeffectRequest(user="beginbotbot", command="stealing").save()
+
         return was_caught_stealing

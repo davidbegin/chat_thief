@@ -21,16 +21,17 @@ class Stealer:
                 "stealing_result"
             ] = f"!{self._target_sfx} is not owned by @{self._victim}"
         elif cool_points >= command.cost():
-            steal_attempt = CaughtStealing(
+
+            was_caught_stealing = CaughtStealing(
                 self._thief, self._target_sfx, self._victim
             ).call()
 
-            if steal_attempt:
-                self._steal(command, thief)
-            else:
+            if was_caught_stealing:
                 self.metadata[
                     "stealing_result"
                 ] = f"@{self._thief} WAS CAUGHT STEALING!"
+            else:
+                self._steal(command, thief)
         else:
             self.metadata["stealing_result"] = f"@{self._thief} BROKE BOI!"
 

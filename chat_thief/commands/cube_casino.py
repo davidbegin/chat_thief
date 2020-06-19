@@ -41,9 +41,7 @@ class CubeCasino:
             winners_circle = cycle(winners)
             for (loser, command) in loser_commands:
                 winner = next(winners_circle)
-                result = CommandGiver(
-                    user=loser, command=command, friend=winner
-                ).give()
+                result = CommandGiver(user=loser, command=command, friend=winner).give()
                 results += result
 
             for loser in losers_diff:
@@ -54,8 +52,7 @@ class CubeCasino:
                 else:
                     target_sfx = random_soundeffect()
                     return BeginFund(
-                        target_user=winner,
-                        target_command=target_sfx
+                        target_user=winner, target_command=target_sfx
                     ).drop()
 
             send_twitch_msg(results)

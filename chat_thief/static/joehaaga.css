@@ -1,0 +1,49 @@
+h1 {
+    background-image: url(https://www.federalreserve.gov/imgs/eccles-main-2000px.png);
+    padding: 4rem;
+    background-size: contain;
+    background-position: center;
+    background-color: #4c4c4c;
+    margin: -2rem;
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+    /* width: 100%; */
+}
+
+body {
+    margin: 0 4rem;
+    background: white;
+    /* padding: 2rem; */
+}
+
+html {
+    background: #4c4c4c;
+}
+
+h2 {
+    color: #163855;
+    font-family: Georgia;
+    padding: 0 2rem;
+    color: transparent;
+}
+
+h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+h2::before {content: 'Recent Developments';color: #163855;}
+
+ul li::before {}
+
+ul li a::before {
+    content: 'Federal Reserve announces proposal to allow access to';
+}
+
+ul li a {
+    color: #3a6c9c;
+    text-decoration: none;
+}
+
+ul li::after {content: 'Press Release - 6/18/2020';display: block;font-size: 1.2rem;color: #666;}

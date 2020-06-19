@@ -17,7 +17,7 @@ class TestCaughtStealing(DatabaseConfig):
         assert rap_sheet["user"] == "uzi"
         assert rap_sheet["metadata"] == {"target_sfx": "clap", "victim": "future"}
 
-    def test_getting_caught(self):
+    def test_not_getting_caught(self):
         random.seed(0)
         thief = "uzi"
         target_sfx = "clap"
