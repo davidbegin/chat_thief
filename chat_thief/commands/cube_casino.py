@@ -13,6 +13,7 @@ from chat_thief.models.database import db_table
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 from chat_thief.irc import send_twitch_msg
+from chat_thief.begin_fund import BeginFund, random_soundeffect
 
 
 class CubeCasino:
@@ -39,20 +40,31 @@ class CubeCasino:
             )
             winners_circle = cycle(winners)
             for (loser, command) in loser_commands:
+                winner = next(winners_circle)
                 result = CommandGiver(
-                    user=loser, command=command, friend=next(winners_circle),
+                    user=loser, command=command, friend=winner
                 ).give()
                 results += result
 
             for loser in losers_diff:
-                result = Command(User(loser).commands()[0]).unallow_user(loser)
-                results.append(result)
+                loser_commands = User(loser).commands()
+                if loser_commands:
+                    result = Command(loser_commands[0]).unallow_user(loser)
+                    results.append(result)
+                else:
+                    target_sfx = random_soundeffect()
+                    return BeginFund(
+                        target_user=winner,
+                        target_command=target_sfx
+                    ).drop()
 
             send_twitch_msg(results)
             return results
         except Exception as e:
             print(e)
-            return f"There were not enough losers to give the {winners} their winnings"
+            send_twitch_msg(f"Error Rewarding Winner: {e}")
+            send_twitch_msg(results)
+            return
 
     def _winners(self):
         all_bets = CubeBet.all_bets()

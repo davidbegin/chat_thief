@@ -1,6 +1,4 @@
-table, caption, tbody, tfoot, thead, tr, th, td {
-    all: unset;
-}
 table, th, td {
+  border-collapse: unset;
   border: 1px solid blue;
 }
