@@ -42,7 +42,7 @@ class Stealer:
                 thief.update_value("notoriety", 1)
                 self.metadata[
                     "stealing_result"
-                ] = f"@{self._thief} WAS CAUGHT STEALING! The Odds: {the_odds}"
+                ] = f"@{self._thief} WAS CAUGHT STEALING! Chance of Getting Caught: {the_odds}"
                 User(self._thief).set_value("mana", 0)
             else:
                 self._steal(command, thief, the_odds)
@@ -55,4 +55,4 @@ class Stealer:
         command.increase_cost(command.cost())
         self.metadata[
             "stealing_result"
-        ] = f"@{self._thief} stole from @{self._victim}. The Odds: {the_odds}"
+        ] = f"@{self._thief} stole from @{self._victim}. Chance of Getting Caught: {the_odds}"

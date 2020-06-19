@@ -7,7 +7,6 @@ from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
 
-# from chat_thief.commands.command_stealer import CommandStealer
 from chat_thief.commands.donator import Donator
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.config.stream_lords import STREAM_LORDS

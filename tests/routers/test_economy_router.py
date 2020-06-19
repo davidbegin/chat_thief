@@ -38,6 +38,7 @@ class TestEconomyRouter(DatabaseConfig):
     def test_me(self):
         result = EconomyRouter("beginbotbot", "me", []).route()
         assert "beginbotbot" in result
+        assert "Wealth" in result
 
     def test_perms(self):
         result = EconomyRouter("beginbotbot", "perms", ["clap"]).route()

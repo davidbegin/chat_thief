@@ -46,7 +46,7 @@ from chat_thief.models.user import User
 # In the future activities in our economy should affect this numer
 # If a Revolution was crushed, Stealing should be very
 # It kinda implies police state
-DEFAULT_CHANCE_OF_GETTING_CAUGHT = 0.7
+DEFAULT_CHANCE_OF_GETTING_CAUGHT = 0.6
 
 
 class CaughtStealing:
