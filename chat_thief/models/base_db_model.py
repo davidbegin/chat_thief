@@ -89,7 +89,10 @@ class BaseDbModel(abc.ABC):
     def _update_value(self, field, amount=1):
         def _update_that_value():
             def transform(doc):
-                doc[field] = doc[field] + amount
+                if field in doc:
+                    doc[field] = doc[field] + amount
+                else:
+                    doc[field] = amount
 
             return transform
 

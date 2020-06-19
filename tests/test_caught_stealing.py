@@ -11,7 +11,6 @@ import random
 class TestCaughtStealing(DatabaseConfig):
     def test_people_get_caught_stealing(self):
         random.seed(1)
-
         thief = "uzi"
         target_sfx = "clap"
         assert User("uzi").mana() == 3
@@ -25,4 +24,5 @@ class TestCaughtStealing(DatabaseConfig):
         random.seed(0)
         thief = "uzi"
         target_sfx = "clap"
-        assert not CaughtStealing(thief, target_sfx, "future").call()
+        busted, percentage = CaughtStealing(thief, target_sfx, "future").call()
+        assert not busted

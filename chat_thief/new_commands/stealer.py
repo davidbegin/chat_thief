@@ -21,6 +21,7 @@ class Stealer:
     def steal(self):
         command = Command(self._target_sfx)
         thief = User(self._thief)
+        the_odds = 0.7
 
         if thief.mana() < 1:
             self.metadata[
@@ -32,23 +33,26 @@ class Stealer:
             ] = f"!{self._target_sfx} is not owned by @{self._victim}"
         else:
             thief.update_mana(-1)
-            was_caught_stealing = CaughtStealing(
+            was_caught_stealing, the_odds = CaughtStealing(
                 self._thief, self._target_sfx, self._victim
             ).call()
+            the_odds = f"{(the_odds * 100)}%"
 
             if was_caught_stealing:
                 thief.update_value("notoriety", 1)
                 self.metadata[
                     "stealing_result"
-                ] = f"@{self._thief} WAS CAUGHT STEALING!"
+                ] = f"@{self._thief} WAS CAUGHT STEALING! The Odds: {the_odds}"
                 User(self._thief).set_value("mana", 0)
             else:
-                self._steal(command, thief)
+                self._steal(command, thief, the_odds)
 
         return Result(user=self._thief, command="steal", metadata=self.metadata)
 
-    def _steal(self, command, thief):
+    def _steal(self, command, thief, the_odds):
         command.allow_user(self._thief)
         command.unallow_user(self._victim)
         command.increase_cost(command.cost())
-        self.metadata["stealing_result"] = f"@{self._thief} stole from @{self._victim}"
+        self.metadata[
+            "stealing_result"
+        ] = f"@{self._thief} stole from @{self._victim}. The Odds: {the_odds}"

@@ -60,17 +60,26 @@ class CaughtStealing:
         victim_wealth = User(self.victim).wealth()
         chance_of_getting_of_caught = DEFAULT_CHANCE_OF_GETTING_CAUGHT
 
+        print(f"victim_wealth: {victim_wealth}")
+        print(f"thief_wealth: {thief_wealth}")
+
         if thief_wealth > 1:
             wealth_disparity = victim_wealth / thief_wealth
             victim_is_rich = wealth_disparity > 1
+            print(f"wealth_disparity: {wealth_disparity}")
+
             if victim_is_rich:
                 chance_of_getting_of_caught = (
                     (chance_of_getting_of_caught * 100) - wealth_disparity
                 ) / 100
             else:
-                chance_of_getting_of_caught = (
-                    (chance_of_getting_of_caught * 100) + wealth_disparity
-                ) / 100
+                wealth_diff = victim_wealth / thief_wealth
+                if wealth_diff > 100:
+                    chance_of_getting_of_caught = 0.99
+                elif wealth_diff > 50:
+                    chance_of_getting_of_caught = 0.90
+                else:
+                    chance_of_getting_of_caught = 0.80
 
         print(f"CHANCE OF Getting Caught: {chance_of_getting_of_caught}")
         busted = random() < chance_of_getting_of_caught
@@ -88,4 +97,4 @@ class CaughtStealing:
             print("YOU GOT AWAY WITH STEALING!!!")
             PlaySoundeffectRequest(user="beginbotbot", command="stealing").save()
 
-        return busted
+        return busted, chance_of_getting_of_caught

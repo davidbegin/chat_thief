@@ -56,7 +56,10 @@ class TestStealer(DatabaseConfig):
         assert "handbag" in bowie.commands()
         assert isinstance(result, Result)
         assert madonna.mana() == 0
-        assert result.metadata["stealing_result"] == "@madonna WAS CAUGHT STEALING!"
+        assert (
+            result.metadata["stealing_result"]
+            == "@madonna WAS CAUGHT STEALING! The Odds: 70.0%"
+        )
 
     def test_no_mana_to_steal(self):
         madonna = User("madonna")
