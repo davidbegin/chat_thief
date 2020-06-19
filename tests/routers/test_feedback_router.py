@@ -7,6 +7,8 @@ from chat_thief.models.issue import Issue
 
 from tests.support.database_setup import DatabaseConfig
 
+YOUTUBE_URL = "https://www.youtube.com/watch?v=XDUUQ4Bpre0"
+
 # StreamImprovementsRouter
 # FeedbackRouter is not a good name
 # these are commands that users submit
@@ -23,13 +25,13 @@ class TestFeedbackRouter(DatabaseConfig):
         result = FeedbackRouter(
             "beginbotbot",
             "soundeffect",
-            ["VW2yff3su0U", "storm_seeker", "00:01", "00:04"],
+            [YOUTUBE_URL, "storm_seeker", "00:01", "00:04"],
         ).route()
         assert SoundeffectRequest.count() == 1
 
     def test_requesting_sfx(self):
         result = FeedbackRouter(
-            "beginbotbot", "soundeffect", ["VW2yff3su0U", "00:01", "00:04"],
+            "beginbotbot", "soundeffect", [YOUTUBE_URL, "00:01", "00:04"],
         ).route()
         assert SoundeffectRequest.count() == 1
         sfx = SoundeffectRequest.last()
@@ -37,16 +39,14 @@ class TestFeedbackRouter(DatabaseConfig):
 
     def test_requesting_sfx(self):
         result = FeedbackRouter(
-            "beginbotbot",
-            "soundeffect",
-            ["VW2yff3su0U", "@cool_user", "00:01", "00:04"],
+            "beginbotbot", "soundeffect", [YOUTUBE_URL, "@cool_user", "00:01", "00:04"],
         ).route()
         assert SoundeffectRequest.count() == 1
         sfx = SoundeffectRequest.last()
         assert sfx["command"] == "cool_user"
 
     def test_requesting_sfx_with_no_timestamps(self):
-        result = FeedbackRouter("cool_user", "soundeffect", ["VW2yff3su0U"],).route()
+        result = FeedbackRouter("cool_user", "soundeffect", [YOUTUBE_URL],).route()
         assert SoundeffectRequest.count() == 1
         sfx = SoundeffectRequest.last()
         assert sfx["command"] == "cool_user"
@@ -57,7 +57,7 @@ class TestFeedbackRouter(DatabaseConfig):
         result = FeedbackRouter(
             "not_streamlord",
             "soundeffect",
-            ["VW2yff3su0U", "storm_seeker", "00:01", "00:04"],
+            [YOUTUBE_URL, "storm_seeker", "00:01", "00:04"],
         ).route()
         assert SoundeffectRequest.count() == 1
 
@@ -71,7 +71,7 @@ class TestFeedbackRouter(DatabaseConfig):
         result = FeedbackRouter(
             "not_streamlord",
             "soundeffect",
-            ["VW2yff3su0U", "storm_seeker", "00:01", "00:04"],
+            [YOUTUBE_URL, "storm_seeker", "00:01", "00:04"],
         ).route()
         assert SoundeffectRequest.count() == 1
         result = FeedbackRouter("beginbotbot", "deny", ["not_streamlord"]).route()

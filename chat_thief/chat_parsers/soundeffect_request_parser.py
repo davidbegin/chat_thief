@@ -71,9 +71,7 @@ class SoundeffectRequestParser:
         return re.match(regex, youtube_id) is not None
 
     def _valid_youtube_id(self, youtube_id):
-        if len(youtube_id) == 11:
-            return True
-        elif self._is_valid_url(youtube_id):
+        if self._is_valid_url(youtube_id):
             return True
         else:
             return False

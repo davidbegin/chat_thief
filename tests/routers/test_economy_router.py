@@ -101,7 +101,7 @@ class TestEconomyRouter(DatabaseConfig):
         user.update_cool_points(10)
         result = EconomyRouter(user.name, "steal", []).route()
         result == "@beginbot stole from @young.thug"
-        assert user.cool_points() == 9
+        assert user.mana() == 2
 
     def test_try_steal_fake_sound(self, mock_present_users, mock_find_random_user):
         User("uzi").update_cool_points(10)

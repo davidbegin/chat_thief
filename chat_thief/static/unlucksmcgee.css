@@ -2,6 +2,8 @@
 body.home {
     font-family: Roboto;
     justify-content: center;
+    padding: 1rem;
+    /* text-align: center; */
 }
 /*********************************/
 body.home > h1 {/*BeginWorld Finance*/
@@ -53,14 +55,32 @@ body.home > span {
     width: 100%;
     text-align: center;
     font-size: 1rem;
+    color: white;
 }
 
-body.home > span::after {
+body.home > span:nth-of-type(1)::after {
     content: "\A \01F3B5 \00a0 !love me, !love me, say that you !love @unlucksmcgee\00a0 \01F3B5";
     white-space: pre;
     font-weight: bold;
     font-size: 2rem;
     overflow: auto;
+}
+
+body.home > span a {
+    text-decoration: none;
+    z-index: 2;
+    position: relative;
+    margin-top: 0vh;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    color: white;
+    width: min-content;
+}
+
+body.home > span a:hover {
+    font-weight: bold;
 }
 
 body.home > h2 { /*Users*/
@@ -72,6 +92,19 @@ body.home > h2 { /*Users*/
     margin-bottom: 0.5rem;
     text-decoration: underline;
     font-size: 2.5vw;
+}
+
+body.home > hr {display: none;}
+
+body.home > a {
+    font-family: "Roboto";
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+}
+
+body.home > a:hover {
+    font-weight: bold;
 }
 
 body.home > h3 { /*Recently Updated*/
@@ -93,6 +126,7 @@ body.home ul {
     z-index: 2;
     text-decoration: none;
     margin: 0 auto;
+    margin-bottom: 2rem;
     padding: 0;
     text-align: center;
     column-rule-style: none;
@@ -194,7 +228,9 @@ h1 a {
 
 
 /*Static CSS*/
-
+body.user span {
+    display: none;
+}
 body {
     z-index: -1;
     color: white;

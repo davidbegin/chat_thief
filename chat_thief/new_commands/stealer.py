@@ -14,14 +14,17 @@ class Stealer:
     def steal(self):
         command = Command(self._target_sfx)
         thief = User(self._thief)
-        cool_points = thief.cool_points()
 
-        if self._target_sfx not in User(self._victim).commands():
+        if thief.mana() < 1:
+            self.metadata[
+                "stealing_result"
+            ] = f"@{self._thief} has no Mana to steal from @{self._victim}"
+        elif self._target_sfx not in User(self._victim).commands():
             self.metadata[
                 "stealing_result"
             ] = f"!{self._target_sfx} is not owned by @{self._victim}"
-        elif cool_points >= command.cost():
-
+        else:
+            thief.update_mana(-1)
             was_caught_stealing = CaughtStealing(
                 self._thief, self._target_sfx, self._victim
             ).call()
@@ -30,16 +33,14 @@ class Stealer:
                 self.metadata[
                     "stealing_result"
                 ] = f"@{self._thief} WAS CAUGHT STEALING!"
+                User(self._thief).set_value("mana", 0)
             else:
                 self._steal(command, thief)
-        else:
-            self.metadata["stealing_result"] = f"@{self._thief} BROKE BOI!"
 
         return Result(user=self._thief, command="steal", metadata=self.metadata)
 
     def _steal(self, command, thief):
-        thief.update_cool_points(-command.cost())
         command.allow_user(self._thief)
         command.unallow_user(self._victim)
-        command.increase_cost(command.cost() * 2)
+        command.increase_cost(command.cost())
         self.metadata["stealing_result"] = f"@{self._thief} stole from @{self._victim}"

@@ -14,10 +14,10 @@ class TestCaughtStealing(DatabaseConfig):
 
         thief = "uzi"
         target_sfx = "clap"
-        assert User('uzi').mana() == 3
+        assert User("uzi").mana() == 3
         assert CaughtStealing(thief, target_sfx, "future").call()
         rap_sheet = RapSheet.last()
-        assert User('uzi').mana() == 0
+        assert User("uzi").mana() == 0
         assert rap_sheet["user"] == "uzi"
         assert rap_sheet["metadata"] == {"target_sfx": "clap", "victim": "future"}
 
