@@ -36,6 +36,7 @@ from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from random import random
 
 from chat_thief.models.rap_sheet import RapSheet
+from chat_thief.models.user import User
 
 
 class CaughtStealing:
@@ -50,6 +51,7 @@ class CaughtStealing:
         if was_caught_stealing:
             print("Caught Stealing!!!")
             PlaySoundeffectRequest(user="beginbotbot", command="thieves").save()
+            User(self.thief).set_value("mana", 0)
             RapSheet(
                 user=self.thief,
                 action="caught_stealing",
