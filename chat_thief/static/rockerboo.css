@@ -1,0 +1,23 @@
+/* style.css | https://mygeoangelfirespace.city/styles/style.css */
+
+body {
+  font-size: 1rem;
+  font-family: Inter, Roboto, Helvetica, sans-serif;
+  background-color: hsl(246, 5%, 10%);
+  color: hsl(160, 25%, 95%);
+}
+
+/* Inline #2 | https://mygeoangelfirespace.city/rockerboo.html */
+
+html {
+  display: grid;
+  justify-content: center;
+}
+
+a {
+  color: hsl(160, 25%, 95%);
+}
+
+a:hover {
+  color: #00ffe7;
+}
