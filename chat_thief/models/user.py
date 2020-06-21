@@ -37,6 +37,15 @@ class User(BaseDbModel):
     database_path = "db/users.json"
 
     @classmethod
+    def register_bot(cls, bot, creator):
+        cls.db().upsert({"is_bot": True, "creator": creator}, Query().name == bot)
+
+    @classmethod
+    def bots(cls):
+        bots = cls.db().search(Query().is_bot)
+        return [bot["name"] for bot in bots]
+
+    @classmethod
     def all_data(cls):
         user_data = cls.db().all()
         cmd_data = Command.db().all()
@@ -136,6 +145,12 @@ class User(BaseDbModel):
 
     def mana(self):
         return self.user()["mana"]
+
+    def is_bot(self):
+        return self.user().get("is_bot", False)
+
+    def creator(self):
+        return self.user().get("creator", None)
 
     def notoriety(self):
         return self.user().get("notoriety", 0)

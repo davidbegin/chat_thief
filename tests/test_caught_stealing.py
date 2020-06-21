@@ -26,3 +26,6 @@ class TestCaughtStealing(DatabaseConfig):
         target_sfx = "clap"
         busted, percentage = CaughtStealing(thief, target_sfx, "future").call()
         assert not busted
+
+    def test_huge_imbalance(self):
+        pass

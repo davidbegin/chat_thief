@@ -265,3 +265,11 @@ class TestUser(DatabaseConfig):
         command = Command("damn", 10)
         command.allow_user("bill.evans")
         assert subject.wealth() == 21
+
+    def test_is_bot(self, user):
+        creator = "bill.evans"
+        bot = user("bill.evans.bot")
+        User.register_bot(bot=bot.name, creator=creator)
+        User.bots() == ["bill.evans.bot"]
+        assert bot.is_bot()
+        assert bot.creator() == "bill.evans"

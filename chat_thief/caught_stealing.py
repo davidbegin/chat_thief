@@ -69,9 +69,18 @@ class CaughtStealing:
             print(f"wealth_disparity: {wealth_disparity}")
 
             if victim_is_rich:
-                chance_of_getting_of_caught = (
-                    (chance_of_getting_of_caught * 100) - wealth_disparity
-                ) / 100
+                wealth_diff = thief_wealth / victim_wealth
+
+                if wealth_diff > 100:
+                    chance_of_getting_of_caught = 0.30
+                elif wealth_diff > 50:
+                    chance_of_getting_of_caught = 0.40
+                else:
+                    chance_of_getting_of_caught = 0.50
+
+                # chance_of_getting_of_caught = (
+                #     (chance_of_getting_of_caught * 100) - wealth_disparity
+                # ) / 100
             else:
                 wealth_diff = victim_wealth / thief_wealth
                 if wealth_diff > 100:
@@ -86,7 +95,7 @@ class CaughtStealing:
 
         if busted:
             print("Caught Stealing!!!")
-            PlaySoundeffectRequest(user="beginbotbot", command="thieves").save()
+            PlaySoundeffectRequest(user="beginbotbot", command="nope").save()
             User(self.thief).set_value("mana", 0)
             RapSheet(
                 user=self.thief,
