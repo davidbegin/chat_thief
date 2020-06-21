@@ -1,3 +1,5 @@
+import random
+
 from chat_thief.models.user import User
 from chat_thief.prize_dropper import random_user as find_random_user
 
@@ -42,6 +44,6 @@ class StreetCredTransfer:
         transferree.update_cool_points(amount)
 
     def _random_user(self):
-        return random.sample(random.shuffle(self.top_eight), 1)[0]
-        # self.top_eight
-        # return find_random_user(blacklisted_users=[self.user])
+        top_eight = self.top_eight.copy()
+        random.shuffle(top_eight)
+        return random.sample(top_eight, 1)[0]
