@@ -20,4 +20,10 @@ class TestTribalCouncil(DatabaseConfig):
 
         assert TribalCouncil.count() == 1
         vote = TribalCouncil.last()
-        assert vote == {"round": 1, "votes": {"uzibot": ["uzi"]}}
+        assert vote == {"council_number": 1, "votes": {"uzibot": ["uzi"]}}
+
+        BotVote(user=uzi.name, bot="pattymartinobot").save()
+        TribalCouncil.go_to_tribal()
+        assert TribalCouncil.count() == 2
+        vote = TribalCouncil.last()
+        assert vote == {"council_number": 2, "votes": {"pattymartinobot": ["uzi"]}}
