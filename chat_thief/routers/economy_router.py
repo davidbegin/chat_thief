@@ -158,29 +158,9 @@ class EconomyRouter(BaseRouter):
 
     def steal(self):
         parser = CommandParser(
-            user=self.user,
-            command=self.command,
-            args=self.args,
-            allow_random_sfx=True,
-            allow_random_user=True,
+            user=self.user, command=self.command, args=self.args,
         ).parse()
 
-        # here is where we are having a problem
-        if parser.target_user == "random" and parser.target_sfx == "random":
-            looking_for_user = True
-            attempts = 0
-            while looking_for_user:
-                parser.target_user = self._random_user()
-                attempts += 1
-                commands = User(parser.target_user).commands()
-
-                if len(commands) > 0:
-                    looking_for_user = False
-                    parser.target_sfx = random.sample(commands, 1)[0]
-                elif attempts > 5:
-                    raise RuntimeError("Can't find user with commands to steal")
-
-        # We aren't getting a target_user or target_sfx
         if parser.target_user and parser.target_sfx:
             result = Stealer(
                 thief=self.user,
@@ -190,7 +170,10 @@ class EconomyRouter(BaseRouter):
 
             return StealFormatter(result).format()
         else:
-            return f"@{self.user} failed to steal: {' '.join(self.args)}"
+            msg = f"@{self.user} you must specify who and what you want to steal."
+            if self.args:
+                msg += f" Invalid Args: {' '.join(self.args)}"
+            return msg
 
     def give(self):
         parser = CommandParser(

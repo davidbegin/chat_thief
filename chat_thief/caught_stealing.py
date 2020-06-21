@@ -95,6 +95,6 @@ class CaughtStealing:
             ).save()
         else:
             print("YOU GOT AWAY WITH STEALING!!!")
-            PlaySoundeffectRequest(user="beginbotbot", command="stealing").save()
+            PlaySoundeffectRequest(user="beginbotbot", command="yoink").save()
 
         return busted, chance_of_getting_of_caught

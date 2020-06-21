@@ -94,17 +94,10 @@ class TestEconomyRouter(DatabaseConfig):
         result = EconomyRouter(uzi.name, "props", ["random"]).route()
         assert result == "@uzi gave 1 Street Cred to @wheezy"
 
-    def test_steal_with_no_params(self, mock_present_users, mock_find_random_user):
-        thugga = User("young.thug")
-        thugga.update_cool_points(10)
-        Command("damn").allow_user("young.thug")
+    def test_steal_with_no_params(self):
         user = User("beginbot")
-        user.update_cool_points(10)
-        assert user.mana() == 3
         result = EconomyRouter(user.name, "steal", []).route()
-        result == "@beginbot stole from @young.thug"
-        # breakpoint()
-        assert user.mana() == 2
+        assert result == "@beginbot you must specify who and what you want to steal."
 
     def test_try_steal_fake_sound(self, mock_present_users, mock_find_random_user):
         User("uzi").update_cool_points(10)
@@ -112,7 +105,10 @@ class TestEconomyRouter(DatabaseConfig):
         user = User("young.thug")
         user.update_cool_points(10)
         result = EconomyRouter(user.name, "steal", ["fakesound"]).route()
-        assert result == "@young.thug failed to steal: fakesound"
+        assert (
+            result
+            == "@young.thug you must specify who and what you want to steal. Invalid Args: fakesound"
+        )
         assert user.cool_points() == 10
 
     def test_try_steal_unowned_sound(self, mock_present_users, mock_find_random_user):

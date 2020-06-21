@@ -5,6 +5,9 @@
 - Stealing Costs 1 Mana Per Steal Attempt
 - It's random but weighed toward less Wealthy Users.
 
+We calculate the difference in User wealth, and the higher disparity
+the higher chance of getting caught
+
 ---
 
 Thieves Can't Vote

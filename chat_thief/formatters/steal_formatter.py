@@ -8,5 +8,3 @@ class StealFormatter:
 
     def format(self):
         return self.metadata["stealing_result"]
-        # breakpoint()
-        # return f"@{self.user} stole !{self.target_sfx} from @{self.victim}"
