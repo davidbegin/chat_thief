@@ -218,17 +218,23 @@ class EconomyRouter(BaseRouter):
             allow_random_user=True,
         ).parse()
 
-        if User(parser.target_user).creator() == self.user:
-            return f"You cannot props your own bot @{self.user} @{parser.target_user}"
-        elif User(self.user).creator() == parser.target_user:
-            return f"You cannot props your creator @{self.user} @{parser.target_user}"
-        # Here is the bug,
-        # this needs to occur inside the streetcred transfer
-        # if parser.target_user == "random" or parser.target_user is None:
-        #     parser.target_user = self._random_user()
+        # if User(parser.target_user).creator() == self.user:
+        #     return f"You cannot props your own bot @{self.user} @{parser.target_user}"
+        # elif User(self.user).creator() == parser.target_user:
+        #     return f"You cannot props your creator @{self.user} @{parser.target_user}"
+
+        target_user = parser.target_user
+
+        if parser.target_user == "random":
+            users = random.sample([
+                friend for friend in User(self.user).top8()
+                if User(friend).creator() != self.user
+            ], 1)
+            if users:
+                target_user = users[0]
 
         return StreetCredTransfer(
-            user=self.user, cool_person=parser.target_user, amount=parser.amount
+            user=self.user, cool_person=target_user, amount=parser.amount
         ).transfer()
 
     def love(self, parser):
