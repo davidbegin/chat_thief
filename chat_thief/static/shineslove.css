@@ -1,0 +1,36 @@
+body {
+    background-color:blueviolet;
+
+}
+
+span {
+  display:none;
+}
+
+h3 {
+    font-size:x-large;
+}
+
+a:link {
+  text-decoration: none;
+  color:gold;
+}
+
+a:visited {
+  text-decoration: none;
+  color:pink;
+}
+
+ul {
+  list-style: none;
+  padding:0% 34%;
+}
+
+ul li::before {
+  content: "\2601";
+  color: skyblue; 
+  font-weight: bold;
+  display: inline-block;
+  width: 1em; 
+  margin-left: -1em;
+}

@@ -17,6 +17,8 @@ from chat_thief.models.cube_stats import CubeStats
 from chat_thief.models.the_fed import TheFed
 from chat_thief.models.user_event import UserEvent
 from chat_thief.models.rap_sheet import RapSheet
+from chat_thief.models.bot_vote import BotVote
+from chat_thief.models.tribal_council import TribalCouncil
 
 MODEL_CLASSES = [
     BreakingNews,
@@ -34,6 +36,8 @@ MODEL_CLASSES = [
     User,
     UserEvent,
     Vote,
+    BotVote,
+    TribalCouncil,
 ]
 
 
