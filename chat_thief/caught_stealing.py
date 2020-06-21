@@ -46,7 +46,7 @@ from chat_thief.models.user import User
 # In the future activities in our economy should affect this numer
 # If a Revolution was crushed, Stealing should be very
 # It kinda implies police state
-DEFAULT_CHANCE_OF_GETTING_CAUGHT = 0.6
+DEFAULT_CHANCE_OF_GETTING_CAUGHT = 0.7
 
 
 class CaughtStealing:
@@ -72,11 +72,11 @@ class CaughtStealing:
                 wealth_diff = thief_wealth / victim_wealth
 
                 if wealth_diff > 100:
-                    chance_of_getting_of_caught = 0.30
-                elif wealth_diff > 50:
                     chance_of_getting_of_caught = 0.40
-                else:
+                elif wealth_diff > 50:
                     chance_of_getting_of_caught = 0.50
+                else:
+                    chance_of_getting_of_caught = 0.60
 
                 # chance_of_getting_of_caught = (
                 #     (chance_of_getting_of_caught * 100) - wealth_disparity
@@ -86,9 +86,9 @@ class CaughtStealing:
                 if wealth_diff > 100:
                     chance_of_getting_of_caught = 0.99
                 elif wealth_diff > 50:
-                    chance_of_getting_of_caught = 0.90
+                    chance_of_getting_of_caught = 0.95
                 else:
-                    chance_of_getting_of_caught = 0.80
+                    chance_of_getting_of_caught = 0.90
 
         print(f"CHANCE OF Getting Caught: {chance_of_getting_of_caught}")
         busted = random() < chance_of_getting_of_caught
