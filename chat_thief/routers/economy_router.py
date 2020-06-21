@@ -218,9 +218,12 @@ class EconomyRouter(BaseRouter):
             allow_random_user=True,
         ).parse()
 
-        if User(parser.target_user).creator() == self.user:
+        target_user_creator = User(parser.target_user).creator()
+        user_creator = User(self.user).creator()
+
+        if target_user_creator == self.user:
             return f"You cannot props your own bot @{self.user} @{parser.target_user}"
-        elif User(self.user).creator() == parser.target_user:
+        elif user_creator and user_creator == parser.target_user:
             return f"You cannot props your creator @{self.user} @{parser.target_user}"
 
         target_user = parser.target_user
