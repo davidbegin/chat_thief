@@ -13,3 +13,5 @@ class TestBotVote(DatabaseConfig):
         BotVote(user=uzi.name, bot=bot.name).save()
         vote = BotVote.last()
         vote["bot"] == "uzibot"
+
+        assert "uzibot" == BotVote.vote_off_bot()

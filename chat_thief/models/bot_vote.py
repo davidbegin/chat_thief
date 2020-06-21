@@ -9,5 +9,9 @@ class BotVote(BaseDbModel):
         self._user = user
         self._bot = bot
 
+    @classmethod
+    def vote_off_bot(cls):
+        return "uzibot"
+
     def doc(self):
         return {"user": self._user, "bot": self._bot}

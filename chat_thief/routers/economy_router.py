@@ -218,23 +218,29 @@ class EconomyRouter(BaseRouter):
             allow_random_user=True,
         ).parse()
 
-        # if User(parser.target_user).creator() == self.user:
-        #     return f"You cannot props your own bot @{self.user} @{parser.target_user}"
-        # elif User(self.user).creator() == parser.target_user:
-        #     return f"You cannot props your creator @{self.user} @{parser.target_user}"
+        if User(parser.target_user).creator() == self.user:
+            return f"You cannot props your own bot @{self.user} @{parser.target_user}"
+        elif User(self.user).creator() == parser.target_user:
+            return f"You cannot props your creator @{self.user} @{parser.target_user}"
 
         target_user = parser.target_user
+        top_eight = []
 
-        if parser.target_user == "random":
-            users = random.sample([
-                friend for friend in User(self.user).top8()
+        if parser.target_user == "random" or parser.target_user is None:
+            top_eight = [
+                friend
+                for friend in User(self.user).top_eight()
                 if User(friend).creator() != self.user
-            ], 1)
-            if users:
-                target_user = users[0]
+            ]
+            if top_eight is None:
+                return "You must specify a Top8 to give random props. !top8 @user"
 
+        # target_user = random.sample( top_eight, 1)[0]
         return StreetCredTransfer(
-            user=self.user, cool_person=target_user, amount=parser.amount
+            user=self.user,
+            cool_person=target_user,
+            top_eight=top_eight,
+            amount=parser.amount,
         ).transfer()
 
     def love(self, parser):

@@ -104,10 +104,18 @@ class TestEconomyRouter(DatabaseConfig):
     def test_props_random(self, mock_find_random_user):
         uzi = User("uzi")
         uzi.update_street_cred(10)
+        uzi.add_to_top_eight("future")
+        uzi.add_to_top_eight("young.thug")
+        uzi.add_to_top_eight("wheezy")
         result = EconomyRouter(uzi.name, "props", ["random", "2"]).route()
         assert result == "@uzi gave 1 Street Cred to @future @young.thug each"
         result = EconomyRouter(uzi.name, "props", ["random"]).route()
         assert result == "@uzi gave 1 Street Cred to @wheezy"
+
+    def test_props_with_no_top_eigth(self):
+        uzi = User("uzi")
+        result = EconomyRouter(uzi.name, "props", ["random"]).route()
+        return result == "You must specify a Top8 to give random props. !top8 @user"
 
     def test_steal_with_no_params(self):
         user = User("beginbot")

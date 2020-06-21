@@ -3,9 +3,10 @@ from chat_thief.prize_dropper import random_user as find_random_user
 
 
 class StreetCredTransfer:
-    def __init__(self, user, cool_person, amount=1):
+    def __init__(self, user, cool_person, top_eight=[], amount=1):
         self.user = user
         self.cool_person = cool_person
+        self.top_eight = top_eight
         self.amount = amount
 
         if self.user == self.cool_person:
@@ -41,4 +42,6 @@ class StreetCredTransfer:
         transferree.update_cool_points(amount)
 
     def _random_user(self):
-        return find_random_user(blacklisted_users=[self.user])
+        return random.sample(random.shuffle(self.top_eight), 1)[0]
+        # self.top_eight
+        # return find_random_user(blacklisted_users=[self.user])
