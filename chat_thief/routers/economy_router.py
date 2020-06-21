@@ -168,7 +168,12 @@ class EconomyRouter(BaseRouter):
                 target_sfx=parser.target_sfx,
             ).steal()
 
-            return StealFormatter(result).format()
+            if User(parser.target_user).creator() == self.user:
+                return f"You cannot steal from your own bot @{self.user} @{parser.target_user}"
+            elif User(self.user).creator() == parser.target_user:
+                return f"You cannot steal from your creator @{self.user} @{parser.target_user}"
+            else:
+                return StealFormatter(result).format()
         else:
             msg = f"@{self.user} you must specify who and what you want to steal."
             if self.args:
@@ -212,6 +217,11 @@ class EconomyRouter(BaseRouter):
             args=self.args,
             allow_random_user=True,
         ).parse()
+
+        if User(parser.target_user).creator() == self.user:
+            return f"You cannot props your own bot @{self.user} @{parser.target_user}"
+        elif User(self.user).creator() == parser.target_user:
+            return f"You cannot props your creator @{self.user} @{parser.target_user}"
         # Here is the bug,
         # this needs to occur inside the streetcred transfer
         # if parser.target_user == "random" or parser.target_user is None:

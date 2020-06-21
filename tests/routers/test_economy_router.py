@@ -31,7 +31,7 @@ class TestEconomyRouter(DatabaseConfig):
     @pytest.fixture(autouse=True)
     def mock_present_users(self, monkeypatch):
         def _mock_present_users(self):
-            return ["not_streamlord", "young.thug", "uzi"]
+            return ["not_streamlord", "young.thug", "uzi", "uzibot"]
 
         monkeypatch.setattr(WelcomeCommittee, "present_users", _mock_present_users)
 
@@ -70,6 +70,22 @@ class TestEconomyRouter(DatabaseConfig):
             == "You can love yourself in real life, but not in Beginworld @young.thug"
         )
 
+    def test_you_cannot_props_ya_bot(self):
+        creator = User("uzi").save()
+        User("uzi").update_street_cred(10)
+        bot = User("uzibot").save()
+        User.register_bot("uzibot", "uzi")
+        result = EconomyRouter("uzi", "props", ["uzibot"]).route()
+        assert result == "You cannot props your own bot @uzi @uzibot"
+
+    def test_ya_bot_cannot_props_you(self):
+        creator = User("uzi").save()
+        bot = User("uzibot").save()
+        User("uzi").update_street_cred(10)
+        User.register_bot("uzibot", "uzi")
+        result = EconomyRouter("uzibot", "props", ["uzi"]).route()
+        assert result == "You cannot props your creator @uzibot @uzi"
+
     def test_props(self):
         young_thug = User("young.thug")
         uzi = User("uzi")
@@ -85,7 +101,6 @@ class TestEconomyRouter(DatabaseConfig):
         assert young_thug.street_cred() == 0
         assert uzi.street_cred() == 9
 
-    # @pytest.mark.skip
     def test_props_random(self, mock_find_random_user):
         uzi = User("uzi")
         uzi.update_street_cred(10)
@@ -98,6 +113,22 @@ class TestEconomyRouter(DatabaseConfig):
         user = User("beginbot")
         result = EconomyRouter(user.name, "steal", []).route()
         assert result == "@beginbot you must specify who and what you want to steal."
+
+    def test_stealing_from_your_own_bot(self, mock_present_users):
+        creator = User("uzi").save()
+        bot = User("uzibot").save()
+        Command("clap").allow_user("uzibot")
+        User.register_bot("uzibot", "uzi")
+        result = EconomyRouter("uzi", "steal", ["uzibot", "clap"]).route()
+        assert result == "You cannot steal from your own bot @uzi @uzibot"
+
+    def test_your_bot_stealing_from_you(self, mock_present_users):
+        creator = User("uzi").save()
+        bot = User("uzibot").save()
+        Command("clap").allow_user("uzi")
+        User.register_bot("uzibot", "uzi")
+        result = EconomyRouter("uzibot", "steal", ["uzi", "clap"]).route()
+        assert result == "You cannot steal from your creator @uzibot @uzi"
 
     def test_try_steal_fake_sound(self, mock_present_users, mock_find_random_user):
         User("uzi").update_cool_points(10)

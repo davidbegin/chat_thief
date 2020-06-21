@@ -1,0 +1,32 @@
+html {
+    background-color: #c0c0c0;
+}
+
+h1,h2,h3,h4,p,span, a {
+    font-family: monospace;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(30, 80, 150);
+}
+
+h2 {
+    text-align: center;
+    text-shadow: 2px 2px #606060;
+}
+h3 {
+    padding-left: 8px;
+}
+
+body {
+    border-radius: 16px;
+}
+
+.user {
+    background-color: #202020;
+}
+
+ul {
+    list-style-type: circle;
+}
