@@ -1,0 +1,12 @@
+body {
+    background-color: gainsboro;
+}
+
+table, th, td {
+  border: 3px solid dimgray;
+}
+
+a {
+    font-family: verdana;
+    font-size: 30px;
+}

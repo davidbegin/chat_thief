@@ -1,0 +1,24 @@
+<!doctype html> <title>Beginland</title>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/style.css">
+    <meta charset="utf-8" http-equiv="refresh" content="{{ refresh_time }}">
+</head>
+
+<body class="user">
+  <h1><a href="{{ base_url }}">BeginWorld Finance</a></h1>
+  <h2>Bots</h2>
+
+  <ul>
+    {% for bot in bots %}
+      <li>
+        <a href="{{ base_url }}/users/{{ bot }}.html">
+          {{ bot }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+</body>
+
+</html>

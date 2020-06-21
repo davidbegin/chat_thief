@@ -168,18 +168,17 @@ async def generate_user_page(user_dict):
 # ProcessPoolExecutor or a ThreadPoolExecutor to speed it up.
 async def main():
     warning("Fetching All Data")
-    all_data = StitchAndSort().call()
-    stats = StatsDepartment().stats()
-    bots = User.bots()
-    success("All Data Fetched...Creating Tasks")
-
+    # all_data = StitchAndSort().call()
+    # stats = StatsDepartment().stats()
+    # success("All Data Fetched...Creating Tasks")
     warning("Setting Up Tasks")
+    bots = User.bots()
+
     tasks = (
-        [generate_home(all_data)]
-        + [generate_bots_page(bots)]
-        + [generate_stats_page(stats)]
-        + [generate_user_page(user_dict) for user_dict in all_data["users"]]
-        + [generate_command_page(command) for command in all_data["commands"]]
+        [generate_bots_page(bots)]
+        # + [generate_stats_page(stats)]
+        # + [generate_user_page(user_dict) for user_dict in all_data["users"]]
+        # + [generate_command_page(command) for command in all_data["commands"]]
     )
     success("Finished Setting Up Tasks")
 
