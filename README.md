@@ -3,29 +3,9 @@
 This started as a simple twitch chatbot, but has evolved into a Soundboard
 economy manager (More Details Below).
 
-## Bots in Action
-
-```bash
-# Main Bot collect and responding to chat commands
-python bot.py
-
-# Bot that will read out soundeffect requests from a file
-# And try to make them available
-python soundeffect_request_bot.py
-
-# Bot that will read out soundeffects from a file and play them
-python soundboard_bot.py
-
-# Bot that runs and give active chatters Street Cred on a regular basis
-python street_cred_bot.py
-
-# For testing
-python fake_bot.py -m "\!clap" -u beginbotbot
-```
-
 ## What Is Going On During Your Stream
 
-There are over 300+ Soundeffects (added by users like you!), that area access
+There are over 1200+ Soundeffects (added by users like you!), that area access
 through various commands, like: `!clap` or `!wow`
 
 When you join the stream you have access to no sounds (except your theme song,
@@ -127,6 +107,26 @@ Show the Streamlords
 `!streamlords`
 
 ---
+
+## Bots in Action
+
+```bash
+# Main Bot collect and responding to chat commands
+python bot.py
+
+# Bot that will read out soundeffect requests from a file
+# And try to make them available
+python soundeffect_request_bot.py
+
+# Bot that will read out soundeffects from a file and play them
+python soundboard_bot.py
+
+# Bot that runs and give active chatters Street Cred on a regular basis
+python street_cred_bot.py
+
+# For testing
+python fake_bot.py -m "\!clap" -u beginbotbot
+```
 
 ## Exposing User Data
 

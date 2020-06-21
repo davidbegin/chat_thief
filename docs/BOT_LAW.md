@@ -4,13 +4,16 @@
 
 - Bots should be useful
 - Bots should be funny
-- Or Bots should undetectable From Humans
+- Bots should undetectable From Humans
 
-## Cardinal Sin of Bots: Spam
+## Cardinal Sin of Bots
+
+Spam
 
 ## Rules
 
-- Tell me who your bot it
+- You must register as a bot, if you are found to be a bot, and owner doesn't
+  come forward you will be banned.
 - Use `!!` for your command trigger
 - You need a manifesto
-- 1 Bot per person
+- 1 Bot Per Person
