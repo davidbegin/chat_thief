@@ -15,3 +15,12 @@ class TestBotVote(DatabaseConfig):
         vote = BotVote.last()
         vote["bot"] == "uzibot"
         vote["user"] == "uzi"
+
+    def test_create_or_update(self):
+        assert BotVote.count() == 0
+        result, update_type = BotVote("eno", "uzibot").create_or_update()
+        assert BotVote.count() == 1
+        assert update_type == "create"
+        result, update_type = BotVote("eno", "otherbot").create_or_update()
+        assert BotVote.count() == 1
+        assert update_type == "update"

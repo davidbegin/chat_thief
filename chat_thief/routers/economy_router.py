@@ -235,7 +235,7 @@ class EconomyRouter(BaseRouter):
                 for friend in User(self.user).top_eight()
                 if User(friend).creator() != self.user
             ]
-            if top_eight is None:
+            if top_eight == []:
                 return "You must specify a Top8 to give random props. !top8 @user"
 
         # target_user = random.sample( top_eight, 1)[0]

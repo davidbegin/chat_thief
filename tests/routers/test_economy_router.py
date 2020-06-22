@@ -46,6 +46,7 @@ class TestEconomyRouter(DatabaseConfig):
 
     def test_donate(self, mock_present_users, mock_find_random_user):
         user = User("uzi")
+        User("young.thug").save()
         Command("clap").allow_user(user.name)
         assert "uzi" in Command("clap").users()
         assert "young.thug" not in Command("clap").users()
@@ -64,8 +65,10 @@ class TestEconomyRouter(DatabaseConfig):
 
     def test_you_cannot_love_yourself(self):
         user = "young.thug"
+        User("young.thug").save()
         result = EconomyRouter("young.thug", "love", ["@young.thug"]).route()
         assert (
+
             result
             == "You can love yourself in real life, but not in Beginworld @young.thug"
         )
@@ -178,6 +181,7 @@ class TestEconomyRouter(DatabaseConfig):
 
     def test_transferring_to_another_user(self, mock_find_random_user):
         user = "young.thug"
+        User("uzi").save()
         User(user).update_cool_points(10)
         command = Command("damn")
         command.allow_user(user)
@@ -189,6 +193,7 @@ class TestEconomyRouter(DatabaseConfig):
 
     def test_sharing_with_another_user(self, mock_find_random_user):
         user = "young.thug"
+        User("uzi").save()
         User(user).update_cool_points(10)
         command = Command("damn")
         command.allow_user(user)

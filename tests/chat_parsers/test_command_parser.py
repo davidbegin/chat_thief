@@ -4,9 +4,12 @@ from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.models.user import User
 
+from tests.support.database_setup import DatabaseConfig
 
-class TestCommandParser:
+
+class TestCommandParser(DatabaseConfig):
     @pytest.fixture(autouse=True)
+
     def mock_present_users(self, monkeypatch):
         def _mock_present_users(self):
             return ["artmattdank", "fake_viewer"]

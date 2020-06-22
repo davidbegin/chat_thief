@@ -12,6 +12,7 @@ class TestTribalCouncil(DatabaseConfig):
         uzi = User("uzi")
         bot = User("uzibot")
         BotVote(user=uzi.name, bot=bot.name).save()
+        assert BotVote.count() == 1
         vote = BotVote.last()
         vote["bot"] == "uzibot"
         vote["user"] == "uzi"

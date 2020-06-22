@@ -1,0 +1,13 @@
+body {
+  margin: 25px;
+  background-color: rgb(0, 128, 0);
+  font-family: Arnoldboecklin, fantasy;
+  font-size: 36px;
+}
+
+h1 {
+  font-size: 72px;
+  font-weight: normal;
+  font-family: Florence, cursive;
+  margin-top: 5px;
+}

@@ -69,10 +69,8 @@ class BaseDbModel(abc.ABC):
 
     def save(self):
         from tinyrecord import transaction
-
         with transaction(self.db()) as tr:
             tr.insert(self.doc())
-
         return self
 
     def update(self, update_func):

@@ -4,7 +4,7 @@
 
 - Bots should be useful
 - Bots should be funny
-- Bots should undetectable From Humans
+- Bots should undetectable From Humans -> Boring Doesn't Count
 
 ## Cardinal Sin of Bots
 

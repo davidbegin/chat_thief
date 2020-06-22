@@ -28,6 +28,7 @@ class CommandParser:
         self.args = [self._sanitize(arg) for arg in args]
         self.allow_random_user = allow_random_user
         self.allow_random_sfx = allow_random_sfx
+        self.all_user_names = User.all()
 
     def parse(self):
         self._set_target_user_and_command()
@@ -79,9 +80,9 @@ class CommandParser:
         elif user in STREAM_GODS:
             return True
         elif self.allow_random_user:
-            return user in WelcomeCommittee().present_users() or user == "random"
+            return user in self.all_user_names or user == "random"
         else:
-            return user in WelcomeCommittee().present_users()
+            return user in self.all_user_names
 
     def _is_valid_amount(self, val):
         try:
