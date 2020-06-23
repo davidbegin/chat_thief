@@ -13,15 +13,16 @@ class CubeBet(BaseDbModel):
 
     @classmethod
     def all_bets(cls):
-        bets = [(bet["name"], bet["duration"]) for bet in cls.db().all()]
+        bets = [(bet["user"], bet["duration"], bet["wager"]) for bet in cls.db().all()]
         return sorted(bets, key=lambda bet: bet[1])
 
-    def __init__(self, name, duration):
-        self.name = name
+    def __init__(self, user, duration, wager=[]):
+        self.user = user
         self._duration = int(duration)
+        self._wager = wager
 
     def save(self):
-        bet = self.db().get(Query().name == self.name)
+        bet = self.db().get(Query().user == self.user)
 
         if bet:
             self.set_value("duration", self._duration)
@@ -36,14 +37,32 @@ class CubeBet(BaseDbModel):
     def duration(self):
         return self.cube_bet()["duration"]
 
-    def name(self):
-        return self.cube_bet()["name"]
+    def user(self):
+        return self.cube_bet()["user"]
+
+    def wager(self):
+        return self.cube_bet()["wager"]
 
     def cube_bet(self):
         return self._find_or_create_cube_bet()
 
+    def create_or_update(self):
+        result = self.db().get(Query().user == self.user)
+
+        if result:
+            success(f"Updating Cube Bet: {self.doc()}")
+            result = self.db().update(self.doc(), doc_ids=[result.doc_id])
+            return result
+        else:
+            success(f"Creating New Cube Bet: {self.doc()}")
+            from tinyrecord import transaction
+
+            with transaction(self.db()) as tr:
+                tr.insert(self.doc())
+            return self.doc()
+
     def _find_or_create_cube_bet(self):
-        result = self.db().get(Query().name == self.name)
+        result = self.db().get(Query().user == self.user)
 
         if result:
             return result
@@ -56,4 +75,16 @@ class CubeBet(BaseDbModel):
         return self.doc()
 
     def doc(self):
-        return {"name": self.name, "duration": self._duration}
+        return {"user": self.user, "duration": self._duration, "wager": self._wager}
+
+    def set_value(self, field, value):
+        def _update_that_value():
+            def transform(doc):
+                doc[field] = value
+
+            return transform
+
+        from tinyrecord import transaction
+
+        with transaction(self.db()) as tr:
+            tr.update_callable(_update_that_value(), Query().user == self.user)

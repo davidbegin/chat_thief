@@ -3,6 +3,7 @@ from chat_thief.models.bot_vote import BotVote
 from chat_thief.models.user import User
 from chat_thief.routers.base_router import BaseRouter
 
+
 class BotSurvivorRouter(BaseRouter):
     def route(self):
         parser = CommandParser(

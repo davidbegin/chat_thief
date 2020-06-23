@@ -68,7 +68,6 @@ class TestEconomyRouter(DatabaseConfig):
         User("young.thug").save()
         result = EconomyRouter("young.thug", "love", ["@young.thug"]).route()
         assert (
-
             result
             == "You can love yourself in real life, but not in Beginworld @young.thug"
         )

@@ -34,7 +34,11 @@ class TestCubeBet(DatabaseConfig):
         assert result == []
         CubeBet("carti", 32).save()
         result = CubeBet.all_bets()
-        assert result == [("carti", 32)]
+        assert result == [("carti", 32, [])]
         CubeBet("uzi", 24).save()
         result = CubeBet.all_bets()
-        assert result == [("uzi", 24), ("carti", 32)]
+        assert result == [("uzi", 24, []), ("carti", 32, [])]
+
+    def test_a_wager(self):
+        result = CubeBet("carti", 32, ["clap"]).save()
+        assert result["wager"] == ["clap"]

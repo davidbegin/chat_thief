@@ -10,6 +10,8 @@ BOTS_AND_CREATORS = {
     "cachesking": "distributedcache",
     "whatsinmyopsec": "opsecbot",
     "zanuss": "zanussbot",
+    "baldclap": "cheb0t",
+    "nomorequity": "nomoreb0t",
 }
 
 

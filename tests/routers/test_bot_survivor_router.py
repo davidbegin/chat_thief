@@ -5,6 +5,7 @@ from chat_thief.models.user import User
 from chat_thief.routers.bot_survivor_router import BotSurvivorRouter
 from tests.support.database_setup import DatabaseConfig
 
+
 class TestBotSurviorRouter(DatabaseConfig):
     def test_voting_for_a_bot(self):
         User("uzibot").save()

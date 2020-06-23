@@ -38,5 +38,5 @@ class WelcomeCommittee:
             PlaySoundeffectRequest(user=user, command=user).save()
         else:
             send_twitch_msg(
-                f"Welcome @{user}! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-ID @{user} 00:03 00:07"
+                f"Welcome @{user}! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-URL @{user} 00:03 00:07"
             )

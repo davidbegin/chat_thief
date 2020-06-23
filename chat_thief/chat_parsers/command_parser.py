@@ -80,14 +80,23 @@ class CommandParser:
         elif user in STREAM_GODS:
             return True
         elif self.allow_random_user:
-            return user in self.all_user_names or user == "random"
+            # we need to add the WelcomeCommittee here as well
+            return (
+                user in self.all_user_names
+                or user == "random"
+                or user in WelcomeCommittee().present_users()
+            )
         else:
-            return user in self.all_user_names
+            return (
+                user in self.all_user_names
+                or user in WelcomeCommittee().present_users()
+            )
 
     def _is_valid_amount(self, val):
         try:
             if str(val) == "1080":
                 return False
+
             elif isinstance(val, int):
                 return val > 1
             elif val.endswith("s"):

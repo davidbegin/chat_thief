@@ -1,39 +1,71 @@
-@import 'https://fonts.googleapis.com/css?family=Ubuntu';
-
-* {
-  text-align: center;
-}
-
 body {
-  /* background-color: none..class{ */
-  background-color: black;
-  /* background: #000065; */
-  color: white;
-  font-size: 2em;
-  font-family: 'Ubuntu', sans-serif; 
+    /* background-color: none..class{ */
+    background-image: url("https://mewallpaper.com/thumbnail/games/8356-coding-background-free-photo-wallpaper.jpg");
+    background-size: auto;
+    /* background: #000065; */
+    text-align: center;
+    color: white;
+    font-size: 2em;
+    font-family: "Helvetica";
 }
 
 h1 {
-  color: white;
-  background-color: green;
-  text-align: center;
+    background-color: black;
+    border-style: double;
+    border-width: 5px;
+    border-color: blue;
+    padding: 10px;
+    color: white;
+    text-align: center;
 }
 
-h2, h3 {
-  background-color: blue;
+h2 {
+    background-color: black;
+    border-style: dotted;
+    border-width: 5px;
+    padding: 5px;
+    text-align: center;
+    color: lime;
+}
+
+h3 {
+    background-color: gray;
+    text-align: center;
+}
+
+table {
+    background-color: green;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 
 ul {
-  background-color: yellow;
-  color: green;
-}
-
-figure {
-  background-color: red;
+    background-color: yellow;
+    border-style: dashed;
+    border-color: red;
+    border-width: 30px;
+    padding: 32px;
+    text-align: center; 
+    color: red;
 }
 
 p {
-  color: white;
-  font-family: futura;
-  font-style: bold;
+    color: white;
+    text-align: center;
+    font-family: futura;
+    font-style: bold;
+}
+
+figure {
+  background-color: blue;
+  border-style: double;
+  border-width: 5px;
+  border-color: black;
+}
+
+span {
+  background-color: teal;
+  border-style: dotted;
+  border-width: 3px;
 }

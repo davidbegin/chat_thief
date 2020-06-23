@@ -15,6 +15,7 @@ from chat_thief.models.base_db_model import BaseDbModel
 #         return doc_func
 #     return wrapper
 
+
 class BotVote(BaseDbModel):
     database_path = "db/bot_votes.json"
     table_name = "bot_votes"
@@ -24,9 +25,7 @@ class BotVote(BaseDbModel):
         self._bot = bot
 
     def doc(self):
-        return {
-            "user": self._user, "bot": self._bot
-        }
+        return {"user": self._user, "bot": self._bot}
 
     def create_or_update(self):
         old_vote = self.db().get(Query().user == self._user)

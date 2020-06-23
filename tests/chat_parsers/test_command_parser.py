@@ -9,7 +9,6 @@ from tests.support.database_setup import DatabaseConfig
 
 class TestCommandParser(DatabaseConfig):
     @pytest.fixture(autouse=True)
-
     def mock_present_users(self, monkeypatch):
         def _mock_present_users(self):
             return ["artmattdank", "fake_viewer"]
