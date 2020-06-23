@@ -11,16 +11,9 @@ from chat_thief.irc_msg import IrcMsg
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.user_event import UserEvent
-from chat_thief.routers.basic_info_router import BasicInfoRouter
-from chat_thief.routers.beginworld_help_router import BeginworldHelpRouter
 
-# from chat_thief.routers.cube_casino_router import CubeCasinoRouter
-from chat_thief.routers.new_cube_casino_router import NewCubeCasinoRouter
-from chat_thief.routers.feedback_router import FeedbackRouter
-from chat_thief.routers.moderator_router import ModeratorRouter
-from chat_thief.routers.revolution_router import RevolutionRouter
-from chat_thief.routers.economy_router import EconomyRouter
-from chat_thief.routers.community_router import CommunityRouter
+from chat_thief.routers import *
+
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.new_commands.result import Result
 
@@ -51,11 +44,6 @@ class CommandRouter:
         if self.user == "nightbot":
             return
 
-        # if self.user == 'samharnack':
-        #     BreakingNews(
-        #         scope="Staff Gets Beginbot off of Twitch", category="iasip"
-        #     ).save()
-
         if self.user not in BLACKLISTED_LOG_USERS:
             self._logger.info(f"{self.user}: {self.msg}")
             WelcomeCommittee().welcome_new_users(self.user)
@@ -64,8 +52,8 @@ class CommandRouter:
 
         if self.user in STREAM_GODS:
             print(f"Oh Look we got a Stream God over here: {self.user}")
-            # if self.command == "curb_your_begin":
-            #     return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
+            if self.command == "curb_your_begin":
+                return BreakingNews(" ".join(self.irc_msg.args), category="curb").save()
 
             if self.command in ["iasip", "alwayssunny"]:
                 BreakingNews(" ".join(self.irc_msg.args), category="iasip").save()

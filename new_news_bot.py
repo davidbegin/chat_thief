@@ -6,9 +6,9 @@ import os
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.config.log import logger
 from chat_thief.models.breaking_news import BreakingNews
+from chat_thief.models.command import Command
 from chat_thief.models.soundeffect_request import SoundeffectRequest
 from chat_thief.models.user import User
-from chat_thief.models.command import Command
 from chat_thief.prize_dropper import drop_random_soundeffect_to_user
 
 

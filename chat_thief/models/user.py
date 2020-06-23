@@ -132,7 +132,8 @@ class User(BaseDbModel):
 
     def commands(self):
         return [
-            permission["name"] for permission in Command.for_user(self.name)
+            permission["name"]
+            for permission in Command.for_user(self.name)
             if permission["name"] != self.name
         ]
 
