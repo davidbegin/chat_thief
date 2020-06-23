@@ -131,7 +131,10 @@ class User(BaseDbModel):
         return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()} | Wealth: {self.wealth()}"
 
     def commands(self):
-        return [permission["name"] for permission in Command.for_user(self.name)]
+        return [
+            permission["name"] for permission in Command.for_user(self.name)
+            if permission["name"] != self.name
+        ]
 
     # Seems like it should be factored away
     def street_cred(self):
