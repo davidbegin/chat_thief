@@ -2,10 +2,8 @@ import datetime
 
 from chat_thief.routers.base_router import BaseRouter
 from chat_thief.models.cube_bet import CubeBet
-from chat_thief.models.cube_stats import CubeStats
 from chat_thief.models.user import User
 from chat_thief.new_commands.new_cube_casino import NewCubeCasino
-from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.chat_parsers.cube_casino_parser import CubeCasinoParser
 
 
@@ -27,8 +25,6 @@ class NewCubeCasinoRouter(BaseRouter):
         cube_time = self._convert_cube_time()
         result = NewCubeCasino(cube_time).gamble()
         CubeBet.purge()
-
-        # We could format the tuple
         return result
 
     def _process_bet(self):
