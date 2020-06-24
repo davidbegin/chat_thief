@@ -11,13 +11,13 @@
 
 <body class="home">
   <h1>BeginWorld Finance</h1>
-  <span>{{ updated_at }}</span>
-  <span>
+  <h2>
     <a href="{{ base_url }}/stats.html">Stats</a>
-  </span>
-  <span>
+  </h2>
+  <h2>
     <a href="{{ base_url }}/bots.html">Bots</a>
-  </span>
+  </h2>
+  <span>Last Updated: {{ updated_at }}</span>
 
 
   {% if recently_updated_users %}
@@ -33,7 +33,7 @@
 
   <h2 class="stylish_users">Stylish Users</h2>
     {% for user in stylish_users %}
-      <a href="{{ base_url }}/{{ user }}.html"> {{ user }} </a>
+      <a href="{{ base_url }}/{{ user }}.html"> {{ user }} </a> |
     {% endfor %}
 
   <hr />

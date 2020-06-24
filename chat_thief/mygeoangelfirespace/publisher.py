@@ -93,6 +93,8 @@ async def generate_home(all_data):
     static_dir = Path(__file__).parent.parent.joinpath("static")
     stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
 
+    print(f"Stylish Users: {stylish_users}")
+
     winner = User.wealthiest()
 
     updated_at = datetime.now().isoformat()
@@ -110,7 +112,7 @@ async def generate_home(all_data):
         "updated_at": updated_at,
         "winner": winner,
         "users": users,
-        "stylish_users": stylish_users,
+        "stylish_users": sorted(stylish_users),
         "commands": commands,
         "base_url": DEPLOY_URL,
     }
@@ -143,6 +145,11 @@ async def generate_user_page(user_dict, all_commands):
         commands = all_commands
     else:
         commands = user_dict["commands"]
+
+    commands = list(
+        reversed(sorted(commands, key=lambda command: command.get("cost", 0)))
+    )
+
     users_choice = user_dict.get("custom_css", None)
     ride_or_die = user_dict.get("ride_or_die", None)
 
@@ -185,7 +192,10 @@ async def main():
         [generate_home(all_data)]
         + [generate_bots_page(bots)]
         + [generate_stats_page(stats)]
-        + [generate_user_page(user_dict, all_commands) for user_dict in all_data["users"]]
+        + [
+            generate_user_page(user_dict, all_commands)
+            for user_dict in all_data["users"]
+        ]
         + [generate_command_page(command) for command in all_data["commands"]]
     )
     success("Finished Setting Up Tasks")

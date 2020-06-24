@@ -38,7 +38,17 @@ class TestStitchandSort(DatabaseConfig):
             "notoriety": 0,
             "mana": 3,
             "custom_css": custom_css,
-            "commands": ["damn"],
+            "commands": [
+                {
+                    "name": "damn",
+                    "user": "beginbot",
+                    "permitted_users": ["baldclap"],
+                    "health": 3,
+                    "cost": 1,
+                    "command_file": "damn.opus",
+                    "like_to_hate_ratio": 100,
+                }
+            ],
             "sfx_count": 1,
             "top_eight": [],
         }
@@ -52,7 +62,17 @@ class TestStitchandSort(DatabaseConfig):
             "wealth": 1,
             "notoriety": 0,
             "sfx_count": 1,
-            "commands": ["mclovin"],
+            "commands": [
+                {
+                    "name": "mclovin",
+                    "user": "beginbot",
+                    "permitted_users": ["momoko"],
+                    "health": 3,
+                    "cost": 1,
+                    "command_file": "mclovin.opus",
+                    "like_to_hate_ratio": 100,
+                }
+            ],
         }
 
         assert {

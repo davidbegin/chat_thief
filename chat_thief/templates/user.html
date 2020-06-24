@@ -31,8 +31,8 @@
   <ul>
     {% for command in commands %}
       <li>
-        <a href="{{ base_url }}/commands/{{ command }}.html">
-          {{ command }}
+        <a href="{{ base_url }}/commands/{{ command['name'] }}.html">
+          {{ command['name'] }} | Cost {{ command['cost'] }}
         </a>
       </li>
     {% endfor %}
