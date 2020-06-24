@@ -63,15 +63,7 @@ class CommandRouter:
             try:
                 if result := Router(self.user, self.command, self.args).route():
 
-                    # 2 Routes:
-                    #   - Build the user_event up piece, by piece
-                    #     pass it around
-                    #        - pass it around
-                    #        - maintaining state
-                    #   - Have all our Command Classes, return the proper
-                    #     metadata to create the UserEvent at the end of the
-                    #     result
-
+                    # TODO: Sort out this Result Concept Better
                     if isinstance(result, Result):
                         # TODO: Update This
                         UserEvent(

@@ -18,7 +18,9 @@ from chat_thief.stitch_and_sort import StitchAndSort
 from chat_thief.stats_department import StatsDepartment
 
 
-rendered_template_path = Path(__file__).parent.parent.parent.joinpath("build/beginworld_finance")
+rendered_template_path = Path(__file__).parent.parent.parent.joinpath(
+    "build/beginworld_finance"
+)
 template_path = Path(__file__).parent.parent.joinpath("templates/")
 base_url = "/home/begin/code/chat_thief/build/beginworld_finance"
 
@@ -44,7 +46,9 @@ def setup_build_dir():
 
     # Move the CSS File
     css_source = Path(__file__).parent.parent.joinpath("static")
-    css_dest = Path(__file__).parent.parent.parent.joinpath("build/beginworld_finance/styles")
+    css_dest = Path(__file__).parent.parent.parent.joinpath(
+        "build/beginworld_finance/styles"
+    )
     copytree(css_source, css_dest)
 
     success("Finished Setting Up Build Dir")
