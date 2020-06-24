@@ -20,7 +20,6 @@ class BreakingNewsBot:
         self.initial_richest_user = User.richest_cool_points()
 
     def loop(self):
-        os.system("clear")
 
         while True:
             try:
@@ -80,7 +79,6 @@ class BreakingNewsBot:
 
         self.last_breaking_time = datetime.now()
         # os.system("time make deploy")
-
 
 if __name__ == "__main__":
     BreakingNewsBot().loop()
