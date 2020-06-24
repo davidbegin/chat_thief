@@ -25,7 +25,7 @@ class TestStealer(DatabaseConfig):
         assert isinstance(result, Result)
         assert "handbag" in madonna.commands()
         assert "handbag" not in bowie.commands()
-        assert madonna.mana() == 2
+        assert madonna.mana() == 1
         result.metadata["stealing_result"] == "@madonna stole from @bowie"
 
     def test_trying_to_steal_sound_you_do_not_own(self):

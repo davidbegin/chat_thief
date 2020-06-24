@@ -46,4 +46,5 @@ STREAM_LORDS = [
     "loner_lena",
     "aquafunkalisticbootywhap",
     "usernamesarelame",
+    "biged_twitch",
 ] + STREAM_GODS
