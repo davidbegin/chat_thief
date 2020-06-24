@@ -36,7 +36,7 @@ sync:
 	scripts/sync_html.sh | lolcat
 
 beginworld_html:
-	python beginworld_publisher.py | lolcat
+	python -m chat_thief.mygeoangelfirespace.publisher | lolcat
 
 deploy: beginworld_html sync sync_json sync_sounds invalidate_cdn
 

@@ -18,8 +18,8 @@ from chat_thief.stitch_and_sort import StitchAndSort
 from chat_thief.stats_department import StatsDepartment
 
 
-rendered_template_path = Path(__file__).parent.joinpath("build/beginworld_finance")
-template_path = Path(__file__).parent.joinpath("chat_thief/templates/")
+rendered_template_path = Path(__file__).parent.parent.parent.joinpath("build/beginworld_finance")
+template_path = Path(__file__).parent.parent.joinpath("templates/")
 base_url = "/home/begin/code/chat_thief/build/beginworld_finance"
 
 # DEPLOY_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
@@ -32,7 +32,7 @@ def setup_build_dir():
     warning("Setting Up Build Dir")
 
     # Delete and Recreate Build Direction for BeginWorld Finance HTML
-    old_build_path = Path(__file__).parent.parent.joinpath(
+    old_build_path = Path(__file__).parent.parent.parent.joinpath(
         "tmp/old_build/beginworld_finance"
     )
     rmtree(old_build_path, ignore_errors=True)
@@ -43,8 +43,8 @@ def setup_build_dir():
     rendered_template_path.mkdir(exist_ok=True, parents=True)
 
     # Move the CSS File
-    css_source = Path(__file__).parent.joinpath("chat_thief/static")
-    css_dest = Path(__file__).parent.joinpath("build/beginworld_finance/styles")
+    css_source = Path(__file__).parent.parent.joinpath("static")
+    css_dest = Path(__file__).parent.parent.parent.joinpath("build/beginworld_finance/styles")
     copytree(css_source, css_dest)
 
     success("Finished Setting Up Build Dir")
@@ -95,8 +95,8 @@ async def generate_home(all_data):
 
     updated_at = datetime.now().isoformat()
 
-    new_styles = Path(__file__).parent.joinpath("chat_thief/static/")
-    old_styles = Path(__file__).parent.joinpath(
+    new_styles = Path(__file__).parent.parent.joinpath("static/")
+    old_styles = Path(__file__).parent.parent.parent.joinpath(
         "tmp/old_build/beginworld_finance/styles/"
     )
 
