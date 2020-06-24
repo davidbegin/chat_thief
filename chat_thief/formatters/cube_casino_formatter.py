@@ -8,6 +8,7 @@ class CubeCasinoFormatter:
 
     def format(self):
         results_by_winner = itertools.groupby(self.results, operator.itemgetter(0))
+        print(f"Results By Winner: {results_by_winner}")
 
         results = []
         for winner, winnings in results_by_winner:

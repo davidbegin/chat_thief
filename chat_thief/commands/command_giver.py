@@ -19,7 +19,6 @@ class CommandGiver:
 
         command = Command(self.command)
         permitted_users = command.users()
-        print(f"Permitted Users For: !{self.command} {permitted_users}")
 
         if self.user in permitted_users:
             if self.friend in permitted_users:

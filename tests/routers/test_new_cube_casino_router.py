@@ -51,7 +51,7 @@ class TestCubeCasinoRouter(DatabaseConfig):
         assert "@grant.grant: 32" in result
 
         result = NewCubeCasinoRouter("beginbotbot", "cubed", ["42"]).route()
-        assert result == [("wayne.shorter", "grant.grant", "handbag")]
+        assert result == ["@wayne.shorter won !handbag from @grant.grant"]
 
     # !bet 26s 5
     # !bet 26 5

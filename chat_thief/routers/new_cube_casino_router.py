@@ -5,6 +5,7 @@ from chat_thief.models.cube_bet import CubeBet
 from chat_thief.models.user import User
 from chat_thief.new_commands.new_cube_casino import NewCubeCasino
 from chat_thief.chat_parsers.cube_casino_parser import CubeCasinoParser
+from chat_thief.formatters.cube_casino_formatter import CubeCasinoFormatter
 
 
 class NewCubeCasinoRouter(BaseRouter):
@@ -24,7 +25,9 @@ class NewCubeCasinoRouter(BaseRouter):
     def _process_solve(self):
         cube_time = self._convert_cube_time()
         result = NewCubeCasino(cube_time).gamble()
-        CubeBet.purge()
+        # CubeBet.purge()
+        result = CubeCasinoFormatter(result).format()
+        print(f"Result from formatter: {result}")
         return result
 
     def _process_bet(self):
