@@ -7,7 +7,7 @@ from flask import render_template
 from chat_thief.models.notification import Notification
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates")
 app.run(debug=True)
 
 

@@ -5,7 +5,7 @@ from chat_thief.models.user import User
 from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 app.run(debug=True)
 
 
