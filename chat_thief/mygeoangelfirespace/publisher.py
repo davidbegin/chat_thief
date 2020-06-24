@@ -9,6 +9,7 @@ import filecmp
 import jinja2
 from jinja2 import Template
 
+from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
@@ -23,9 +24,6 @@ rendered_template_path = Path(__file__).parent.parent.parent.joinpath(
 )
 template_path = Path(__file__).parent.parent.joinpath("templates/")
 base_url = "/home/begin/code/chat_thief/build/beginworld_finance"
-
-# DEPLOY_URL = "http://beginworld.exchange-f27cf15.s3-website-us-west-2.amazonaws.com"
-# DEPLOY_URL = "https://www.beginworld.exchange"
 DEPLOY_URL = "https://mygeoangelfirespace.city"
 
 
@@ -92,7 +90,7 @@ async def generate_home(all_data):
     commands = all_data["commands"]
     users = all_data["users"]
 
-    static_dir = Path(__file__).parent.joinpath("chat_thief/static")
+    static_dir = Path(__file__).parent.parent.joinpath("static")
     stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
 
     winner = User.wealthiest()
@@ -138,9 +136,13 @@ async def generate_command_page(cmd_dict):
         )
 
 
-async def generate_user_page(user_dict):
+# We could add some logic here so it shows your a stream god
+async def generate_user_page(user_dict, all_commands):
     name = user_dict["name"]
-    commands = user_dict["commands"]
+    if name in STREAM_GODS:
+        commands = all_commands
+    else:
+        commands = user_dict["commands"]
     users_choice = user_dict.get("custom_css", None)
     ride_or_die = user_dict.get("ride_or_die", None)
 
@@ -176,13 +178,14 @@ async def main():
     stats = StatsDepartment().stats()
     bots = User.bots()
     success("All Data Fetched...Creating Tasks")
+    all_commands = [command["name"] for command in all_data["commands"]]
 
     warning("Setting Up Tasks")
     tasks = (
         [generate_home(all_data)]
         + [generate_bots_page(bots)]
         + [generate_stats_page(stats)]
-        + [generate_user_page(user_dict) for user_dict in all_data["users"]]
+        + [generate_user_page(user_dict, all_commands) for user_dict in all_data["users"]]
         + [generate_command_page(command) for command in all_data["commands"]]
     )
     success("Finished Setting Up Tasks")
