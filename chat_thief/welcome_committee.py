@@ -5,6 +5,8 @@ from chat_thief.irc import send_twitch_msg
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.command import Command
+from chat_thief.models.user import User
+from chat_thief.begin_fund import BeginFund
 
 
 DEFAULT_WELCOME_FILE = Path(__file__).parent.parent.joinpath(".welcome")
@@ -37,6 +39,8 @@ class WelcomeCommittee:
             command.update_health(1)
             PlaySoundeffectRequest(user=user, command=user).save()
         else:
+            User(user).save()
+            send_twitch_msg(BeginFund(user).dropeffect())
             send_twitch_msg(
                 f"Welcome @{user}! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-URL @{user} 00:03 00:07"
             )

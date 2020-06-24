@@ -1,5 +1,5 @@
 from chat_thief.routers.base_router import BaseRouter
-from chat_thief.prize_dropper import drop_soundeffect, dropreward
+from chat_thief.prize_dropper import dropreward
 from chat_thief.commands.airdrop import Airdrop
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.chat_parsers.command_parser import CommandParser

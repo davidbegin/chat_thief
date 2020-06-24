@@ -211,6 +211,12 @@ class EconomyRouter(BaseRouter):
         ).give()
 
     def props(self):
+        # return GottaGiveProps(
+        #     user=self.user
+        #     command=self.command,
+        #     args=self.args,
+        # ).props()
+
         parser = CommandParser(
             user=self.user,
             command=self.command,
