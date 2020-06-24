@@ -1,6 +1,6 @@
 import pytest
 
-from chat_thief.request_saver import RequestSaver
+from chat_thief.audioworld.request_saver import RequestSaver
 from chat_thief.irc_msg import IrcMsg
 
 from tests.support.database_setup import DatabaseConfig

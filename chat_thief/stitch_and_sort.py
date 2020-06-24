@@ -1,7 +1,7 @@
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 
 
 class StitchAndSort:

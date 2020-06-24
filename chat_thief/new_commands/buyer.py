@@ -1,5 +1,5 @@
 from chat_thief.new_commands.result import Result
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.user import User, PurchaseResult
 from chat_thief.models.command import Command
 

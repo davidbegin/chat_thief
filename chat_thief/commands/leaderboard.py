@@ -10,7 +10,7 @@ from chat_thief.models.soundeffect import SoundEffect
 
 from chat_thief.config.stream_lords import STREAM_LORDS
 from chat_thief.irc import send_twitch_msg
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.database import db_table
 
 from chat_thief.models.command import Command

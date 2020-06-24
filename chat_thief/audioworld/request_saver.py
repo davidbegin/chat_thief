@@ -4,7 +4,7 @@ from chat_thief.irc import send_twitch_msg
 
 
 BLACKLISTED_REQUESTERS = []
-SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.joinpath("db/.requests")
+SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.parent.joinpath("db/.requests")
 
 
 def begins_promise(user):

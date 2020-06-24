@@ -1,6 +1,6 @@
 import pytest
 
-from chat_thief.sample_saver import SampleSaver
+from chat_thief.audioworld.sample_saver import SampleSaver
 from chat_thief.models.command import Command
 
 from tests.support.database_setup import DatabaseConfig

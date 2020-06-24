@@ -2,7 +2,7 @@ from pathlib import Path
 import traceback
 
 from chat_thief.irc import send_twitch_msg
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.command import Command
 

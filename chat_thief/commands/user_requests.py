@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from chat_thief.irc import send_twitch_msg
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 
 SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.parent.joinpath("db/.requests")
 

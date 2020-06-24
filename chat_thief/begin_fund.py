@@ -5,7 +5,7 @@ from collections import defaultdict
 
 from chat_thief.models.command import Command
 from chat_thief.models.the_fed import TheFed
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.chat_logs import ChatLogs
 

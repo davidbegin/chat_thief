@@ -2,7 +2,7 @@ import pytest
 from pathlib import Path
 
 from chat_thief.models.notification import Notification
-from chat_thief.audio_player import AudioPlayer
+from chat_thief.audioworld.audio_player import AudioPlayer
 from tests.support.database_setup import DatabaseConfig
 
 

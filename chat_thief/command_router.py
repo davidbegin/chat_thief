@@ -4,7 +4,7 @@ import traceback
 import os
 
 from chat_thief.config.commands_config import OBS_COMMANDS
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.log import error, success, warning
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc_msg import IrcMsg

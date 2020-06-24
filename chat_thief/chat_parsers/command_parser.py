@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.prize_dropper import random_soundeffect
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.models.user import User
 

@@ -8,8 +8,8 @@ from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.user import User
-from chat_thief.audio_player import AudioPlayer
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.audio_player import AudioPlayer
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.stream_lords import STREAM_GODS
 
 

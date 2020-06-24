@@ -4,7 +4,7 @@ from chat_thief.commands.airdrop import Airdrop
 from chat_thief.models.user import User
 from tests.support.database_setup import DatabaseConfig
 from chat_thief.chat_logs import ChatLogs
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 
 
 class TestAirDrop(DatabaseConfig):

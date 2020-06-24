@@ -4,7 +4,7 @@ from typing import Optional
 from dataclasses import dataclass
 
 from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 
 
 @dataclass

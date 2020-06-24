@@ -66,3 +66,18 @@ sync_sounds:
 		"/home/begin/stream/Stream/Samples/theme_songs/" s3://beginworld.exchange-f27cf15/media
 
 full_deploy: deploy_all
+
+
+rename:
+	sed -i 's/from chat_thief.soundeffects_library/from chat_thief.audioworld.soundeffects_library/' tests/**/*.py
+	sed -i 's/from chat_thief.soundeffects_library/from chat_thief.audioworld.soundeffects_library/' chat_thief/**/*.py
+
+	sed -i 's/from chat_thief.audio_player/from chat_thief.audioworld.audio_player/' tests/**/*.py
+	sed -i 's/from chat_thief.audio_player/from chat_thief.audioworld.audio_player/' chat_thief/**/*.py
+
+	sed -i 's/from chat_thief.sample_saver/from chat_thief.audioworld.sample_saver/' tests/**/*.py tests/*.py
+	sed -i 's/from chat_thief.sample_saver/from chat_thief.audioworld.sample_saver/' tests/*.py
+	sed -i 's/from chat_thief.sample_saver/from chat_thief.audioworld.sample_saver/' chat_thief/**/*.py chat_thief/*.py
+
+	sed -i 's/from chat_thief.request_saver/from chat_thief.audioworld.request_saver/' tests/**/*.py tests/*.py
+	sed -i 's/from chat_thief.request_saver/from chat_thief.audioworld.request_saver/' chat_thief/**/*.py chat_thief/*.py

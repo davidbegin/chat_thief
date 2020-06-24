@@ -10,7 +10,7 @@ from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.models.base_db_model import BaseDbModel
 from chat_thief.models.database import db_table
 from chat_thief.models.sfx_vote import SFXVote
-from chat_thief.soundeffects_library import SoundeffectsLibrary
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 
 
 class Command(BaseDbModel):
