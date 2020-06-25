@@ -46,7 +46,7 @@ class NewCubeCasinoRouter(BaseRouter):
             result = CubeBet(
                 user=self.user, duration=parser.bet, wager=wager
             ).create_or_update()
-            return f"@{self.user} Thank you for your bet: {parser.bet}s"
+            return f"@{self.user} Thank you for your bet: {parser.bet}s - {len(wager)} Commands"
         else:
             return f"@{self.user} you must own at least 1 soundeffect to bet!"
 
