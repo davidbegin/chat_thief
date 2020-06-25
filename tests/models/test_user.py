@@ -198,6 +198,7 @@ class TestUser(DatabaseConfig):
                 "command_file": "baldclap.opus",
                 "street_cred": 0,
                 "cool_points": 3,
+                "insured": False,
                 "mana": 3,
                 "notoriety": 0,
                 "custom_css": custom_css,
@@ -273,3 +274,14 @@ class TestUser(DatabaseConfig):
         User.bots() == ["bill.evans.bot"]
         assert bot.is_bot()
         assert bot.creator() == "bill.evans"
+
+    def test_insured(self, user):
+        subject = user("snorlax")
+        assert not subject.insured()
+        result = subject.buy_insurance()
+        assert result == "YA Broke @snorlax - it costs 1 Cool Point to buy insurance"
+        assert not subject.insured()
+        subject.update_cool_points(1)
+        result = subject.buy_insurance()
+        assert result == "@snorlax thank you for purchasing insurance"
+        assert subject.insured()

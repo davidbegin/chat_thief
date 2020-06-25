@@ -147,3 +147,11 @@ class TestCommandRouter(DatabaseConfig):
         irc_response = irc_msg("bill.evans", "!homepage")
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "@miles.davis: 1"
+
+    def test_buying_insurance(self, irc_msg):
+        user = User("uzi")
+        user.update_cool_points(10)
+        irc_response = irc_msg("uzi", "!insurance")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert user.insured()
+        assert result == "@uzi thank you for purchasing insurance"

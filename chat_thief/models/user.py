@@ -22,14 +22,14 @@ class PurchaseReceipt:
         self.user = user
         self.sfx = sfx
         self.cost = cost
-        self.cool_points = cool_points
+        self._cool_points = cool_points
         self.result = result
         self.message = result.value.format(
             user=user, sfx=sfx, cost=cost, cool_points=cool_points
         )
 
     def __repr__(self):
-        return f"PurchaseReceipt({self.user}, {self.sfx}, {self.result.name}, {self.cool_points}, {self.cost})"
+        return f"PurchaseReceipt({self.user}, {self.sfx}, {self.result.name}, {self._cool_points}, {self.cost})"
 
 
 class User(BaseDbModel):
@@ -116,11 +116,21 @@ class User(BaseDbModel):
     # ====================================================================
 
     # We should set self.user here
-    def __init__(self, name, notoriety=0, top_eight=[], custom_css=None):
+    def __init__(
+        self,
+        name,
+        cool_points=0,
+        notoriety=0,
+        top_eight=[],
+        custom_css=None,
+        insured=False,
+    ):
         self._top_eight = top_eight
         self.name = name
+        self._cool_points = cool_points
         self._custom_css = custom_css
         self._notoriety = notoriety
+        self._insured = insured
         self._raw_user = self._find_or_create_user()
 
     # So this means, when we call, we find or init, thats fine!
@@ -161,6 +171,9 @@ class User(BaseDbModel):
 
     def top_eight(self):
         return self.user().get("top_eight", [])
+
+    def insured(self):
+        return self.user().get("insured", False)
 
     def update_mana(self, amount):
         return self._update_value("mana", amount)
@@ -271,9 +284,10 @@ class User(BaseDbModel):
             "custom_css": self._custom_css,
             "notoriety": self._notoriety,
             "street_cred": 0,
-            "cool_points": 0,
+            "cool_points": self._cool_points,
             "mana": 3,
             "top_eight": self._top_eight,
+            "insured": self._insured,
         }
 
     def save(self):
@@ -353,3 +367,14 @@ class User(BaseDbModel):
             sum([Command(command).cost() for command in self.commands()])
             + self.cool_points()
         )
+
+    def buy_insurance(self):
+        current_cool_points = self.cool_points()
+        if current_cool_points > 0:
+            cool_points = current_cool_points - 1
+            self.db().upsert(
+                {"cool_points": cool_points, "insured": True}, Query().name == self.name
+            )
+            return f"@{self.name} thank you for purchasing insurance"
+        else:
+            return f"YA Broke @{self.name} - it costs 1 Cool Point to buy insurance"

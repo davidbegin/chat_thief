@@ -36,6 +36,9 @@ class EconomyRouter(BaseRouter):
             user=self.user, command=self.command, args=self.args
         ).parse()
 
+        if self.command == "insurance":
+            return User(self.user).buy_insurance()
+
         if self.command == "css":
             # if self.user in STREAM_LORDS:
             return self.set_css()
