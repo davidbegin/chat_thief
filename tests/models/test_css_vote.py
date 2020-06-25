@@ -22,8 +22,8 @@ class TestCSSVote(DatabaseConfig):
 
     def test_by_votes(self):
         CSSVote(voter="uzi", candidate="future").save()
-        CSSVote(voter="carti", candidate="future").save()
         CSSVote(voter="kanye", candidate="drake").save()
+        CSSVote(voter="carti", candidate="future").save()
         result = CSSVote.by_votes()
         assert result == [
             ("future", 2),

@@ -147,4 +147,3 @@ class TestCommandRouter(DatabaseConfig):
         irc_response = irc_msg("bill.evans", "!homepage")
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "@miles.davis: 1"
-

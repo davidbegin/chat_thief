@@ -33,14 +33,15 @@ class CSSVote(BaseDbModel):
     @classmethod
     def by_votes(cls):
         votes = cls.db().all()
-        votes_by_candidate = itertools.groupby(
-            votes, operator.itemgetter("candidate")
-        )
-        vote_counts = [
-            (candidate, len(list(votes)))
-            for (candidate, votes) in votes_by_candidate
-        ]
-        return list(reversed(
-            sorted(vote_counts, key=lambda vote: vote[1])
-        ))
 
+        def get_candidate(vote):
+            return vote.get("candidate")
+
+        votes_by_candidate = itertools.groupby(
+            sorted(votes, key=get_candidate), get_candidate
+        )
+
+        vote_counts = [
+            (candidate, len(list(votes))) for (candidate, votes) in votes_by_candidate
+        ]
+        return list(reversed(sorted(vote_counts, key=lambda vote: vote[1])))
