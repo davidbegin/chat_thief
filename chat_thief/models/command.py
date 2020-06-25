@@ -255,3 +255,9 @@ class Command(BaseDbModel):
             "health": self.inital_health,
             "cost": self.inital_cost,
         }
+
+    def decay(self):
+        current_cost = self.cost()
+        if current_cost > 1:
+            current_cost - 1
+            self.set_value("cost", current_cost - 1)

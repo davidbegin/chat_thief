@@ -138,3 +138,14 @@ class TestCommand(DatabaseConfig):
         Command.purge_duplicates()
         assert Command.count() == 1
         assert uzi.commands() == ["clap"]
+
+    def test_decay(self):
+        command = Command("damn", 10)
+        command.save()
+        command.decay()
+        assert command.cost() == 9
+
+        command = Command("handbag")
+        command.save()
+        command.decay()
+        assert command.cost() == 1

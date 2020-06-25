@@ -5,6 +5,7 @@ import traceback
 
 from chat_thief.config.log import success
 from chat_thief.models.notification import Notification
+from chat_thief.models.command import Command
 
 MPLAYER_VOL_NORM = "0.50"
 
@@ -13,6 +14,8 @@ class AudioPlayer:
     @staticmethod
     def play_sample(sound_file, notification=True):
         sound_name = sound_file.name[: -len(sound_file.suffix)]
+        Command(sound_name).decay()
+
         success(f"Playing: {sound_name}")
         if notification:
             Notification(f"Playing: !{sound_name}", duration=1).save()
