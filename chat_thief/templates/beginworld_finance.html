@@ -35,7 +35,7 @@
   <span>Vote for your favorite Users Styling with <b>!bestcss @user</b> in the chat</span>
   <br />
   {% for (user, votes) in candidates %}
-    <a href="{{ base_url }}/{{ user }}.html"> {{ user }} - {{ votes }} </a>
+    <a href="{{ base_url }}/{{ user }}.html"> {{ votes }} - {{ user }}</a>
     <br />
   {% endfor %}
 
