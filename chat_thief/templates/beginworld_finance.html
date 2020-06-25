@@ -31,6 +31,17 @@
     </ul>
   {% endif %}
 
+  <h3>Homepage CSS Leaderboard</h3>
+  <span>Vote for your favorite Users Styling with <b>!bestcss @user</b> in the chat</span>
+  <br />
+  {% for (user, votes) in candidates %}
+    <a href="{{ base_url }}/{{ user }}.html"> {{ user }} - {{ votes }} </a>
+    <br />
+  {% endfor %}
+
+  <br />
+  <br />
+
   <h2 class="stylish_users">Stylish Users</h2>
     {% for user in stylish_users %}
       <a href="{{ base_url }}/{{ user }}.html"> {{ user }} </a> |

@@ -66,3 +66,6 @@ sync_sounds:
 		"/home/begin/stream/Stream/Samples/theme_songs/" s3://beginworld.exchange-f27cf15/media
 
 full_deploy: deploy_all
+
+register_bots:
+	python -m chat_thief.scripts.register_bots

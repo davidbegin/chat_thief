@@ -12,6 +12,7 @@ BOTS_AND_CREATORS = {
     "zanuss": "zanussbot",
     "baldclap": "cheb0t",
     "nomorequity": "nomoreb0t",
+    "r_u_ri_ui": "hal9thou",
 }
 
 
