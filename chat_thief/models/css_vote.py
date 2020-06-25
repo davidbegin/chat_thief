@@ -1,6 +1,8 @@
 import itertools
 import operator
 
+from tinydb import Query
+
 from chat_thief.models.base_db_model import BaseDbModel
 
 
@@ -19,6 +21,14 @@ class CSSVote(BaseDbModel):
             "candidate": self.candidate,
             "page": self.page,
         }
+
+    def create_or_update(self):
+        if old_vote := self.db().get(Query().voter == self.voter):
+            result = self.db().update(self.doc(), doc_ids=[old_vote.doc_id])
+            return result, "update"
+        else:
+            result = self.save()
+            return result, "create"
 
     @classmethod
     def by_votes(cls):

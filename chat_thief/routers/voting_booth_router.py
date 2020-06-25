@@ -14,7 +14,7 @@ class VotingBoothRouter(BaseRouter):
 
         if self.command == "bestcss":
             if parser.target_user:
-                result = CSSVote(voter=self.user, candidate=parser.target_user).save()
+                result = CSSVote(voter=self.user, candidate=parser.target_user).create_or_update()
                 return f"Thank You @{self.user} for supporting Artists like @{parser.target_user}"
         elif self.command == "homepage":
             return " | ".join(
