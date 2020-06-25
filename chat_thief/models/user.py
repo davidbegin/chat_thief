@@ -138,7 +138,7 @@ class User(BaseDbModel):
         return self._find_or_create_user()
 
     def stats(self):
-        return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()} | Wealth: {self.wealth()}"
+        return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()} | Wealth: {self.wealth()} | Insured: {self.insured()}"
 
     def commands(self):
         return [
