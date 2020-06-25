@@ -14,6 +14,7 @@ from chat_thief.models.user import User
 from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.config.log import success, warning, error
+from chat_thief.models.css_vote import CSSVote
 
 from chat_thief.stitch_and_sort import StitchAndSort
 from chat_thief.stats_department import StatsDepartment
@@ -95,7 +96,12 @@ async def generate_home(all_data):
 
     print(f"Stylish Users: {stylish_users}")
 
-    winner = User.wealthiest()
+    homepage_candidates = CSSVote.by_votes()
+
+    try:
+        winner = homepage_candidates[0][0]
+    except:
+        winner = User.wealthiest()
 
     updated_at = datetime.now().isoformat()
 
@@ -109,6 +115,7 @@ async def generate_home(all_data):
     ]
     context = {
         "recently_updated_users": recently_updated_users,
+        "candidates": homepage_candidates,
         "updated_at": updated_at,
         "winner": winner,
         "users": users,

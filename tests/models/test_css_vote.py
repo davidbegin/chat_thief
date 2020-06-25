@@ -19,3 +19,13 @@ class TestCSSVote(DatabaseConfig):
         candidate = "future"
         CSSVote(voter=voter, candidate=candidate).save()
         assert CSSVote.count() == 1
+
+    def test_by_votes(self):
+        CSSVote(voter="uzi", candidate="future").save()
+        CSSVote(voter="carti", candidate="future").save()
+        CSSVote(voter="kanye", candidate="drake").save()
+        result = CSSVote.by_votes()
+        assert result == [
+            ("future", 2),
+            ("drake", 1),
+        ]
