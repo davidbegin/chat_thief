@@ -10,11 +10,12 @@ DEFAULT_CHANCE_OF_GETTING_CAUGHT = 0.7
 
 
 class CaughtStealing:
-    def __init__(self, thief, target_sfx, victim, steal_count=0):
+    def __init__(self, thief, target_sfx, victim, steal_count=0, give_count=0):
         self.thief = thief
         self.target_sfx = target_sfx
         self.victim = victim
         self.steal_count = steal_count
+        self.give_count = give_count
 
     def call(self) -> bool:
         thief_wealth = User(self.thief).wealth()
@@ -47,8 +48,9 @@ class CaughtStealing:
                 else:
                     chance_of_getting_of_caught = 0.90
 
-        # Around a 5% increase in getting caught per steal
-        chance_of_getting_of_caught += self.steal_count / 20
+        # Around a 5% increase in getting caught per net steal
+        chance_of_getting_of_caught += self.steal_count - self.give_count / 20
+
         print(f"CHANCE OF Getting Caught: {chance_of_getting_of_caught}")
         busted = random() < chance_of_getting_of_caught
 

@@ -5,7 +5,6 @@
 <head>
   <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/style.css">
   <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/{{ winner }}.css">
-  <!-- <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/samharnack.css"> -->
   <meta charset="utf-8" http-equiv="refresh" content="{{ refresh_time }}">
 </head>
 
@@ -17,7 +16,7 @@
   <h2>
     <a href="{{ base_url }}/bots.html">Bots</a>
   </h2>
-  <span>Last Updated: {{ updated_at }}</span>
+  <span class="updated_at">Last Updated: {{ updated_at }}</span>
 
 
   {% if recently_updated_users %}
@@ -32,7 +31,7 @@
   {% endif %}
 
   <h3>Homepage CSS Leaderboard</h3>
-  <span>Vote for your favorite Users Styling with <b>!bestcss @user</b> in the chat</span>
+  <span class="bestcss_tip">Vote for your favorite Users Styling with <b>!bestcss @user</b> in the chat</span>
   <br />
   {% for (user, votes) in candidates %}
     <a href="{{ base_url }}/{{ user }}.html"> {{ votes }} - {{ user }}</a>

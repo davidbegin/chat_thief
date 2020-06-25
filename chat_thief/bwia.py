@@ -8,9 +8,20 @@ from chat_thief.models.user_event import UserEvent
 
 class BWIA:
     @classmethod
+    def robinhood_score(cls, user):
+        return len(
+            UserEvent.db().search(
+                ((Query().command == "give") | (Query().command == "share"))
+                & (Query().user == user)
+            )
+        )
+
+    @classmethod
     def find_thief(cls, thief):
         return len(
-            UserEvent.db().search(Query().command == "steal" and Query().user == thief)
+            UserEvent.db().search(
+                (Query().command == "steal") & (Query().user == thief)
+            )
         )
 
     @classmethod

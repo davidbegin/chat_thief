@@ -39,9 +39,11 @@ class Stealer:
     def _attempt_robbery(self, thief, command):
         thief.update_mana(-2)
         steal_count = BWIA.find_thief(thief)
+        give_count = BWIA.robinhood_score(thief)
+
         print(f"This Thief Has Stolen {steal_count} times before")
         was_caught_stealing, the_odds = CaughtStealing(
-            self._thief, self._target_sfx, self._victim, steal_count
+            self._thief, self._target_sfx, self._victim, steal_count, give_count
         ).call()
         the_odds = f"{(the_odds * 100)}%"
         victim = User(self._victim)

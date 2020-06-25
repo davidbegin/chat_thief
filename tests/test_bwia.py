@@ -32,3 +32,23 @@ class TestBWIA(DatabaseConfig):
         ).save()
         assert BWIA.find_thief("uzi") == 2
         assert BWIA.find_thief("duzi") == 0
+
+    def test_find_robinscore(self):
+        UserEvent(
+            user="uzi", command="give", msg="!give handbag @future", result=[]
+        ).save()
+        UserEvent(
+            user="uzi", command="give", msg="!give damn @carti ", result=[]
+        ).save()
+        UserEvent(
+            user="uzi", command="share", msg="!share rickroll @carti ", result=[]
+        ).save()
+        UserEvent(
+            user="uzi", command="steal", msg="!steal rickroll @carti ", result=[]
+        ).save()
+        UserEvent(
+            user="carti", command="give", msg="!give rickroll @futre", result=[]
+        ).save()
+        assert BWIA.robinhood_score("uzi") == 3
+        assert BWIA.robinhood_score("duzi") == 0
+        assert BWIA.robinhood_score("carti") == 1
