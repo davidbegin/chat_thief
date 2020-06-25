@@ -44,8 +44,14 @@ class Stealer:
             self._thief, self._target_sfx, self._victim, steal_count
         ).call()
         the_odds = f"{(the_odds * 100)}%"
+        victim = User(self._victim)
 
-        if was_caught_stealing:
+        if victim.insured():
+            victim.set_value("insured", False)
+            self.metadata[
+                "stealing_result"
+            ] = f"@{self._thief} was blocked by @{self._victim}'s insurance! Num Attempts: {steal_count}"
+        elif was_caught_stealing:
             thief.update_value("notoriety", 1)
             self.metadata[
                 "stealing_result"
