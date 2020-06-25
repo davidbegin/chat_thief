@@ -19,11 +19,13 @@ from chat_thief.models.user_event import UserEvent
 from chat_thief.models.rap_sheet import RapSheet
 from chat_thief.models.bot_vote import BotVote
 from chat_thief.models.tribal_council import TribalCouncil
+from chat_thief.models.css_vote import CSSVote
 
 MODEL_CLASSES = [
     BreakingNews,
     Command,
     CubeBet,
+    CSSVote,
     CubeStats,
     Issue,
     Notification,

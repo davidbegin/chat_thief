@@ -28,6 +28,7 @@ ROUTERS = [
     EconomyRouter,
     BeginworldHelpRouter,
     CommunityRouter,
+    VotingBoothRouter,
 ]
 
 

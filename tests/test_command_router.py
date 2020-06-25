@@ -7,6 +7,7 @@ from chat_thief.models.command import Command
 from chat_thief.models.proposal import Proposal
 from chat_thief.models.user import User
 from chat_thief.models.user_event import UserEvent
+from chat_thief.models.css_vote import CSSVote
 from chat_thief.welcome_committee import WelcomeCommittee
 
 from tests.support.database_setup import DatabaseConfig
@@ -132,3 +133,18 @@ class TestCommandRouter(DatabaseConfig):
         assert last_event["user"] == "bill.evans"
         assert last_event["msg"] == "!buy gcc"
         # assert last_event["cool_point_diff"] == -1
+
+    def test_bestcss(self, irc_msg):
+        user = User("bill.evans")
+        icon = User("miles.davis").save()
+        irc_response = irc_msg("bill.evans", "!bestcss miles.davis")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert CSSVote.count() == 1
+        assert (
+            result == "Thank You @bill.evans for supporting Artists like @miles.davis"
+        )
+
+        irc_response = irc_msg("bill.evans", "!homepage")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert result == "@miles.davis: 1"
+

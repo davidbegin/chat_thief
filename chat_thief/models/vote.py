@@ -1,11 +1,8 @@
-DEFAULT_VOTES_DB_PATH = "db/votes.json"
-from chat_thief.models.database import db_table
-from chat_thief.models.user import User
-
-from chat_thief.config.log import error, warning, success
-
 from tinydb import Query
+
 from chat_thief.models.base_db_model import BaseDbModel
+from chat_thief.models.user import User
+from chat_thief.config.log import error, warning, success
 
 
 class Vote(BaseDbModel):

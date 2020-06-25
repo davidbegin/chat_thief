@@ -6,14 +6,16 @@ from chat_thief.routers.moderator_router import ModeratorRouter
 from chat_thief.routers.revolution_router import RevolutionRouter
 from chat_thief.routers.economy_router import EconomyRouter
 from chat_thief.routers.community_router import CommunityRouter
+from chat_thief.routers.voting_booth_router import VotingBoothRouter
 
 __all__ = [
     "BasicInfoRouter",
     "BeginworldHelpRouter",
-    "NewCubeCasinoRouter",
+    "CommunityRouter",
+    "EconomyRouter",
     "FeedbackRouter",
     "ModeratorRouter",
+    "NewCubeCasinoRouter",
     "RevolutionRouter",
-    "EconomyRouter",
-    "CommunityRouter",
+    "VotingBoothRouter",
 ]
