@@ -79,7 +79,7 @@ async def generate_bots_page():
     bots = User.bots()
     bot_votes = BotVote.count_by_group("bot")
 
-    context = {"base_url": DEPLOY_URL, "bots": bots}
+    context = {"base_url": DEPLOY_URL, "bots": bots, "bot_votes": bot_votes}
     await _render_and_save_html("bots.html", context, "bots.html")
 
 

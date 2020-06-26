@@ -47,8 +47,8 @@ class CaughtStealing:
 
         if busted:
             print("Caught Stealing!!!")
-            if self.steal_count < 1:
-                PlaySoundeffectRequest(user="beginbotbot", command="nope").save()
+            # if self.steal_count < 1:
+            #     PlaySoundeffectRequest(user="beginbotbot", command="nope").save()
             User(self.thief).set_value("mana", 0)
             RapSheet(
                 user=self.thief,

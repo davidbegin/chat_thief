@@ -7,6 +7,7 @@ from chat_thief.models.command import Command
 from chat_thief.models.proposal import Proposal
 from chat_thief.models.user import User
 from chat_thief.models.user_event import UserEvent
+from chat_thief.models.bot_vote import BotVote
 from chat_thief.models.css_vote import CSSVote
 from chat_thief.welcome_committee import WelcomeCommittee
 
@@ -155,3 +156,13 @@ class TestCommandRouter(DatabaseConfig):
         result = CommandRouter(irc_response, logger).build_response()
         assert user.insured()
         assert result == "@uzi thank you for purchasing insurance"
+
+    def test_bot_survivor(self, irc_msg):
+        user = User("uzi")
+        user.save()
+        User("uzibot").save()
+        User.register_bot("uzibot", "don.cannon")
+        irc_response = irc_msg("uzi", "!hatebot uzibot")
+        result = CommandRouter(irc_response, logger).build_response()
+        BotVote.count() == 1
+        assert result == "Thank you for your vote @uzi"

@@ -7,10 +7,12 @@ from chat_thief.routers.revolution_router import RevolutionRouter
 from chat_thief.routers.economy_router import EconomyRouter
 from chat_thief.routers.community_router import CommunityRouter
 from chat_thief.routers.voting_booth_router import VotingBoothRouter
+from chat_thief.routers.bot_survivor_router import BotSurvivorRouter
 
 __all__ = [
     "BasicInfoRouter",
     "BeginworldHelpRouter",
+    "BotSurvivorRouter",
     "CommunityRouter",
     "EconomyRouter",
     "FeedbackRouter",

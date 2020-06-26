@@ -1,9 +1,82 @@
 @import url(https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap);
 
+.user h2:before{
+  content:"                             ";
+  display:block;
+  height:6px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:10px 0px;
+}
+
+.user h2:after{
+   content:"                          ";
+  display:block;
+  height:6px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:10px 0px;
+  
+}
+
+.user h2{
+    text-align:center;
+    color:#ffff00;
+    font-size: 40px;
+    letter-spacing: 20px;
+    margin:auto
+  }
+
+
+hr{
+  display:none;
+}
+
 span{
   float:right;
   position:relative;
  
+}
+
+body.home > h2:nth-of-type(1){
+  float:right;
+}
+
+.home h2 a:visited{
+  color:blue;  
+}
+
+.home h2 a{
+  color:blue;  
+}
+
+.home h2{
+ font-size:26px;
+}
+
+.home h2:after{
+  content:" .   .   .   .  .  .  .  .  .  .  .  . ";
+  color: #FFFF00;
+}
+
+.home a{
+  color: blue;
+}
+
+.home a:visited{
+  color: blue;
+}
+
+.home ul li a{
+  color: #ffff00;
+}
+
+.home ul li a:visited{
+  color: #ffff00;
 }
 
 body {
@@ -39,7 +112,7 @@ h1, h1 a{
     letter-spacing:5px;
 }
 
-h2:before{
+.stylish_users:before{
   content:"                             ";
   display:block;
   height:6px;
@@ -50,8 +123,19 @@ h2:before{
   margin:10px 0px;
 }
 
-h2:after{
-   content:"                             ";
+.users:before{
+  content:"                             ";
+  display:block;
+  height:6px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:10px 0px;
+}
+
+.stylish_users:after{
+  content: "" !important;
   display:block;
   height:6px;
   width:100%;
@@ -63,13 +147,42 @@ h2:after{
 }
 
 
-h2 {
+.users:after{
+  content: "" !important;
+  display:block;
+  height:6px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:10px 0px;
+  
+}
+
+.users{
     text-align:center;
     color:#ffff00;
     font-size: 40px;
     letter-spacing: 20px;
     margin:auto
   }
+
+.stylish_users {
+    text-align:center;
+    color:#ffff00;
+    font-size: 40px;
+    letter-spacing: 20px;
+    margin:auto
+  }
+
+.home h3:before{
+  content:"                             ";
+  display:block;
+  height:6px;
+  width:100%;
+  border-top:15px dashed #17EEF5;
+  padding-bottom:0.5em;
+}
 
 h3 {
   color:#ffffff;
@@ -264,7 +377,7 @@ audio::-webkit-media-controls-time-remaining-display{
 
 .updated_at{
   display:block;
-  padding-top: 1%;
+  padding-top: 1.9%;
   font-size:18px;
 }
 
