@@ -57,7 +57,7 @@ class TestStealer(DatabaseConfig):
         assert isinstance(result, Result)
         assert madonna.mana() == 0
         assert (
-            "@madonna WAS CAUGHT STEALING! Chance of Getting Caught:"
+            "@madonna WAS CAUGHT STEALING! Chance of Success:"
             in result.metadata["stealing_result"]
         )
 
@@ -93,7 +93,7 @@ class TestStealer(DatabaseConfig):
         result = subject.steal()
         assert (
             result.metadata["stealing_result"]
-            == "@madonna stole from @bowie. Chance of Getting Caught: 39%"
+            == "@madonna stole from @bowie. Chance of Success: 39%"
         )
 
     def test_stole_from_a_rich_person(self):
@@ -107,7 +107,7 @@ class TestStealer(DatabaseConfig):
         result = subject.steal()
         assert (
             result.metadata["stealing_result"]
-            == "@madonna stole from @bowie. Chance of Getting Caught: 39%"
+            == "@madonna stole from @bowie. Chance of Success: 39%"
         )
 
     def test_stealing_from_an_insured_person(self):

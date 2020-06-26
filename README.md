@@ -5,12 +5,43 @@ economy manager (More Details Below).
 
 ## What Is Going On During Your Stream
 
-There are over 1200+ Soundeffects (added by users like you!), that area access
+There are over 1300+ Soundeffects (added by users like you!), that area access
 through various commands, like: `!clap` or `!wow`
 
 When you join the stream you have access to no sounds (except your theme song,
 if you have one). To get access to soundeffects, you just need to participate in
 our New Economy!
+
+## Participating in the Stream
+
+### Write CSS
+
+!css URL_TO_RAW_CSS
+
+Pastebin
+or Gitlab Snippets work great!
+
+### Write a Bot
+
+Write **1** Bot in whatever language, to interact with the stream, potentially
+participate in Bot Survivor
+
+### Write a JS Widget (restrictions apply)
+
+- 25 Lines
+- Vanilla
+
+### Add Sounds to the Stream
+
+!soundeffect YOUTUBE_URL command_name 00:00 00:04
+
+### Get Access to Sounds By Chatting
+
+!me
+!props
+!buy
+
+---
 
 ## New Economy
 

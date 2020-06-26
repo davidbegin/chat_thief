@@ -5,12 +5,6 @@ from chat_thief.caught_stealing import CaughtStealing
 from chat_thief.bwia import BWIA
 
 
-# How many times getting caught stealing, should make it
-# almost impossible
-# joehaaga: what if notoriety was PROBABILITY_OF_SUCCESSFUL_STEAL, and
-# exponential backoff decreases that probability each time you steal
-# zanuss: Ride or die gives increased street and mana regen speed right? We
-# were looking for something to help victims of caught thieves weren't we?
 class Stealer:
     def __init__(self, thief, target_sfx, victim):
         self._thief = thief
@@ -57,7 +51,7 @@ class Stealer:
             thief.update_value("notoriety", 1)
             self.metadata[
                 "stealing_result"
-            ] = f"@{self._thief} WAS CAUGHT STEALING! Chance of Getting Caught: {the_odds}. Num Attempts: {steal_count}"
+            ] = f"@{self._thief} WAS CAUGHT STEALING! Chance of Success: {the_odds}. Num Attempts: {steal_count}"
             User(self._thief).set_value("mana", 0)
         else:
             self._steal(command, thief, the_odds)
@@ -68,4 +62,4 @@ class Stealer:
         command.increase_cost(command.cost())
         self.metadata[
             "stealing_result"
-        ] = f"@{self._thief} stole from @{self._victim}. Chance of Getting Caught: {the_odds}"
+        ] = f"@{self._thief} stole from @{self._victim}. Chance of Success: {the_odds}"

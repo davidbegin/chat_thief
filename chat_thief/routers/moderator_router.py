@@ -68,7 +68,9 @@ class ModeratorRouter(BaseRouter):
             User(user).bankrupt()
 
         Command.purge_theme_songs()
+        Command.purge_duplicates()
 
+        # This could be so much faster
         for command_name in Command.db().all():
             command_name = command_name["name"]
             print(command_name)
@@ -82,6 +84,4 @@ class ModeratorRouter(BaseRouter):
                 TheFed.collect_tax(new_cost)
                 command.set_value("cost", new_cost)
 
-            # for user in command.users():
-            #     print(command.unallow_user(user))
         return "Society now must rebuild"

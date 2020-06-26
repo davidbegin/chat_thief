@@ -1,7 +1,5 @@
-from random import random
 from random import randint
 
-from chat_thief.bwia import BWIA
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.rap_sheet import RapSheet
 from chat_thief.models.user import User
@@ -33,6 +31,7 @@ class CaughtStealing:
     def __init__(self, thief, target_sfx, victim, steal_count=0, give_count=0):
         self.thief = thief
         self.target_sfx = target_sfx
+
         self.victim = victim
         self.steal_count = steal_count
         self.give_count = give_count
@@ -48,11 +47,8 @@ class CaughtStealing:
 
         if busted:
             print("Caught Stealing!!!")
-
-            # if its their first steal
             if self.steal_count < 1:
                 PlaySoundeffectRequest(user="beginbotbot", command="nope").save()
-
             User(self.thief).set_value("mana", 0)
             RapSheet(
                 user=self.thief,
@@ -61,8 +57,6 @@ class CaughtStealing:
             ).save()
         else:
             print("YOU GOT AWAY WITH STEALING!!!")
-
-            # Only play a sound for expensive commands
             if self.target_sfx_cost > EXPENSIVE_COMMAND_COST_LIMIT:
                 PlaySoundeffectRequest(user="beginbotbot", command="yoink").save()
 
@@ -74,12 +68,6 @@ class CaughtStealing:
         chance = self._society_bonus(chance)
         chance = self._wealth_disparity_bonus(chance)
         chance = self._target_cost_bonus(chance)
-        return chance
-
-    # If a command is over an amount it's harder to steal
-    def _target_cost_bonus(self, chance):
-        if self.target_sfx_cost > EXPENSIVE_COMMAND_COST_LIMIT:
-            return chance - EXPENSIVE_COMMAND_PUNISHMENT
         return chance
 
     # For Every Steal or Give you lose or gain some chance
@@ -102,3 +90,10 @@ class CaughtStealing:
             MAX_WEALTH_DISPARITY_BONUS,
         )
         return chance - wealth_disparity
+
+    # If a command is over an amount it's harder to steal
+    def _target_cost_bonus(self, chance):
+        if self.target_sfx_cost > EXPENSIVE_COMMAND_COST_LIMIT:
+            return chance - EXPENSIVE_COMMAND_PUNISHMENT
+        return chance
+
