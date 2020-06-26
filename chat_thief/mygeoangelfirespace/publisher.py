@@ -9,6 +9,7 @@ import filecmp
 import jinja2
 from jinja2 import Template
 
+from chat_thief.models.bot_vote import BotVote
 from chat_thief.config.stream_lords import STREAM_GODS
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
@@ -74,7 +75,10 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     success(f"Finished Writing Template: {file_name}")
 
 
-async def generate_bots_page(bots):
+async def generate_bots_page():
+    bots = User.bots()
+    bot_votes = BotVote.count_by_group("bot")
+
     context = {"base_url": DEPLOY_URL, "bots": bots}
     await _render_and_save_html("bots.html", context, "bots.html")
 
@@ -190,14 +194,13 @@ async def main():
     warning("Fetching All Data")
     all_data = StitchAndSort().call()
     stats = StatsDepartment().stats()
-    bots = User.bots()
     success("All Data Fetched...Creating Tasks")
     all_commands = [command["name"] for command in all_data["commands"]]
 
     warning("Setting Up Tasks")
     tasks = (
         [generate_home(all_data)]
-        + [generate_bots_page(bots)]
+        + [generate_bots_page()]
         + [generate_stats_page(stats)]
         + [
             generate_user_page(user_dict, all_commands)

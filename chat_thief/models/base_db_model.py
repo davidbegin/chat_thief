@@ -1,4 +1,6 @@
 import abc
+import itertools
+import operator
 
 from tinydb import Query
 
@@ -7,6 +9,20 @@ from chat_thief.models.database import db_table
 
 class BaseDbModel(abc.ABC):
     database_folder = ""
+
+    @classmethod
+    def count_by_group(cls, category):
+        all_data = cls.db().all()
+
+        def get_by_category(item):
+            return item.get(category)
+
+        grouped_data = itertools.groupby(
+            sorted(all_data, key=get_by_category), get_by_category
+        )
+
+        data_counts = [(category, len(list(data))) for (category, data) in grouped_data]
+        return list(reversed(sorted(data_counts, key=lambda data: data[1])))
 
     @classmethod
     def delete(cls, doc_ids):

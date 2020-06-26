@@ -24,3 +24,10 @@ class TestBotVote(DatabaseConfig):
         result, update_type = BotVote("eno", "otherbot").create_or_update()
         assert BotVote.count() == 1
         assert update_type == "update"
+
+    def test_votes_by_bot(self):
+        BotVote("eno", "uzibot").create_or_update()
+        BotVote("future", "otherbot").create_or_update()
+        BotVote("carti", "otherbot").create_or_update()
+        result = BotVote.count_by_group("bot")
+        assert result == [("otherbot", 2), ("uzibot", 1)]

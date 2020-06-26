@@ -7,7 +7,22 @@
 
 <body class="user">
   <h1><a href="{{ base_url }}">BeginWorld Finance</a></h1>
-  <h2>Bots</h2>
+
+  <h2>Votes Against Bots</h2>
+
+  <ul>
+    {% for bot, votes in bot_votes %}
+      <li>
+        <a href="{{ base_url }}/{{ bot }}.html">
+          {{ votes }} - {{ bot }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <hr />
+
+  <h2>All Bots</h2>
 
   <ul>
     {% for bot in bots %}
