@@ -35,3 +35,19 @@ class TestBotSurviorRouter(DatabaseConfig):
         result = BotSurvivorRouter("beginbotbot", "hatebot", ["enobot"]).route()
         assert BotVote.count() == 1
         assert result == "Thank you for your vote @beginbotbot"
+
+    def test_tribal_council(self):
+        User("uzibot").save()
+        User.register_bot("uzibot", "don.cannon")
+        User("enobot").save()
+        User.register_bot("enobot", "eno")
+
+        BotVote("beginbotbot", "uzibot").save()
+        BotVote("future", "uzibot").save()
+        BotVote("carti", "enobot").save()
+
+        result = BotSurvivorRouter("beginbotbot", "tribal_council", []).route()
+        assert result == "@uzibot has been kicked out of BeginWorld"
+
+        # assert BotVote.count() == 1
+        # assert result == "Thank you for your vote @beginbotbot"

@@ -22,6 +22,7 @@ class TribalCouncil(BaseDbModel):
             last_council_number = max(council_numbers) + 1
         else:
             last_council_number = 1
+
         TribalCouncil(votes, last_council_number).save()
         BotVote.db().remove(doc_ids=votes_ids)
 

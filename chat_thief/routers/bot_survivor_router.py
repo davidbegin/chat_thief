@@ -1,6 +1,7 @@
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.models.bot_vote import BotVote
 from chat_thief.models.user import User
+from chat_thief.models.tribal_council import TribalCouncil
 from chat_thief.routers.base_router import BaseRouter
 
 
@@ -20,3 +21,9 @@ class BotSurvivorRouter(BaseRouter):
                     return f"Thank you for your vote @{self.user}"
                 else:
                     return f"@{self.user} @{parser.target_user} is NOT A BOT!"
+
+        if self.command == "tribal_council" and self.user == "beginbotbot":
+            print("TRIBAL COUNCIL TIME!!!")
+            # result = TribalCouncil.go_to_tribal()
+            loser = BotVote.count_by_group("bot")[0][0]
+            return f"@{loser} has been kicked out of BeginWorld"

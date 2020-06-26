@@ -1,5 +1,38 @@
 @import url(https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap);
 
+
+.commands:before{
+  content:"                             ";
+  display:block;
+  height:6px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:10px 0px;
+}
+
+.commands:after{
+   content:"" !important;
+  display:block;
+  height:6px;
+  width:100%;
+  color:red;
+  background-color:red;
+  border:1px solid red;
+  margin:10px 0px;
+  
+}
+
+.commands{
+    text-align:center;
+    color:#ffff00;
+    font-size: 40px;
+    letter-spacing: 20px;
+    margin:auto
+  }
+
+
 .user h2:before{
   content:"                             ";
   display:block;
