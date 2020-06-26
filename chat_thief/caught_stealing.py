@@ -96,4 +96,3 @@ class CaughtStealing:
         if self.target_sfx_cost > EXPENSIVE_COMMAND_COST_LIMIT:
             return chance - EXPENSIVE_COMMAND_PUNISHMENT
         return chance
-

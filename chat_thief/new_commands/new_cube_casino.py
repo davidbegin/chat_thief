@@ -5,6 +5,7 @@ import subprocess
 from chat_thief.models.cube_bet import CubeBet
 from chat_thief.models.command import Command
 from chat_thief.commands.command_giver import CommandGiver
+from chat_thief.irc import send_twitch_msg
 
 
 class NewCubeCasino:
@@ -26,6 +27,9 @@ class NewCubeCasino:
     def _match_winners_and_losers(self):
         all_bets = CubeBet.all_bets()
         winners, loser_commands, winning_bet = self._find_winners_and_losers(all_bets)
+
+        winner_names = " ".join([f"@{winner[0]}" for winner in winners])
+        send_twitch_msg(f"Winners: {' | '.join(winner_names)}")
 
         transfer_of_wealth = []
 
