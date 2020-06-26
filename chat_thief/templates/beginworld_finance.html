@@ -24,7 +24,7 @@
     <ul>
       {% for user in recently_updated_users %}
           <li>
-            <a href="{{ base_url }}/{{ user }}.html"> {{ user }} </a>
+            <a class="recently_updated_link" href="{{ base_url }}/{{ user }}.html"> {{ user }} </a>
           </li>
       {% endfor %}
     </ul>
@@ -43,7 +43,7 @@
 
   <h2 class="stylish_users">Stylish Users</h2>
     {% for user in stylish_users %}
-      <a href="{{ base_url }}/{{ user }}.html"> {{ user }} </a> |
+      <a class="stylish_link" href="{{ base_url }}/{{ user }}.html"> {{ user }} </a> |
     {% endfor %}
 
   <hr />

@@ -1,6 +1,9 @@
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
 
+# TODO: unduplicate
+BASE_URL = "https://mygeoangelfirespace.city"
+
 
 class PermissionsFetcher:
     @classmethod
@@ -26,6 +29,7 @@ class PermissionsFetcher:
 
             from chat_thief.models.sfx_vote import SFXVote
 
+            link = f"{BASE_URL}/commands/{target_command}.html"
             like_ratio = SFXVote(target_command).like_to_hate_ratio()
-            stats = f"!{target_command} | Cost: {command.cost()} | Health: {command.health()} | Like Ratio {round(like_ratio)}%"
+            stats = f"!{target_command} | Cost: {command.cost()} | Health: {command.health()} | Like Ratio {round(like_ratio)}% | {link}"
             return stats

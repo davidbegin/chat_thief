@@ -64,11 +64,11 @@ body.home > h2:nth-of-type(1){
 }
 
 .home a{
-  color: blue;
+  color: #FF00FF;
 }
 
 .home a:visited{
-  color: blue;
+  color: #FF00FF;
 }
 
 .home ul li a{
@@ -157,6 +157,14 @@ h1, h1 a{
   border:1px solid red;
   margin:10px 0px;
   
+}
+
+.stylish_link{
+  color:blue !important;
+}
+
+.stylish_link:visited{
+    color:blue !important;
 }
 
 .users{

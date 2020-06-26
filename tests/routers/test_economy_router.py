@@ -42,7 +42,10 @@ class TestEconomyRouter(DatabaseConfig):
 
     def test_perms(self):
         result = EconomyRouter("beginbotbot", "perms", ["clap"]).route()
-        assert result == "!clap | Cost: 1 | Health: 0 | Like Ratio 100%"
+        assert (
+            result
+            == "!clap | Cost: 1 | Health: 0 | Like Ratio 100% | https://mygeoangelfirespace.city/commands/clap.html"
+        )
 
     def test_donate(self, mock_present_users, mock_find_random_user):
         user = User("uzi")

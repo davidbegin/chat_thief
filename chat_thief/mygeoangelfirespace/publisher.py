@@ -75,37 +75,31 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     success(f"Finished Writing Template: {file_name}")
 
 
-async def generate_bots_page():
+async def generate_bots_page(winner):
     bots = User.bots()
     bot_votes = BotVote.count_by_group("bot")
 
-    context = {"base_url": DEPLOY_URL, "bots": bots, "bot_votes": bot_votes}
+    context = {
+        "base_url": DEPLOY_URL,
+        "bots": bots,
+        "bot_votes": bot_votes,
+        "winner": winner,
+    }
     await _render_and_save_html("bots.html", context, "bots.html")
 
 
-async def generate_stats_page(stats):
+async def generate_stats_page(stats, winner):
     context = {
         "base_url": DEPLOY_URL,
+        "winner": winner,
     }
     await _render_and_save_html("stats.html", {**context, **stats}, "stats.html")
 
 
-async def generate_home(all_data):
+async def generate_home(all_data, stylish_users, homepage_candidates, winner):
     # We just find fancy pages here
     commands = all_data["commands"]
     users = all_data["users"]
-
-    static_dir = Path(__file__).parent.parent.joinpath("static")
-    stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
-
-    print(f"Stylish Users: {stylish_users}")
-
-    homepage_candidates = CSSVote.by_votes()
-
-    try:
-        winner = homepage_candidates[0][0]
-    except:
-        winner = User.wealthiest()
 
     updated_at = datetime.now().isoformat()
 
@@ -130,12 +124,13 @@ async def generate_home(all_data):
     await _render_and_save_html("beginworld_finance.html", context, "index.html")
 
 
-async def generate_command_page(cmd_dict):
+async def generate_command_page(cmd_dict, winner):
     name = cmd_dict["name"]
     Path(base_url).joinpath("commands").mkdir(exist_ok=True)
 
     if len(cmd_dict["permitted_users"]) > -1:
         context = {
+            "winner": winner,
             "name": cmd_dict["name"],
             "command_file": cmd_dict.get("command_file", None),
             "users": cmd_dict["permitted_users"],
@@ -197,16 +192,27 @@ async def main():
     success("All Data Fetched...Creating Tasks")
     all_commands = [command["name"] for command in all_data["commands"]]
 
+    static_dir = Path(__file__).parent.parent.joinpath("static")
+    stylish_users = [f.name[: -len(f.suffix)] for f in static_dir.glob("*.css")]
+
+    print(f"Stylish Users: {stylish_users}")
+
+    homepage_candidates = CSSVote.by_votes()
+    try:
+        winner = homepage_candidates[0][0]
+    except:
+        winner = User.wealthiest()
+
     warning("Setting Up Tasks")
     tasks = (
-        [generate_home(all_data)]
-        + [generate_bots_page()]
-        + [generate_stats_page(stats)]
+        [generate_home(all_data, stylish_users, homepage_candidates, winner)]
+        + [generate_bots_page(winner)]
+        + [generate_stats_page(stats, winner)]
         + [
             generate_user_page(user_dict, all_commands)
             for user_dict in all_data["users"]
         ]
-        + [generate_command_page(command) for command in all_data["commands"]]
+        + [generate_command_page(command, winner) for command in all_data["commands"]]
     )
     success("Finished Setting Up Tasks")
 
