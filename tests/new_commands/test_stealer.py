@@ -43,7 +43,7 @@ class TestStealer(DatabaseConfig):
         ] == "@madonna failed to steal !handbag from @bowie"
 
     def test_caught_stealing(self):
-        random.seed(1)
+        random.seed(5)
         madonna = User("madonna")
         bowie = User("bowie")
         handbag = Command("handbag").save().allow_user("bowie")
@@ -74,7 +74,7 @@ class TestStealer(DatabaseConfig):
         )
 
     def test_notoriety(self):
-        random.seed(1)
+        random.seed(5)
         madonna = User("madonna")
         bowie = User("bowie")
         handbag = Command("handbag").save().allow_user("bowie")
@@ -83,20 +83,6 @@ class TestStealer(DatabaseConfig):
         assert madonna.notoriety() == 1
 
     def test_successful_steal_from_a_rich_person(self):
-        random.seed(0)
-        madonna = User("madonna")
-        madonna.set_value("cool_points", 1)
-        bowie = User("bowie")
-        bowie.set_value("cool_points", 10)
-        handbag = Command("handbag").save().allow_user("bowie")
-        subject = Stealer(thief="madonna", target_sfx="handbag", victim="bowie")
-        result = subject.steal()
-        assert (
-            result.metadata["stealing_result"]
-            == "@madonna stole from @bowie. Chance of Getting Caught: 70.0%"
-        )
-
-    def test_failed_from_a_rich_person(self):
         random.seed(1)
         madonna = User("madonna")
         madonna.set_value("cool_points", 1)
@@ -107,7 +93,21 @@ class TestStealer(DatabaseConfig):
         result = subject.steal()
         assert (
             result.metadata["stealing_result"]
-            == "@madonna WAS CAUGHT STEALING! Chance of Getting Caught: 70.0%. Num Attempts: 0"
+            == "@madonna stole from @bowie. Chance of Getting Caught: 39%"
+        )
+
+    def test_stole_from_a_rich_person(self):
+        random.seed(1)
+        madonna = User("madonna")
+        madonna.set_value("cool_points", 1)
+        bowie = User("bowie")
+        bowie.set_value("cool_points", 10)
+        handbag = Command("handbag").save().allow_user("bowie")
+        subject = Stealer(thief="madonna", target_sfx="handbag", victim="bowie")
+        result = subject.steal()
+        assert (
+            result.metadata["stealing_result"]
+            == "@madonna stole from @bowie. Chance of Getting Caught: 39%"
         )
 
     def test_stealing_from_an_insured_person(self):

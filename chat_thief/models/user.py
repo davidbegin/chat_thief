@@ -36,6 +36,24 @@ class User(BaseDbModel):
     table_name = "users"
     database_path = "db/users.json"
 
+    # We should set self.user here
+    def __init__(
+        self,
+        name,
+        cool_points=0,
+        notoriety=0,
+        top_eight=[],
+        custom_css=None,
+        insured=False,
+    ):
+        self._top_eight = top_eight
+        self.name = name
+        self._cool_points = cool_points
+        self._custom_css = custom_css
+        self._notoriety = notoriety
+        self._insured = insured
+        self._raw_user = self._find_or_create_user()
+
     @classmethod
     def register_bot(cls, bot, creator):
         cls.db().upsert({"is_bot": True, "creator": creator}, Query().name == bot)
@@ -114,24 +132,6 @@ class User(BaseDbModel):
             return reversed(sorted(users, key=lambda user: user["cool_points"]))
 
     # ====================================================================
-
-    # We should set self.user here
-    def __init__(
-        self,
-        name,
-        cool_points=0,
-        notoriety=0,
-        top_eight=[],
-        custom_css=None,
-        insured=False,
-    ):
-        self._top_eight = top_eight
-        self.name = name
-        self._cool_points = cool_points
-        self._custom_css = custom_css
-        self._notoriety = notoriety
-        self._insured = insured
-        self._raw_user = self._find_or_create_user()
 
     # So this means, when we call, we find or init, thats fine!
     def user(self):

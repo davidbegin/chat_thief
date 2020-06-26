@@ -3,7 +3,7 @@
 span{
   float:right;
   position:relative;
-  bottom: 4em;
+ 
 }
 
 body {
@@ -260,6 +260,19 @@ audio::-webkit-media-controls-time-remaining-display{
 
  audio::-webkit-media-controls-mute-button {
     background:transparent;
+}
+
+.updated_at{
+  display:block;
+  padding-top: 1%;
+  font-size:18px;
+}
+
+.bestcss_tip{
+  display:block;
+  text-align:center;
+  float:none;
+  font-size:18px;
 }
 
 span{

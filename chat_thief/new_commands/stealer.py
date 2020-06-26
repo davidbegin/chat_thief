@@ -45,7 +45,7 @@ class Stealer:
         was_caught_stealing, the_odds = CaughtStealing(
             self._thief, self._target_sfx, self._victim, steal_count, give_count
         ).call()
-        the_odds = f"{(the_odds * 100)}%"
+        the_odds = f"{the_odds}%"
         victim = User(self._victim)
 
         if victim.insured():

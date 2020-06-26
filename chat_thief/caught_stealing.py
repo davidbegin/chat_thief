@@ -1,12 +1,32 @@
 from random import random
+from random import randint
 
 from chat_thief.bwia import BWIA
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.rap_sheet import RapSheet
 from chat_thief.models.user import User
+from chat_thief.models.command import Command
+from chat_thief.utils.stats import clamp
 
 
-DEFAULT_CHANCE_OF_GETTING_CAUGHT = 0.7
+# Your chance of stealing starts at 50%
+DEFAULT_CHANCE = 50
+
+# How much you increase your chances
+# from stealing or giving
+SOCIETY_BONUS_MULTIPLIER = 5
+MAX_SOCIETY_BONUS = 20
+MIN_SOCIETY_PUNISHMENT = -50
+
+# How much you can increase your chances of stealing
+# based on the wealth disparity between thief and victim
+WEALTH_DISPARITY_MULTIPLER = 1
+MAX_WEALTH_DISPARITY_BONUS = 20
+MAX_WEALTH_DISPARITY_PUNISHMENT = -20
+
+# If a command is over an amount it's harder to steal
+EXPENSIVE_COMMAND_COST_LIMIT = 100
+EXPENSIVE_COMMAND_PUNISHMENT = -10
 
 
 class CaughtStealing:
@@ -17,46 +37,22 @@ class CaughtStealing:
         self.steal_count = steal_count
         self.give_count = give_count
 
+        self.target_sfx_cost = Command(target_sfx).cost()
+        self.thief_wealth = User(self.thief).wealth()
+        self.victim_wealth = User(self.victim).wealth()
+
     def call(self) -> bool:
-        thief_wealth = User(self.thief).wealth()
-        victim_wealth = User(self.victim).wealth()
-        chance_of_getting_of_caught = DEFAULT_CHANCE_OF_GETTING_CAUGHT
-
-        print(f"victim_wealth: {victim_wealth}")
-        print(f"thief_wealth: {thief_wealth}")
-
-        if thief_wealth > 1:
-            wealth_disparity = victim_wealth / thief_wealth
-            victim_is_rich = wealth_disparity > 1
-            print(f"wealth_disparity: {wealth_disparity}")
-
-            if victim_is_rich:
-                wealth_diff = thief_wealth / victim_wealth
-
-                if wealth_diff > 100:
-                    chance_of_getting_of_caught = 0.40
-                elif wealth_diff > 50:
-                    chance_of_getting_of_caught = 0.50
-                else:
-                    chance_of_getting_of_caught = 0.60
-            else:
-                wealth_diff = victim_wealth / thief_wealth
-                if wealth_diff > 100:
-                    chance_of_getting_of_caught = 0.99
-                elif wealth_diff > 50:
-                    chance_of_getting_of_caught = 0.95
-                else:
-                    chance_of_getting_of_caught = 0.90
-
-        # Around a 5% increase in getting caught per net steal
-        chance_of_getting_of_caught += self.steal_count - self.give_count / 20
-
-        print(f"CHANCE OF Getting Caught: {chance_of_getting_of_caught}")
-        busted = random() < chance_of_getting_of_caught
+        success_range = self._calc_chance_of_success()
+        roll_of_the_dice = randint(0, 100)
+        busted = roll_of_the_dice > success_range
 
         if busted:
             print("Caught Stealing!!!")
-            # PlaySoundeffectRequest(user="beginbotbot", command="nope").save()
+
+            # if its their first steal
+            if self.steal_count < 1:
+                PlaySoundeffectRequest(user="beginbotbot", command="nope").save()
+
             User(self.thief).set_value("mana", 0)
             RapSheet(
                 user=self.thief,
@@ -65,6 +61,44 @@ class CaughtStealing:
             ).save()
         else:
             print("YOU GOT AWAY WITH STEALING!!!")
-            # PlaySoundeffectRequest(user="beginbotbot", command="yoink").save()
 
-        return busted, chance_of_getting_of_caught
+            # Only play a sound for expensive commands
+            if self.target_sfx_cost > EXPENSIVE_COMMAND_COST_LIMIT:
+                PlaySoundeffectRequest(user="beginbotbot", command="yoink").save()
+
+        return busted, success_range
+
+    # Chance of Succeeding From: 0 ... 100
+    def _calc_chance_of_success(self):
+        chance = DEFAULT_CHANCE
+        chance = self._society_bonus(chance)
+        chance = self._wealth_disparity_bonus(chance)
+        chance = self._target_cost_bonus(chance)
+        return chance
+
+    # If a command is over an amount it's harder to steal
+    def _target_cost_bonus(self, chance):
+        if self.target_sfx_cost > EXPENSIVE_COMMAND_COST_LIMIT:
+            return chance - EXPENSIVE_COMMAND_PUNISHMENT
+        return chance
+
+    # For Every Steal or Give you lose or gain some chance
+    def _society_bonus(self, chance):
+        society_factor = (self.give_count - self.steal_count) * SOCIETY_BONUS_MULTIPLIER
+        society_factor = clamp(
+            society_factor, MIN_SOCIETY_PUNISHMENT, MAX_SOCIETY_BONUS
+        )
+        return chance + society_factor
+
+    # Wealth disparity can affect you chance of a successful steal
+    def _wealth_disparity_bonus(self, chance):
+        wealth_disparity = (
+            int(self.victim_wealth / max(self.thief_wealth, 1))
+            * WEALTH_DISPARITY_MULTIPLER
+        )
+        wealth_disparity = clamp(
+            wealth_disparity,
+            MAX_WEALTH_DISPARITY_PUNISHMENT,
+            MAX_WEALTH_DISPARITY_BONUS,
+        )
+        return chance - wealth_disparity
