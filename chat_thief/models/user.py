@@ -14,19 +14,12 @@ class User(BaseDbModel):
 
     # We should set self.user here
     def __init__(
-        self,
-        name,
-        cool_points=0,
-        notoriety=0,
-        top_eight=[],
-        custom_css=None,
-        insured=False,
+        self, name, cool_points=0, top_eight=[], custom_css=None, insured=False,
     ):
         self._top_eight = top_eight
         self.name = name
         self._cool_points = cool_points
         self._custom_css = custom_css
-        self._notoriety = notoriety
         self._insured = insured
         self._raw_user = self._find_or_create_user()
 
@@ -138,9 +131,6 @@ class User(BaseDbModel):
     def creator(self):
         return self.user().get("creator", None)
 
-    def notoriety(self):
-        return self.user().get("notoriety", 0)
-
     def top_eight(self):
         return self.user().get("top_eight", [])
 
@@ -210,7 +200,6 @@ class User(BaseDbModel):
         return {
             "name": self.name,
             "custom_css": self._custom_css,
-            "notoriety": self._notoriety,
             "street_cred": 0,
             "cool_points": self._cool_points,
             "mana": 3,

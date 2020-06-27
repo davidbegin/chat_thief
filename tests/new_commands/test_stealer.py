@@ -73,15 +73,6 @@ class TestStealer(DatabaseConfig):
             == "@madonna has no Mana to steal from @bowie"
         )
 
-    def test_notoriety(self):
-        random.seed(5)
-        madonna = User("madonna")
-        bowie = User("bowie")
-        handbag = Command("handbag").save().allow_user("bowie")
-        subject = Stealer(thief="madonna", target_sfx="handbag", victim="bowie")
-        result = subject.steal()
-        assert madonna.notoriety() == 1
-
     def test_successful_steal_from_a_rich_person(self):
         random.seed(1)
         madonna = User("madonna")
