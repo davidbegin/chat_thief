@@ -158,25 +158,6 @@ class User(BaseDbModel):
                 looking_for_effect = False
         return command
 
-    def buy(self, effect):
-        if effect not in SoundeffectsLibrary.fetch_soundeffect_names():
-            raise ValueError(f"Invalid Effect: {effect}")
-
-        if Command(effect).allowed_to_play(self.name):
-            return f"@{self.name} already has access to !{effect}"
-
-        current_cool_points = self.cool_points()
-        command = Command(effect)
-        command_cost = command.cost()
-
-        if current_cool_points >= command_cost:
-            self.update_cool_points(-command_cost)
-            command.allow_user(self.name)
-            command.increase_cost()
-            return f"@{self.name} bought !{effect} for {command_cost} Cool Points"
-        else:
-            return f"@{self.name} not enough Cool Points to buy !{effect} - {current_cool_points}/{command_cost}"
-
     # This is initial doc
     def doc(self):
         return {
@@ -272,6 +253,7 @@ class User(BaseDbModel):
         else:
             return f"YA Broke @{self.name} - it costs 1 Cool Point to buy insurance"
 
+    # Lets Move This
     @classmethod
     def all_data(cls):
         user_data = cls.db().all()

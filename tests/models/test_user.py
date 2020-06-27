@@ -149,12 +149,6 @@ class TestUser(DatabaseConfig):
         User.richest_cool_points()["name"] == "artmattdank"
         assert User.wealthiest() == "artmattdank"
 
-    def test_buy(self):
-        watto = User("watto", 3)
-        result = watto.buy("clap")
-        assert result == "@watto bought !clap for 1 Cool Points"
-        assert watto.cool_points() < 3
-
     def test_all_data(self):
         baldclap = User("baldclap", 3)
         Command("damn").allow_user("baldclap")
