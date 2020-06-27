@@ -44,7 +44,7 @@ class TestEconomyRouter(DatabaseConfig):
         result = EconomyRouter("beginbotbot", "perms", ["clap"]).route()
         assert (
             result
-            == "!clap | Cost: 1 | Health: 0 | Like Ratio 100% | https://mygeoangelfirespace.city/commands/clap.html"
+            == "!clap | Cost: 1 | Health: 3 | Like Ratio 100% | https://mygeoangelfirespace.city/commands/clap.html"
         )
 
     def test_donate(self, mock_present_users, mock_find_random_user):

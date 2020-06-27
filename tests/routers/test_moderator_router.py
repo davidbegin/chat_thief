@@ -4,7 +4,6 @@ from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.commands.airdrop import Airdrop
 from chat_thief.routers.moderator_router import ModeratorRouter
 from tests.support.database_setup import DatabaseConfig
 
@@ -16,13 +15,6 @@ class TestModeratorRouter(DatabaseConfig):
             return ["future", "uzi"]
 
         monkeypatch.setattr(WelcomeCommittee, "present_users", _mock_present_users)
-
-    @pytest.fixture
-    def mock_random_user(self, monkeypatch):
-        def _mock_random_user(self):
-            return "uzi"
-
-        monkeypatch.setattr(Airdrop, "random_user", _mock_random_user)
 
     def test_silence(self):
         user = User("future")
@@ -54,9 +46,7 @@ class TestModeratorRouter(DatabaseConfig):
         ModeratorRouter("beginbotbot", "no_news", []).route()
         assert BreakingNews.count() == 0
 
-    # This is not mocked properly
-    # It is relying on real users existing
-    def test_dropeffects(self, mock_random_user):
+    def test_dropeffects(self):
         result = ModeratorRouter("beginbotbot", "dropeffect").route()
         assert "now has access" in result
         assert "now has access to Sound Effect: !dropeffect" not in result

@@ -24,6 +24,30 @@ class Command(BaseDbModel):
         self.inital_cost = inital_cost
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
+    def _fetch_field(self, field, default):
+        return self.command().get(field, default)
+
+    def command(self):
+        if command_result := self.db().search(Query().name == self.name):
+            return command_result[0]
+        else:
+            from tinyrecord import transaction
+
+            with transaction(self.db()) as tr:
+                tr.insert(self.doc())
+            return self.doc()
+
+    def health(self):
+        return self._fetch_field("health", 0)
+
+    def cost(self):
+        return self._fetch_field("cost", 1)
+
+    def users(self):
+        return self._fetch_field("permitted_users", [])
+
+    # =====================================
+
     @classmethod
     def available_sounds(cls):
         def test_func(val):
@@ -87,18 +111,6 @@ class Command(BaseDbModel):
 
         return False
 
-    def health(self):
-        if command := self.db().get(Query().name == self.name):
-            return command["health"]
-        else:
-            return 0
-
-    def cost(self):
-        if command := self.db().get(Query().name == self.name):
-            return command["cost"]
-        else:
-            return 1
-
     def update_health(self, amount):
         return self._update_value("health", amount)
 
@@ -110,10 +122,7 @@ class Command(BaseDbModel):
 
     def increase_cost(self, amount=1):
         if command := self.db().get(Query().name == self.name):
-            self._increase_cost(amount)
-
-    def _increase_cost(self, amount):
-        self._update_value("cost", amount)
+            self._update_value("cost", amount)
 
     def unallow_user(self, target_user):
         try:
@@ -141,12 +150,6 @@ class Command(BaseDbModel):
             self.permitted_users = [target_user]
             self.save()
             return f"@{target_user} is the 1st person with access to: !{self.name}"
-
-    def users(self):
-        if command := self.db().get(Query().name == self.name):
-            return command["permitted_users"]
-        else:
-            return []
 
     def _add_user(self, target_user):
         def add_permitted_users():
