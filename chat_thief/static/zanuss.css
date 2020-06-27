@@ -1,5 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap);
 
+#pageNo{
+  font-size:30px;
+}
 
 .commands:before{
   content:"                             ";
@@ -27,7 +30,7 @@
 .commands{
     text-align:center;
     color:#ffff00;
-    font-size: 40px;
+    font-size:40px !important;
     letter-spacing: 20px;
     margin:auto
   }
@@ -112,6 +115,25 @@ body.home > h2:nth-of-type(1){
   color: #ffff00;
 }
 
+.command{
+  text-transform: uppercase;
+  background-color:black !important;
+  color:#ffffff;
+  font-family: 'Press Start 2P', monospace !important;
+  width:80%;
+  margin:auto;
+  padding:2em !important;
+  background-image: none !important;
+}
+
+.command ul{
+  padding-top:15px;
+}
+
+.command h2{
+  padding-top:10px;
+}
+
 body {
   text-transform: uppercase;
   background-color:black !important;
@@ -125,7 +147,6 @@ body {
   background-size: 850px 700px !important;
   background-repeat:no-repeat !important;
 }
-
 
 h1{
    text-transform: uppercase;
@@ -192,6 +213,19 @@ h1, h1 a{
   
 }
 
+/* .stylish_link:nth-of-type(1n){
+  display:table-column;
+  float:right; 
+  padding-left:8px;
+}
+
+.stylish_link:nth-of-type(2n){
+  display:table-row;
+ float:left; 
+  padding-left:8px;
+  color:green !important;
+} */
+
 .stylish_link{
   color:blue !important;
 }
@@ -203,12 +237,13 @@ h1, h1 a{
 .users{
     text-align:center;
     color:#ffff00;
-    font-size: 40px;
     letter-spacing: 20px;
-    margin:auto
+    margin:auto;
+    font-size:40px !important;
   }
 
 .stylish_users {
+    font-size:40px !important;
     text-align:center;
     color:#ffff00;
     font-size: 40px;
@@ -367,7 +402,7 @@ figure{
 
 audio{
     opacity: 1;
-    width: 100%;
+    width: 100.7%;
     height: 100%;
 }
 
@@ -380,7 +415,6 @@ audio::-webkit-media-controls-panel {
      background-color:#FF00FF;
  } 
 audio::-webkit-media-controls-play-button:hover{
-    
     background-size:100%;
  }
   
