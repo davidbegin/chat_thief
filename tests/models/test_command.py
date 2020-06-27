@@ -85,32 +85,6 @@ class TestCommand(DatabaseConfig):
         win_cmd.increase_cost(10)
         assert Command.most_expensive()["name"] == "mchdtmd"
 
-    def test_purge_theme_songs(self):
-        uzi = User("uzi")
-        illegal_cmd = Command("beginbot")
-        illegal_cmd.save()
-        illegal_cmd.allow_user("uzi")
-        Command("damn").save()
-        assert Command.count() == 2
-        Command.purge_theme_songs()
-        assert Command.count() == 1
-        assert uzi.commands() == []
-
-    def test_purge_duplicate_commands(self):
-        uzi = User("uzi")
-        illegal_cmd = Command("clap")
-        illegal_cmd.permitted_users = ["uzi", "uzi"]
-        illegal_cmd.save()
-
-        illegal_cmd = Command("clap")
-        illegal_cmd.permitted_users = ["uzi", "uzi"]
-        illegal_cmd.save()
-        assert Command.count() == 2
-
-        Command.purge_duplicates()
-        assert Command.count() == 1
-        assert uzi.commands() == ["clap"]
-
     def test_decay(self):
         command = Command("damn", 10)
         command.save()

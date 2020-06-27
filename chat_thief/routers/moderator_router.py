@@ -8,6 +8,7 @@ from chat_thief.models.command import Command
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.the_fed import TheFed
 from chat_thief.begin_fund import BeginFund
+from chat_thief.data_scrubber import DataScrubber
 
 
 class ModeratorRouter(BaseRouter):
@@ -67,8 +68,8 @@ class ModeratorRouter(BaseRouter):
         for user in User.all():
             User(user).bankrupt()
 
-        Command.purge_theme_songs()
-        Command.purge_duplicates()
+        DataScrubber.purge_theme_songs()
+        DataScrubber.purge_duplicates()
 
         # This could be so much faster
         for command_name in Command.db().all():

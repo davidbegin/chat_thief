@@ -24,54 +24,6 @@ class Command(BaseDbModel):
         self.inital_cost = inital_cost
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
-    # =====================================
-
-    # Move this
-
-    @classmethod
-    def purge_duplicates(cls):
-        for cmd in cls.db().all():
-            results = cls.db().search(Query().name == cmd["name"])
-            if len(results) > 1:
-                unflatted_permitted_users = [
-                    result["permitted_users"] for result in results
-                ]
-                permitted_users = list(
-                    set(
-                        [
-                            item
-                            for sublist in unflatted_permitted_users
-                            for item in sublist
-                        ]
-                    )
-                )
-
-                first, *duplicates = results
-                cls.db().update(
-                    {"permitted_users": permitted_users}, doc_ids=[first.doc_id]
-                )
-                doc_ids = [dup.doc_id for dup in duplicates]
-                cls.db().remove(doc_ids=doc_ids)
-
-    @classmethod
-    def purge_theme_songs(cls):
-        themes = SoundeffectsLibrary.fetch_theme_songs()
-
-        to_delete = []
-        for cmd in cls.db().all():
-            name = cmd["name"]
-            if name in themes:
-
-                print(f"ILLEGAL COMMAND: {name}")
-                command = Command(name)
-                illegal_users = command.users()
-                for user in illegal_users:
-                    command.unallow_user(user)
-                to_delete.append(cmd.doc_id)
-        cls.delete(to_delete)
-
-    # =======================================================
-
     @classmethod
     def available_sounds(cls):
         def test_func(val):
