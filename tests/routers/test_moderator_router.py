@@ -41,13 +41,12 @@ class TestModeratorRouter(DatabaseConfig):
         command = Command("damn")
         command.save()
         command.increase_cost(9)
-        user = User("future")
-        user.update_cool_points(100)
+        user = User("future", 100)
+        user.save()
         assert user.cool_points() == 100
         result = ModeratorRouter("beginbotbot", "do_over", ["@future"]).route()
-        assert user.cool_points() == 0
+        assert command.cost() == 5
         assert result == "Society now must rebuild"
-        # assert command.cost() == 5
 
     def test_no_news(self):
         BreakingNews("Arch Linux is now Illegal").save()

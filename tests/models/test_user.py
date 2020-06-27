@@ -49,21 +49,9 @@ class TestUser(DatabaseConfig):
         subject.update_cool_points(10)
         assert subject.cool_points() == 10
         assert subject.street_cred() == 10
-        # subject.bankrupt()
-        # assert subject.cool_points() == 0
-        # assert subject.street_cred() == 0
-
-    def test_count(self, user):
-        assert User.count() == 0
-        subject = user("artmattdank")
-        assert User.count() == 1
-
-    def test_all(self, user):
-        assert User.all() == []
-        user("artmattdank")
-        assert User.all() == ["artmattdank"]
-        user("shiva")
-        assert User.all() == ["artmattdank", "shiva"]
+        subject.bankrupt()
+        assert subject.cool_points() == 0
+        assert subject.street_cred() == 0
 
     def test_richest(self, user):
         subject = user("artmattdank")

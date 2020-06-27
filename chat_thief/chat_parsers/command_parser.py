@@ -28,7 +28,7 @@ class CommandParser:
         self.args = [self._sanitize(arg) for arg in args]
         self.allow_random_user = allow_random_user
         self.allow_random_sfx = allow_random_sfx
-        self.all_user_names = User.all()
+        self.all_user_names = [user["name"] for user in User.all()]
 
     def parse(self):
         self._set_target_user_and_command()

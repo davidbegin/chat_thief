@@ -26,7 +26,7 @@ class Vote(BaseDbModel):
 
     @classmethod
     def fence_sitters(cls):
-        return list(set(User.all()) - set(cls.voters()))
+        return list(set([user["name"] for user in User.all()]) - set(cls.voters()))
 
     # When theres a certain percentage of users
     # We are going to create 3 Users

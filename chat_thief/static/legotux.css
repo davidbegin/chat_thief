@@ -1,0 +1,194 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'Minecraft';
+  src: url('http://charliecowan.co.uk/mcbuttongenerator/fonts/mcfont.eot');
+  src: url('http://charliecowan.co.uk/mcbuttongenerator/fonts/mcfont.eot?#iefix') format('embedded-opentype'),
+       url('http://charliecowan.co.uk/mcbuttongenerator/fonts/mcfont.woff') format('woff'),
+       url('http://charliecowan.co.uk/mcbuttongenerator/fonts/mcfont.ttf')  format('truetype'),
+       url('http://charliecowan.co.uk/mcbuttongenerator/fonts/mcfont.svg#svgFontName') format('svg');
+}
+
+*, ::before, ::after {
+	box-sizing: border-box;	margin: 0; padding: 0;
+}
+
+body {
+	margin: auto;
+	width: 50%;
+	border: 0px solid green;
+	padding: 10px;
+	font-name: "Minecraft";
+	height: 100vh;
+	@include flex-center-hv;
+	flex-direction: column;
+	background-color: #fff;
+	background-image: url('https://i.ibb.co/bH3JY30/IE1G7Lr.png');
+	background-size: cover;
+	background-position: center;
+	position: relative;
+}
+
+h1 {
+	width: 100%;
+	outline: 2px solid black;
+	position: relative;
+	margin: 0;
+	display: inline-block;
+	background-image: url('http://charliecowan.co.uk/mcbuttongenerator/button_center.png');
+	background-repeat: repeat;
+	padding: 0;
+	font-family: Minecraft;
+	text-align: center;
+	color: white;
+	text-shadow: 3px 3px #4C4C4C;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+	box-sizing: border-box;
+	font-size: arduino relay;
+}
+
+h2{
+	width: 100%;
+	outline: 2px solid black;
+	position: relative;
+	display: inline-block;
+	background-image: url('http://charliecowan.co.uk/mcbuttongenerator/button_center.png');
+	background-repeat: repeat;
+	padding: 10px;
+	font-family: Minecraft;
+	text-align: left;
+	color: white;
+	text-shadow: 3px 3px #4C4C4C;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+	box-sizing: border-box;
+	font-size: arduino relay;
+}
+
+h3 {
+	width: 100%;
+	outline: 1px solid black;
+	position: relative;
+	margin: 0;
+	display: inline-block;
+	background-image: url('http://charliecowan.co.uk/mcbuttongenerator/button_center.png');
+	background-repeat: repeat;
+	padding: 0;
+	font-family: Minecraft;
+	font: 13pt 'Minecraft', Helvetica;
+	text-align: center;
+	color: white;
+	text-shadow: 3px 3px #4C4C4C;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+	box-sizing: border-box;
+	font-size: arduino relay;
+}
+
+td {
+	width: 200px;
+	outline: 1px solid black;
+	position: relative;
+	margin: 0;
+	display: inline-block;
+	background-image: url('http://charliecowan.co.uk/mcbuttongenerator/button_center.png');
+	background-repeat: repeat;
+	padding: 0;
+	font-family: Minecraft;
+	font: 13pt 'Minecraft', Helvetica;
+	text-align: center;
+	color: white;
+	text-shadow: 3px 3px #4C4C4C;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+	box-sizing: border-box;
+	font-size: arduino relay;
+}
+td:hover {
+	border-bottom: 4px solid #59639A;
+	border-right: 2px solid #59639A;
+	border-left: 2px solid #BDC6FF;
+	border-top: 2px solid #BDC6FF;
+	background-image: url('http://charliecowan.co.uk/mcbuttongenerator/button_active_center.png');
+	color: #FFFFA0;
+}
+
+figure {
+	top: -395px;
+	position: relative;
+	left: -10px; 
+	float:right;
+}
+figcaption {
+	visibility: hidden; 
+	display: none;
+}
+audio
+{
+	-webkit-transition:all 0.5s linear;
+	-moz-transition:all 0.5s linear;
+	-o-transition:all 0.5s linear;
+	transition:all 0.5s linear;
+	-moz-box-shadow: 2px 2px 4px 0px #006773;
+	-webkit-box-shadow:  2px 2px 4px 0px #006773;
+	box-shadow: 2px 2px 4px 0px #006773;
+	-moz-border-radius:7px 7px 7px 7px ;
+	-webkit-border-radius:7px 7px 7px 7px ;
+	border-radius:7px 7px 7px 7px ;
+}
+audio:hover, audio:focus, audio:active
+{
+	-webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+	-moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+	box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+	-webkit-transform: scale(1.05);
+	-moz-transform: scale(1.05);
+	transform: scale(1.05);
+}
+
+ul{
+	columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+	width: 100%;
+	position: relative;
+	margin: 0;
+	display: inline-block;
+	background-image: url('http://charliecowan.co.uk/mcbuttongenerator/button_center.png');
+	background-repeat: repeat;
+	padding: 0;
+	font-family: Minecraft;
+	text-align: left;
+	color: white;
+	text-shadow: 3px 3px #4C4C4C;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+	box-sizing: border-box;
+	font-size: arduino relay;
+	font: 12pt 'Minecraft', Helvetica;
+	list-style-type: none;
+}
+
+li:hover {
+	border-bottom: 4px solid #59639A;
+	border-right: 2px solid #59639A;
+	border-left: 2px solid #BDC6FF;
+	border-top: 2px solid #BDC6FF;
+	background-image: url('http://charliecowan.co.uk/mcbuttongenerator/button_active_center.png');
+	color: #FFFFA0;
+}
+
+figure ~ span {
+	visibility: hidden;
+}

@@ -32,7 +32,9 @@ class User(BaseDbModel):
 
     @classmethod
     def register_bot(cls, bot, creator):
-        cls.db().upsert({"is_bot": True, "creator": creator}, Query().name == bot)
+        cls.db().upsert(
+            {"is_bot": True, "creator": creator, "name": bot}, Query().name == bot
+        )
 
     @classmethod
     def bots(cls):
@@ -66,9 +68,9 @@ class User(BaseDbModel):
         return results
 
     # We shouldn't use this all
-    @classmethod
-    def all(cls):
-        return [user["name"] for user in cls.db().all()]
+    # @classmethod
+    # def all(cls):
+    #     return [user["name"] for user in cls.db().all()]
 
     @classmethod
     def total_street_cred(cls):
