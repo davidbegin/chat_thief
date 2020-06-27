@@ -6,7 +6,6 @@ from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 
 app = Flask(__name__, template_folder="templates")
-app.run(debug=True)
 
 
 @app.route("/")
@@ -36,3 +35,7 @@ def command_stats(command_name):
         command=command,
         like_to_hate_ratio=sfx_vote.like_to_hate_ratio(),
     )
+
+
+if __name__ == "beginworld_finance":
+    app.run(debug=True)

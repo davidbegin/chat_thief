@@ -24,7 +24,6 @@ class FactsView:
 
 
 app = Flask(__name__)
-app.run(debug=True)
 
 
 @app.route("/")
@@ -50,3 +49,7 @@ def facts(name=None):
 
         return render_template("index.html", facts=facts_view)
         time.sleep(1)
+
+
+if __name__ == "economist_app":
+    app.run(debug=True)

@@ -5,6 +5,15 @@ import pytest
 from chat_thief.bwia import BWIA
 from chat_thief.models.user_event import UserEvent
 from tests.support.database_setup import DatabaseConfig
+import chat_thief.apps.beginworld_finance
+import chat_thief.apps.economist_app
+import chat_thief.apps.news_app
+import chat_thief.apps.notification_app
+import chat_thief.bots.forbes_bot
+import chat_thief.bots.hand_of_the_market
+import chat_thief.bots.new_news_bot
+import chat_thief.bots.soundboard_bot
+import chat_thief.bots.soundeffect_request_bot
 
 
 class TestBWIA(DatabaseConfig):

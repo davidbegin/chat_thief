@@ -10,7 +10,6 @@ from chat_thief.models.user import User
 
 
 app = Flask(__name__)
-app.run(debug=True)
 
 
 @app.route("/")
@@ -55,3 +54,7 @@ def facts(name=None):
                 )
         else:
             time.sleep(1)
+
+
+if __name__ == "news_app":
+    app.run(debug=True)

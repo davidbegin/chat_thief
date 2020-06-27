@@ -8,7 +8,6 @@ from chat_thief.models.notification import Notification
 
 
 app = Flask(__name__, template_folder="../templates")
-app.run(debug=True)
 
 
 @app.route("/")
@@ -24,3 +23,7 @@ def facts(name=None):
     return render_template(
         "notification.html", notification=message, refresh_time=duration
     )
+
+
+if __name__ == "notification_app":
+    app.run(debug=True)
