@@ -1,4 +1,4 @@
-from chat_thief.models.user import User, PurchaseResult
+from chat_thief.models.user import User
 
 
 class Result:

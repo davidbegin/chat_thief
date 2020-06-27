@@ -1,7 +1,16 @@
 from chat_thief.new_commands.result import Result
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
-from chat_thief.models.user import User, PurchaseResult
+from chat_thief.models.user import User
 from chat_thief.models.command import Command
+
+from enum import Enum
+
+
+class PurchaseResult(Enum):
+    AlreadyOwn = "@{user} already has access to !{sfx}"
+    InvalidSFX = "Invalid Effect: {sfx}"
+    TooPoor = "@{user} not enough Cool Points to buy !{sfx} - {cool_points}/{cost}"
+    SuccessfulPurchase = "@{user} bought !{sfx} for {cost} Cool Points"
 
 
 class PurchaseReceipt:

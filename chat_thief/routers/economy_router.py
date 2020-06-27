@@ -12,8 +12,8 @@ from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.config.stream_lords import STREAM_LORDS
 from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
-from chat_thief.models.user import User, PurchaseResult
-from chat_thief.new_commands.buyer import Buyer
+from chat_thief.models.user import User
+from chat_thief.new_commands.buyer import Buyer, PurchaseResult
 from chat_thief.new_commands.stealer import Stealer
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.prize_dropper import random_user as find_random_user

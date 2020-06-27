@@ -7,30 +7,6 @@ from chat_thief.config.log import error, warning, success
 from chat_thief.models.command import Command
 from chat_thief.models.base_db_model import BaseDbModel
 
-from enum import Enum
-
-
-class PurchaseResult(Enum):
-    AlreadyOwn = "@{user} already has access to !{sfx}"
-    InvalidSFX = "Invalid Effect: {sfx}"
-    TooPoor = "@{user} not enough Cool Points to buy !{sfx} - {cool_points}/{cost}"
-    SuccessfulPurchase = "@{user} bought !{sfx} for {cost} Cool Points"
-
-
-class PurchaseReceipt:
-    def __init__(self, user, sfx, result, cool_points, cost=None):
-        self.user = user
-        self.sfx = sfx
-        self.cost = cost
-        self._cool_points = cool_points
-        self.result = result
-        self.message = result.value.format(
-            user=user, sfx=sfx, cost=cost, cool_points=cool_points
-        )
-
-    def __repr__(self):
-        return f"PurchaseReceipt({self.user}, {self.sfx}, {self.result.name}, {self._cool_points}, {self.cost})"
-
 
 class User(BaseDbModel):
     table_name = "users"
@@ -205,50 +181,6 @@ class User(BaseDbModel):
             ):
                 looking_for_effect = False
         return command
-
-    def buy_sfx(self, effect):
-        current_cool_points = self.cool_points()
-
-        if effect not in SoundeffectsLibrary.fetch_soundeffect_names():
-            return PurchaseReceipt(
-                user=self.name,
-                sfx=effect,
-                result=PurchaseResult.InvalidSFX,
-                cool_points=current_cool_points,
-            )
-
-        command = Command(effect)
-        command_cost = command.cost()
-
-        if Command(effect).allowed_to_play(self.name):
-            return PurchaseReceipt(
-                user=self.name,
-                sfx=effect,
-                cost=command_cost,
-                result=PurchaseResult.AlreadyOwn,
-                cool_points=current_cool_points,
-            )
-
-        if current_cool_points >= command_cost:
-            self.update_cool_points(-command_cost)
-            command.allow_user(self.name)
-            command.increase_cost()
-
-            return PurchaseReceipt(
-                user=self.name,
-                sfx=effect,
-                cool_points=current_cool_points,
-                result=PurchaseResult.SuccessfulPurchase,
-                cost=command_cost,
-            )
-        else:
-            return PurchaseReceipt(
-                user=self.name,
-                sfx=effect,
-                cool_points=current_cool_points,
-                result=PurchaseResult.TooPoor,
-                cost=command_cost,
-            )
 
     # Returning a string with the info
     # of what happened
