@@ -12,7 +12,6 @@ class User(BaseDbModel):
     table_name = "users"
     database_path = "db/users.json"
 
-    # We should set self.user here
     def __init__(
         self, name, cool_points=0, top_eight=[], custom_css=None, insured=False,
     ):
@@ -31,70 +30,44 @@ class User(BaseDbModel):
 
     @classmethod
     def bots(cls):
-        bots = cls.db().search(Query().is_bot)
-        return [bot["name"] for bot in bots]
-
-    @classmethod
-    def all_data(cls):
-        user_data = cls.db().all()
-        cmd_data = Command.db().all()
-        results = []
-
-        all_sfxs = SoundeffectsLibrary.fetch_soundeffect_samples()
-
-        for user_dict in user_data:
-            matching_effects = [
-                sfx
-                for sfx in all_sfxs
-                if user_dict["name"] == sfx.name[: -len(sfx.suffix)]
-            ]
-            if matching_effects:
-                command_file = matching_effects[0]
-                user_dict["command_file"] = command_file.name
-
-            user_dict["commands"] = [
-                cmd["name"]
-                for cmd in cmd_data
-                if user_dict["name"] in cmd["permitted_users"]
-            ]
-            results.append(user_dict)
-        return results
-
-    # We shouldn't use this all
-    # @classmethod
-    # def all(cls):
-    #     return [user["name"] for user in cls.db().all()]
+        return [bot["name"] for bot in cls.db().search(Query().is_bot)]
 
     @classmethod
     def total_street_cred(cls):
-        return sum([user["street_cred"] for user in cls.db().all()])
+        return cls._total_of_field("street_cred")
 
     @classmethod
-    def total_cool_points(self):
-        return sum([user["cool_points"] for user in self.db().all()])
+    def total_cool_points(cls):
+        return cls._total_of_field("cool_points")
 
     @classmethod
-    def richest(cls):
-        users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
-        return sorted(users, key=lambda user: user[1])
+    def _total_of_field(cls, field):
+        return sum([user[field] for user in cls.db().all()])
 
     @classmethod
     def richest_street_cred(cls):
-        users = [user for user in cls.db().all()]
-        if users:
-            return sorted(users, key=lambda user: user["street_cred"])[-1]
+        return cls.max_of_field("street_cred")
 
     @classmethod
     def richest_cool_points(cls):
+        return cls.max_of_field("cool_points")
+
+    @classmethod
+    def max_of_field(cls, field):
         users = [user for user in cls.db().all()]
         if users:
-            return sorted(users, key=lambda user: user["cool_points"])[-1]
+            return sorted(users, key=lambda user: user[field])[-1]
 
     @classmethod
     def by_cool_points(cls):
         users = [user for user in cls.db().all()]
         if users:
             return reversed(sorted(users, key=lambda user: user["cool_points"]))
+
+    @classmethod
+    def richest(cls):
+        users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
+        return sorted(users, key=lambda user: user[1])
 
     # ====================================================================
 
@@ -103,7 +76,13 @@ class User(BaseDbModel):
         return self._find_or_create_user()
 
     def stats(self):
-        return f"@{self.name} - Mana: {self.mana()} | Street Cred: {self.street_cred()} | Cool Points: {self.cool_points()} | Wealth: {self.wealth()} | Insured: {self.insured()}"
+        return (
+            f"@{self.name} - Mana: {self.mana()} | "
+            f"Street Cred: {self.street_cred()} | "
+            f"Cool Points: {self.cool_points()} | "
+            f"Wealth: {self.wealth()} | "
+            f"Insured: {self.insured()}"
+        )
 
     def commands(self):
         return [
@@ -112,30 +91,37 @@ class User(BaseDbModel):
             if permission["name"] != self.name
         ]
 
+    # =====================================
+
     # Seems like it should be factored away
     def street_cred(self):
-        return self.user()["street_cred"]
+        return self._fetch_field("street_cred", 0)
 
     def cool_points(self):
-        return self.user()["cool_points"]
+        return self._fetch_field("cool_points", 0)
 
     def custom_css(self):
-        return self.user()["custom_css"]
+        return self._fetch_field("custom_css", None)
 
     def mana(self):
-        return self.user()["mana"]
+        return self._fetch_field("mana", 0)
 
     def is_bot(self):
-        return self.user().get("is_bot", False)
+        return self._fetch_field("is_bot", False)
 
     def creator(self):
-        return self.user().get("creator", None)
+        return self._fetch_field("creator", None)
 
     def top_eight(self):
-        return self.user().get("top_eight", [])
+        return self._fetch_field("top_eight", [])
 
     def insured(self):
-        return self.user().get("insured", False)
+        return self._fetch_field("insured", False)
+
+    def _fetch_field(self, field, default):
+        return self.user().get(field, default)
+
+    # =============================================
 
     def update_mana(self, amount):
         return self._update_value("mana", amount)
@@ -164,9 +150,7 @@ class User(BaseDbModel):
         looking_for_effect = True
 
         while looking_for_effect:
-            # Should we update this query to take cost parameter?
             effect = random_soundeffect()
-            # We need to check the cost
             command = Command(effect)
             if self.cool_points() >= command.cost() and not command.allowed_to_play(
                 self.name
@@ -174,8 +158,6 @@ class User(BaseDbModel):
                 looking_for_effect = False
         return command
 
-    # Returning a string with the info
-    # of what happened
     def buy(self, effect):
         if effect not in SoundeffectsLibrary.fetch_soundeffect_names():
             raise ValueError(f"Invalid Effect: {effect}")
@@ -222,10 +204,13 @@ class User(BaseDbModel):
             return self.doc()
 
     def update_cool_points(self, amount=1):
-        self._update_value("cool_points", amount)
+        return self._update_value("cool_points", amount)
 
     def update_street_cred(self, amount=1):
-        self._update_value("street_cred", amount)
+        return self._update_value("street_cred", amount)
+
+    def clear_top_eight(self):
+        self.set_value("top_eight", [])
 
     def set_ride_or_die(self, ride_or_die):
         if ride_or_die != self.name:
@@ -246,9 +231,6 @@ class User(BaseDbModel):
         if enemy in current_eight:
             current_eight.remove(enemy)
             self.set_value("top_eight", current_eight)
-
-    def clear_top_eight(self):
-        self.set_value("top_eight", [])
 
     def top_wealth(self):
         user_data = self.user()
@@ -289,3 +271,29 @@ class User(BaseDbModel):
             return f"@{self.name} thank you for purchasing insurance"
         else:
             return f"YA Broke @{self.name} - it costs 1 Cool Point to buy insurance"
+
+    @classmethod
+    def all_data(cls):
+        user_data = cls.db().all()
+        cmd_data = Command.db().all()
+        results = []
+
+        all_sfxs = SoundeffectsLibrary.fetch_soundeffect_samples()
+
+        for user_dict in user_data:
+            matching_effects = [
+                sfx
+                for sfx in all_sfxs
+                if user_dict["name"] == sfx.name[: -len(sfx.suffix)]
+            ]
+            if matching_effects:
+                command_file = matching_effects[0]
+                user_dict["command_file"] = command_file.name
+
+            user_dict["commands"] = [
+                cmd["name"]
+                for cmd in cmd_data
+                if user_dict["name"] in cmd["permitted_users"]
+            ]
+            results.append(user_dict)
+        return results
