@@ -104,6 +104,8 @@ class Command(BaseDbModel):
             results.append(cmd_dict)
         return results
 
+    # =======================================================
+
     @classmethod
     def available_sounds(cls):
         def test_func(val):

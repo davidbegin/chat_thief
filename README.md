@@ -1,39 +1,64 @@
-# Twitch Python Chat bot that also manages a Command Economy
+# Welcome To BeginWorld
 
-This started as a simple twitch chatbot, but has evolved into a Soundboard
-economy manager (More Details Below).
+What started as a simple idea for a chat-controlled soundboard has evolved
+into an entire economy with multiple ways of participating.
 
 ## What Is Going On During Your Stream
 
 There are over 1300+ Soundeffects (added by users like you!), that area access
-through various commands, like: `!clap` or `!wow`
+through various commands, like: `!clap` or `!wow`.
 
-When you join the stream you have access to no sounds (except your theme song,
-if you have one). To get access to soundeffects, you just need to participate in
-our New Economy!
+You can, earn, trade, steal, and gamble these sounds.
 
-## Participating in the Stream
+As you chat and participate in the stream you get access to more sounds by
+either the friends you make in chat or strategic bets and investments.
+
+## Other Ways to Participate
 
 ### Write CSS
 
-!css URL_TO_RAW_CSS
+type `!me` in the chat to see your page [Example Page](https://mygeoangelfirespace.city/zanuss.html)
 
-Pastebin
-or Gitlab Snippets work great!
+You can style your page with `!css URL_TO_RAW_CSS`
 
-### Write a Bot
+[Pastebin](https://pastebin.com/) or [Gitlab
+Snippets](https://gitlab.com/snippets/new) work great!
+
+**Note:** Make sure to link to the raw CSS. Typically the link will have "raw"
+in it.
+
+### Write a Chat Bot
 
 Write **1** Bot in whatever language, to interact with the stream, potentially
 participate in Bot Survivor
 
-### Write a JS Widget (restrictions apply)
+You must register your bot by telling Begin and the chat who your bot is.
 
-- 25 Lines
-- Vanilla
+Violators will be banned.
+
+For More Details on Bots in BeginWorld see:
+[Bot Law](docs/BOT_LAW.md)
+
+### Write a JS Widget
+
+You can write a JS widget to be used on your page,
+and made available for purchase on other pages.
+
+The restrictions are:
+
+- 25 Lines of Code (No minifier)
+- Vanilla JS only!
+
+We will make a "Widget Shop" Available, give creators
+a chance to sell their Widgets.
 
 ### Add Sounds to the Stream
 
+```twitch chat
 !soundeffect YOUTUBE_URL command_name 00:00 00:04
+```
+
+https://github.com/ytdl-org/youtube-dl
 
 ### Get Access to Sounds By Chatting
 
