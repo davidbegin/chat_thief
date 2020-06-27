@@ -252,30 +252,3 @@ class User(BaseDbModel):
             return f"@{self.name} thank you for purchasing insurance"
         else:
             return f"YA Broke @{self.name} - it costs 1 Cool Point to buy insurance"
-
-    # Lets Move This
-    @classmethod
-    def all_data(cls):
-        user_data = cls.db().all()
-        cmd_data = Command.db().all()
-        results = []
-
-        all_sfxs = SoundeffectsLibrary.fetch_soundeffect_samples()
-
-        for user_dict in user_data:
-            matching_effects = [
-                sfx
-                for sfx in all_sfxs
-                if user_dict["name"] == sfx.name[: -len(sfx.suffix)]
-            ]
-            if matching_effects:
-                command_file = matching_effects[0]
-                user_dict["command_file"] = command_file.name
-
-            user_dict["commands"] = [
-                cmd["name"]
-                for cmd in cmd_data
-                if user_dict["name"] in cmd["permitted_users"]
-            ]
-            results.append(user_dict)
-        return results

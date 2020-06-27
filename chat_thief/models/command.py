@@ -24,6 +24,10 @@ class Command(BaseDbModel):
         self.inital_cost = inital_cost
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
+    # =====================================
+
+    # Move this
+
     @classmethod
     def purge_duplicates(cls):
         for cmd in cls.db().all():
@@ -65,44 +69,6 @@ class Command(BaseDbModel):
                     command.unallow_user(user)
                 to_delete.append(cmd.doc_id)
         cls.delete(to_delete)
-
-    @classmethod
-    def all_data(cls):
-        cmd_data = cls.db().all()
-        votes = SFXVote.db().all()
-        results = []
-
-        all_sfxs = SoundeffectsLibrary.fetch_soundeffect_samples()
-
-        for cmd_dict in cmd_data:
-            # To get the first
-            # versus [0]
-            sfx_vote = next(
-                (vote for vote in votes if vote["command"] == cmd_dict["name"]), None
-            )
-
-            matching_effects = [
-                sfx
-                for sfx in all_sfxs
-                if cmd_dict["name"] == sfx.name[: -len(sfx.suffix)]
-            ]
-            if matching_effects:
-                command_file = matching_effects[0]
-                cmd_dict["command_file"] = command_file.name
-
-            if sfx_vote:
-                supporters = sfx_vote["supporters"]
-                detractors = sfx_vote["detractors"]
-                total = len(supporters) + len(detractors)
-                if total > 0:
-                    cmd_dict["like_to_hate_ratio"] = total * 100
-                else:
-                    cmd_dict["like_to_hate_ratio"] = 100
-            else:
-                cmd_dict["like_to_hate_ratio"] = 100
-
-            results.append(cmd_dict)
-        return results
 
     # =======================================================
 

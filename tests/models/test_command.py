@@ -85,34 +85,6 @@ class TestCommand(DatabaseConfig):
         win_cmd.increase_cost(10)
         assert Command.most_expensive()["name"] == "mchdtmd"
 
-    def test_all_data(self):
-        damn_cmd = Command("damn")
-
-        damn_cmd.save()
-        chain_cmd = Command("mchdtmd")
-        chain_cmd.save()
-        result = Command.all_data()
-        assert result == [
-            {
-                "name": "damn",
-                "user": "beginbot",
-                "command_file": "damn.opus",
-                "permitted_users": [],
-                "health": 3,
-                "cost": 1,
-                "like_to_hate_ratio": 100,
-            },
-            {
-                "name": "mchdtmd",
-                "command_file": "mchdtmd.mp3",
-                "user": "beginbot",
-                "permitted_users": [],
-                "health": 3,
-                "cost": 1,
-                "like_to_hate_ratio": 100,
-            },
-        ]
-
     def test_purge_theme_songs(self):
         uzi = User("uzi")
         illegal_cmd = Command("beginbot")

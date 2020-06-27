@@ -149,27 +149,6 @@ class TestUser(DatabaseConfig):
         User.richest_cool_points()["name"] == "artmattdank"
         assert User.wealthiest() == "artmattdank"
 
-    def test_all_data(self):
-        baldclap = User("baldclap", 3)
-        Command("damn").allow_user("baldclap")
-        custom_css = "https://gist.githubusercontent.com/raw/d7bcdf8"
-        baldclap.set_value("custom_css", custom_css)
-        all_data = User.all_data()
-
-        assert all_data == [
-            {
-                "name": "baldclap",
-                "command_file": "baldclap.opus",
-                "street_cred": 0,
-                "cool_points": 3,
-                "insured": False,
-                "mana": 3,
-                "custom_css": custom_css,
-                "commands": ["damn"],
-                "top_eight": [],
-            }
-        ]
-
     def test_custom_css(self):
         lahey = User("lahey")
         custom_css = "https://gist.githubusercontent.com/raw/d7bcdf8"
