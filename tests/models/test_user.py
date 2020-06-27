@@ -166,9 +166,7 @@ class TestUser(DatabaseConfig):
         tpain = User("tpain", 1)
         tpain.update_cool_points(1)
         User.richest_cool_points()["name"] == "artmattdank"
-
-        result = [user["name"] for user in User.top_three()]
-        assert result == ["artmattdank", "watto", "tpain"]
+        assert User.wealthiest() == "artmattdank"
 
     def test_buy(self):
         watto = User("watto", 3)

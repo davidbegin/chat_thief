@@ -89,13 +89,7 @@ class User(BaseDbModel):
             results.append(user_dict)
         return results
 
-    @classmethod
-    def top_three(cls):
-        users = [user for user in cls.db().all()]
-        top_3 = sorted(users, key=lambda user: user["cool_points"])[-3:]
-        top_3.reverse()
-        return top_3
-
+    # We shouldn't use this all
     @classmethod
     def all(cls):
         return [user["name"] for user in cls.db().all()]
@@ -333,9 +327,6 @@ class User(BaseDbModel):
     def clear_top_eight(self):
         self.set_value("top_eight", [])
 
-    # Cool Points
-    # Street Creds
-    # Total Number of Soundeffects + Cost of Each
     def top_wealth(self):
         user_data = self.user()
         user_commands = Command.for_user(self.name)
