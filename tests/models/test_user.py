@@ -60,9 +60,9 @@ class TestUser(DatabaseConfig):
 
     def test_all(self, user):
         assert User.all() == []
-        user("artmattdank").save()
+        user("artmattdank")
         assert User.all() == ["artmattdank"]
-        user("shiva").save()
+        user("shiva")
         assert User.all() == ["artmattdank", "shiva"]
 
     def test_richest(self, user):
@@ -160,15 +160,10 @@ class TestUser(DatabaseConfig):
 
     def test_richest_cool_points(self):
         User.richest_cool_points() == None
-        watto = User("watto")
-        watto.save()
-        watto.update_cool_points(3)
-        artmattdank = User("artmattdank")
-        artmattdank.save()
-        artmattdank.update_cool_points(9)
+        watto = User("watto", 3)
+        artmattdank = User("artmattdank", 9)
 
-        tpain = User("tpain")
-        tpain.save()
+        tpain = User("tpain", 1)
         tpain.update_cool_points(1)
         User.richest_cool_points()["name"] == "artmattdank"
 
@@ -176,19 +171,15 @@ class TestUser(DatabaseConfig):
         assert result == ["artmattdank", "watto", "tpain"]
 
     def test_buy(self):
-        watto = User("watto")
-        watto.save()
-        watto.update_cool_points(3)
+        watto = User("watto", 3)
         result = watto.buy("clap")
         assert result == "@watto bought !clap for 1 Cool Points"
         assert watto.cool_points() < 3
 
     def test_all_data(self):
-        baldclap = User("baldclap")
-        baldclap.save()
-        baldclap.update_cool_points(3)
+        baldclap = User("baldclap", 3)
         Command("damn").allow_user("baldclap")
-        custom_css = "https://gist.githubusercontent.com/davidbegin/efdbf338ecfcdc14fa9ed792c6056ed3/raw/d7bcdf2f3c9ae4b3e280646601061b0b4de3a2c8/beginfun"
+        custom_css = "https://gist.githubusercontent.com/raw/d7bcdf8"
         baldclap.set_value("custom_css", custom_css)
         all_data = User.all_data()
 
@@ -209,7 +200,7 @@ class TestUser(DatabaseConfig):
 
     def test_custom_css(self, user):
         lahey = user("lahey")
-        custom_css = "https://gist.githubusercontent.com/davidbegin/efdbf338ecfcdc14fa9ed792c6056ed3/raw/d7bcdf2f3c9ae4b3e280646601061b0b4de3a2c8/beginfun"
+        custom_css = "https://gist.githubusercontent.com/raw/d7bcdf8"
         lahey.set_value("custom_css", custom_css)
         assert lahey.custom_css() == custom_css
 
@@ -248,9 +239,7 @@ class TestUser(DatabaseConfig):
         assert subject.top_wealth() == 11
 
     def test_wealthiest(self, user):
-        subject = user("bill.evans")
-        subject = user("sammy.davis")
-        subject.update_cool_points(1)
+        subject = User("bill.evans", 1)
         command = Command("damn")
         command.allow_user("bill.evans")
         command.set_value("cost", 10)

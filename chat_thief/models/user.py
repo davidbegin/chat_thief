@@ -290,9 +290,6 @@ class User(BaseDbModel):
             "insured": self._insured,
         }
 
-    def save(self):
-        return self._find_or_create_user()
-
     def _find_or_create_user(self):
         # We should be using get
         user_result = self.db().search(Query().name == self.name)

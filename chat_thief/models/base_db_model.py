@@ -95,7 +95,6 @@ class BaseDbModel(abc.ABC):
 
         with transaction(self.db()) as tr:
             return tr.update_callable(update_func(), Query().name == self.name)
-
         return self
 
     def update_value(self, field, amount=1):

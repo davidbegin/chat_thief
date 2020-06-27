@@ -39,7 +39,8 @@ class WelcomeCommittee:
             command.update_health(1)
             PlaySoundeffectRequest(user=user, command=user).save()
         else:
-            User(user).save()
+            # Use non private method
+            User(user)._find_or_create_user()
             send_twitch_msg(BeginFund(user).dropeffect())
             send_twitch_msg(
                 f"Welcome @{user}! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-URL @{user} 00:03 00:07"

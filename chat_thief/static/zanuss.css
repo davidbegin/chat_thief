@@ -143,8 +143,20 @@ body {
   margin:auto;
   padding:2em !important;
   background-image: url('https://i.imgur.com/0V6eap6.png')!important;
-  background-position: 82.5% 90% !important;
-  background-size: 850px 700px !important;
+  background-position: 82.5% 90%;
+  background-size: 850px 700px;
+  background-repeat:no-repeat;
+}
+
+.user{
+  background-position: right 16.5% bottom 3.5% !important;
+  background-size: 850px 700px;
+  background-repeat:no-repeat;
+}
+
+.home{
+  background-position: 85% 0.28% !important;
+  background-size: 550px 430px !important;
   background-repeat:no-repeat !important;
 }
 
