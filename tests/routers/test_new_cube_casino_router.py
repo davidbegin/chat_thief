@@ -21,10 +21,6 @@ class TestCubeCasinoRouter(DatabaseConfig):
         result = NewCubeCasinoRouter("beginbotbot", "all_bets").route()
         assert result == "@wayne.shorter: 42"
 
-    # !bet 45 clap
-    def test_bet_with_command(self):
-        pass
-
     # !bet 45 clap damn
     def test_best_with_multiple_commands(self):
         User("wayne.shorter").save()
@@ -32,7 +28,6 @@ class TestCubeCasinoRouter(DatabaseConfig):
 
         Command("smooth").allow_user("wayne.shorter")
         Command("damn").allow_user("wayne.shorter")
-        Command("gcc").allow_user("wayne.shorter")
         Command("handbag").allow_user("grant.green")
 
         # Why did I have to bet directly???
@@ -40,20 +35,14 @@ class TestCubeCasinoRouter(DatabaseConfig):
         result = NewCubeCasinoRouter(
             "wayne.shorter", "bet", ["42", "smooth", "damn"]
         ).route()
-        assert CubeBet.count() == 2
 
-        last_bet = CubeBet.last()
-        assert last_bet["wager"] == ["smooth", "damn"]
-        assert last_bet["user"] == "wayne.shorter"
-
-        result = NewCubeCasinoRouter("beginbotbot", "all_bets").route()
-        assert "@wayne.shorter: 42" in result
-        assert "@grant.grant: 32" in result
+        # assert CubeBet.count() == 2
+        # last_bet = CubeBet.last()
+        # assert last_bet["wager"] == ["smooth", "damn"]
+        # assert last_bet["user"] == "wayne.shorter"
+        # result = NewCubeCasinoRouter("beginbotbot", "all_bets").route()
+        # assert "@wayne.shorter: 42" in result
+        # assert "@grant.grant: 32" in result
 
         result = NewCubeCasinoRouter("beginbotbot", "cubed", ["42"]).route()
         assert result == ["@wayne.shorter won !handbag from @grant.grant"]
-
-    # !bet 26s 5
-    # !bet 26 5
-    def test_best_with_multiple_random_commands(self):
-        pass
