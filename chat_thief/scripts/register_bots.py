@@ -1,6 +1,7 @@
 from chat_thief.models.user import User
 
 BOTS_AND_CREATORS = {
+    "aquafunkalisticbootywhap": "aquafunkbot",
     "ravonus": "r4vb0t",
     "beginbot": "beginbotbot",
     "bopojoe_": "cykablondesbot",

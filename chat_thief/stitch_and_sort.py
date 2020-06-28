@@ -26,8 +26,9 @@ class StitchAndSort:
         for user_dict in self._all_users:
 
             # Looking for Owned Widgets
-
-            user_dict["widgets"] = UserCode.owned_by(user_dict["name"])
+            widgets = UserCode.owned_by(user_dict["name"])
+            user_dict["widgets"] = widgets
+            print(f"Widgets for {user_dict['name']} {widgets}")
 
             # Looking for Matching Soundeffects
             matching_effects = [

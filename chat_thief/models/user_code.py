@@ -53,14 +53,19 @@ class UserCode(BaseDbModel):
     @classmethod
     def purchase(cls, purchaser, widget_name):
         user_code = cls.db().get(Query().name == widget_name)
-        owners = user_code["owners"]
+        if user_code:
+            owners = user_code.get("owners", [])
 
-        if purchaser not in owners:
-            owners.append(purchaser)
-            cls.set_value_by_id(user_code.doc_id, "owners", owners)
-            return f"@{purchaser} bought {widget_name}.js from @{user_code['user']}!"
+            if purchaser not in owners:
+                owners.append(purchaser)
+                cls.set_value_by_id(user_code.doc_id, "owners", owners)
+                return (
+                    f"@{purchaser} bought {widget_name}.js from @{user_code['user']}!"
+                )
+            else:
+                return f"@{cls.purchaser} already owners {widget_name}!"
         else:
-            return f"@{cls.purchaser} already owners {widget_name}!"
+            return f"Could Not Find {widget_name} to purchase"
 
     @classmethod
     def find_owners(cls, widget_name):

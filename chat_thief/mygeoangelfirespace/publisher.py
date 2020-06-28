@@ -64,7 +64,7 @@ def setup_build_dir():
 
 
 async def _render_and_save_html(file_name, context, dest_filename=None):
-    warning(f"Rendering Template: {dest_filename}")
+    # warning(f"Rendering Template: {dest_filename}")
     template = jinja2.Environment(
         loader=jinja2.FileSystemLoader(template_path),
     ).get_template(file_name)
@@ -72,7 +72,7 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     rendered_template = template.render(context)
     success(f"Finished Rendering Template: {dest_filename}")
 
-    warning(f"Writing Template: {file_name}")
+    # warning(f"Writing Template: {file_name}")
     if dest_filename:
         html_file = dest_filename
 
