@@ -8,6 +8,9 @@ format:
 t:
 	TEST_MODE=true BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief tests/*
 
+fast:
+	TEST_MODE=true BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief -x --last-failed tests/*
+
 slow:
 	TEST_MODE=true BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief --durations=10 tests/*
 
