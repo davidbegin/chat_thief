@@ -15,7 +15,10 @@ class UserCode(BaseDbModel):
         self._code_type = code_type
         self._approved = approved
         self._owners = owners
-        self._name = Path(code_link).name[:-3]
+        if code_link.endswith(".js"):
+            self._name = Path(code_link).name[:-3]
+        else:
+            self._name = self._user
 
     def doc(self):
         return {
@@ -26,6 +29,12 @@ class UserCode(BaseDbModel):
             "code_type": self._code_type,
             "approved": self._approved,
         }
+
+    def update_or_create(self):
+        self.db().upsert(
+            self.doc(), (Query().name == self._name) & (Query().user == self._user)
+        )
+        return self
 
     @classmethod
     def purchase(cls, purchaser, widget_name):

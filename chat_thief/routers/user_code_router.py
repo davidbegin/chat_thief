@@ -41,13 +41,17 @@ class UserCodeRouter(BaseRouter):
     def set_js(self):
         custom_js = self.args[0]
 
-        user_code = UserCode(user=self.user, code_link=custom_js, code_type="js").save()
+        user_code = UserCode(
+            user=self.user, code_link=custom_js, code_type="js"
+        ).update_or_create()
+        # user_code = UserCode(user=self.user, code_link=custom_js, code_type="js").save()
 
         # Switch to NOT USE requests
         response = requests.get(custom_js)
 
         new_js_dir = Path(__file__).parent.parent.joinpath(f"js")
         new_js_dir.mkdir(exist_ok=True)
+
         new_js_path = new_js_dir.joinpath(f"{user_code._name}.js")
         print(f"Saving Custom js for @{self.user} {new_js_path}")
 

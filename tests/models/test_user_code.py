@@ -27,3 +27,15 @@ class TestUserCode(DatabaseConfig):
 
         result = UserCode.purchase("begin", "beginwidget")
         assert UserCode.find_owners("beginwidget") == ["eno", "begin"]
+
+    def test_extracing_name_from_url(self):
+        UserCode(
+            user="eno", code_link="https://gitlab.com/real_url/raw", code_type="js",
+        ).save()
+
+        last = UserCode.last()
+        assert last["approved"] == False
+        assert last["name"] == "eno"
+        assert last["owners"] == []
+
+        assert UserCode.owned_by("eno") == ["eno.js"]

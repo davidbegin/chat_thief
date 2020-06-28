@@ -47,6 +47,48 @@ class TestUserCodeRouter(DatabaseConfig):
         )
         assert user_code["code_type"] == "js"
 
+    def test_submit_custom_js(self):
+        user = "beginbotbot"
+        result = UserCodeRouter(
+            user, "js", ["https://gist.githubusercontent.com/davidbegin/raw"],
+        ).route()
+        assert "Thanks for the custom JS @beginbotbot!" in result
+
+        js_filepath = Path(__file__).parent.parent.parent.joinpath(
+            "chat_thief/js/beginbotbot.js"
+        )
+        assert js_filepath.exists()
+        user_code = UserCode.last()
+        assert user_code["user"] == "beginbotbot"
+        assert (
+            user_code["code_link"]
+            == "https://gist.githubusercontent.com/davidbegin/raw"
+        )
+        assert user_code["code_type"] == "js"
+
+    def test_updating_js(self):
+        user = "beginbotbot"
+        result = UserCodeRouter(
+            user,
+            "js",
+            ["https://gist.githubusercontent.com/davidbegin/raw/beginfun.js"],
+        ).route()
+        assert UserCode.count() == 1
+
+        result = UserCodeRouter(
+            user,
+            "js",
+            ["https://gist.githubusercontent.com/davidbegin/raw/234232342/beginfun.js"],
+        ).route()
+        assert UserCode.count() == 1
+        user_code = UserCode.last()
+        assert user_code["user"] == "beginbotbot"
+        assert (
+            user_code["code_link"]
+            == "https://gist.githubusercontent.com/davidbegin/raw/234232342/beginfun.js"
+        )
+        assert user_code["code_type"] == "js"
+
     def test_approving_js(self):
         UserCode(
             user="beginbotbot",
