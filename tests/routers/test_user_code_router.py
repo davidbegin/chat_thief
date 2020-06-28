@@ -46,3 +46,12 @@ class TestUserCodeRouter(DatabaseConfig):
             == "https://gist.githubusercontent.com/davidbegin/raw/beginfun.js"
         )
         assert user_code["code_type"] == "js"
+
+    def test_approving_js(self):
+        UserCode(
+            user="beginbotbot",
+            code_link="https://gist.githubusercontent.com/davidbegin/raw/beginfun.js",
+            code_type="js",
+        ).save()
+        result = UserCodeRouter("beginbotbot", "approvejs", ["beginbotbot"]).route()
+        assert "@beginbotbot's JS has been approved!" in result

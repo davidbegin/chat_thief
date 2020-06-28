@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+	<head>
+    	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <!--OLD CODE<script async src="https://www.googletagmanager.com/gtag/js?id=UA-58643-34"></script>-->
+
+    <!--OLD CODE<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-58643-34');
+    </script>-->
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5VVPHVN');</script>
+    <!-- End Google Tag Manager -->
+
+    
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>[CSS] burntbiskett beginpage - Pastebin.com</title>
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/pastebin.min.v3.js"></script>
+            
+            
+		<link href="/i/pastebin.min.v9.css?1588178291" rel="stylesheet" type="text/css" />
+		<!--[if lt IE 10]>
+			<link href="/i/pastebin.ie8.css" rel="stylesheet" type="text/css" />
+		<![endif]-->
+
+
+			<link href="/cache/css_lang/css.css" rel="stylesheet" type="text/css" /> 
+		<style>body{-webkit-text-size-adjust:none;}</style>
+		<meta name="robots" content="noindex" />		<meta property="fb:app_id" content="231493360234820" />
+		<meta property="og:title" content="[CSS] burntbiskett beginpage - Pastebin.com" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="https://pastebin.com/fVdJDWrf" />
+		<meta property="og:image" content="https://pastebin.com/i/facebook.png" />
+		<meta property="og:site_name" content="Pastebin" />
+		<meta name="google-site-verification" content="jkUAIOE8owUXu8UXIhRLB9oHJsWBfOgJbZzncqHoF4A" />
+		<link rel="canonical" href="https://pastebin.com/fVdJDWrf" />
+				<meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=1.0, user-scalable=yes">
+		<script type="text/javascript">
+			if (top != self)
+				top.location.href = location.href;
+		</script>
+
+                    <!-- Amazon Tag Manager -->
+            <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/21892923737/pb_header_728x90', [[728, 90], [468, 60]], 'gpt-passback').addService(googletag.pubads());
+    googletag.defineSlot('/21892923737/pb_footer_728x90', [728, 90], 'div-gpt-ad-1593095439111-0').addService(googletag.pubads());
+    googletag.defineSlot('/21892923737/pb_sidebar_120x600', [[160, 600], [120, 600]], 'div-gpt-ad-1593095572267-0').addService(googletag.pubads());
+    // googletag.pubads().enableSingleRequest();
+    googletag.pubads().disableInitialLoad();
+    googletag.enableServices();
+  });
+</script>
+<script type='text/javascript'>
+  !function(a9,a,p,s,t,A,g){if(a[a9])return;function q(c,r){a[a9]._Q.push([c,r])}a[a9]={init:function(){q("i",arguments)},fetchBids:function(){q("f",arguments)},setDisplayBids:function(){},targetingKeys:function(){return[]},_Q:[]};A=p.createElement(s);A.async=!0;A.src=t;g=p.getElementsByTagName(s)[0];g.parentNode.insertBefore(A,g)}("apstag",window,document,"script","//c.amazon-adsystem.com/aax2/apstag.js");
+
+  // initialize apstag and have apstag set bids on the googletag slots when they are returned to the page
+  apstag.init({
+    pubID: 'fcfacf81-21b4-42d5-b3bd-672af22fe303',
+    adServer: 'googletag',
+    bidTimeout: 2e3
+  });
+  // request the bids for the four googletag slots
+  apstag.fetchBids({
+    slots: [
+        {
+            slotID: 'gpt-passback', //example: div-gpt-ad-1475102693815-0
+            slotName: '/21892923737/pb_header_728x90', //example: //example: /116082170/slot2
+            sizes: [[728, 90], [468, 60]] //example: [[300,250],[300, 600]]
+        },
+        {
+            slotID: 'div-gpt-ad-1593095439111-0', //example: div-gpt-ad-1475102693815-0
+            slotName: '/21892923737/pb_footer_728x90', //example: //example: /116082170/slot2
+            sizes: [[728, 90]] //example: [[300,250],[300, 600]]
+        },
+        {
+            slotID: 'div-gpt-ad-1593095572267-0', //example: div-gpt-ad-1475102693815-0
+            slotName: '/21892923737/pb_sidebar_120x600', //example: //example: /116082170/slot2
+            sizes: [[160, 600], [120, 600]] //example: [[300,250],[300, 600]]
+        },
+      // {
+      //   slotID: 'enter your slotID',
+      //   slotName: 'enter your DFP ad unit path',
+      //   sizes: [[width, height], [width, height]]
+      // }
+    ]
+  }, function (bids) {
+    // set apstag bids, then trigger the first request to DFP
+    googletag.cmd.push(function () {
+      apstag.setDisplayBids();
+      googletag.pubads().refresh();
+    });
+  });
+</script>
+            <!-- PowerAds tag -->
+            <script async src="https://powerad.ai/script.js"></script>
+            </head>
+	<body>
+
+            <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VVPHVN"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    
+	<div id="main_frame">
+		<div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-anchor-right jq-dropdown-scroll">
+			<ul class="jq-dropdown-menu">
+				
+				<li onclick="location.href='/signup'" class="dd_su">Sign Up</li>
+				<li onclick="location.href='/login'" class="dd_lo">Login</li>
+				<li class="lih_div"></li>
+				<li onclick="location.href='/api'" class="lih_640">API</li>
+				<li onclick="location.href='/faq'" class="lih_640">FAQ</li>
+				<li onclick="location.href='/tools'" class="lih_640">Tools</li>
+				<li onclick="location.href='/archive'" class="lih_640">Archive</li>			</ul>
+		</div>
+		<div id="header">
+			<div id="header_wrap">
+				<div id="header_top">
+					<div id="header_logo" onclick="location.href='/'">PASTEBIN</div>
+                    <div id="header_links">
+                                                    <a href="/pro" class="mmh">GO <img src="/i/t.gif" alt="" class="header_pro_btn"></a>
+                        
+                        <a href="/api" class="mmh">API</a>
+                        <a href="/tools" class="mmh">TOOLS</a>
+                        <a href="/faq" class="mmh">FAQ</a>
+                        <a href="https://deals.pastebin.com" target="_blank" class="mmh">DEALS</a>
+                    </div>
+                    <!--
+                    <div id="header_search">
+                        <form class="search_form" name="search_form" method="get" action="/search" id="cse-search-box">
+                            <input class="search_input" type="text" name="q" size="5" value="" placeholder="Search..." />
+                        </form>
+                    </div>
+                    -->
+                    <div id="header_new_paste" class="new_paste_button" onclick="location.href='/'">paste</div>
+                    
+			<div class="header_sign">
+				<a href="/login" class="btn-sign sign-in">SIGN IN</a>
+				<a href="/signup" class="btn-sign sign-up">SIGN UP</a>
+			</div>				</div>
+			</div>
+		</div>
+		<div id="super_frame">
+			<div id="monster_frame">
+				<div id="content_frame">
+					<div id="content_right">						
+
+	<div class="content_right_menu">
+									<div class="content_right_title"><a href="/archive">Public Pastes</a></div>
+									<div id="menu_2">
+										<ul class="right_menu"><li><a href="/5UMtEJf4">4 and 12 from Exam...</a><span>C# | 1 min ago</span></li><li><a href="/MDJTZXJW">Untitled</a><span>C++ | 17 min ago</span></li><li><a href="/jMi7gZMY">Variables in Lua</a><span>Lua | 34 min ago</span></li><li><a href="/hGXAzhFa">jfltespr v16 radio...</a><span>Bash | 1 hour ago</span></li><li><a href="/FsrnxaSK">AITV_aniversarry</a><span>JavaScript | 1 hour ago</span></li><li><a href="/E3Nke3H3">algorithom 5</a><span>C | 1 hour ago</span></li><li><a href="/zs7hC4ME">Untitled</a><span>C | 1 hour ago</span></li><li><a href="/W7rXcH6K">algorithom4</a><span>C | 1 hour ago</span></li></ul></div></div>	<div id="abrpm2"></div>
+	
+			<div style="padding: 0; width:160px;margin: 10px 0;clear:left;text-align: center;">
+                <!-- /21892923737/pb_sidebar_120x600 -->
+                <div id="div-gpt-ad-1593095572267-0">
+                  <script>
+                    googletag.cmd.push(function() { googletag.display("div-gpt-ad-1593095572267-0"); });
+                  </script>
+                </div>
+			</div>
+			<div class="layout_clear"></div>
+<div id="steadfast" title="Pastebin is proudly hosted by Steadfast.net" onclick="location.href='http://steadfast.net/?utm_source=pastebin.com&amp;utm_medium=referral&amp;utm_content=hosting_by_banner&amp;utm_campaign=referral_20140118_x_x_pastebin_partner&amp;source=referral_20140118_x_x_pastebin_partner'"></div>
+	</div>
+	<div id="content_left"><div id="ie_msg"></div>
+					
+		
+	<div class="paste_box_frame">
+		<div class="tweet h_800">
+			<div onclick="facebookpopup('/fVdJDWrf'); return false;" id="b_facebook2" title="Share on Facebook!"><span id="b_facebook">SHARE</span></div>
+			<div onclick="twitpopup('/fVdJDWrf'); return false;" id="b_twitter2" title="Share on Twitter!"><span id="b_twitter">TWEET</span></div>
+		</div>
+		<div class="paste_box_icon">
+			<img src="/i/t.gif" class="i_gb" title="Anonymous guest user" alt="" />
+		</div>
+		<div class="paste_box_info">
+			<div class="paste_box_line1" title="burntbiskett beginpage"><h1>burntbiskett beginpage</h1></div>
+			<div class="paste_box_line2">
+				<img src="/i/t.gif" class="img_line t_us" alt="" style="margin-left:0"> a guest 
+				<img src="/i/t.gif" class="img_line t_da" alt=""> <span title="Sunday 28th of June 2020 01:40:22 PM CDT">Jun 28th, 2020</span>
+				<img src="/i/t.gif" class="img_line t_vi" alt="" title="Unique visits to this paste"> 1
+				<img src="/i/t.gif" class="img_line t_ex" alt="" title="When this paste gets automatically deleted"> Never
+			</div>
+		</div>
+	</div>
+	
+			<div class="banner_728" id="banner_728">
+			    <div id="gpt-passback">
+                    <script>
+                      googletag.cmd.push(function() { googletag.display("gpt-passback"); });
+                    </script>
+                </div>
+			</div>
+			<div class="layout_clear"></div>
+			<div class="content_text no_padding">
+				<div id="notice" style="margin: 0 0 10px 0">
+					<b>Not a member of Pastebin yet?</b> <a href="/signup"><b><u>Sign Up</u></b></a>, it unlocks many cool features!
+				</div>
+			</div>
+	<div id="code_frame2">
+		<div id="code_frame">
+			<div id="code_buttons">
+				<span class="go_right">
+					<a href="/raw/fVdJDWrf" class="buttonsm">raw</a><a href="/dl/fVdJDWrf" class="buttonsm">download</a><a href="/index/fVdJDWrf" class="buttonsm buttonhide">clone</a><a href="/embed/fVdJDWrf" class="buttonsm buttonhide">embed</a><a href="/report/fVdJDWrf" class="buttonsm">report</a><a href="/print/fVdJDWrf" class="buttonsm buttonhide">print</a>
+				</span>
+				<span class="h_640"><a href="/archive/css" class="buttonsm" style="margin:0">CSS</a></span> 0.67 KB
+			</div>
+			<div id="selectable">
+				<ol class="css"><li class="li1"><div class="de1">element<span class="re1">.style</span> <span class="br0">&#123;</span></div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1">body <span class="br0">&#123;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">background</span><span class="sy0">:</span> Blue<span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; <span class="coMULTI">/* background: #000065; */</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">color</span><span class="sy0">:</span> <span class="kw4">white</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">2em</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">font-family</span><span class="sy0">:</span> <span class="st0">&quot;Helvetica&quot;</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li2"><div class="de2">user agent stylesheet</div></li>
+<li class="li1"><div class="de1">body <span class="br0">&#123;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">display</span><span class="sy0">:</span> <span class="kw2">block</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">margin</span><span class="sy0">:</span> <span class="re3">8px</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li2"><div class="de2">h1<span class="sy0">,</span> h2<span class="sy0">,</span> h3<span class="sy0">,</span> <span class="kw2">table</span><span class="sy0">,</span> ul <span class="br0">&#123;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">font-family</span><span class="sy0">:</span> <span class="st0">&quot;Courier New&quot;</span><span class="sy0">,</span> <span class="st0">&quot;Courier&quot;</span><span class="sy0">,</span> <span class="kw2">monospace</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1">&nbsp;</div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1">h1 <span class="br0">&#123;</span></div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">18px</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1">&nbsp;</div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1">h2 <span class="br0">&#123;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">animation</span><span class="sy0">:</span> color-change <span class="re3">1s</span> <span class="kw2">infinite</span><span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">24px</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#FFFF00</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1">h3 <span class="br0">&#123;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">18px</span><span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; <span class="kw1">color</span><span class="sy0">:</span> <span class="re0">#FFFF00</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1">tbody<span class="sy0">,</span> td<span class="sy0">,</span> tr <span class="br0">&#123;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">color</span><span class="sy0">:</span> <span class="kw4">white</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li2"><div class="de2">a <span class="br0">&#123;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">color</span><span class="sy0">:</span> <span class="kw4">white</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">font-size</span><span class="sy0">:</span> <span class="re3">16px</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1"><span class="re2">@keyframes</span> color-change <span class="br0">&#123;</span></div></li>
+<li class="li2"><div class="de2">&nbsp; <span class="re3">0%</span> <span class="br0">&#123;</span> <span class="kw1">color</span><span class="sy0">:</span> <span class="kw4">white</span><span class="sy0">;</span> <span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; <span class="re3">50%</span> <span class="br0">&#123;</span> <span class="kw1">color</span><span class="sy0">:</span> <span class="kw4">blue</span><span class="sy0">;</span> <span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; <span class="re3">100%</span> <span class="br0">&#123;</span> <span class="kw1">color</span><span class="sy0">:</span> <span class="kw4">white</span><span class="sy0">;</span> <span class="br0">&#125;</span></div></li>
+<li class="li1"><div class="de1"><span class="br0">&#125;</span></div></li>
+</ol>
+			</div>
+		</div>
+	</div>
+	<div class="content_title no_border">RAW Paste Data<div id="bsa-footer"></div></div>
+	<div class="textarea_border" style="margin-bottom:0">
+		<textarea id="paste_code" class="paste_code" name="paste_code" onkeydown="return catchTab(this,event)">element.style {
+}
+body {
+    background: Blue;
+    /* background: #000065; */
+    color: white;
+    font-size: 2em;
+    font-family: "Helvetica";
+}
+user agent stylesheet
+body {
+    display: block;
+    margin: 8px;
+}
+h1, h2, h3, table, ul {
+    font-family: "Courier New", "Courier", monospace;
+
+}
+h1 {
+    font-size: 18px;
+
+}
+h2 {
+    animation: color-change 1s infinite;
+    font-size: 24px;
+    color: #FFFF00;
+}
+h3 {
+    font-size: 18px;
+    color: #FFFF00;
+}
+tbody, td, tr {
+    color: white;
+}
+a {
+    color: white;
+    font-size: 16px;
+}
+@keyframes color-change {
+  0% { color: white; }
+  50% { color: blue; }
+  100% { color: white; }
+}</textarea>
+	</div><div id="abrpm3"></div><div style="margin:10px 0 0 0;clear:left;text-align:center;">
+                <!-- /21892923737/pb_footer_728x90 -->
+                <div id="div-gpt-ad-1593095439111-0" style="width: 728px; height: 90px; margin:0 auto;">
+                  <script>
+                    googletag.cmd.push(function() { googletag.display("div-gpt-ad-1593095439111-0"); });
+                  </script>
+                </div>
+            </div>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$(".close1").click(function(){return $("#float-box-1").hide(),createCookie("l2c_1",!0,90),!1});
+		$(".cookie_button").click(function(){return $("#float-box-1").hide(),createCookie("l2c_1",!0,90),!1});		
+		$(".close2").click(function(){return $("#float-box-2").hide(),createCookie("l2c_2",!0,14),!1});
+		$(".close3").click(function(){return $("#float-box-3").hide(),createCookie("l2c_2",!0,14),!1});
+		$(".close4").click(function(){return $("#float-box-4").hide(),createCookie("l2c_4",!0,7),!1});
+	});	
+	</script>
+	<div id="float-box-frame">		
+		<div id="float-box-1">
+			We use cookies for various purposes including analytics. By continuing to use Pastebin, you agree to our use of cookies as described in the <a href="/doc_cookies_policy">Cookies Policy</a>. <span class="cookie_button">OK, I Understand</span>
+		</div></div>						</div>
+					</div>
+				</div>
+			</div>
+			<div id="mid_footer">
+				<a href="/tools#chrome" title="Google Chrome Extension"><img src="/i/t.gif" alt="" class="icon24 chrome" /></a>
+				<a href="/tools#firefox" title="Firefox Extension"><img src="/i/t.gif" alt="" class="icon24 firefox" /></a>
+				<a href="/tools#iphone" title="iPhone/iPad Application"><img src="/i/t.gif" alt="" class="icon24 iphone" /></a>
+				<a href="/tools#windows" title="Windows Desktop Application"><img src="/i/t.gif" alt="" class="icon24 windows" /></a>
+				<a href="/tools#android" title="Android Application"><img src="/i/t.gif" alt="" class="icon24 android" /></a>
+				<a href="/tools#macos" title="MacOS X Widget"><img src="/i/t.gif" alt="" class="icon24 macos" /></a>
+				<a href="/tools#opera" title="Opera Extension"><img src="/i/t.gif" alt="" class="icon24 opera" /></a>
+				<a href="/tools#pastebincl" title="Linux Application"><img src="/i/t.gif" alt="" class="icon24 unix" /></a>
+			</div> 
+		</div>
+		<div id="footer">
+			<div id="footer_links">
+				<a href="/">create new paste</a> &nbsp;/&nbsp; 
+				<a href="https://deals.pastebin.com">deals</a><sup style="color:red">new!</sup> &nbsp;/&nbsp; 
+				<a href="/languages">syntax languages</a> &nbsp;/&nbsp; 
+				<a href="/archive">archive</a> &nbsp;/&nbsp; 
+				<a href="/faq">faq</a> &nbsp;/&nbsp; 
+				<a href="/tools">tools</a> &nbsp;/&nbsp; 
+				<a href="/night_mode">night mode</a> &nbsp;/&nbsp;
+                <a href="/api">api</a>&nbsp;/&nbsp;
+                <a href="/doc_scraping_api">scraping api</a>
+
+				<br />
+				<a href="/doc_privacy_statement">privacy statement</a> &nbsp;/&nbsp; 
+				<a href="/doc_cookies_policy">cookies policy</a> &nbsp;/&nbsp; 
+				<a href="/doc_terms_of_service">terms of service</a> &nbsp;/&nbsp; 
+				<a href="/doc_security_disclosure">security disclosure</a> &nbsp;/&nbsp; 
+				<a href="/dmca">dmca</a> &nbsp;/&nbsp; 
+				<a href="/report_abuse">report abuse</a> &nbsp;/&nbsp;
+				<a href="/contact">contact</a>
+				<br /><br />
+				<span class="h_800">
+					By using Pastebin.com you agree to our <a href="/doc_cookies_policy">cookies policy</a> to enhance your experience.
+					<br />
+					Site design &amp; logo &copy; 2020 Pastebin; user contributions (pastes) licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="nofollow">cc by-sa 3.0</a>
+				</span>
+				<a href="http://steadfast.net/services/dedicated-servers.php?utm_source=pastebin.com&amp;utm_medium=referral&amp;utm_content=footer_link_dedicated_server_hosting_by&amp;utm_campaign=referral_20140118_x_x_pastebin_partner&amp;source=referral_20140118_x_x_pastebin_partner" rel="nofollow" target="_blank">Dedicated Server Hosting</a> by <a href="http://steadfast.net/?utm_source=pastebin.com&amp;utm_medium=referral&amp;utm_content=footer_link_steadfast&amp;utm_campaign=referral_20140118_x_x_pastebin_partner&amp;source=referral_20140118_x_x_pastebin_partner" rel="nofollow" target="_blank">Steadfast</a>
+			</div>
+			<div id="footer_right" class="h_1024">
+			
+				<a href="https://facebook.com/pastebin" rel="nofollow" title="Like us on Facebook" target="_blank"><img src="/i/t.gif" alt="" class="icon40 facebook_circle" /></a>
+				<a href="https://twitter.com/pastebin" rel="nofollow" title="Follow us on Twitter" target="_blank"><img src="/i/t.gif" alt="" class="icon40 twitter_circle" /></a>
+							</div>
+		</div>
+		<script type="text/javascript">
+			function isIE(){var e=navigator.userAgent.toLowerCase();return-1!=e.indexOf("msie")?parseInt(e.split("msie")[1]):!1}if(isIE()&&isIE()<10){var div=document.getElementById("ie_msg");div.innerHTML=div.innerHTML+'<div id="old_browser">Your browser is outdated and insecure! Pastebin does not offer support for your browser. <a href="http://outdatedbrowser.com/" target="_blank" rel="nofollow">Click here to update your browser</a>!</div>'}
+		</script>
+		<div class="pub_300x250"></div><a href="#0" class="cd-top">Top</a>
+
+
+
+	</body>
+</html>

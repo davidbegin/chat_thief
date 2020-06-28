@@ -2,6 +2,7 @@ from pathlib import Path
 import random
 
 import requests
+from tinydb import Query
 
 from chat_thief.models.user import User
 from chat_thief.models.user_code import UserCode
@@ -18,6 +19,19 @@ class UserCodeRouter(BaseRouter):
 
         if self.command == "js":
             return self.set_js()
+
+        if self.command == "approvejs" and self.user == "beginbotbot":
+            return self.approve_js()
+
+    def approve_js(self):
+        user_to_approve = self.parser.target_user
+
+        if user_to_approve:
+            result = UserCode.db().get(Query().user == user_to_approve)
+            UserCode.set_value_by_id(result.doc_id, "approved", True)
+            return f"@{user_to_approve}'s JS has been approved!"
+        else:
+            pass
 
     def set_js(self):
         custom_js = self.args[0]

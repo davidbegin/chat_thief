@@ -11,4 +11,10 @@ class TestUserCode(DatabaseConfig):
 
         UserCode(
             user="eno", code_link="https://gitlab.com/real_url/begin.js", code_type="js"
-        )
+        ).save()
+
+        last = UserCode.last()
+        assert last["approved"] == False
+
+        # Tier 2 and 3 Get more
+        # And they nerfed Tier 1
