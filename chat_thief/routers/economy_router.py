@@ -29,13 +29,6 @@ COMMANDS = {"give": {"aliases": ["transfer", "give"],}}
 
 class EconomyRouter(BaseRouter):
     def route(self):
-        # This is the default parser
-        # if a command wants to handle more
-        # custom parser, they just use their own parser
-        parser = CommandParser(
-            user=self.user, command=self.command, args=self.args
-        ).parse()
-
         if self.command == "insurance":
             return User(self.user).buy_insurance()
 
@@ -47,16 +40,16 @@ class EconomyRouter(BaseRouter):
             return self.me()
 
         if self.command in ["permissions", "permission", "perms", "perm"]:
-            return self.perms(parser)
+            return self.perms()
 
         if self.command == "donate":
-            return self.donate(parser)
+            return self.donate()
 
         if self.command in ["love", "like"]:
-            return self.love(parser)
+            return self.love()
 
         if self.command in ["dislike", "hate", "detract"]:
-            return self.hate(parser)
+            return self.hate()
 
         if self.command in [
             "props",
@@ -85,9 +78,9 @@ class EconomyRouter(BaseRouter):
         ]:
             return self.share()
 
-    def donate(self, parser):
-        if parser.target_user:
-            return Donator(self.user).donate(parser.target_user)
+    def donate(self):
+        if self.parser.target_user:
+            return Donator(self.user).donate(self.parser.target_user)
         else:
             return Donator(self.user).donate()
 
@@ -112,14 +105,18 @@ class EconomyRouter(BaseRouter):
         stats = User(self.user).stats()
         return f"{stats} | {BASE_URL}/{self.user}.html"
 
-    def perms(self, parser):
-        if len(self.args) > 0 and not parser.target_sfx and not parser.target_user:
+    def perms(self):
+        if (
+            len(self.args) > 0
+            and not self.parser.target_sfx
+            and not self.parser.target_user
+        ):
             raise ValueError(f"Could not find user or command: {' '.join(self.args)}")
 
         return PermissionsFetcher.fetch_permissions(
             user=self.user,
-            target_user=parser.target_user,
-            target_command=parser.target_sfx,
+            target_user=self.parser.target_user,
+            target_command=self.parser.target_sfx,
         )
 
     def buy(self):
@@ -160,21 +157,17 @@ class EconomyRouter(BaseRouter):
             return f"Error Sharing - Command: {parser.target_sfx} | User: {parser.target_user}"
 
     def steal(self):
-        parser = CommandParser(
-            user=self.user, command=self.command, args=self.args,
-        ).parse()
-
-        if parser.target_user and parser.target_sfx:
+        if self.parser.target_user and self.parser.target_sfx:
             result = Stealer(
                 thief=self.user,
-                victim=parser.target_user,
-                target_sfx=parser.target_sfx,
+                victim=self.parser.target_user,
+                target_sfx=self.parser.target_sfx,
             ).steal()
 
-            if User(parser.target_user).creator() == self.user:
-                return f"You cannot steal from your own bot @{self.user} @{parser.target_user}"
-            elif User(self.user).creator() == parser.target_user:
-                return f"You cannot steal from your creator @{self.user} @{parser.target_user}"
+            if User(self.parser.target_user).creator() == self.user:
+                return f"You cannot steal from your own bot @{self.user} @{self.parser.target_user}"
+            elif User(self.user).creator() == self.parser.target_user:
+                return f"You cannot steal from your creator @{self.user} @{self.parser.target_user}"
             else:
                 return StealFormatter(result).format()
         else:
@@ -214,12 +207,6 @@ class EconomyRouter(BaseRouter):
         ).give()
 
     def props(self):
-        # return GottaGiveProps(
-        #     user=self.user
-        #     command=self.command,
-        #     args=self.args,
-        # ).props()
-
         parser = CommandParser(
             user=self.user,
             command=self.command,
@@ -255,28 +242,28 @@ class EconomyRouter(BaseRouter):
             amount=parser.amount,
         ).transfer()
 
-    def love(self, parser):
-        if parser.target_sfx and not parser.target_user:
-            result = SFXVote(parser.target_sfx).support(self.user)
+    def love(self):
+        if self.parser.target_sfx and not self.parser.target_user:
+            result = SFXVote(self.parser.target_sfx).support(self.user)
             love_count = len(result["supporters"])
             hate_count = len(result["detractors"])
-            return f"!{parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
+            return f"!{self.parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
 
-        if parser.target_user and not parser.target_sfx:
-            if self.user == parser.target_user:
+        if self.parser.target_user and not self.parser.target_sfx:
+            if self.user == self.parser.target_user:
                 return f"You can love yourself in real life, but not in Beginworld @{self.user}"
             else:
-                User(self.user).set_ride_or_die(parser.target_user)
-                return f"@{self.user} Made @{parser.target_user} their Ride or Die"
+                User(self.user).set_ride_or_die(self.parser.target_user)
+                return f"@{self.user} Made @{self.parser.target_user} their Ride or Die"
         else:
             return None
 
-    def hate(self, parser):
-        if parser.target_sfx and not parser.target_user:
-            result = SFXVote(parser.target_sfx).detract(self.user)
+    def hate(self):
+        if self.parser.target_sfx and not self.parser.target_user:
+            result = SFXVote(self.parser.target_sfx).detract(self.user)
             love_count = len(result["supporters"])
             hate_count = len(result["detractors"])
-            return f"!{parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
+            return f"!{self.parser.target_sfx} supporters: {love_count} | detractors {hate_count}"
         else:
             return f"We are not sure who or what you trying to hate. Maybe try and focusing your hate better next time @{self.user}"
 

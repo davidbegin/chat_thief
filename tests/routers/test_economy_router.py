@@ -210,9 +210,7 @@ class TestEconomyRouter(DatabaseConfig):
         result = EconomyRouter(
             user,
             "css",
-            [
-                "https://gist.githubusercontent.com/davidbegin/efdbf338ecfcdc14fa9ed792c6056ed3/raw/d7bcdf2f3c9ae4b3e280646601061b0b4de3a2c8/beginfun.css"
-            ],
+            ["https://gist.githubusercontent.com/davidbegin/raw/beginfun.css"],
         ).route()
         assert "Thanks for the custom CSS @beginbotbot!" in result
 

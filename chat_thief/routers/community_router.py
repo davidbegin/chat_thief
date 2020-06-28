@@ -16,25 +16,18 @@ class CommunityRouter(BaseRouter):
     SUPPORT_REQUIREMENT = DEFAULT_SUPPORT_REQUIREMENT
 
     def top8(self):
-        parser = CommandParser(
-            user=self.user, command=self.command, args=self.args
-        ).parse()
-
         user = User(self.user)
 
-        if parser.target_user:
-            user.add_to_top_eight(parser.target_user)
-            return f"@{parser.target_user} is now in @{self.user}'s Top 8!"
+        if self.parser.target_user:
+            user.add_to_top_eight(self.parser.target_user)
+            return f"@{self.parser.target_user} is now in @{self.user}'s Top 8!"
         else:
             raise ValueError(f"We have no target user to add to Top 8 {self.args}")
 
     def hate8(self):
-        parser = CommandParser(
-            user=self.user, command=self.command, args=self.args
-        ).parse()
         user = User(self.user)
-        user.remove_from_top_eight(parser.target_user)
-        return f"@{parser.target_user} is no longer in @{self.user}'s Top 8"
+        user.remove_from_top_eight(self.parser.target_user)
+        return f"@{self.parser.target_user} is no longer in @{self.user}'s Top 8"
 
     def clear8(self):
         user = User(self.user)

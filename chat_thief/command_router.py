@@ -5,6 +5,7 @@ import os
 
 from chat_thief.config.commands_config import OBS_COMMANDS
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
+from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.config.log import error, success, warning
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.irc_msg import IrcMsg
@@ -62,9 +63,13 @@ class CommandRouter:
                 BreakingNews(" ".join(self.irc_msg.args), category="iasip").save()
                 return
 
+        parser = CommandParser(
+            user=self.user, command=self.command, args=self.args
+        ).parse()
+
         for Router in ROUTERS:
             try:
-                if result := Router(self.user, self.command, self.args).route():
+                if result := Router(self.user, self.command, self.args, parser).route():
 
                     # TODO: Sort out this Result Concept Better
                     if isinstance(result, Result):
