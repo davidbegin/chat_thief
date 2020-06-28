@@ -22,17 +22,18 @@ html, body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-body
-{
+body {
   padding-top: 20px;
+}
+body * {
+  box-sizing: border-box;
 }
 body > *
 {
-  box-sizing: border-box;
   max-width: 800px;
   width: 100%;
 }
-h1,h2,h3 {
+h1,h2,h3,span,figure {
   margin: 0;
   color: skyblue;
   font-family: FT40, Arial Black, serif;
@@ -52,6 +53,9 @@ h3 {
   font-size: 18px;
   padding-bottom: 2px;
 }
+span,figure {
+  font-size: 16px;
+}
 a {
   font-family: PS2P, monospace;
   cursor: pointer;
@@ -66,11 +70,34 @@ a:hover {
 h1 a {
   font-size: 32px;
 }
-ul {
-  padding: 20px 0 0 0;
+ul
+{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(100px, 300px));
+  justify-content: center;
+  padding: 20px 0 20px 0;
+  margin: 0;
 }
-ul a {
+li
+{
+  position: relative;
+  list-style-type: none;
+  height: 14px;
+  padding: 0 0 0 40px;
+}
+li a {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: block;
   padding: 0;
-  font-size: 18px;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1;
+  transition: all 0.1s ease-out;
 }
-
+li a:hover {
+  transform: scale(1.05);
+}

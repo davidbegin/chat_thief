@@ -4,6 +4,7 @@ import random
 import requests
 
 from chat_thief.models.user import User
+from chat_thief.models.user_code import UserCode
 from chat_thief.routers.base_router import BaseRouter
 
 
@@ -20,20 +21,23 @@ class UserCodeRouter(BaseRouter):
 
     def set_js(self):
         custom_js = self.args[0]
-        # We Might want to create Widgets
-        # User(self.user).set_value("custom_js", custom_js)
+
+        UserCode(user=self.user, code_link=custom_js, code_type="js").save()
 
         # Switch to NOT USE requests
         response = requests.get(custom_js)
-        # We need a JS Path
-        new_js_path = Path(__file__).parent.parent.joinpath(f"static/{self.user}.js")
+
+        new_js_dir = Path(__file__).parent.parent.joinpath(f"js/{self.user}")
+        new_js_dir.mkdir(exist_ok=True)
+        new_js_path = new_js_dir.joinpath(f"{self.user}.js")
         print(f"Saving Custom js for @{self.user} {new_js_path}")
+
         with open(new_js_path, "w") as f:
             f.write(response.text)
 
-        return f"Thanks for the custom JS @{self.user}! {BASE_URL}/{self.user}.html"
+        return f"Thanks for the custom JS @{self.user}!"
+        # return f"Thanks for the custom JS @{self.user}! {BASE_URL}/{self.user}.html"
 
-    # UserCode("user", "url", "lang")
     def set_css(self):
         custom_css = self.args[0]
         # We Might want to create Widgets

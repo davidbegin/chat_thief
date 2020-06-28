@@ -20,6 +20,7 @@ from chat_thief.models.rap_sheet import RapSheet
 from chat_thief.models.bot_vote import BotVote
 from chat_thief.models.tribal_council import TribalCouncil
 from chat_thief.models.css_vote import CSSVote
+from chat_thief.models.user_code import UserCode
 
 MODEL_CLASSES = [
     BreakingNews,
@@ -40,6 +41,7 @@ MODEL_CLASSES = [
     Vote,
     BotVote,
     TribalCouncil,
+    UserCode,
 ]
 
 

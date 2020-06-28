@@ -1,11 +1,13 @@
-# Welcome To BeginWorld™ !!!
+# Welcome To BeginWorld™
 
 What started as a simple idea for a chat-controlled soundboard, has evolved
 into an entire economy with multiple ways of participating.
 
 ## What Is Going On During Your Stream
 
-There are over [1300+ Soundeffects](https://github.com/davidbegin/twitch-soundboard) (added by users like you!), that area access
+There are over [1300+
+Soundeffects](https://github.com/davidbegin/twitch-soundboard) (added by users
+like you!), that area access
 through various commands, like:
 
 ```twitch chat
@@ -81,11 +83,17 @@ and made available for purchase on other pages.
 
 The restrictions are:
 
-- 25 Lines of Code (No minifier)
+- 25 Lines of Code (Not minifier)
 - Vanilla JS only!
 
 We will make a "Widget Shop" Available, give creators
 a chance to sell their Widgets.
+
+#### Why
+
+How can we simulate the smallest market for selling code.
+If you want to learn to code, its learning how to code
+and sell that code.
 
 ### Add Sounds to the Stream
 
