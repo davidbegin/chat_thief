@@ -22,9 +22,11 @@
   <ul>
     {% for widget in widgets %}
       <li>
-        <a href="{{ widget['code_link'] }}">
-          {{ widget['user'] }}
-        </a>
+          <a href="{{ base_url }}/{{ widget['user'] }}.html"> {{ widget['user']}}</a>
+
+          <a href="{{ widget['code_link'] }}">
+            CODE
+          </a>
       </li>
     {% endfor %}
   </ul>

@@ -79,7 +79,7 @@ class UserCode(BaseDbModel):
         )
 
         def is_owner(user_code):
-            return user in user_code.get("owners", [])
+            return user_code["approved"] and user in user_code.get("owners", [])
 
         results = cls.db().search(is_owner)
         return [f"{result['name']}.js" for result in (results + directly_owned)]

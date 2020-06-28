@@ -13,14 +13,15 @@ class TestUserCode(DatabaseConfig):
             user="eno",
             code_link="https://gitlab.com/real_url/beginwidget.js",
             code_type="js",
+            approved=True,
         ).save()
 
         last = UserCode.last()
-        assert last["approved"] == False
+        assert last["approved"] == True
         assert last["name"] == "beginwidget"
         assert last["owners"] == []
 
-        assert UserCode.owned_by("eno") == []
+        assert UserCode.owned_by("eno") == ["beginwidget.js"]
 
         assert UserCode.find_owners("beginwidget") == [
             "eno",
@@ -43,3 +44,13 @@ class TestUserCode(DatabaseConfig):
         assert UserCode.owned_by("eno") == []
         UserCode.approve("eno")
         assert UserCode.owned_by("eno") == ["eno.js"]
+
+    def test_owned_by(self):
+        UserCode(
+            user="eno",
+            code_link="https://gitlab.com/real_url/raw/bubbles.js",
+            code_type="js",
+            approved=True,
+        ).save()
+
+        assert UserCode.owned_by("eno") == ["bubbles.js"]
