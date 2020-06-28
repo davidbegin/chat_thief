@@ -8,6 +8,7 @@ rm -rf $NEW_BUILD_FOLDER
 # Is -p POSIX compliant?
 mkdir -p $NEW_BEGINWORLD
 mkdir -p $NEW_BEGINWORLD/styles
+mkdir -p $NEW_BEGINWORLD/js
 mkdir -p $NEW_BEGINWORLD/commands
 
 while read -r HTML_FILE; do

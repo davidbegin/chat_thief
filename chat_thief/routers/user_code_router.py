@@ -25,25 +25,30 @@ class UserCodeRouter(BaseRouter):
 
     def approve_js(self):
         user_to_approve = self.parser.target_user
-
         if user_to_approve:
             result = UserCode.db().get(Query().user == user_to_approve)
             UserCode.set_value_by_id(result.doc_id, "approved", True)
-            return f"@{user_to_approve}'s JS has been approved!"
-        else:
-            pass
+            return f"@{result['user']}'s {result['name']}.js has been approved!"
+
+        potential_widget = self.args[0]
+        result = UserCode.db().get(Query().name == potential_widget)
+        if result:
+            UserCode.set_value_by_id(result.doc_id, "approved", True)
+            return f"@{result['user']}'s {result['name']}.js has been approved!"
+
+        return f"Could Not Find User Code to Approve {self.args}"
 
     def set_js(self):
         custom_js = self.args[0]
 
-        UserCode(user=self.user, code_link=custom_js, code_type="js").save()
+        user_code = UserCode(user=self.user, code_link=custom_js, code_type="js").save()
 
         # Switch to NOT USE requests
         response = requests.get(custom_js)
 
-        new_js_dir = Path(__file__).parent.parent.joinpath(f"js/{self.user}")
+        new_js_dir = Path(__file__).parent.parent.joinpath(f"js")
         new_js_dir.mkdir(exist_ok=True)
-        new_js_path = new_js_dir.joinpath(f"{self.user}.js")
+        new_js_path = new_js_dir.joinpath(f"{user_code._name}.js")
         print(f"Saving Custom js for @{self.user} {new_js_path}")
 
         with open(new_js_path, "w") as f:

@@ -10,11 +10,20 @@ class TestUserCode(DatabaseConfig):
         assert UserCode.count() == 0
 
         UserCode(
-            user="eno", code_link="https://gitlab.com/real_url/begin.js", code_type="js"
+            user="eno",
+            code_link="https://gitlab.com/real_url/beginwidget.js",
+            code_type="js",
         ).save()
 
         last = UserCode.last()
         assert last["approved"] == False
+        assert last["name"] == "beginwidget"
+        assert last["owners"] == []
 
-        # Tier 2 and 3 Get more
-        # And they nerfed Tier 1
+        assert UserCode.owned_by("eno") == ["beginwidget.js"]
+        assert UserCode.find_owners("beginwidget") == [
+            "eno",
+        ]
+
+        result = UserCode.purchase("begin", "beginwidget")
+        assert UserCode.find_owners("beginwidget") == ["eno", "begin"]

@@ -52,6 +52,14 @@ def setup_build_dir():
     )
     copytree(css_source, css_dest)
 
+    # Move JS Files
+    js_source = Path(__file__).parent.parent.joinpath("js")
+
+    js_dest = Path(__file__).parent.parent.parent.joinpath(
+        "build/beginworld_finance/js"
+    )
+    copytree(js_source, js_dest)
+
     success("Finished Setting Up Build Dir")
 
 
@@ -190,6 +198,7 @@ async def generate_user_page(user_dict, all_commands):
         "stats": stats,
         "top8": top8,
         "base_url": DEPLOY_URL,
+        "widgets": user_dict.get("widgets", []),
     }
 
     await _render_and_save_html("user.html", context, f"{name}.html")

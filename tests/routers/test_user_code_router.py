@@ -36,7 +36,7 @@ class TestUserCodeRouter(DatabaseConfig):
         assert "Thanks for the custom JS @beginbotbot!" in result
 
         js_filepath = Path(__file__).parent.parent.parent.joinpath(
-            "chat_thief/js/beginbotbot/beginbotbot.js"
+            "chat_thief/js/beginfun.js"
         )
         assert js_filepath.exists()
         user_code = UserCode.last()
@@ -53,5 +53,5 @@ class TestUserCodeRouter(DatabaseConfig):
             code_link="https://gist.githubusercontent.com/davidbegin/raw/beginfun.js",
             code_type="js",
         ).save()
-        result = UserCodeRouter("beginbotbot", "approvejs", ["beginbotbot"]).route()
-        assert "@beginbotbot's JS has been approved!" in result
+        result = UserCodeRouter("beginbotbot", "approvejs", ["beginfun"]).route()
+        assert "@beginbotbot's beginfun.js has been approved!" in result

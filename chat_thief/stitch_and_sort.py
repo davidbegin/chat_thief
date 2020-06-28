@@ -1,6 +1,7 @@
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
+from chat_thief.models.user_code import UserCode
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 
 
@@ -9,6 +10,7 @@ class StitchAndSort:
         self._all_votes = SFXVote.db().all()
         self._all_users = User.db().all()
         self._all_cmds = Command.db().all()
+        # self._user_code = UserCode.db().all()
         self._all_sfxs = SoundeffectsLibrary.fetch_soundeffect_samples()
         self.command_users = self._setup_command_users()
 
@@ -22,6 +24,10 @@ class StitchAndSort:
 
         # Iterate through each user
         for user_dict in self._all_users:
+
+            # Looking for Owned Widgets
+
+            user_dict["widgets"] = UserCode.owned_by(user_dict["name"])
 
             # Looking for Matching Soundeffects
             matching_effects = [
