@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 from tinydb import Query
 
@@ -52,7 +53,8 @@ class UserCode(BaseDbModel):
 
     @classmethod
     def purchase(cls, purchaser, widget_name):
-        user_code = cls.db().get(Query().name == widget_name)
+
+        user_code = cls.db().get(Query().name.matches(widget_name, flags=re.IGNORECASE))
         if user_code:
             owners = user_code.get("owners", [])
 
@@ -69,8 +71,9 @@ class UserCode(BaseDbModel):
 
     @classmethod
     def find_owners(cls, widget_name):
-        user_code = cls.db().get(Query().name == widget_name)
-        return [user_code["user"]] + user_code["owners"]
+        user_code = cls.db().get(Query().name.matches(widget_name, flags=re.IGNORECASE))
+        if user_code:
+            return [user_code["user"]] + user_code["owners"]
 
     @classmethod
     def owned_by(cls, user):

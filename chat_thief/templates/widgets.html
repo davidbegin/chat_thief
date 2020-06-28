@@ -21,17 +21,24 @@
 
     {% for widget in widgets %}
 
-      <a href="{{ base_url }}/{{ widget['user'] }}.html"> {{ widget['user']}}</a>
+      <a href="{{ base_url }}/{{ widget['user'] }}.html"> {{ widget['user' ]}} - {{ widget['name']}}</a>
       |
-      <a href="{{ widget['code_link'] }}"> CODE </a>
+      <a href="{{ base_url }}/js/{{ widget['name']}}.js"> CODE </a>
+      Approved: {{ widget['approved'] }}
 
       <h4>Owners:</h4>
 
+      <ul>
       {% for owner in widget['owners'] %}
+        <li>
           <a href="{{ base_url }}/{{ owner }}.html">{{ owner }}</a>
+        </li>
       {% endfor %}
+      </ul>
 
-        <hr />
+      <br />
+      <hr />
+      <br />
 
     {% endfor %}
 

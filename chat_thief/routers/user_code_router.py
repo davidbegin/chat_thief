@@ -37,6 +37,7 @@ class UserCodeRouter(BaseRouter):
     def approve_js(self):
         user_to_approve = self.parser.target_user
         potential_widget = self.args[0]
+        print(f"Attempting to Approve Potential Widget: {potential_widget}")
         return UserCode.approve(user_to_approve, potential_widget)
 
     def set_js(self):
@@ -45,7 +46,6 @@ class UserCodeRouter(BaseRouter):
         user_code = UserCode(
             user=self.user, code_link=custom_js, code_type="js"
         ).update_or_create()
-        # user_code = UserCode(user=self.user, code_link=custom_js, code_type="js").save()
 
         # Switch to NOT USE requests
         response = requests.get(custom_js)
