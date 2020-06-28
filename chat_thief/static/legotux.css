@@ -1,85 +1,6 @@
 @charset "UTF-8";
 
-@font-face {
-  font-family: 'Minecraft';
-  src: url('https://blue.tinyisp.net/legotux/fonts/mcfont.eot');
-  src: url('https://blue.tinyisp.net/legotux/fonts/mcfont.eot?#iefix') format('embedded-opentype'),
- 		 url(data:font/ttf;base64,"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
-+0ApBP2/gZWBpQHI5WBgAokCACeMCiAAeJxjYGRgYGn438DAwArEQJKBgZEBFeQCAEqNAv0AAAB4
-nGMsY1BiAALGUCBmgGAmIGZGw2DxBgSGiSHTxGJGJPOYkWjmBsJ6sbmNHMyExTxGHPYzIYkzIonh
-Uk+MW8H6YWY3oJjbgBwWrDB5KAapZ2AAAEsnDIQAAAAAKgAqACoAKgA8AFAAgACuAOABIAEuAVIB
-dgGaAbIBvgHKAdYB+AIoAj4CbAKgAsQC6gMSAzADZgOSA6YDugPoA/wEKARUBHoElgS8BOAE+gUQ
-BSQFRgVeBXIFigW4BcYF6gYOBi4GSgZ2BpgGxAbWBvAHGAc8B3YHmgfCB9QH/AgOCDAIPAhOCG4I
-kgi2CNgI+AkUCTgJWAlqCYoJtAnGCeoKAAogCkYKagqKCqwKyAreCwILHAtUC3QLlAu6C84L9AwS
-DCQMWAxqDJIM3g0WDVQNoA2yDcQN4g4AAAB4nGNgZGBgyGMwYOBhAAEmBgTQAxEAEqUA3AAAeJyN
-lF1vG0UUht+1naTORyVaoEh86AgQKlW76yRVoBE3qaWUSFSK4qpXlcrsZu3d2t51d8fduFeICy76
-ZxASN4hfwC1I/AvuuYN3Zqeu46aCjOJ9ds7MOe85c2YBiPcDPNR/7+NLxx7aSBw3sIbvHTfxNn52
-3MJb+MvxCja8a45X0fa+cLyGr7xfHV/CO41PHbex2XjgeB2fNX50vIFrzVXHm+g0v3O8heutpuPL
-8FsvHF/F5ytbVOW12nzbswoNe7iCB44b3FE4buI6Xjhu4WP85ngF7+Ifx6u44n3ieA1n3oHjS7jh
-/e24jfca+47X8U1DOd6A3/jT8Sa+bX7keAvHzZ8cX8aj1k3HV3HS+gVd5JhgRpUpBqy7huAYFTIo
-vsd4jLsYcU2EIS076GCbA918MivSQaLluMrUIH58d5RHQ9npbNN4n74y7o3oVaFPn7ifZnFUqD7x
-hJYBpvSqaMdJPJiOFOGQUTKu7fG/oD2yWi7wdZhnuqeLaaRlwe3rC2U51Hy1zIM+5IoCJfea4MLU
-fKaIh3FRpnkm237nv9K5WHZKn8LVYmcVTrl/bFWYMub0ItzZw5F9vvSQ2MMQzpp3o8wcg3bqFPMQ
-3KOfEF+fK0NaihJdqNN4rIqh5H057B2JXZDkEznKdFxkSjMjNZJ745C7zUlrBttHwNF3EsqFJHz+
-5gyGROvJfhD06a608fwo5/SbugSLHQH54PX6yYfMoyKbGoUMl3KztnMpn8m5mrwStA78Pi/8H1Kp
-UsJpOtJSpTqRV+VYX86ussNfyLIu9HKGVVX5NksWrc7x/1fpYmt9cCWtdcyKdBu7vEd3+MXYe0Nt
-F155ZGVAPVVwe3fnzh53dOk8dl3xjCT2Co856lCCAyvaXGhTWz3vbdNfyu42a0acH5LRLWK2xrNY
-uvl4zHByoHWRhlMTW3qJKmI5GKXDeLka0ZKQ6JwMn8+CvRHYQBHtZja2tQj5vblFUuRde+GCeSUi
-pyaqxfh5MQhGaRRnZVwG4exWqYJdvxOYe/cy/9B+ugRPma2yLWj6zcw8p31C2TN7xwVPKKrutDHn
-6h48sx5i3lAcmiqE6UCeTlU0TLOBPI8nyawo5UnONhvP2HNnEsan+BdnXVTlAAB4nG3PRU5DAQAA
-0UeRQnEp7sWhSHF3lxaKFk9YcxQSNqyRKyDX4ydsmWTWkxHyx4NR//EYmCUkW45cecLyFYgoVKRY
-iVJlylWoVCWqWo1adeo1aNSkWYtWbdrFdOjUpVuPXn36DYgbNGTYiERQHzNuwqQp02bMmjNvwaIl
-y1asWrNuw6Yt23bs2rPvQFLKoSNpx06cOnPuQsalK9du3Lpz78OLJ++eg59Xb779+PT1C70YGxg=") format('wott'),
-       url('https://blue.tinyisp.net/legotux/fonts/mcfont.ttf')  format('truetype'),
-       url('https://blue.tinyisp.net/legotux/fonts/mcfont.svg#svgFontName') format('svg');
-}
+@import url(https://fonts.googleapis.com/css2?family=VT323&display=swap);
 
 *, ::before, ::after {
 	box-sizing: border-box;	margin: 0; padding: 0;
@@ -90,7 +11,7 @@ body {
 	width: 50%;
 	border: 0px solid green;
 	padding: 10px;
-	font-name: "Minecraft";
+	font-name: "VT323";
 	height: 100vh;
 	@include flex-center-hv;
 	flex-direction: column;
@@ -110,7 +31,8 @@ h1 {
 	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
 	background-repeat: repeat;
 	padding: 0;
-	font-family: Minecraft;
+	font-family: VT323;
+	font-size: 46pt;
 	text-align: center;
 	color: white;
 	text-shadow: 3px 3px #4C4C4C;
@@ -130,7 +52,8 @@ h2{
 	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
 	background-repeat: repeat;
 	padding: 10px;
-	font-family: Minecraft;
+	font-family: VT323;
+	font-size: 32pt;
 	text-align: left;
 	color: white;
 	text-shadow: 3px 3px #4C4C4C;
@@ -151,8 +74,8 @@ h3 {
 	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
 	background-repeat: repeat;
 	padding: 0;
-	font-family: Minecraft;
-	font: 13pt 'Minecraft', Helvetica;
+	font-family: VT323;
+	font: 16pt 'VT323', Helvetica;
 	text-align: center;
 	color: white;
 	text-shadow: 3px 3px #4C4C4C;
@@ -173,8 +96,8 @@ td {
 	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
 	background-repeat: repeat;
 	padding: 0;
-	font-family: Minecraft;
-	font: 13pt 'Minecraft', Helvetica;
+	font-family: VT323;
+	font: 20pt 'VT323', Helvetica;
 	text-align: center;
 	color: white;
 	text-shadow: 3px 3px #4C4C4C;
@@ -195,15 +118,22 @@ td:hover {
 }
 
 figure {
-	top: -395px;
-	position: relative;
-	left: -10px; 
-	float:right;
+	position: absolute;
+	background-size: 100%;
+	width: 540px;
+	color: transparent;
+	top: 64px;
+	right: 20px; 
+	height: 75px;
+	max-height: 85px;
+	margin: 0 auto; 
+
 }
 figcaption {
 	visibility: hidden; 
 	display: none;
 }
+/*
 audio
 {
 	-webkit-transition:all 0.5s linear;
@@ -226,6 +156,56 @@ audio:hover, audio:focus, audio:active
 	-moz-transform: scale(1.05);
 	transform: scale(1.05);
 }
+*/
+
+audio{
+    opacity: 1;
+    width: 100.7%;
+    height: 100%;
+}
+
+ audio::-webkit-media-controls-enclosure{
+    background:transparent;
+    border-radius:0px
+}
+
+audio::-webkit-media-controls-panel {
+     background-color:#565656;
+ } 
+audio::-webkit-media-controls-play-button:hover{
+    background-size:100%;
+ }
+  
+ audio::-webkit-media-controls-play-button{
+    background-color:transparent;
+    background-image:url('https://i.imgur.com/qhgVKHB.png');
+    background-size:100%;
+    display:block;
+ }
+
+ 
+ audio::-webkit-media-controls-current-time-display{
+     color: #0000FF;
+     left:175px;
+     width:7%;
+     top:53px;
+     display:block;
+    font: 20pt 'VT323', Helvetica, monospace !important;
+ }
+ 
+audio::-webkit-media-controls-time-remaining-display{
+   font: 20pt 'VT323', Helvetica, monospace !important;
+   color: #0000FF;
+ }
+ 
+ audio::-webkit-media-controls-timeline{
+    color: #0000FF;
+    display:block;
+ }
+
+ audio::-webkit-media-controls-mute-button {
+    background:transparent;
+}
 
 ul{
 	columns: 2;
@@ -237,28 +217,52 @@ ul{
 	display: inline-block;
 	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
 	background-repeat: repeat;
-	padding: 0;
-	font-family: Minecraft;
+	
 	text-align: left;
 	color: white;
-	text-shadow: 3px 3px #4C4C4C;
+	/* text-shadow: 3px 3px #4C4C4C; */
 	border-bottom: 4px solid #565656;
 	border-right: 2px solid #565656;
 	border-left: 2px solid #AAA;
 	border-top: 2px solid #AAA;
 	box-sizing: border-box;
 	font-size: arduino relay;
-	font: 12pt 'Minecraft', Helvetica;
 	list-style-type: none;
+	font-family: VT323;
+	
 }
 
+ul li {
+    content: '';
+    display: inline-block;
+    height: 25px;
+    width: 400px;
+    background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/0/0e/Music_Disc_Ward_JE1_BE1.png/150px-Music_Disc_Ward_JE1_BE1.png?version=8caf753742cbe6f1c1c9147b3a95b972');
+    background-size: contain;
+    background-repeat: no-repeat;
+    /*margin-left: -35px;*/
+    padding-left: 30px;
+	 font: 20pt 'VT323', Helvetica, monospace !important;
+}
+
+/*li {
+	padding: 4px;
+	font: 20pt 'VT323', Helvetica, monospace !important;
+	list-style-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/0/0e/Music_Disc_Ward_JE1_BE1.png/150px-Music_Disc_Ward_JE1_BE1.png?version=8caf753742cbe6f1c1c9147b3a95b972');
+}*/
+
+
 li:hover {
+	height: 30px;
 	border-bottom: 4px solid #59639A;
 	border-right: 2px solid #59639A;
 	border-left: 2px solid #BDC6FF;
 	border-top: 2px solid #BDC6FF;
-	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_active_center.png');
+	/*background-image: url('https://blue.tinyisp.net/legotux/imgs/button_active_center.png'); 
+	background-repeat: repeat;*/
+	background-color: #7e88bf;
 	color: #FFFFA0;
+	padding-left: 30px;
 }
 
 figure ~ span {

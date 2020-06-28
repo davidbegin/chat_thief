@@ -1,31 +1,66 @@
-# Welcome To BeginWorld
+# Welcome To BeginWorld™ !!!
 
-What started as a simple idea for a chat-controlled soundboard has evolved
+What started as a simple idea for a chat-controlled soundboard, has evolved
 into an entire economy with multiple ways of participating.
 
 ## What Is Going On During Your Stream
 
-There are over 1300+ Soundeffects (added by users like you!), that area access
-through various commands, like: `!clap` or `!wow`.
+There are over [1300+ Soundeffects](https://github.com/davidbegin/twitch-soundboard) (added by users like you!), that area access
+through various commands, like:
 
-You can, earn, trade, steal, and gamble these sounds.
+```twitch chat
+!me
+!clap
+!wow
+```
+
+You can, earn, trade, steal, and gamble with these sounds.
 
 As you chat and participate in the stream you get access to more sounds by
-either the friends you make in chat or strategic bets and investments.
+either the friends you make in chat, strategic bets and/or investments.
 
 ## Other Ways to Participate
 
+We like to talk to about code on stream, and also want to encourage you to code
+as well! If you are looking to learn about code, and join a community, we have
+multiple ways you can influence and participate in the Stream.
+
+This entire system was largely influeced by Users partipating themselves.
+
 ### Write CSS
 
-type `!me` in the chat to see your page [Example Page](https://mygeoangelfirespace.city/zanuss.html)
+Type in the Chat:
 
-You can style your page with `!css URL_TO_RAW_CSS`
+```twitch chat
+!me
+```
+
+To see your page [Example Page](https://mygeoangelfirespace.city/zanuss.html)
+
+You can style your page with:
+
+```twitch chat
+!css URL_TO_RAW_CSS
+```
 
 [Pastebin](https://pastebin.com/) or [Gitlab
 Snippets](https://gitlab.com/snippets/new) work great!
 
 **Note:** Make sure to link to the raw CSS. Typically the link will have "raw"
 in it.
+
+On the [Homepage](https://mygeoangelfirespace.city/) you will see a Homepage CSS
+Leaderboard, which lists the most popular user pages.
+
+You can vote for your favorite page with:
+
+```twitch chat
+!bestcss @user
+```
+
+The User with the most votes, controls the styling of the homepage and all
+shared pages. There is a list of all Users who have styled thier pages under "Stylish Users"
+on the [Homepage](https://mygeoangelfirespace.city/)
 
 ### Write a Chat Bot
 
@@ -164,26 +199,6 @@ Show the Streamlords
 
 ---
 
-## Bots in Action
-
-```bash
-# Main Bot collect and responding to chat commands
-python bot.py
-
-# Bot that will read out soundeffect requests from a file
-# And try to make them available
-python soundeffect_request_bot.py
-
-# Bot that will read out soundeffects from a file and play them
-python soundboard_bot.py
-
-# Bot that runs and give active chatters Street Cred on a regular basis
-python street_cred_bot.py
-
-# For testing
-python fake_bot.py -m "\!clap" -u beginbotbot
-```
-
-## Exposing User Data
+## Website
 
 <https://mygeoangelfirespace.city/>
