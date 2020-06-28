@@ -1,6 +1,7 @@
 from tinydb import Query
 
 from chat_thief.models.command import Command
+from chat_thief.models.user import User
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 
 
@@ -46,3 +47,17 @@ class DataScrubber:
                     command.unallow_user(user)
                 to_delete.append(cmd.doc_id)
         Command.delete(to_delete)
+
+    @staticmethod
+    def purge_duplicate_users():
+        found_users = []
+        to_delete = []
+
+        for user in User.db().all():
+            if user["name"] not in found_users:
+                found_users.append(user["name"])
+            else:
+                print(f"TO DELETE: {user['name']}")
+                to_delete.append(user.doc_id)
+
+        print(f"IDS TO DELETE: {to_delete}")

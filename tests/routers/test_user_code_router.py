@@ -12,9 +12,7 @@ from tests.support.database_setup import DatabaseConfig
 class TestUserCodeRouter(DatabaseConfig):
     def test_submit_custom_css(self):
         user = "beginbotbot"
-        User(user).update_cool_points(10)
-        command = Command("damn")
-        command.allow_user(user)
+        Command("damn").allow_user(user)
         result = UserCodeRouter(
             user,
             "css",
@@ -26,3 +24,19 @@ class TestUserCodeRouter(DatabaseConfig):
             "build/beginworld_finance/styles/beginbotbot.css"
         )
         assert css_filepath.exists()
+
+    @pytest.mark.skip
+    def test_submit_custom_js(self):
+        user = "beginbotbot"
+        Command("damn").allow_user(user)
+        result = UserCodeRouter(
+            user,
+            "js",
+            ["https://gist.githubusercontent.com/davidbegin/raw/beginfun.js"],
+        ).route()
+        assert "Thanks for the custom JS @beginbotbot!" in result
+
+        js_filepath = Path(__file__).parent.parent.parent.joinpath(
+            "build/beginworld_finance/styles/beginbotbot.js"
+        )
+        assert js_filepath.exists()

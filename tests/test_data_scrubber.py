@@ -33,3 +33,7 @@ class TestDataScrubber(DatabaseConfig):
         DataScrubber.purge_duplicates()
         assert Command.count() == 1
         assert uzi.commands() == ["clap"]
+
+    def test_purge_duplicate_users(self):
+        uzi = User("uzi").save()
+        uzi = User("uzi").save()

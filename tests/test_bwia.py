@@ -14,6 +14,8 @@ import chat_thief.bots.hand_of_the_market
 import chat_thief.bots.new_news_bot
 import chat_thief.bots.soundboard_bot
 import chat_thief.bots.soundeffect_request_bot
+import chat_thief.mygeoangelfirespace.syncer
+import chat_thief.mygeoangelfirespace.publisher
 
 
 class TestBWIA(DatabaseConfig):

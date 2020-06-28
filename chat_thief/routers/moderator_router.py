@@ -51,9 +51,10 @@ class ModeratorRouter(BaseRouter):
     def _do_over(self):
         print("WE ARE GOING FOR IT!")
 
-        for user in User.all():
-            User(user).bankrupt()
+        for user_name in [user["name"] for user in User.all()]:
+            User(user_name).bankrupt()
 
+        DataScrubber.purge_duplicate_users()
         DataScrubber.purge_theme_songs()
         DataScrubber.purge_duplicates()
 

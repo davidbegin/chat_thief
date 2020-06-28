@@ -13,11 +13,30 @@ BASE_URL = "https://mygeoangelfirespace.city"
 class UserCodeRouter(BaseRouter):
     def route(self):
         if self.command == "css":
-            # if self.user in STREAM_LORDS:
             return self.set_css()
 
+        if self.command == "js":
+            return self.set_js()
+
+    def set_js(self):
+        custom_js = self.args[0]
+        # We Might want to create Widgets
+        # User(self.user).set_value("custom_js", custom_js)
+
+        # Switch to NOT USE requests
+        response = requests.get(custom_js)
+        # We need a JS Path
+        new_js_path = Path(__file__).parent.parent.joinpath(f"static/{self.user}.js")
+        print(f"Saving Custom js for @{self.user} {new_js_path}")
+        with open(new_js_path, "w") as f:
+            f.write(response.text)
+
+        return f"Thanks for the custom JS @{self.user}! {BASE_URL}/{self.user}.html"
+
+    # UserCode("user", "url", "lang")
     def set_css(self):
         custom_css = self.args[0]
+        # We Might want to create Widgets
         User(self.user).set_value("custom_css", custom_css)
 
         # Switch to NOT USE requests

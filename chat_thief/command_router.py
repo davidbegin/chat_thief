@@ -22,7 +22,6 @@ BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot"]
 
 ROUTERS = [
     EconomyRouter,
-
     BasicInfoRouter,
     BeginworldHelpRouter,
     BotSurvivorRouter,
