@@ -16,6 +16,7 @@ from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.config.log import success, warning, error
 from chat_thief.models.css_vote import CSSVote
+from chat_thief.models.user_code import UserCode
 
 from chat_thief.stitch_and_sort import StitchAndSort
 from chat_thief.stats_department import StatsDepartment
@@ -73,6 +74,17 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     with open(rendered_template_path.joinpath(html_file), "w") as f:
         f.write(rendered_template)
     success(f"Finished Writing Template: {file_name}")
+
+
+async def generate_widgets_page(winner):
+    widgets = UserCode.all()
+
+    context = {
+        "base_url": DEPLOY_URL,
+        "widgets": widgets,
+        "winner": winner,
+    }
+    await _render_and_save_html("widgets.html", context, "widgets.html")
 
 
 async def generate_bots_page(winner):
@@ -207,6 +219,7 @@ async def main():
     tasks = (
         [generate_home(all_data, stylish_users, homepage_candidates, winner)]
         + [generate_bots_page(winner)]
+        + [generate_widgets_page(winner)]
         + [generate_stats_page(stats, winner)]
         + [
             generate_user_page(user_dict, all_commands)

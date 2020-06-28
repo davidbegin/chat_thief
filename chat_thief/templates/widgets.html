@@ -1,0 +1,34 @@
+<!doctype html> <title>Beginland</title>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/{{ winner }}.css">
+    <meta charset="utf-8" http-equiv="refresh" content="{{ refresh_time }}">
+</head>
+
+<body class="js_widgets">
+  <h1><a href="{{ base_url }}">BeginWorld Finance</a></h1>
+
+  <span class="tip">
+    Submit Your own 25-line, Vanilla JS only with:
+
+    <code>
+      !js LINK_TO_RAW_JS
+    </code>
+  </span>
+
+  <h2>Available Widgets</h2>
+
+  <ul>
+    {% for widget in widgets %}
+      <li>
+        <a href="{{ widget['code_link'] }}">
+          {{ widget['user'] }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+</body>
+
+</html>
