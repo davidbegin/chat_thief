@@ -20,15 +20,16 @@ from chat_thief.new_commands.result import Result
 BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot"]
 
 ROUTERS = [
-    ModeratorRouter,
     BasicInfoRouter,
+    BeginworldHelpRouter,
     BotSurvivorRouter,
+    CommunityRouter,
+    EconomyRouter,
     FeedbackRouter,
+    ModeratorRouter,
     NewCubeCasinoRouter,
     RevolutionRouter,
-    EconomyRouter,
-    BeginworldHelpRouter,
-    CommunityRouter,
+    UserCodeRouter,
     VotingBoothRouter,
 ]
 

@@ -166,3 +166,10 @@ class TestCommandRouter(DatabaseConfig):
         result = CommandRouter(irc_response, logger).build_response()
         BotVote.count() == 1
         assert result == "Thank you for your vote @uzi"
+
+    def test_submitting_js(self, irc_msg):
+        user = User("uzi")
+        user.save()
+        irc_response = irc_msg("uzi", "!js https://gitlab.com/snippets/1990806/raw")
+        result = CommandRouter(irc_response, logger).build_response()
+        # assert result == "Thank you for submiting your JS @uzi"
