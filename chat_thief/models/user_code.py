@@ -58,6 +58,7 @@ class UserCode(BaseDbModel):
         if purchaser not in owners:
             owners.append(purchaser)
             cls.set_value_by_id(user_code.doc_id, "owners", owners)
+            return f"@{purchaser} bought {widget_name}.js from @{user_code['user']}!"
         else:
             return f"@{cls.purchaser} already owners {widget_name}!"
 

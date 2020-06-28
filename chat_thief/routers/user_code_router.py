@@ -23,6 +23,17 @@ class UserCodeRouter(BaseRouter):
         if self.command == "approvejs" and self.user == "beginbotbot":
             return self.approve_js()
 
+        if self.command == "buyjs":
+            return self.buy_js()
+
+    # What does JS COST?
+    # Should we let developers decide???
+    # For Now its free, and theres a Widget Leaderboard
+    def buy_js(self):
+        # user_to_approve = self.parser.target_user
+        potential_widget = self.args[0]
+        return UserCode.purchase(self.user, potential_widget)
+
     def approve_js(self):
         user_to_approve = self.parser.target_user
         potential_widget = self.args[0]

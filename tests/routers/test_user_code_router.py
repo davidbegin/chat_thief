@@ -97,3 +97,14 @@ class TestUserCodeRouter(DatabaseConfig):
         ).save()
         result = UserCodeRouter("beginbotbot", "approvejs", ["beginfun"]).route()
         assert "@beginbotbot's beginfun.js has been approved!" in result
+
+    def test_buy_js(self):
+        user_code = UserCode(
+            user="eno",
+            code_link="https://gitlab.com/real_url/beginwidget.js",
+            code_type="js",
+            approved=True,
+        ).save()
+        result = UserCodeRouter("beginbotbot", "buyjs", ["beginwidget"]).route()
+        assert result == "@beginbotbot bought beginwidget.js from @eno!"
+        assert UserCode.find_owners("beginwidget") == ["eno", "beginbotbot"]
