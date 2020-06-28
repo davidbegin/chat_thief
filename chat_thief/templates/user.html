@@ -4,10 +4,6 @@
     <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/style.css">
     <link rel="stylesheet" type="text/css" href="{{ base_url }}/styles/{{ user }}.css">
 
-    {% for widget in widgets %}
-      <script src="{{ base_url }}/js/{{ widget }}"></script>
-    {% endfor %}
-
     <meta charset="utf-8" http-equiv="refresh" content="{{ refresh_time }}">
 </head>
 
@@ -79,3 +75,7 @@
 </body>
 
 </html>
+
+{% for widget in widgets %}
+  <script src="{{ base_url }}/js/{{ widget }}"></script>
+{% endfor %}

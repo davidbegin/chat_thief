@@ -19,17 +19,21 @@
 
   <h2>Available Widgets</h2>
 
-  <ul>
     {% for widget in widgets %}
-      <li>
-          <a href="{{ base_url }}/{{ widget['user'] }}.html"> {{ widget['user']}}</a>
 
-          <a href="{{ widget['code_link'] }}">
-            CODE
-          </a>
-      </li>
+      <a href="{{ base_url }}/{{ widget['user'] }}.html"> {{ widget['user']}}</a>
+      |
+      <a href="{{ widget['code_link'] }}"> CODE </a>
+
+      <h4>Owners:</h4>
+
+      {% for owner in widget['owners'] %}
+          <a href="{{ base_url }}/{{ owner }}.html">{{ owner }}</a>
+      {% endfor %}
+
+        <hr />
+
     {% endfor %}
-  </ul>
 
 </body>
 
