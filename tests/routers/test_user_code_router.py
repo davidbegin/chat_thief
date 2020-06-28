@@ -47,6 +47,25 @@ class TestUserCodeRouter(DatabaseConfig):
         )
         assert user_code["code_type"] == "js"
 
+    def test_submit_custom_with_name(self):
+        user = "beginbotbot"
+        result = UserCodeRouter(
+            user, "js", ["cool_widget", "https://gist.githubusercontent.com/davidbegin/raw"],
+        ).route()
+        assert "Thanks for the custom JS @beginbotbot!" in result
+
+        js_filepath = Path(__file__).parent.parent.parent.joinpath(
+            "chat_thief/js/beginbotbot.js"
+        )
+        assert js_filepath.exists()
+        user_code = UserCode.last()
+        assert user_code["user"] == "beginbotbot"
+        assert user_code["name"] == "cool_widget"
+        assert (
+            user_code["code_link"]
+            == "https://gist.githubusercontent.com/davidbegin/raw"
+        )
+        assert user_code["code_type"] == "js"
     def test_submit_custom_js(self):
         user = "beginbotbot"
         result = UserCodeRouter(

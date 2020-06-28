@@ -10,16 +10,19 @@ class UserCode(BaseDbModel):
     database_path = "db/user_code.json"
     table_name = "user_code"
 
-    def __init__(self, user, code_link, code_type, approved=False, owners=[]):
+    def __init__(self, user, code_link, code_type, name=None, approved=False, owners=[]):
         self._user = user
         self._code_link = code_link
         self._code_type = code_type
         self._approved = approved
         self._owners = owners
-        if code_link.endswith(".js"):
-            self._name = Path(code_link).name[:-3]
+        if name:
+            self._name = name
         else:
-            self._name = self._user
+            if code_link.endswith(".js"):
+                self._name = Path(code_link).name[:-3]
+            else:
+                self._name = self._user
 
     def doc(self):
         return {

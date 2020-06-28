@@ -41,11 +41,18 @@ class UserCodeRouter(BaseRouter):
         return UserCode.approve(user_to_approve, potential_widget)
 
     def set_js(self):
-        custom_js = self.args[0]
-
-        user_code = UserCode(
-            user=self.user, code_link=custom_js, code_type="js"
-        ).update_or_create()
+        if len(self.args) == 1:
+            custom_js = self.args[0]
+            user_code = UserCode(
+                user=self.user, code_link=custom_js, code_type="js"
+            ).update_or_create()
+        else:
+            widget_name = self.args[0]
+            custom_js = self.args[1]
+            user_code = UserCode(
+                user=self.user, code_link=custom_js, code_type="js",
+                name=widget_name
+            ).update_or_create()
 
         # Switch to NOT USE requests
         response = requests.get(custom_js)

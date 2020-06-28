@@ -15,8 +15,9 @@
 }
 
 body {
-    background: url("https://fanart.tv/fanart/music/8247a3f2-3a8e-4256-b322-6c57b03a4e36/artistbackground/evans-bill-4f8f713c2be56.jpg") no-repeat center center fixed;
-  background-size: cover;
+    background: url("https://fanart.tv/fanart/music/8247a3f2-3a8e-4256-b322-6c57b03a4e36/artistbackground/evans-bill-4f8f713c2be56.jpg") no-repeat center bottom fixed;
+  background-size: 780px 438px;
+  background-color: black;
   display: flex;
   align-items: center;
   text-align: center;
@@ -60,7 +61,7 @@ tr {
 }
 
 td {
-  width: 25%;
+  width: 20%;
   border: 1px dotted;
   border-radius: 5px;
   box-shadow: -5px 10px;
