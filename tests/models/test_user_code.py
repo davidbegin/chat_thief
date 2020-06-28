@@ -20,13 +20,15 @@ class TestUserCode(DatabaseConfig):
         assert last["name"] == "beginwidget"
         assert last["owners"] == []
 
-        assert UserCode.owned_by("eno") == ["beginwidget.js"]
+        assert UserCode.owned_by("eno") == []
+
         assert UserCode.find_owners("beginwidget") == [
             "eno",
         ]
 
         result = UserCode.purchase("begin", "beginwidget")
         assert UserCode.find_owners("beginwidget") == ["eno", "begin"]
+        assert UserCode.owned_by("begin") == ["beginwidget.js"]
 
     def test_extracing_name_from_url(self):
         UserCode(
@@ -38,4 +40,6 @@ class TestUserCode(DatabaseConfig):
         assert last["name"] == "eno"
         assert last["owners"] == []
 
+        assert UserCode.owned_by("eno") == []
+        UserCode.approve("eno")
         assert UserCode.owned_by("eno") == ["eno.js"]

@@ -37,6 +37,20 @@ class UserCode(BaseDbModel):
         return self
 
     @classmethod
+    def approve(cls, user, widget_name=None):
+        if user:
+            result = cls.db().get(Query().user == user)
+            cls.set_value_by_id(result.doc_id, "approved", True)
+            return f"@{result['user']}'s {result['name']}.js has been approved!"
+
+        result = cls.db().get(Query().name == widget_name)
+        if result:
+            cls.set_value_by_id(result.doc_id, "approved", True)
+            return f"@{result['user']}'s {result['name']}.js has been approved!"
+
+        return f"Could Not Find User Code to Approve {self.args}"
+
+    @classmethod
     def purchase(cls, purchaser, widget_name):
         user_code = cls.db().get(Query().name == widget_name)
         owners = user_code["owners"]
@@ -54,6 +68,12 @@ class UserCode(BaseDbModel):
 
     @classmethod
     def owned_by(cls, user):
-        # Created By a User
-        results = cls.db().search(Query().user == user)
-        return [f"{result['name']}.js" for result in results]
+        directly_owned = cls.db().search(
+            (Query().user == user) & (Query().approved == True)
+        )
+
+        def is_owner(user_code):
+            return user in user_code.get("owners", [])
+
+        results = cls.db().search(is_owner)
+        return [f"{result['name']}.js" for result in (results + directly_owned)]

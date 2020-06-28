@@ -25,18 +25,8 @@ class UserCodeRouter(BaseRouter):
 
     def approve_js(self):
         user_to_approve = self.parser.target_user
-        if user_to_approve:
-            result = UserCode.db().get(Query().user == user_to_approve)
-            UserCode.set_value_by_id(result.doc_id, "approved", True)
-            return f"@{result['user']}'s {result['name']}.js has been approved!"
-
         potential_widget = self.args[0]
-        result = UserCode.db().get(Query().name == potential_widget)
-        if result:
-            UserCode.set_value_by_id(result.doc_id, "approved", True)
-            return f"@{result['user']}'s {result['name']}.js has been approved!"
-
-        return f"Could Not Find User Code to Approve {self.args}"
+        return UserCode.approve(user_to_approve, potential_widget)
 
     def set_js(self):
         custom_js = self.args[0]
