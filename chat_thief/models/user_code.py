@@ -38,9 +38,18 @@ class UserCode(BaseDbModel):
             "approved": self._approved,
         }
 
+    def upsert_doc(self):
+        return {
+            "user": self._user,
+            "name": self._name,
+            "code_link": self._code_link,
+            "code_type": self._code_type,
+        }
+
     def update_or_create(self):
         self.db().upsert(
-            self.doc(), (Query().name == self._name) & (Query().user == self._user)
+            self.upsert_doc(),
+            (Query().name == self._name) & (Query().user == self._user),
         )
         return self
 
@@ -60,7 +69,6 @@ class UserCode(BaseDbModel):
 
     @classmethod
     def purchase(cls, purchaser, widget_name):
-
         user_code = cls.db().get(Query().name.matches(widget_name, flags=re.IGNORECASE))
         if user_code:
             owners = user_code.get("owners", [])
@@ -104,3 +112,18 @@ class UserCode(BaseDbModel):
                 results[user_name] = len(user_code["owners"])
 
         return results
+
+    @classmethod
+    def js_for_user(cls, user):
+        def is_owned_by(user_code):
+            return user in user_code.get("owners", []) or user_code["user"] == user
+
+        results = cls.db().search(is_owned_by)
+        owned_by = {"approved": [], "unapproved": []}
+        for result in results:
+            if result["approved"]:
+                owned_by["approved"].append(f"{result['name']}.js")
+            else:
+                owned_by["unapproved"].append(f"{result['name']}.js")
+
+        return owned_by

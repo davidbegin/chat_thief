@@ -180,6 +180,7 @@ async def generate_user_page(user_dict, all_commands):
 
     users_choice = user_dict.get("custom_css", None)
     ride_or_die = user_dict.get("ride_or_die", None)
+    widgets = user_dict.get("widgets", {"approved": [], "unapproved": []})
 
     stats = (
         f"@{name} - Mana: {user_dict['mana']} | "
@@ -200,7 +201,8 @@ async def generate_user_page(user_dict, all_commands):
         "stats": stats,
         "top8": top8,
         "base_url": DEPLOY_URL,
-        "widgets": user_dict.get("widgets", []),
+        "widgets": widgets["approved"],
+        "unapproved_widgets": widgets["unapproved"],
     }
 
     await _render_and_save_html("user.html", context, f"{name}.html")

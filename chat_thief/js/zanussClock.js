@@ -7,6 +7,7 @@ window.addEventListener("load", function() {
   var mon = months[d.getMonth()];
   var hrs = d.getHours();
   var mins = d.getMinutes();
+  if (mins<=9){mins = '0' + mins;}
   var clockDiv = document.createElement('div');
   clockDiv.setAttribute("id", "zanussClock");
   var clockContent = document.createTextNode(hrs+":"+mins);

@@ -38,7 +38,7 @@ class TestStitchandSort(DatabaseConfig):
             "cool_points": 4,
             "mana": 3,
             "custom_css": custom_css,
-            "widgets": [],
+            'widgets': {'approved': [], 'unapproved': []},
             "commands": [
                 {
                     "name": "damn",
@@ -62,7 +62,7 @@ class TestStitchandSort(DatabaseConfig):
             "mana": 3,
             "top_eight": [],
             "wealth": 1,
-            "widgets": [],
+            'widgets': {'approved': [], 'unapproved': []},
             "sfx_count": 1,
             "commands": [
                 {

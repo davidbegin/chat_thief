@@ -97,6 +97,10 @@ class TestUserCodeRouter(DatabaseConfig):
         ).route()
         assert UserCode.count() == 1
 
+        UserCode.approve(user, "beginfun")
+        user_code = UserCode.last()
+        assert user_code["approved"] == True
+
         result = UserCodeRouter(
             user,
             "js",
@@ -105,6 +109,7 @@ class TestUserCodeRouter(DatabaseConfig):
         assert UserCode.count() == 1
         user_code = UserCode.last()
         assert user_code["user"] == "beginbotbot"
+        assert user_code["approved"] == True
         assert (
             user_code["code_link"]
             == "https://gist.githubusercontent.com/davidbegin/raw/234232342/beginfun.js"

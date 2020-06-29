@@ -72,6 +72,14 @@
   <br />
   <span>MAKE SURE YOU LINK THE RAW CSS</span>
 
+
+  {% if unapproved_widgets %}
+    <h3> Unapproved Widgets</h3>
+    {% for widget in unapproved_widgets %}
+      {{ widget }}
+    {% endfor %}
+  {% endif %}
+
 </body>
 
 </html>

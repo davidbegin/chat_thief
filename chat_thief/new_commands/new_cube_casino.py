@@ -17,9 +17,10 @@ class NewCubeCasino:
 
     def gamble(self):
         transfer_of_wealth = self._match_winners_and_losers()
-
         for winner, loser, command in transfer_of_wealth:
-            print(f"@{winner} won !{command} from @{loser}")
+            msg = f"@{winner} won !{command} from @{loser}"
+            print(msg)
+            send_twitch_msg(msg)
             result = CommandGiver(user=loser, command=command, friend=winner).give()
 
         return transfer_of_wealth

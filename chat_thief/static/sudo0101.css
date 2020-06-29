@@ -1,0 +1,48 @@
+body {
+  font-size: 0em;
+}
+
+@keyframes rotater {
+  10% {
+    transform: rotate( 0deg ) scale( 1 );
+  }
+  15% {
+    transform: rotate( -10deg ) scale( 1 );
+  }
+  25% {
+    transform: rotate( 30deg ) scale( 1 );
+  }
+  60%,100% {
+  transform: rotate( -720deg ) scale( 1 );
+  }
+}
+h1 {
+  width: 510px;
+  height: 510px;
+  margin: 0 auto;
+  margin-top: 70px;
+  background-image: url(http://juku.uk/img/logo.png);
+  -webkit-animation: rotater 5s infinite; /* Safari 4+ */
+  -moz-animation:    rotater 5s infinite; /* Fx 5+ */
+  -o-animation:      rotater 5s infinite; /* Opera 12+ */
+  animation:         rotater 5s infinite; /* IE 10+, Fx 29+ */
+
+  opacity: 1;
+  -o-transition:color .01s ease-out, background 1s ease-in;
+  -ms-transition:color .01s ease-out, background 1s ease-in;
+  -moz-transition:color .01s ease-out, background 1s ease-in;
+  -webkit-transition:color .01s ease-out, background 1s ease-in;
+
+  transition:color .1s ease-out, background 4s ease-in;
+}
+
+h1:hover {
+  background-image: url(http://juku.uk/img/logo2.png);
+  opacity: 1;
+  -o-transition:color .01s ease-out, background 1s ease-in;
+  -ms-transition:color .01s ease-out, background 1s ease-in;
+  -moz-transition:color .01s ease-out, background 1s ease-in;
+  -webkit-transition:color .01s ease-out, background 1s ease-in;
+
+  transition:color .1s ease-out, background ease-in;
+}

@@ -25,12 +25,12 @@ class StitchAndSort:
         # Iterate through each user
         for user_dict in self._all_users:
 
-            # Looking for Owned Widgets
-            widgets = UserCode.owned_by(user_dict["name"])
+            widgets = UserCode.js_for_user(user_dict["name"])
             user_dict["widgets"] = widgets
 
-            if widgets:
-                print(f"Widgets for {user_dict['name']} {widgets}")
+            # widget_files = [f"{result['name']}.js" for result in widgets]
+            # if widget_files:
+            #     print(f"Widgets for {user_dict['name']} {widget_files}")
 
             # Looking for Matching Soundeffects
             matching_effects = [

@@ -64,3 +64,23 @@ class TestUserCode(DatabaseConfig):
 
         result = UserCode.dev_leaderboard()
         assert result == {"eno": 1}
+
+    def test_widgets_for_user(self):
+        UserCode(
+            user="eno",
+            code_link="https://gitlab.com/real_url/raw/bubbles.js",
+            code_type="js",
+            owners=["future"],
+            approved=True,
+        ).save()
+
+        UserCode(
+            user="uzi",
+            code_link="https://gitlab.com/real_url/raw/fun.js",
+            code_type="js",
+            owners=["future"],
+            approved=False,
+        ).save()
+
+        result = UserCode.js_for_user("future")
+        assert result == {"approved": ["bubbles.js"], "unapproved": ["fun.js"]}
