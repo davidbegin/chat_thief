@@ -219,6 +219,11 @@ body {
     height: 200px;
 	position: absolute;
 	width: 200px;
+	display: block;
+}
+
+.bubble:hover {
+	cursor:hand;
 }
 
 .bubble:after {

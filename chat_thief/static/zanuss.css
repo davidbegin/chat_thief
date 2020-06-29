@@ -2,6 +2,27 @@
 
 #pageNo{
   font-size:30px;
+  position:relative;
+  top:-29px;
+}
+
+#zanussDayDate{
+  font-size:30px;
+  text-align:center;
+  text-transform: none;
+}
+
+#zanussDayDate:before{
+  content:"BeginWorld 1 100 ";
+  padding-left:10%;
+  text-transform: uppercase;
+}
+
+#zanussClock{
+  font-size:30px;
+  padding-left:20%;
+  float:right;
+  color:yellow;
 }
 
 .commands:before{
@@ -377,6 +398,10 @@ li:after{
   content:" .   .    .    .    .    .";
 }
 
+.user li:after{
+  color: #17EEF5;
+  content:none;
+}
 /* figure{
   background-color:#FF00FF;
   width:100.3%;

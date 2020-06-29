@@ -17,6 +17,16 @@
     </code>
   </span>
 
+  <h2>Leaderboard</h2>
+
+    <ul>
+      {% for user, count in dev_leaderboard.items() %}
+        <li>
+            {{ user }} - {{ count }}
+        </li>
+      {% endfor %}
+    </ul>
+
   <h2>Available Widgets</h2>
 
     {% for widget in widgets %}

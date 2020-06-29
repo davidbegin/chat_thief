@@ -86,11 +86,13 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
 
 async def generate_widgets_page(winner):
     widgets = UserCode.all()
+    dev_leaderboard = UserCode.dev_leaderboard()
 
     context = {
         "base_url": DEPLOY_URL,
         "widgets": widgets,
         "winner": winner,
+        "dev_leaderboard": dev_leaderboard,
     }
     await _render_and_save_html("widgets.html", context, "widgets.html")
 

@@ -1,9 +1,8 @@
-window.onload = addDiv;
-function addDiv(){
+window.addEventListener("load", function() {
 var links = document.getElementsByTagName("li");
 for (var i=0; i<links.length; i++){
-  links[i].innerHTML += ". . . " + i;
-  links[i].setAttribute("id", "page"+i);
+  links[i].innerHTML += ". . . " + (parseInt(i)+101);
+  links[i].setAttribute("id", "page"+ (parseInt(i)+101));
 }
 var newDiv = document.createElement('div');
 newDiv.setAttribute("id", "pageNo");
@@ -11,7 +10,7 @@ var newContent = document.createTextNode("P100");
 newDiv.append(newContent);
 var currentDiv = document.getElementsByTagName("h1")[0];
 document.body.insertBefore(newDiv, currentDiv);
-}
+});                  
 document.addEventListener('keydown', function(e) {checkKeys(e);}); 
 function checkKeys(event) {
   if(document.getElementById("pageNo").innerHTML.length >= 4){document.getElementById("pageNo").innerHTML = "P";}
@@ -21,5 +20,5 @@ function checkKeys(event) {
 function checkForPage(page){
   var pageId = 'page'+page.slice(1);
   var linkOnly = document.getElementById(pageId).innerHTML.split('"');
-  window.location.replace(linkOnly[1]);
+  window.location.href = (linkOnly[1]);
 }

@@ -1,5 +1,7 @@
 from pathlib import Path
 import re
+import itertools
+import operator
 
 from tinydb import Query
 
@@ -89,3 +91,16 @@ class UserCode(BaseDbModel):
 
         results = cls.db().search(is_owner)
         return [f"{result['name']}.js" for result in (results + directly_owned)]
+
+    @classmethod
+    def dev_leaderboard(cls):
+        results = {}
+        for user_code in cls.all():
+            user = user_code['user']
+
+            if user in results:
+                results[user] += len(user_code['owners'])
+            else:
+                results[user] = len(user_code['owners'])
+
+        return results

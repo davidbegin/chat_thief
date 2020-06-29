@@ -54,3 +54,15 @@ class TestUserCode(DatabaseConfig):
         ).save()
 
         assert UserCode.owned_by("eno") == ["bubbles.js"]
+
+    def test_dev_leaderboard(self):
+        UserCode(
+            user="eno",
+            code_link="https://gitlab.com/real_url/raw/bubbles.js",
+            code_type="js",
+            owners=["future"],
+            approved=True,
+        ).save()
+
+        result = UserCode.dev_leaderboard()
+        assert result == {"eno": 1}
