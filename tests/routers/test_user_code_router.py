@@ -50,7 +50,9 @@ class TestUserCodeRouter(DatabaseConfig):
     def test_submit_custom_with_name(self):
         user = "beginbotbot"
         result = UserCodeRouter(
-            user, "js", ["cool_widget", "https://gist.githubusercontent.com/davidbegin/raw"],
+            user,
+            "js",
+            ["cool_widget", "https://gist.githubusercontent.com/davidbegin/raw"],
         ).route()
         assert "Thanks for the custom JS @beginbotbot!" in result
 
@@ -66,6 +68,7 @@ class TestUserCodeRouter(DatabaseConfig):
             == "https://gist.githubusercontent.com/davidbegin/raw"
         )
         assert user_code["code_type"] == "js"
+
     def test_submit_custom_js(self):
         user = "beginbotbot"
         result = UserCodeRouter(

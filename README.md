@@ -89,6 +89,14 @@ The restrictions are:
 We will make a "Widget Shop" Available, give creators
 a chance to sell their Widgets.
 
+When you submit a Widget, its Needs to be approved, by a number
+of reviewers.
+
+Reviewers: [
+  {"eno": True}
+]
+Approvers: []
+
 #### Why
 
 How can we simulate the smallest market for selling code.
@@ -101,7 +109,7 @@ and sell that code.
 !soundeffect YOUTUBE_URL command_name 00:00 00:04
 ```
 
-https://github.com/ytdl-org/youtube-dl
+[Youtube-DL](https://github.com/ytdl-org/youtube-dl)
 
 ### Get Access to Sounds By Chatting
 

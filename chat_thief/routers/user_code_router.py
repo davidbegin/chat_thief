@@ -50,8 +50,7 @@ class UserCodeRouter(BaseRouter):
             widget_name = self.args[0]
             custom_js = self.args[1]
             user_code = UserCode(
-                user=self.user, code_link=custom_js, code_type="js",
-                name=widget_name
+                user=self.user, code_link=custom_js, code_type="js", name=widget_name
             ).update_or_create()
 
         # Switch to NOT USE requests

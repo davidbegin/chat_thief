@@ -41,8 +41,6 @@ class TestUserCode(DatabaseConfig):
         assert last["name"] == "eno"
         assert last["owners"] == []
 
-        assert UserCode.owned_by("eno") == []
-        UserCode.approve("eno")
         assert UserCode.owned_by("eno") == ["eno.js"]
 
     def test_owned_by(self):
@@ -50,7 +48,7 @@ class TestUserCode(DatabaseConfig):
             user="eno",
             code_link="https://gitlab.com/real_url/raw/bubbles.js",
             code_type="js",
-            approved=True,
+            approved=False,
         ).save()
 
         assert UserCode.owned_by("eno") == ["bubbles.js"]

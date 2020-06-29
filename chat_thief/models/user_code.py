@@ -12,7 +12,9 @@ class UserCode(BaseDbModel):
     database_path = "db/user_code.json"
     table_name = "user_code"
 
-    def __init__(self, user, code_link, code_type, name=None, approved=False, owners=[]):
+    def __init__(
+        self, user, code_link, code_type, name=None, approved=False, owners=[]
+    ):
         self._user = user
         self._code_link = code_link
         self._code_type = code_type
@@ -82,9 +84,7 @@ class UserCode(BaseDbModel):
 
     @classmethod
     def owned_by(cls, user):
-        directly_owned = cls.db().search(
-            (Query().user == user) & (Query().approved == True)
-        )
+        directly_owned = cls.db().search((Query().user == user))
 
         def is_owner(user_code):
             return user_code["approved"] and user in user_code.get("owners", [])
@@ -96,11 +96,11 @@ class UserCode(BaseDbModel):
     def dev_leaderboard(cls):
         results = {}
         for user_code in cls.all():
-            user = user_code['user']
+            user_name = user_code["user"]
 
-            if user in results:
-                results[user] += len(user_code['owners'])
+            if user_name in results:
+                results[user_name] += len(user_code["owners"])
             else:
-                results[user] = len(user_code['owners'])
+                results[user_name] = len(user_code["owners"])
 
         return results

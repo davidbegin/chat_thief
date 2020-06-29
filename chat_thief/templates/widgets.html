@@ -22,7 +22,9 @@
     <ul>
       {% for user, count in dev_leaderboard.items() %}
         <li>
+          <a href="{{ base_url }}/{{ user }}.html">
             {{ user }} - {{ count }}
+          </a>
         </li>
       {% endfor %}
     </ul>
