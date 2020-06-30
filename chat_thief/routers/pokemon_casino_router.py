@@ -11,7 +11,7 @@ class PokemonCasinoRouter(BaseRouter):
             return PokemonCasino.whos_that_pokemon()
 
         if self.command == "guess":
-            if self.parser.target_command:
+            if self.parser.target_sfx:
                 return PokemonCasino.guess_pokemon(self.user, self.parser.target_sfx)
             else:
                 return f"@{self.user} NOT A Valid Pokemon {self.args}"
