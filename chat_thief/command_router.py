@@ -29,6 +29,7 @@ ROUTERS = [
     FeedbackRouter,
     ModeratorRouter,
     NewCubeCasinoRouter,
+    PokemonCasinoRouter,
     RevolutionRouter,
     UserCodeRouter,
     VotingBoothRouter,

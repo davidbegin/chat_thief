@@ -111,7 +111,7 @@ class UserCode(BaseDbModel):
             else:
                 results[user_name] = len(user_code["owners"])
 
-        owned = [ (user, owner_count) for (user, owner_count) in results.items() ]
+        owned = [(user, owner_count) for (user, owner_count) in results.items()]
         return list(reversed(sorted(owned, key=lambda user_widgets: user_widgets[1])))
 
     @classmethod

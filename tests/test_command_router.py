@@ -172,4 +172,9 @@ class TestCommandRouter(DatabaseConfig):
         user.save()
         irc_response = irc_msg("uzi", "!js https://gitlab.com/snippets/1990806/raw")
         result = CommandRouter(irc_response, logger).build_response()
-        # assert result == "Thank you for submiting your JS @uzi"
+        assert result == "Thanks for the custom JS @uzi!"
+
+    def test_pokemon_game(self, irc_msg):
+        irc_response = irc_msg("uzi", "!pokemon")
+        result = CommandRouter(irc_response, logger).build_response()
+        assert result == "Guess Which Pokemon This Is!!!"

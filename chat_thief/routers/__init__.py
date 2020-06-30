@@ -9,6 +9,7 @@ from chat_thief.routers.new_cube_casino_router import NewCubeCasinoRouter
 from chat_thief.routers.revolution_router import RevolutionRouter
 from chat_thief.routers.user_code_router import UserCodeRouter
 from chat_thief.routers.voting_booth_router import VotingBoothRouter
+from chat_thief.routers.pokemon_casino_router import PokemonCasinoRouter
 
 __all__ = [
     "BasicInfoRouter",
@@ -19,6 +20,7 @@ __all__ = [
     "FeedbackRouter",
     "ModeratorRouter",
     "NewCubeCasinoRouter",
+    "PokemonCasinoRouter",
     "RevolutionRouter",
     "UserCodeRouter",
     "VotingBoothRouter",

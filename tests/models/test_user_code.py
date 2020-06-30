@@ -81,7 +81,6 @@ class TestUserCode(DatabaseConfig):
         result = UserCode.dev_leaderboard()
         assert result == [("richard", 3), ("satie", 2), ("eno", 1)]
 
-
     def test_widgets_for_user(self):
         UserCode(
             user="eno",

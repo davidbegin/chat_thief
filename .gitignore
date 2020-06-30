@@ -4,6 +4,7 @@ db/*
 tmp/*
 build/*
 tests/db/*
+tests/tmp/*
 .mypy_cache/*
 .whitelisted_users
 .welcome

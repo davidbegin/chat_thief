@@ -16,7 +16,7 @@ class AudioPlayer:
         sound_name = sound_file.name[: -len(sound_file.suffix)]
         Command(sound_name).decay()
 
-        success(f"Playing: {sound_name}")
+        # success(f"Playing: {sound_name}")
         if notification:
             Notification(f"Playing: !{sound_name}", duration=1).save()
 

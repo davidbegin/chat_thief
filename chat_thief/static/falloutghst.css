@@ -1,0 +1,21 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: #212121;
+}
+
+a {
+  color: #a7ffeb;
+  text-decoration: none;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: #64ffda;
+  text-decoration: none;
+}
