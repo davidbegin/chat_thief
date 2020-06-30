@@ -15,3 +15,6 @@ class PokemonCasinoRouter(BaseRouter):
                 return PokemonCasino.guess_pokemon(self.user, self.parser.target_sfx)
             else:
                 return f"@{self.user} NOT A Valid Pokemon {self.args}"
+
+        if self.command == "replay":
+            return PokemonCasino.replay()

@@ -163,36 +163,66 @@ POKEMON_NAMES = [
 
 
 class PokemonCasino:
-    GUESS_PATH = Path(__file__).parent.parent.parent.joinpath("tmp/pokeguess")
+    MYSTERY_POKEMON_PATH = Path(__file__).parent.parent.parent.joinpath("tmp/pokeguess")
+    GUESSES_PATH = Path(__file__).parent.parent.parent.joinpath("tmp/guesses")
+
+    @classmethod
+    def guesses(cls):
+        if cls.GUESSES_PATH.exists():
+            return len(cls.GUESSES_PATH.read_text().strip().split("\n"))
+        else:
+            return 0
+
+    @classmethod
+    def replay(cls):
+        print("Replaying Pokemon")
+
+        if "TEST_MODE" not in os.environ:
+            pokemon = cls.MYSTERY_POKEMON_PATH.read_text()
+            soundfile = SoundeffectsLibrary.find_sample(pokemon)
+            AudioPlayer.play_sample(soundfile.resolve(), notification=False)
+
+        return "Who's that Pokemon"
 
     @classmethod
     def guess_pokemon(cls, user, guess):
-        pokemon = cls.GUESS_PATH.read_text()
+        pokemon = cls.MYSTERY_POKEMON_PATH.read_text()
 
         print(f"@{user} guessed {guess}")
 
         if guess == pokemon:
-            cls.GUESS_PATH.unlink()
+            cls.MYSTERY_POKEMON_PATH.unlink()
+            guess_count = cls.guesses()
+            cls.GUESSES_PATH.unlink()
             result = BeginFund(target_user=user).dropeffect()
-            return f"{user} Won! {pokemon} | {result}"
+            if "TEST_MODE" not in os.environ:
+                soundfile = SoundeffectsLibrary.find_sample("pokewin")
+                AudioPlayer.play_sample(soundfile.resolve(), notification=False)
+            return (
+                f"{user} Won! {pokemon} - Beating {guess_count} Other People | {result}"
+            )
         else:
+            with open(cls.GUESSES_PATH, "a") as f:
+                f.write(f"{user}: {guess}\n")
             return f"@{user} YOU WERE WRONG"
 
     @classmethod
     def whos_that_pokemon(cls):
-        if cls.GUESS_PATH.exists():
+        if cls.MYSTERY_POKEMON_PATH.exists():
             return "Already a Guess in Progress!"
 
         if "TEST_MODE" not in os.environ:
             soundfile = SoundeffectsLibrary.find_sample("pokewho")
-            AudioPlayer.play_sample(soundfile.resolve(), False)
+            AudioPlayer.play_sample(soundfile.resolve())
 
         pokemon = random.sample(POKEMON_NAMES, 1)[0]
 
         if "TEST_MODE" not in os.environ:
             soundfile = SoundeffectsLibrary.find_sample(pokemon)
-            AudioPlayer.play_sample(soundfile.resolve())
+            AudioPlayer.play_sample(soundfile.resolve(), notification=False)
 
-        cls.GUESS_PATH.write_text(pokemon)
+        with open(cls.MYSTERY_POKEMON_PATH, "w") as f:
+            f.write(pokemon)
+
         return "Guess Which Pokemon This Is!!!"
         # print(pokemon)
