@@ -16,9 +16,13 @@ class TestUserPage(DatabaseConfig):
         result = UserPage.last()
         assert result["widgets"] == {"bubbles": True}
 
-    @pytest.mark.skip
     def test_deactivating(self):
         UserPage(user="eno", widgets=["bubbles"]).save()
         result = UserPage.deactivate("eno", "bubbles")
         user_page = UserPage.last()
         assert user_page["widgets"] == {"bubbles": False}
+
+    def test_for_user(self):
+        UserPage(user="eno", widgets=["bubbles"]).save()
+        user_page = UserPage.for_user("eno")
+        assert user_page["widgets"] == {"bubbles": True}

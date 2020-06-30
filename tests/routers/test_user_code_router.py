@@ -6,6 +6,7 @@ from chat_thief.routers.user_code_router import UserCodeRouter
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from chat_thief.models.user_code import UserCode
+from chat_thief.models.user_page import UserPage
 
 from tests.support.database_setup import DatabaseConfig
 
@@ -135,3 +136,17 @@ class TestUserCodeRouter(DatabaseConfig):
         result = UserCodeRouter("beginbotbot", "buyjs", ["beginwidget"]).route()
         assert result == "@beginbotbot bought beginwidget.js from @eno!"
         assert UserCode.find_owners("beginwidget") == ["eno", "beginbotbot"]
+
+    def test_deactivate_js(self):
+        user_code = UserCode(
+            user="eno",
+            code_link="https://gitlab.com/real_url/beginwidget.js",
+            code_type="js",
+            approved=True,
+            owners=["beginbotbot"],
+        ).save()
+        UserPage(user="beginbotbot", widgets=["beginwidget"]).save()
+
+        result = UserCodeRouter("beginbotbot", "deactivate", ["beginwidget"]).route()
+        user_page = UserPage.for_user("beginbotbot")
+        assert user_page["widgets"] == {"beginwidget": False}

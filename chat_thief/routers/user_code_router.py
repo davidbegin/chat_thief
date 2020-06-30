@@ -6,6 +6,7 @@ from tinydb import Query
 
 from chat_thief.models.user import User
 from chat_thief.models.user_code import UserCode
+from chat_thief.models.user_page import UserPage
 from chat_thief.routers.base_router import BaseRouter
 
 
@@ -25,6 +26,10 @@ class UserCodeRouter(BaseRouter):
 
         if self.command == "buyjs":
             return self.buy_js()
+
+        if self.command == "deactivate":
+            js_to_deactivate = self.args[0]
+            return UserPage.deactivate(self.user, js_to_deactivate)
 
     # What does JS COST?
     # Should we let developers decide???

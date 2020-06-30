@@ -19,10 +19,19 @@ class UserPage(BaseDbModel):
         return {"user": self._user, "widgets": self.widget_status}
 
     @classmethod
+    def for_user(cls, user):
+        return cls.db().get(Query().user == user)
+
+    @classmethod
     def deactivate(cls, user, widget_name):
         user_page = cls.db().get(Query().user == user)
+
+        if user_page is None:
+            return f"No widget found to deactivate: {widget_name}"
 
         if "widgets" in user_page:
             if widget_name in user_page["widgets"]:
                 user_page["widgets"][widget_name] = False
-                user_page.doc_id
+                UserPage.set_value_by_id(
+                    user_page.doc_id, "widgets", user_page["widgets"]
+                )
