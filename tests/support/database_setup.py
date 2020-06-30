@@ -21,6 +21,7 @@ from chat_thief.models.bot_vote import BotVote
 from chat_thief.models.tribal_council import TribalCouncil
 from chat_thief.models.css_vote import CSSVote
 from chat_thief.models.user_code import UserCode
+from chat_thief.models.user_page import UserPage
 
 MODEL_CLASSES = [
     BreakingNews,
@@ -38,6 +39,7 @@ MODEL_CLASSES = [
     TheFed,
     User,
     UserEvent,
+    UserPage,
     Vote,
     BotVote,
     TribalCouncil,

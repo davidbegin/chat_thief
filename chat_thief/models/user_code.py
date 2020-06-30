@@ -111,7 +111,8 @@ class UserCode(BaseDbModel):
             else:
                 results[user_name] = len(user_code["owners"])
 
-        return results
+        owned = [ (user, owner_count) for (user, owner_count) in results.items() ]
+        return list(reversed(sorted(owned, key=lambda user_widgets: user_widgets[1])))
 
     @classmethod
     def js_for_user(cls, user):
@@ -121,7 +122,7 @@ class UserCode(BaseDbModel):
         results = cls.db().search(is_owned_by)
         owned_by = {"approved": [], "unapproved": []}
         for result in results:
-            if result["approved"]:
+            if result.get("approved", False):
                 owned_by["approved"].append(f"{result['name']}.js")
             else:
                 owned_by["unapproved"].append(f"{result['name']}.js")

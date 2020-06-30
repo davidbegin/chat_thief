@@ -13,8 +13,13 @@ window.addEventListener('load', () => {
 	const playSound = (e) => {
 		const cmd = pickRandomCommand(userCommands)
 
+		if (!cmd) {
+			return
+		}
+
 		{new Audio(`/media/${cmd.name}.opus`).play()} 
 		{new Audio(`/media/${cmd.name}.mpa`).play()} 
+		{new Audio(`/media/${cmd.name}.m4a`).play()} 
 		{new Audio(`/media/${cmd.name}.wav`).play()} 
 	}
 

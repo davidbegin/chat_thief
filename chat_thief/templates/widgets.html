@@ -20,7 +20,7 @@
   <h2>Leaderboard</h2>
 
     <ul>
-      {% for user, count in dev_leaderboard.items() %}
+      {% for user, count in dev_leaderboard %}
         <li>
           <a href="{{ base_url }}/{{ user }}.html">
             {{ user }} - {{ count }}
@@ -36,6 +36,7 @@
       <a href="{{ base_url }}/{{ widget['user'] }}.html"> {{ widget['user' ]}} - {{ widget['name']}}</a>
       |
       <a href="{{ base_url }}/js/{{ widget['name']}}.js"> CODE </a>
+      <br />
       Approved: {{ widget['approved'] }}
 
       <h4>Owners:</h4>

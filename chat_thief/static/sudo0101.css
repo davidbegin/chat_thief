@@ -1,8 +1,4 @@
 #matrix{display:none;}
-body {
-  font-size: 0em;
-}
-
 @keyframes rotater {
   10% {
     transform: rotate( 0deg ) scale( 1 );
@@ -18,6 +14,7 @@ body {
   }
 }
 h1 {
+  font-size: 0em;
   width: 510px;
   height: 510px;
   margin: 0 auto;
@@ -27,16 +24,16 @@ h1 {
   -moz-animation:    rotater 5s infinite; /* Fx 5+ */
   -o-animation:      rotater 5s infinite; /* Opera 12+ */
   animation:         rotater 5s infinite; /* IE 10+, Fx 29+ */
-
+ 
   opacity: 1;
   -o-transition:color .01s ease-out, background 1s ease-in;
   -ms-transition:color .01s ease-out, background 1s ease-in;
   -moz-transition:color .01s ease-out, background 1s ease-in;
   -webkit-transition:color .01s ease-out, background 1s ease-in;
-
+ 
   transition:color .1s ease-out, background 4s ease-in;
 }
-
+ 
 h1:hover {
   background-image: url(http://juku.uk/img/logo2.png);
   opacity: 1;
@@ -44,6 +41,30 @@ h1:hover {
   -ms-transition:color .01s ease-out, background 1s ease-in;
   -moz-transition:color .01s ease-out, background 1s ease-in;
   -webkit-transition:color .01s ease-out, background 1s ease-in;
-
+ 
   transition:color .1s ease-out, background ease-in;
+}
+
+h2 {
+  position: absolute;
+  left: 80%;
+  top: 0px;
+  background-color: orange;
+  color: #000;
+  border: 10px solid #000;
+}
+
+h3 {
+  position: absolute;
+  top: 90%;
+  font-variant-caps: all-small-caps;
+  font-family: monospace;
+}
+
+span {
+display: none;
+}
+
+ul {
+display: none;
 }

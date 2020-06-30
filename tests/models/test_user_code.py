@@ -55,6 +55,14 @@ class TestUserCode(DatabaseConfig):
 
     def test_dev_leaderboard(self):
         UserCode(
+            user="satie",
+            code_link="https://gitlab.com/real_url/raw/circuswire.js",
+            code_type="js",
+            owners=["future", "uzi"],
+            approved=True,
+        ).save()
+
+        UserCode(
             user="eno",
             code_link="https://gitlab.com/real_url/raw/bubbles.js",
             code_type="js",
@@ -62,8 +70,17 @@ class TestUserCode(DatabaseConfig):
             approved=True,
         ).save()
 
+        UserCode(
+            user="richard",
+            code_link="https://gitlab.com/real_url/raw/thetwin.js",
+            code_type="js",
+            owners=["future", "uzi", "wharf"],
+            approved=True,
+        ).save()
+
         result = UserCode.dev_leaderboard()
-        assert result == {"eno": 1}
+        assert result == [("richard", 3), ("satie", 2), ("eno", 1)]
+
 
     def test_widgets_for_user(self):
         UserCode(

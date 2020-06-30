@@ -1,0 +1,61 @@
+body{
+
+    background-color:white;
+    color:black;
+    font-family: "Helvetica";
+    font-size:1.5em;
+    
+}
+
+h1>a{
+    font-family:"Helvetica";
+    font-weight:bold;
+    color: black;
+    font-size:0.4em;
+    text-align:left;
+
+}
+ul>li>a{
+    color: black;
+    font-size:0.8em;
+}
+h2{
+    color: red;
+    text-align:center;
+    font-size: 2em;
+    margin:0;
+    padding:0;
+}
+
+audio
+{
+    
+margin-left:70%;
+border: solid 4px red;
+/*transition:all 0.5s linear;*/
+
+box-shadow: 10px 10px 0px 0px #ff0000;
+
+border-radius:0px 0px 0px 0px ;
+}
+audio::-webkit-media-controls-mute-button {
+     display: none !important; 
+     } 
+
+audio::-webkit-media-controls-panel{
+    background-color:white;
+
+}
+audio::-webkit-media-controls-play-button{
+    color:red;
+}
+span{
+    visibility:hidden;
+}
+
+figcaption{
+    color: black;
+    font-size:0.5em;
+    text-align:right;
+    display: none !important; 
+}

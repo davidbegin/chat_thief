@@ -11,7 +11,7 @@ newDiv.append(newContent);
 var currentDiv = document.getElementsByTagName("h1")[0];
 document.body.insertBefore(newDiv, currentDiv);
 });                  
-document.addEventListener('keydown', function(e) {checkKeys(e);}); 
+document.addEventListener('keydown', function(e){if(e['key']>=0 && e['key']<=9){checkKeys(e);}});
 function checkKeys(event) {
   if(document.getElementById("pageNo").innerHTML.length >= 4){document.getElementById("pageNo").innerHTML = "P";}
   document.getElementById("pageNo").innerHTML = document.getElementById("pageNo").innerHTML + event.key;

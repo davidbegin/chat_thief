@@ -23,7 +23,7 @@ class FactsView:
     most_popular: List
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates")
 
 
 @app.route("/")

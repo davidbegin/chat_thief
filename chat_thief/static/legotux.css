@@ -9,9 +9,8 @@
 body {
 	margin: auto;
 	width: 50%;
-	border: 0px solid green;
 	padding: 10px;
-	font-name: "VT323";
+	font-family: 'VT323', Helvetica;
 	height: 100vh;
 	@include flex-center-hv;
 	flex-direction: column;
@@ -22,7 +21,7 @@ body {
 	position: relative;
 }
 
-h1 {
+h1, h2, h3, h4 {
 	width: 100%;
 	outline: 2px solid black;
 	position: relative;
@@ -31,240 +30,349 @@ h1 {
 	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
 	background-repeat: repeat;
 	padding: 0;
-	font-family: VT323;
-	font-size: 46pt;
-	text-align: center;
+	font-family: 'VT323', Helvetica;
 	color: white;
-	text-shadow: 3px 3px #4C4C4C;
 	border-bottom: 4px solid #565656;
 	border-right: 2px solid #565656;
 	border-left: 2px solid #AAA;
 	border-top: 2px solid #AAA;
-	box-sizing: border-box;
-	font-size: arduino relay;
 }
 
-h2{
-	width: 100%;
-	outline: 2px solid black;
-	position: relative;
-	display: inline-block;
-	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
-	background-repeat: repeat;
+h1 {
+	font-size: 70pt;
+	text-align: center;
+}
+
+h2 {
 	padding: 10px;
-	font-family: VT323;
 	font-size: 32pt;
 	text-align: left;
-	color: white;
-	text-shadow: 3px 3px #4C4C4C;
-	border-bottom: 4px solid #565656;
-	border-right: 2px solid #565656;
-	border-left: 2px solid #AAA;
-	border-top: 2px solid #AAA;
-	box-sizing: border-box;
-	font-size: arduino relay;
 }
 
 h3 {
+	font-size: 25pt;
+	text-align: center;
+}
+
+h2 + h3 {
+	font-size: 15pt;
+}
+
+h4 {
+	font-size: 15pt;
+	text-align: left;
+}
+
+tr {
 	width: 100%;
-	outline: 1px solid black;
+	outline: 0px solid black;
 	position: relative;
 	margin: 0;
 	display: inline-block;
-	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
-	background-repeat: repeat;
-	padding: 0;
-	font-family: VT323;
-	font: 16pt 'VT323', Helvetica;
-	text-align: center;
-	color: white;
-	text-shadow: 3px 3px #4C4C4C;
-	border-bottom: 4px solid #565656;
-	border-right: 2px solid #565656;
-	border-left: 2px solid #AAA;
-	border-top: 2px solid #AAA;
-	box-sizing: border-box;
-	font-size: arduino relay;
 }
 
 td {
 	width: 200px;
-	outline: 1px solid black;
-	position: relative;
-	margin: 0;
-	display: inline-block;
-	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
-	background-repeat: repeat;
-	padding: 0;
-	font-family: VT323;
-	font: 20pt 'VT323', Helvetica;
-	text-align: center;
+	background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/f/f3/Steve.png/25px-Steve.png?version=91ed4ad9e11a0b4c3b8d004392194b1f');
+	background-repeat: no-repeat;
+	background-color: #717171;
+	padding-left: 30px;
+	font-family: 'VT323', Helvetica;
+	font-size: 20pt;
+	text-align: left;
 	color: white;
-	text-shadow: 3px 3px #4C4C4C;
 	border-bottom: 4px solid #565656;
 	border-right: 2px solid #565656;
 	border-left: 2px solid #AAA;
 	border-top: 2px solid #AAA;
-	box-sizing: border-box;
-	font-size: arduino relay;
 }
 td:hover {
+	background-color: #7e88bf;
 	border-bottom: 4px solid #59639A;
 	border-right: 2px solid #59639A;
 	border-left: 2px solid #BDC6FF;
 	border-top: 2px solid #BDC6FF;
-	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_active_center.png');
 	color: #FFFFA0;
 }
 
 figure {
 	position: absolute;
 	background-size: 100%;
-	width: 540px;
+	width: 60%;
 	color: transparent;
-	top: 64px;
+	top: 95px;
 	right: 20px; 
 	height: 75px;
 	max-height: 85px;
 	margin: 0 auto; 
-
 }
+
 figcaption {
 	visibility: hidden; 
 	display: none;
 }
-/*
-audio
-{
-	-webkit-transition:all 0.5s linear;
-	-moz-transition:all 0.5s linear;
-	-o-transition:all 0.5s linear;
-	transition:all 0.5s linear;
-	-moz-box-shadow: 2px 2px 4px 0px #006773;
-	-webkit-box-shadow:  2px 2px 4px 0px #006773;
-	box-shadow: 2px 2px 4px 0px #006773;
-	-moz-border-radius:7px 7px 7px 7px ;
-	-webkit-border-radius:7px 7px 7px 7px ;
-	border-radius:7px 7px 7px 7px ;
-}
-audio:hover, audio:focus, audio:active
-{
-	-webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
-	-moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
-	box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
-	-webkit-transform: scale(1.05);
-	-moz-transform: scale(1.05);
-	transform: scale(1.05);
-}
-*/
 
 audio{
-    opacity: 1;
-    width: 100.7%;
-    height: 100%;
+	opacity: 1;
+	width: 100.7%;
+	height: 100%;
 }
 
- audio::-webkit-media-controls-enclosure{
-    background:transparent;
-    border-radius:0px
+audio::-webkit-media-controls-enclosure{
+	background:transparent;
+	border-radius:0px
 }
 
 audio::-webkit-media-controls-panel {
-     background-color:#565656;
- } 
-audio::-webkit-media-controls-play-button:hover{
-    background-size:100%;
- }
-  
- audio::-webkit-media-controls-play-button{
-    background-color:transparent;
-    background-image:url('https://i.imgur.com/qhgVKHB.png');
-    background-size:100%;
-    display:block;
- }
-
- 
- audio::-webkit-media-controls-current-time-display{
-     color: #0000FF;
-     left:175px;
-     width:7%;
-     top:53px;
-     display:block;
-    font: 20pt 'VT323', Helvetica, monospace !important;
- }
- 
-audio::-webkit-media-controls-time-remaining-display{
-   font: 20pt 'VT323', Helvetica, monospace !important;
-   color: #0000FF;
- }
- 
- audio::-webkit-media-controls-timeline{
-    color: #0000FF;
-    display:block;
- }
-
- audio::-webkit-media-controls-mute-button {
-    background:transparent;
+	background-color:#565656;
 }
+
+audio::-webkit-media-controls-play-button:hover{
+	background-size:100%;
+}
+
+audio::-webkit-media-controls-play-button{
+	background-color:transparent;
+	background-image:url('https://i.imgur.com/qhgVKHB.png');
+	background-size:100%;
+	display:block;
+}
+
+audio::-webkit-media-controls-current-time-display{
+	color: #0000FF;
+	left:175px;
+	width:7%;
+	top:53px;
+	display:block;
+	font: 20pt 'VT323', Helvetica, monospace !important;
+}
+
+audio::-webkit-media-controls-time-remaining-display{
+	font: 20pt 'VT323', Helvetica, monospace !important;
+	color: #0000FF;
+}
+
+audio::-webkit-media-controls-timeline{
+	color: #0000FF;
+	display:block;
+}
+
+audio::-webkit-media-controls-mute-button {
+	background:transparent;
+}
+
 
 ul{
 	columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
+	-webkit-columns: 2;
+	-moz-columns: 2;
 	width: 100%;
 	position: relative;
 	margin: 0;
 	display: inline-block;
-	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
-	background-repeat: repeat;
-	
+	list-style-type: none;
 	text-align: left;
 	color: white;
-	/* text-shadow: 3px 3px #4C4C4C; */
+	background-image: url('https://blue.tinyisp.net/legotux/imgs/button_center.png');
+	background-repeat: repeat;
+}
+
+li {
+	content: '';
+	display: inline-block;
+	max-height: 35px;
+	width: 100%;
+	background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/0/0e/Music_Disc_Ward_JE1_BE1.png/150px-Music_Disc_Ward_JE1_BE1.png?version=8caf753742cbe6f1c1c9147b3a95b972');
+	background-size: contain;
+	background-repeat: no-repeat;
+	padding-left: 30px;
+	font: 20pt 'VT323', Helvetica, monospace !important;
 	border-bottom: 4px solid #565656;
 	border-right: 2px solid #565656;
 	border-left: 2px solid #AAA;
 	border-top: 2px solid #AAA;
-	box-sizing: border-box;
-	font-size: arduino relay;
-	list-style-type: none;
-	font-family: VT323;
-	
 }
-
-ul li {
-    content: '';
-    display: inline-block;
-    height: 25px;
-    width: 400px;
-    background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/0/0e/Music_Disc_Ward_JE1_BE1.png/150px-Music_Disc_Ward_JE1_BE1.png?version=8caf753742cbe6f1c1c9147b3a95b972');
-    background-size: contain;
-    background-repeat: no-repeat;
-    /*margin-left: -35px;*/
-    padding-left: 30px;
-	 font: 20pt 'VT323', Helvetica, monospace !important;
-}
-
-/*li {
-	padding: 4px;
-	font: 20pt 'VT323', Helvetica, monospace !important;
-	list-style-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/0/0e/Music_Disc_Ward_JE1_BE1.png/150px-Music_Disc_Ward_JE1_BE1.png?version=8caf753742cbe6f1c1c9147b3a95b972');
-}*/
-
 
 li:hover {
-	height: 30px;
 	border-bottom: 4px solid #59639A;
 	border-right: 2px solid #59639A;
 	border-left: 2px solid #BDC6FF;
 	border-top: 2px solid #BDC6FF;
-	/*background-image: url('https://blue.tinyisp.net/legotux/imgs/button_active_center.png'); 
-	background-repeat: repeat;*/
 	background-color: #7e88bf;
 	color: #FFFFA0;
-	padding-left: 30px;
 }
 
-figure ~ span {
+hr, figure ~ span {
 	visibility: hidden;
+}
+
+/*
+#matrix:-webkit-full-screen,
+#matrix:-moz-full-screen,
+#matrix:-ms-fullscreen,
+#matrix:fullscreen {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top:0;
+	left: 0;
+	background-color: transparent;
+	color: transparent;
+	background:transparent;
+	clear: both;
+	z-index:0;
+}
+*/
+
+/*
+ * Main and Widget UX
+ */
+
+.updated_at, .bestcss_tip, .tip {
+	width: 100%;
+	outline: 2px solid black;
+	position: relative;
+	margin: 0;
+	display: inline-block;
+	background-color: #717171;
+	box-sizing: border-box;
+	font-size: arduino relay;
+	font-family: 'VT323', Helvetica;
+	font-size: 12pt;
+	text-align: center;
+	color: white;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+}
+.tip code {
+	font-weight: bold;
+}
+
+.stylish_link {
+	width: 46%;
+	height: 40px;
+	outline: 2px solid black;
+	position: relative;
+	margin: 0;
+	display: inline-block;
+	background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/f/f3/Steve.png/25px-Steve.png?version=91ed4ad9e11a0b4c3b8d004392194b1f');
+	background-repeat: no-repeat;
+	background-color: #717171;
+	padding-left: 50px;
+	font-family: 'VT323', Helvetica;
+	color: white;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+}
+
+.bestcss_tip + br ~ a {
+	width: 46%;
+	height: 30px;
+	outline: 2px solid black;
+	position: relative;
+	display: inline-block;
+	background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/f/f3/Steve.png/25px-Steve.png?version=91ed4ad9e11a0b4c3b8d004392194b1f');
+	background-repeat: no-repeat;
+	background-color: #717171;
+	padding-left: 30px;
+	font-family: VT323;
+	font-size: 16pt;
+	text-align: left;
+	color: white;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+	text-decoration: none;
+}
+.bestcss_tip + br ~ a:hover {
+	background-color: #7e88bf;
+	color: #FFFFA0;
+}
+
+.users + ul li {
+	width: 100%;
+	display: block;
+	padding-left: 50px;
+	height: 120px;
+	max-height: 120px;
+	background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/f/f3/Steve.png/25px-Steve.png?version=91ed4ad9e11a0b4c3b8d004392194b1f');
+	background-repeat: no-repeat;
+	background-color: #717171;
+}
+.users + ul li:hover {
+	background-color: #7e88bf;
+	color: #FFFFA0;
+}
+
+.tip + h2 + ul {
+	background-image: none;
+	background-color: transparent;
+	color: transparent;
+}
+.tip + h2 + ul li {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	margin: 0;
+	display: inline-block;
+	background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/f/f3/Steve.png/25px-Steve.png?version=91ed4ad9e11a0b4c3b8d004392194b1f');
+	background-repeat: no-repeat;
+	background-color: #717171;
+	padding-left: 40px;
+	font-family: 'VT323', Helvetica;
+	font-size: 10pt;
+	color: white;
+	text-decoration: none;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+}
+.tip + h2 + ul li:hover {
+	border-bottom: 4px solid #59639A;
+	border-right: 2px solid #59639A;
+	border-left: 2px solid #BDC6FF;
+	border-top: 2px solid #BDC6FF;
+	background-color: #7e88bf;
+	color: #FFFFA0;
+}
+
+h4 + ul {
+	background-image: none;
+	background-color: transparent;
+	color: transparent;
+	border: none;
+}
+
+h4 + ul li {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	margin: 0;
+	display: inline-block;
+	background-image: url('https://gamepedia.cursecdn.com/minecraft_gamepedia/thumb/f/f3/Steve.png/25px-Steve.png?version=91ed4ad9e11a0b4c3b8d004392194b1f');
+	background-repeat: no-repeat;
+	background-color: #717171;
+	padding-left: 40px;
+	font-family: 'VT323', Helvetica;
+	font-size: 10pt;
+	color: white;
+	text-decoration: none;
+	border-bottom: 4px solid #565656;
+	border-right: 2px solid #565656;
+	border-left: 2px solid #AAA;
+	border-top: 2px solid #AAA;
+}
+h4 + ul li:hover {
+	border-bottom: 4px solid #59639A;
+	border-right: 2px solid #59639A;
+	border-left: 2px solid #BDC6FF;
+	border-top: 2px solid #BDC6FF;
+	background-color: #7e88bf;
+	color: #FFFFA0;
 }

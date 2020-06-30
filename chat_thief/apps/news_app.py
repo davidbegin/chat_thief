@@ -9,7 +9,7 @@ from chat_thief.economist.facts import Facts
 from chat_thief.models.user import User
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates")
 
 
 @app.route("/")

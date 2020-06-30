@@ -71,7 +71,7 @@ sync_sounds:
 		--include "*.opus"      \
 		"/home/begin/stream/Stream/Samples/theme_songs/" s3://beginworld.exchange-f27cf15/media
 
-full_deploy: deploy_all
+full_deploy: beginworld_html deploy_all
 
 register_bots:
 	python -m chat_thief.scripts.register_bots

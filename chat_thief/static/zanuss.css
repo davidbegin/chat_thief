@@ -88,6 +88,9 @@
     margin:auto
   }
 
+.user ul{
+  pointer-events: none;
+}
 
 hr{
   display:none;
