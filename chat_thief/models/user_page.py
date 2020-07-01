@@ -7,16 +7,22 @@ class UserPage(BaseDbModel):
     database_path = "db/user_pages.json"
     table_name = "user_pages"
 
-    def __init__(self, user, widgets=[]):
-        self._user = user
-        self._widgets = widgets
-
-        self.widget_status = {}
+    @classmethod
+    def bootstrap_user_page(cls, user, widgets):
+        widget_status = {}
         for widget in widgets:
-            self.widget_status[widget] = True
+            widget_status[widget] = True
+
+        return cls(user, widget_status).save()
+
+    # I pass in a list
+    # ...then I construct dictionary
+    def __init__(self, user, widget_status):
+        self._user = user
+        self._widget_status = widget_status
 
     def doc(self):
-        return {"user": self._user, "widgets": self.widget_status}
+        return {"user": self._user, "widgets": self._widget_status}
 
     @classmethod
     def for_user(cls, user):
@@ -24,14 +30,22 @@ class UserPage(BaseDbModel):
 
     @classmethod
     def deactivate(cls, user, widget_name):
+        cls._change_widget_status(user, widget_name, False)
+
+    @classmethod
+    def activate(cls, user, widget_name):
+        cls._change_widget_status(user, widget_name, True)
+
+    @classmethod
+    def _change_widget_status(cls, user, widget_name, status):
         user_page = cls.db().get(Query().user == user)
 
         if user_page is None:
-            return f"No widget found to deactivate: {widget_name}"
+            print(f"Could Not Find User Page: {user} - Bootstrapping")
+
+            cls.bootstrap_user_page(user, [widget_name])
+            user_page = cls.db().get(Query().user == user)
 
         if "widgets" in user_page:
-            if widget_name in user_page["widgets"]:
-                user_page["widgets"][widget_name] = False
-                UserPage.set_value_by_id(
-                    user_page.doc_id, "widgets", user_page["widgets"]
-                )
+            user_page["widgets"][widget_name] = status
+            UserPage.set_value_by_id(user_page.doc_id, "widgets", user_page["widgets"])

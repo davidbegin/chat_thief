@@ -9,7 +9,6 @@ INVALID_USERS = ["nightbot", ".tim.twitch.tv"] + STREAM_GODS
 
 
 class CurrentStream:
-
     @staticmethod
     def random_user(blacklisted_users=[]):
         try:

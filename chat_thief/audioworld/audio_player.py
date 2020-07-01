@@ -12,13 +12,17 @@ MPLAYER_VOL_NORM = "0.50"
 
 class AudioPlayer:
     @staticmethod
-    def play_sample(sound_file, notification=True):
+    def play_sample(sound_file, notification=True, user=None):
         sound_name = sound_file.name[: -len(sound_file.suffix)]
         Command(sound_name).decay()
 
         # success(f"Playing: {sound_name}")
+
         if notification:
-            Notification(f"Playing: !{sound_name}", duration=1).save()
+            if user:
+                Notification(f"{user}: !{sound_name}", duration=1).save()
+            else:
+                Notification(f"Playing: !{sound_name}", duration=1).save()
 
         try:
             subprocess.call(

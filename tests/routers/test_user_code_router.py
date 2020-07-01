@@ -145,7 +145,7 @@ class TestUserCodeRouter(DatabaseConfig):
             approved=True,
             owners=["beginbotbot"],
         ).save()
-        UserPage(user="beginbotbot", widgets=["beginwidget"]).save()
+        UserPage.bootstrap_user_page(user="beginbotbot", widgets=["beginwidget"])
 
         result = UserCodeRouter("beginbotbot", "deactivate", ["beginwidget"]).route()
         user_page = UserPage.for_user("beginbotbot")

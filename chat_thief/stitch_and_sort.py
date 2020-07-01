@@ -28,10 +28,6 @@ class StitchAndSort:
             widgets = UserCode.js_for_user(user_dict["name"])
             user_dict["widgets"] = widgets
 
-            # widget_files = [f"{result['name']}.js" for result in widgets]
-            # if widget_files:
-            #     print(f"Widgets for {user_dict['name']} {widget_files}")
-
             # Looking for Matching Soundeffects
             matching_effects = [
                 sfx

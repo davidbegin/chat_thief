@@ -3,6 +3,8 @@ import pytest
 from chat_thief.models.user_code import UserCode
 from chat_thief.models.user import User
 from tests.support.database_setup import DatabaseConfig
+from chat_thief.models.user_page import UserPage
+from chat_thief.models.user_page import UserPage
 
 
 class TestUserCode(DatabaseConfig):
@@ -98,5 +100,36 @@ class TestUserCode(DatabaseConfig):
             approved=False,
         ).save()
 
+        UserPage.bootstrap_user_page("future", ["bubbles", "fun"])
         result = UserCode.js_for_user("future")
-        assert result == {"approved": ["bubbles.js"], "unapproved": ["fun.js"]}
+        assert result == {
+            "approved": ["bubbles.js"],
+            "unapproved": ["fun.js"],
+            "deactivated": [],
+        }
+
+    def test_deactivate_widgets(self):
+        UserCode(
+            user="eno",
+            code_link="https://gitlab.com/real_url/raw/bubbles.js",
+            code_type="js",
+            owners=["future"],
+            approved=True,
+        ).save()
+
+        UserCode(
+            user="uzi",
+            code_link="https://gitlab.com/real_url/raw/fun.js",
+            code_type="js",
+            owners=["future"],
+            approved=False,
+        ).save()
+
+        UserPage.bootstrap_user_page("future", ["bubbles", "fun"])
+        UserPage.deactivate("future", "fun")
+        result = UserCode.js_for_user("future")
+        assert result == {
+            "approved": ["bubbles.js"],
+            "unapproved": ["fun.js"],
+            "deactivated": ["fun.js"],
+        }

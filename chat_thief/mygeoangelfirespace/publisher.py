@@ -70,7 +70,7 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
     ).get_template(file_name)
 
     rendered_template = template.render(context)
-    success(f"Finished Rendering Template: {dest_filename}")
+    # success(f"Finished Rendering Template: {dest_filename}")
 
     # warning(f"Writing Template: {file_name}")
     if dest_filename:
@@ -81,7 +81,7 @@ async def _render_and_save_html(file_name, context, dest_filename=None):
 
     with open(rendered_template_path.joinpath(html_file), "w") as f:
         f.write(rendered_template)
-    success(f"Finished Writing Template: {file_name}")
+    # success(f"Finished Writing Template: {file_name}")
 
 
 async def generate_widgets_page(winner):
@@ -180,7 +180,6 @@ async def generate_user_page(user_dict, all_commands):
 
     users_choice = user_dict.get("custom_css", None)
     ride_or_die = user_dict.get("ride_or_die", None)
-    widgets = user_dict.get("widgets", {"approved": [], "unapproved": []})
 
     stats = (
         f"@{name} - Mana: {user_dict['mana']} | "
@@ -193,6 +192,20 @@ async def generate_user_page(user_dict, all_commands):
 
     top8 = user_dict.get("top_eight", [])
 
+    widgets = user_dict.get(
+        "widgets", {"approved": [], "unapproved": [], "deactivated": []}
+    )
+    deactivated_widgets = widgets.get("deactivated", [])
+    approved_widgets = [
+        widget
+        for widget in widgets["approved"]
+        if widget.lower() not in deactivated_widgets
+    ]
+
+    if approved_widgets or deactivated_widgets:
+        print(f"Approved Widgets: {approved_widgets}")
+        print(f"Deactivated Widets: {deactivated_widgets}")
+
     context = {
         "user": name,
         "command_file": user_dict.get("command_file", None),
@@ -201,8 +214,9 @@ async def generate_user_page(user_dict, all_commands):
         "stats": stats,
         "top8": top8,
         "base_url": DEPLOY_URL,
-        "widgets": widgets["approved"],
+        "widgets": approved_widgets,
         "unapproved_widgets": widgets["unapproved"],
+        "deactivated_widgets": deactivated_widgets,
     }
 
     await _render_and_save_html("user.html", context, f"{name}.html")

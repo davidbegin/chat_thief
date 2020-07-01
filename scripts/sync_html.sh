@@ -27,13 +27,13 @@ while read -r HTML_FILE; do
            FILE_PATH=$(echo $HTML_FILE | awk '{print $3 $4}' | sed 's/:/\//')
            DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $1 "/" $2}' | rev | sed 's/://' | sed 's/beginworld_finance\///')
 
-           echo "NEW FILE: ${DEST_PATH}"
+           # echo "NEW FILE: ${DEST_PATH}"
            cp $FILE_PATH "${NEW_BEGINWORLD}/${DEST_PATH}"
          fi
        ;;
        *differ)
          DEST_PATH=$(echo $HTML_FILE | sed 's/\// /g' | rev | awk '{print $2 "/" $3}' | rev | sed 's/://' | sed 's/beginworld_finance\///')
-         echo "FILE DIFF: ${DEST_PATH}"
+         # echo "FILE DIFF: ${DEST_PATH}"
          cp $(echo $HTML_FILE | cut -d ' ' -f2) "${NEW_BEGINWORLD}/${DEST_PATH}"
        ;;
     esac

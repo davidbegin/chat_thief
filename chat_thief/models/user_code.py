@@ -6,6 +6,7 @@ import operator
 from tinydb import Query
 
 from chat_thief.models.base_db_model import BaseDbModel
+from chat_thief.models.user_page import UserPage
 
 
 class UserCode(BaseDbModel):
@@ -114,17 +115,27 @@ class UserCode(BaseDbModel):
         owned = [(user, owner_count) for (user, owner_count) in results.items()]
         return list(reversed(sorted(owned, key=lambda user_widgets: user_widgets[1])))
 
+    # We need to check UserPage Status
     @classmethod
     def js_for_user(cls, user):
         def is_owned_by(user_code):
             return user in user_code.get("owners", []) or user_code["user"] == user
 
         results = cls.db().search(is_owned_by)
-        owned_by = {"approved": [], "unapproved": []}
+        owned_by = {"approved": [], "unapproved": [], "deactivated": []}
+
         for result in results:
             if result.get("approved", False):
                 owned_by["approved"].append(f"{result['name']}.js")
             else:
                 owned_by["unapproved"].append(f"{result['name']}.js")
 
+        user_page = UserPage.for_user(user)
+        if user_page:
+            widgets = user_page["widgets"]
+            if widgets:
+                deactivated = [
+                    f"{widget}.js" for (widget, active) in widgets.items() if not active
+                ]
+            owned_by["deactivated"] = deactivated
         return owned_by

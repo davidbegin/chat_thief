@@ -72,10 +72,27 @@
   <br />
   <span>MAKE SURE YOU LINK THE RAW CSS</span>
 
+  {% if widgets %}
+    <h3> Active Widgets</h3>
+    {% for widget in widgets %}
+      {{ widget }}
+    {% endfor %}
+  {% endif %}
 
   {% if unapproved_widgets %}
     <h3> Unapproved Widgets</h3>
     {% for widget in unapproved_widgets %}
+      {{ widget }}
+    {% endfor %}
+  {% endif %}
+
+  {% if deactivated_widgets %}
+    <h3> Deactivated Widgets</h3>
+    To Remove the Widget, type in chat:
+    <br/>
+    <code>!removejs INSERT_WIDGET_NAME</code>
+    <br />
+    {% for widget in deactivated_widgets %}
       {{ widget }}
     {% endfor %}
   {% endif %}

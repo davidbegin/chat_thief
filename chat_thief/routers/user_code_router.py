@@ -27,9 +27,15 @@ class UserCodeRouter(BaseRouter):
         if self.command == "buyjs":
             return self.buy_js()
 
-        if self.command == "deactivate":
+        if self.command == "deactivate" or self.command == "removejs":
             js_to_deactivate = self.args[0]
-            return UserPage.deactivate(self.user, js_to_deactivate)
+            UserPage.deactivate(self.user, js_to_deactivate)
+            return f"Attempting to remove: {js_to_deactivate}"
+
+        if self.command == "activate" or self.command == "addjs":
+            js_to_add = self.args[0]
+            UserPage.activate(self.user, js_to_add)
+            return f"Attempting to Reactivate: {js_to_add}"
 
     # What does JS COST?
     # Should we let developers decide???

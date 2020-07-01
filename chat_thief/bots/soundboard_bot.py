@@ -25,6 +25,7 @@ def sync_main():
 
                 command_health = 5
                 # command_health = command.health()
+
                 user_mana = user.mana()
                 sfx_vote = SFXVote(command.name)
 
@@ -35,7 +36,7 @@ def sync_main():
                     soundfile = SoundeffectsLibrary.find_sample(sfx["command"])
                     if soundfile:
                         AudioPlayer.play_sample(
-                            soundfile.resolve(), sfx["notification"]
+                            soundfile.resolve(), sfx["notification"], user.name
                         )
                 elif not public_approved:
                     msg = f"Command: '!{command.name}' silenced: {round(sfx_vote.like_to_hate_ratio(), 2)}% Love/Hate Ratio"
@@ -48,7 +49,7 @@ def sync_main():
 
                     if soundfile:
                         AudioPlayer.play_sample(
-                            soundfile.resolve(), sfx["notification"]
+                            soundfile.resolve(), sfx["notification"], user.name
                         )
                         user.update_mana(-1)
                     else:

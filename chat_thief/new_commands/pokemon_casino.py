@@ -6,6 +6,7 @@ import random
 from chat_thief.audioworld.audio_player import AudioPlayer
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.begin_fund import BeginFund
+from chat_thief.config.stream_lords import STREAM_GODS
 
 POKEMON_NAMES = [
     "bulbasaur",
@@ -194,7 +195,8 @@ class PokemonCasino:
             cls.MYSTERY_POKEMON_PATH.unlink()
             guess_count = cls.guesses()
             cls.GUESSES_PATH.unlink()
-            result = BeginFund(target_user=user).dropeffect()
+            if user not in STREAM_GODS:
+                result = BeginFund(target_user=user).dropeffect()
             if "TEST_MODE" not in os.environ:
                 soundfile = SoundeffectsLibrary.find_sample("pokewin")
                 AudioPlayer.play_sample(soundfile.resolve(), notification=False)

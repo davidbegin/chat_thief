@@ -22,7 +22,6 @@ logger = setup_logger()
 
 
 class TestCommandRouter(DatabaseConfig):
-
     @pytest.fixture(autouse=True)
     def clean_guess(self):
         PokemonCasino.MYSTERY_POKEMON_PATH = Path(__file__).parent.joinpath(
@@ -114,7 +113,7 @@ class TestCommandRouter(DatabaseConfig):
         def _mock_random_user(self):
             return "miles.davis"
 
-        monkeypatch.setattr('EconomyRouter', "_random_user", _mock_random_user)
+        monkeypatch.setattr("EconomyRouter", "_random_user", _mock_random_user)
 
         user = User("bill.evans")
         Command("damn").allow_user("bill.evans")
