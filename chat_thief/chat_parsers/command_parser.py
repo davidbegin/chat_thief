@@ -61,12 +61,10 @@ class CommandParser:
                 else:
                     self.amount = int(arg)
 
-        if self.target_sfx is None and self.target_user is None:
-            if len(self.args) == 0:
-                if self.allow_random_user:
-                    self.target_user = "random"
-                if self.allow_random_sfx:
-                    self.target_sfx = "random"
+        if self.allow_random_user and self.target_user is None:
+            self.target_user = "random"
+        if self.allow_random_sfx and self.target_sfx is None:
+            self.target_sfx = "random"
 
     def _is_sfx(self, sfx):
         if self.allow_random_sfx and sfx == "random":
@@ -80,7 +78,6 @@ class CommandParser:
         elif user in STREAM_GODS:
             return True
         elif self.allow_random_user:
-            # we need to add the WelcomeCommittee here as well
             return (
                 user in self.all_user_names
                 or user == "random"

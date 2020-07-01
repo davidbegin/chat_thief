@@ -6,10 +6,11 @@ import requests
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.commands.command_giver import CommandGiver
 from chat_thief.commands.command_sharer import CommandSharer
-
 from chat_thief.commands.donator import Donator
 from chat_thief.commands.street_cred_transfer import StreetCredTransfer
 from chat_thief.config.stream_lords import STREAM_LORDS
+from chat_thief.current_stream import CurrentStream
+from chat_thief.formatters.steal_formatter import StealFormatter
 from chat_thief.models.command import Command
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.user import User
@@ -19,9 +20,6 @@ from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.prize_dropper import random_user as find_random_user
 from chat_thief.routers.base_router import BaseRouter
 
-from chat_thief.formatters.steal_formatter import StealFormatter
-
-# BASE_URL = "https://www.beginworld.exchange"
 BASE_URL = "https://mygeoangelfirespace.city"
 
 COMMANDS = {"give": {"aliases": ["transfer", "give"],}}
@@ -145,9 +143,9 @@ class EconomyRouter(BaseRouter):
 
         if parser.target_user == "random" or parser.target_user is None:
             if parser.target_sfx:
-                parser.target_user = find_random_user(
-                    blacklisted_users=Command(parser.target_sfx).users()
-                )
+                blacklisted_users = Command(parser.target_sfx).users()
+                random_user = CurrentStream.random_user(blacklisted_users)
+                parser.target_user = random_user
 
         if parser.target_user and parser.target_sfx:
             return CommandSharer(

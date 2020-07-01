@@ -46,6 +46,7 @@ class TestModeratorRouter(DatabaseConfig):
         ModeratorRouter("beginbotbot", "no_news", []).route()
         assert BreakingNews.count() == 0
 
+    # This needs the log file
     def test_dropeffects(self):
         result = ModeratorRouter("beginbotbot", "dropeffect").route()
         assert "now has access" in result

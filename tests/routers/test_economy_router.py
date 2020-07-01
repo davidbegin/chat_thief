@@ -9,6 +9,7 @@ from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
 from chat_thief.models.sfx_vote import SFXVote
+from chat_thief.current_stream import CurrentStream
 
 from tests.support.database_setup import DatabaseConfig
 
@@ -193,7 +194,12 @@ class TestEconomyRouter(DatabaseConfig):
             "@young.thug lost access to !damn",
         ]
 
-    def test_sharing_with_another_user(self, mock_find_random_user):
+    def test_sharing_with_another_user(self, monkeypatch):
+        def fake_random_user(self):
+            return users.pop()
+
+        monkeypatch.setattr(CurrentStream, "random_user", fake_random_user)
+
         user = "young.thug"
         User("uzi").save()
         User(user).update_cool_points(10)
