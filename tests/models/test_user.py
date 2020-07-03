@@ -12,6 +12,7 @@ from tests.support.database_setup import DatabaseConfig
 class TestUser(DatabaseConfig):
     def test_commands(self):
         subject = User("artmattdank")
+        assert User.count() == 1
         assert subject.commands() == []
         command = Command("flacid")
         command.allow_user("artmattdank")

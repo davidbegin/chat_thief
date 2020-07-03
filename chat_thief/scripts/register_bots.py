@@ -17,6 +17,7 @@ BOTS_AND_CREATORS = {
     "detlion1643": "botriptide",
     "portaalgaming": "portaalgamingfriend",
     "rockerboo": "800807",
+    "orenog_live4": "personnormalyesplus5",
 }
 
 
