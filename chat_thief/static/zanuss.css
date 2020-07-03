@@ -139,6 +139,32 @@ body.home > h2:nth-of-type(1){
   color: #ffff00;
 }
 
+.js_widgets{
+  text-transform: uppercase;
+  background-color:black !important;
+  color:#ffffff;
+  font-family: 'Press Start 2P', monospace !important;
+  width:80%;
+  margin:auto;
+  padding:2em !important;
+  background-image: none !important;
+}
+
+.js_widgets h1{
+  background-image: url('https://i.imgur.com/RfmRfWM.png');
+  background-size: 5% 100%;
+}
+
+.js_widgets span{
+    padding-top:30px;
+    padding-bottom:30px;
+    display:block;
+}
+
+.js_widgets a{
+  padding-bottom:10px;
+}
+
 .command{
   text-transform: uppercase;
   background-color:black !important;
@@ -178,11 +204,34 @@ body {
   background-repeat:no-repeat;
 }
 
-.home{
+ .home{
   background-position: 85% 0.37% !important;
   background-size: 550px 430px !important;
   background-repeat:no-repeat !important;
+} 
+
+/* .home{
+ display:inline-block;
+ overflow: hidden;
+ text-indent: -9999px;
+ background-image:none !important;
 }
+
+.home:before{
+ display: block;
+ content: "!bestcss secretmud";
+ color: red;
+ font-size: 100px;
+ margin:0;
+ text-align:center;
+ text-indent:0px;
+}
+
+.home h1{
+  display:none;
+  background-image:none !imporant;
+  background-color:none !important;
+} */
 
 h1{
    text-transform: uppercase;
@@ -463,7 +512,6 @@ audio::-webkit-media-controls-play-button:hover{
     background-image:url('https://i.imgur.com/qhgVKHB.png');
     background-size:100%;
     display:block;
-    
  }
 
  
@@ -481,14 +529,23 @@ audio::-webkit-media-controls-time-remaining-display{
    color: #0000FF;
  }
  
- audio::-webkit-media-controls-timeline{
+audio::-webkit-media-controls-timeline{
     color: #0000FF;
     display:block;
  }
 
  audio::-webkit-media-controls-mute-button {
-    background:transparent;
+   display:none;
 }
+
+audio::-webkit-media-controls-volume-slider-container{
+    display:none;
+}
+
+audio::-webkit-media-controls-volume-slider{
+  display:none;
+}
+
 
 .updated_at{
   display:block;
