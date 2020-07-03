@@ -197,9 +197,9 @@ class PokemonCasino:
             cls.GUESSES_PATH.unlink()
             if user not in STREAM_GODS:
                 result = BeginFund(target_user=user).dropeffect()
-            if "TEST_MODE" not in os.environ:
-                soundfile = SoundeffectsLibrary.find_sample("pokewin")
-                AudioPlayer.play_sample(soundfile.resolve(), notification=False)
+                if "TEST_MODE" not in os.environ:
+                    soundfile = SoundeffectsLibrary.find_sample("pokewin")
+                    AudioPlayer.play_sample(soundfile.resolve(), notification=False)
             return (
                 f"{user} Won! {pokemon} - Beating {guess_count} Other People | {result}"
             )
