@@ -1,2 +1,4 @@
-tinydb
+tinydb < 4
 tinyrecord
+requests
+flask
