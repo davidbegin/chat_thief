@@ -1,4 +1,4 @@
-tinydb < 4
-tinyrecord
+tinydb > 4
+-e /home/begin/code/tinyrecord
 requests
 flask

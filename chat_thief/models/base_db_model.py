@@ -50,7 +50,11 @@ class BaseDbModel(abc.ABC):
 
     @classmethod
     def purge(cls):
-        return cls.db().purge()
+        return cls.db().truncate()
+
+    @classmethod
+    def truncate(cls):
+        return cls.db().truncate()
 
     @classmethod
     def set_value_by_id(cls, doc_id, field, value):

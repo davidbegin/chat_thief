@@ -25,7 +25,7 @@ class NewCubeCasinoRouter(BaseRouter):
     def _process_solve(self):
         cube_time = self._convert_cube_time()
         result = NewCubeCasino(cube_time).gamble()
-        CubeBet.purge()
+        CubeBet.truncate()
         result = CubeCasinoFormatter(result).format()
         print(f"Result from formatter: {result}")
         return result

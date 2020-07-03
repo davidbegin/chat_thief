@@ -203,11 +203,13 @@ class TestUser(DatabaseConfig):
         command.allow_user("bill.evans")
         assert subject.wealth() == 21
 
+    # @pytest.mark.skip
     def test_is_bot(self):
         creator = "bill.evans"
         bot = User("bill.evans.bot")
         User.register_bot(bot=bot.name, creator=creator)
         User.bots() == ["bill.evans.bot"]
+
         assert bot.is_bot()
         assert bot.creator() == "bill.evans"
 

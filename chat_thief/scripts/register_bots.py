@@ -14,6 +14,9 @@ BOTS_AND_CREATORS = {
     "baldclap": "cheb0t",
     "nomorequity": "nomoreb0t",
     "r_u_ri_ui": "hal9thou",
+    "detlion1643": "botriptide",
+    "portaalgaming": "portaalgamingfriend",
+    "rockerboo": "800807",
 }
 
 

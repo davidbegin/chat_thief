@@ -30,7 +30,11 @@ class User(BaseDbModel):
 
     @classmethod
     def bots(cls):
-        return [bot["name"] for bot in cls.db().search(Query().is_bot)]
+        return [
+            # bot["name"] for bot in cls.db().search(Query().is_bot)
+            bot["name"]
+            for bot in cls.db().search(Query().is_bot == True)
+        ]
 
     @classmethod
     def total_street_cred(cls):
@@ -171,10 +175,8 @@ class User(BaseDbModel):
         }
 
     def _find_or_create_user(self):
-        # We should be using get
-        user_result = self.db().search(Query().name == self.name)
+        user_result = self.db().get(Query().name == self.name)
         if user_result:
-            user_result = user_result[0]
             return user_result
         else:
             success(f"Creating New User: {self.doc()}")
