@@ -2,7 +2,9 @@ import abc
 import itertools
 import operator
 
-from tinydb import Query
+from tinydb import Query  # type: ignore
+
+from chat_thief.models.transaction import transaction
 
 from chat_thief.models.database import db_table
 
@@ -64,10 +66,9 @@ class BaseDbModel(abc.ABC):
 
             return transform
 
-        from tinyrecord import transaction
-
         with transaction(cls.db()) as tr:
-            tr.update_callable(_update_that_value(), doc_ids=[doc_id])
+            # db.update(your_operation(arguments), query)
+            tr.update(_update_that_value(), doc_ids=[doc_id])
 
     @abc.abstractmethod
     def doc(self):
@@ -82,23 +83,17 @@ class BaseDbModel(abc.ABC):
 
             return transform
 
-        from tinyrecord import transaction
-
         with transaction(self.db()) as tr:
-            tr.update_callable(_update_that_value(), Query().name == self.name)
+            tr.update(_update_that_value(), Query().name == self.name)
 
     def save(self):
-        from tinyrecord import transaction
-
         with transaction(self.db()) as tr:
             tr.insert(self.doc())
         return self
 
     def update(self, update_func):
-        from tinyrecord import transaction
-
         with transaction(self.db()) as tr:
-            return tr.update_callable(update_func(), Query().name == self.name)
+            return tr.update(update_func(), Query().name == self.name)
         return self
 
     def update_value(self, field, amount=1):
@@ -114,7 +109,5 @@ class BaseDbModel(abc.ABC):
 
             return transform
 
-        from tinyrecord import transaction
-
         with transaction(self.db()) as tr:
-            tr.update_callable(_update_that_value(), Query().name == self.name)
+            tr.update(_update_that_value(), Query().name == self.name)

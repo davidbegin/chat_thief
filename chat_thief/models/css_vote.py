@@ -1,7 +1,7 @@
 import itertools
 import operator
 
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.models.base_db_model import BaseDbModel
 

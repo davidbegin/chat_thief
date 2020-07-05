@@ -1,6 +1,7 @@
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.models.base_db_model import BaseDbModel
+from chat_thief.models.transaction import transaction
 from chat_thief.models.command import Command
 
 
@@ -42,10 +43,8 @@ class TheFed(BaseDbModel):
 
             return transform
 
-        from tinyrecord import transaction
-
         with transaction(self.db()) as tr:
-            tr.update_callable(_update_that_value(), Query().version == self.version)
+            tr.update(_update_that_value(), Query().version == self.version)
 
     def doc(self):
         return {"version": self.version, "reserve": self._reserve}

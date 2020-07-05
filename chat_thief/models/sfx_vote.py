@@ -1,9 +1,10 @@
 from typing import List
 
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.models.database import db_table
 from chat_thief.models.base_db_model import BaseDbModel
+from chat_thief.models.transaction import transaction
 
 
 class SFXVote(BaseDbModel):
@@ -73,7 +74,6 @@ class SFXVote(BaseDbModel):
             return vote
         else:
             print(f"Creating New SFXVote: {self.doc()}")
-            from tinyrecord import transaction
 
             with transaction(self.db()) as tr:
                 tr.insert(self.doc())

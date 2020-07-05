@@ -1,4 +1,4 @@
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.models.command import Command
 from chat_thief.models.user import User

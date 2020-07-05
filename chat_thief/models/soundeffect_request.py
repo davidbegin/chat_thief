@@ -2,12 +2,13 @@ from collections import Counter
 import traceback
 from datetime import datetime
 
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.models.database import db_table
 from chat_thief.audioworld.sample_saver import SampleSaver
 from chat_thief.models.base_db_model import BaseDbModel
+from chat_thief.models.transaction import transaction
 
 
 class SoundeffectRequest(BaseDbModel):
@@ -141,7 +142,6 @@ class SoundeffectRequest(BaseDbModel):
         doc_ids_to_delete = [sfx.doc_id for sfx in results]
         if doc_ids_to_delete:
             print(f"Deleting the following IDs: {doc_ids_to_delete}")
-            from tinyrecord import transaction
 
             with transaction(cls.db()) as tr:
                 tr.remove(doc_ids=doc_ids_to_delete)
@@ -179,13 +179,11 @@ class SoundeffectRequest(BaseDbModel):
         results = self.db().search(Query().command == self.command)
         doc_ids_to_delete = [sfx.doc_id for sfx in results]
         if doc_ids_to_delete:
-            from tinyrecord import transaction
 
             with transaction(self.db()) as tr:
                 tr.remove(doc_ids=doc_ids_to_delete)
 
         print(f"Creating New SFX Request: {self.doc()}")
-        from tinyrecord import transaction
 
         with transaction(self.db()) as tr:
             tr.insert(self.doc())

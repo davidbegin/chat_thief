@@ -4,7 +4,9 @@ from chat_thief.models.database import db_table
 from chat_thief.models.base_db_model import BaseDbModel
 from chat_thief.models.user import User
 from chat_thief.config.log import error, warning, success
-from tinydb import Query
+from tinydb import Query  # type: ignore
+
+from chat_thief.models.transaction import transaction
 
 
 class CubeBet(BaseDbModel):
@@ -28,7 +30,6 @@ class CubeBet(BaseDbModel):
             self.set_value("duration", self._duration)
         else:
             success(f"Creating New Cube Bet: {self.doc()}")
-            from tinyrecord import transaction
 
             with transaction(self.db()) as tr:
                 tr.insert(self.doc())
@@ -55,7 +56,6 @@ class CubeBet(BaseDbModel):
             return result
         else:
             success(f"Creating New Cube Bet: {self.doc()}")
-            from tinyrecord import transaction
 
             with transaction(self.db()) as tr:
                 tr.insert(self.doc())
@@ -68,7 +68,6 @@ class CubeBet(BaseDbModel):
             return result
 
         success(f"Creating New Cube Bet: {self.doc()}")
-        from tinyrecord import transaction
 
         with transaction(self.db()) as tr:
             tr.insert(self.doc())
@@ -84,7 +83,5 @@ class CubeBet(BaseDbModel):
 
             return transform
 
-        from tinyrecord import transaction
-
         with transaction(self.db()) as tr:
-            tr.update_callable(_update_that_value(), Query().user == self.user)
+            tr.update(_update_that_value(), Query().user == self.user)

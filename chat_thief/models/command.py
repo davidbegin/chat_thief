@@ -3,7 +3,7 @@ import os
 from collections import Counter
 from itertools import chain
 
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.config.log import success, warning, error
 from chat_thief.config.stream_lords import STREAM_GODS
@@ -11,6 +11,7 @@ from chat_thief.models.base_db_model import BaseDbModel
 from chat_thief.models.database import db_table
 from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
+from chat_thief.models.transaction import transaction
 
 
 class Command(BaseDbModel):
@@ -31,7 +32,6 @@ class Command(BaseDbModel):
         if command_result := self.db().search(Query().name == self.name):
             return command_result[0]
         else:
-            from tinyrecord import transaction
 
             with transaction(self.db()) as tr:
                 tr.insert(self.doc())

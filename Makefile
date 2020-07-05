@@ -1,9 +1,5 @@
-types:
-	mypy --disallow-untyped-defs *.py
-
 format:
-	black chat_thief/*.py chat_thief/**/*.py *.py
-	black tests/**/*.py tests/*.py
+	black chat_thief/*.py chat_thief/**/*.py *.py tests/**/*.py tests/*.py
 
 t:
 	TEST_MODE=true BLOCK_TWITCH_MSGS=true python -m pytest --cov=chat_thief tests/*
@@ -75,3 +71,10 @@ full_deploy: beginworld_html deploy_all
 
 register_bots:
 	python -m chat_thief.scripts.register_bots
+
+mypy:
+	mypy chat_thief/**/*.py --warn-unused-ignores
+	# mypy *.py --warn-unused-ignores
+	# mypy chat_thief/models/user.py
+	# mypy --disallow-untyped-defs *.py
+	# mypy *.py --warn-unused-ignores

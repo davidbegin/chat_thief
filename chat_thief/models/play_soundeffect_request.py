@@ -1,9 +1,10 @@
 import json
 import traceback
 
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.models.database import db_table
+from chat_thief.models.transaction import transaction
 from chat_thief.models.base_db_model import BaseDbModel
 
 
@@ -38,8 +39,6 @@ class PlaySoundeffectRequest(BaseDbModel):
         }
 
     def pop_all_off(self):
-        from tinyrecord import transaction
-
         all_effects = self.all()
 
         doc_ids_to_delete = [sfx.doc_id for sfx in all_effects]

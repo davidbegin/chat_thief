@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.config.log import logger
 from chat_thief.command_router import CommandRouter

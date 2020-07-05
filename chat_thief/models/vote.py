@@ -1,8 +1,9 @@
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.models.base_db_model import BaseDbModel
 from chat_thief.models.user import User
 from chat_thief.config.log import error, warning, success
+from chat_thief.models.transaction import transaction
 
 
 class Vote(BaseDbModel):
@@ -75,7 +76,6 @@ class Vote(BaseDbModel):
             self.db().update(user_vote(vote), Query().user == self.user)
         else:
             warning(f"NO Previous Vote for User {self.user}!")
-            from tinyrecord import transaction
 
             with transaction(self.db()) as tr:
                 tr.insert(self.doc(vote))

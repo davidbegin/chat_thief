@@ -1,4 +1,4 @@
-from tinydb import Query
+from tinydb import Query  # type: ignore
 from datetime import datetime
 import time
 

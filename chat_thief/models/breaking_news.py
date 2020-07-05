@@ -3,7 +3,7 @@ import time
 from chat_thief.models.base_db_model import BaseDbModel
 from datetime import datetime
 
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 
 class BreakingNews(BaseDbModel):

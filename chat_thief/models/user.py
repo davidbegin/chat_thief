@@ -1,4 +1,4 @@
-from tinydb import Query
+from tinydb import Query  # type: ignore
 
 from chat_thief.models.database import db_table
 from chat_thief.prize_dropper import random_soundeffect
@@ -6,6 +6,7 @@ from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.config.log import error, warning, success
 from chat_thief.models.command import Command
 from chat_thief.models.base_db_model import BaseDbModel
+from chat_thief.models.transaction import transaction
 
 
 class User(BaseDbModel):
@@ -180,7 +181,6 @@ class User(BaseDbModel):
             return user_result
         else:
             success(f"Creating New User: {self.doc()}")
-            from tinyrecord import transaction
 
             with transaction(self.db()) as tr:
                 tr.insert(self.doc())

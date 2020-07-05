@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from tinydb.storages import MemoryStorage
-from tinydb import TinyDB
+from tinydb import TinyDB  # type: ignore
 
 
 def db_table(db_location, table_name):
