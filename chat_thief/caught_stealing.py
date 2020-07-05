@@ -1,4 +1,5 @@
 from random import randint
+from typing import Tuple
 
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.rap_sheet import RapSheet
@@ -40,7 +41,7 @@ class CaughtStealing:
         self.thief_wealth = User(self.thief).wealth()
         self.victim_wealth = User(self.victim).wealth()
 
-    def call(self) -> bool:
+    def call(self) -> Tuple[bool, int]:
         success_range = self._calc_chance_of_success()
         roll_of_the_dice = randint(0, 100)
         busted = roll_of_the_dice > success_range
@@ -63,7 +64,7 @@ class CaughtStealing:
         return busted, success_range
 
     # Chance of Succeeding From: 0 ... 100
-    def _calc_chance_of_success(self):
+    def _calc_chance_of_success(self) -> int:
         chance = DEFAULT_CHANCE
         chance = self._society_bonus(chance)
         chance = self._wealth_disparity_bonus(chance)

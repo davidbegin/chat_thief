@@ -3,8 +3,6 @@ import traceback
 from collections import Counter
 from itertools import chain
 
-from tinydb import TinyDB, Query
-
 from chat_thief.models.user import User
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.vote import Vote

@@ -1,3 +1,5 @@
+check: format mypy t
+
 format:
 	black chat_thief/*.py chat_thief/**/*.py *.py tests/**/*.py tests/*.py
 
@@ -73,6 +75,7 @@ register_bots:
 	python -m chat_thief.scripts.register_bots
 
 mypy:
+	# python -m mypy chat_thief/**/*.py --warn
 	mypy chat_thief/**/*.py --warn-unused-ignores
 	# mypy *.py --warn-unused-ignores
 	# mypy chat_thief/models/user.py

@@ -1,8 +1,6 @@
 from pathlib import Path
-import random
 
 import requests
-from tinydb import Query
 
 from chat_thief.models.user import User
 from chat_thief.models.user_code import UserCode

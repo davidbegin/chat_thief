@@ -1,9 +1,10 @@
 from pathlib import Path
+from typing import List
 
 from chat_thief.irc import send_twitch_msg
 
 
-BLACKLISTED_REQUESTERS = []
+BLACKLISTED_REQUESTERS: List[str] = []
 SOUNDEFFECT_REQUESTS_PATH = Path(__file__).parent.parent.parent.joinpath("db/.requests")
 
 
