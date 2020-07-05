@@ -1,11 +1,12 @@
 from typing import List
 
 STREAM_GODS: List[str] = [
-    # "beginbot",
+    "beginbot",
     "beginbotbot",
     "stupac62",
     "artmattdank",
     "syoonee",
+    "sunny_ai",
 ]
 
 STREAM_PEASANTS: List[str] = []

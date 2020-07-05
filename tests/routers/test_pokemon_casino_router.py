@@ -28,7 +28,7 @@ class TestPokemonCasinoRouter(DatabaseConfig):
         result = PokemonCasinoRouter("beginbot", "pokemon", []).route()
         assert result == "Guess Which Pokemon This Is!!!"
         result = PokemonCasinoRouter("beginbot", "pokemon", []).route()
-        assert result == "Already a Guess in Progress!"
+        assert result == "Who's that Pokemon"
 
     def test_guess_pokemon(self):
         result = PokemonCasinoRouter("beginbot", "pokemon", []).route()

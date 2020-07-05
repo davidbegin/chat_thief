@@ -195,14 +195,19 @@ class PokemonCasino:
             cls.MYSTERY_POKEMON_PATH.unlink()
             guess_count = cls.guesses()
             cls.GUESSES_PATH.unlink()
+
+            result = f"{user} Won! {pokemon} - Beating {guess_count} Other People"
+
             if user not in STREAM_GODS:
-                result = BeginFund(target_user=user).dropeffect()
-                if "TEST_MODE" not in os.environ:
-                    soundfile = SoundeffectsLibrary.find_sample("pokewin")
-                    AudioPlayer.play_sample(soundfile.resolve(), notification=False)
-            return (
-                f"{user} Won! {pokemon} - Beating {guess_count} Other People | {result}"
-            )
+                prize = BeginFund(target_user=user).dropeffect()
+
+                result += " | {prize}"
+
+            if "TEST_MODE" not in os.environ:
+                soundfile = SoundeffectsLibrary.find_sample("pokewin")
+                AudioPlayer.play_sample(soundfile.resolve(), notification=False)
+
+            return result
         else:
             with open(cls.GUESSES_PATH, "a") as f:
                 f.write(f"{user}: {guess}\n")
@@ -211,7 +216,7 @@ class PokemonCasino:
     @classmethod
     def whos_that_pokemon(cls):
         if cls.MYSTERY_POKEMON_PATH.exists():
-            return "Already a Guess in Progress!"
+            return cls.replay()
 
         if "TEST_MODE" not in os.environ:
             soundfile = SoundeffectsLibrary.find_sample("pokewho")
@@ -227,4 +232,3 @@ class PokemonCasino:
             f.write(pokemon)
 
         return "Guess Which Pokemon This Is!!!"
-        # print(pokemon)
