@@ -75,11 +75,7 @@ register_bots:
 	python -m chat_thief.scripts.register_bots
 
 types:
-	mypy chat_thief/models/user.py --disallow-untyped-defs
+	mypy chat_thief/models/base_db_model.py --disallow-untyped-defs
 
 mypy:
-	# python -m mypy chat_thief/**/*.py --warn
 	mypy chat_thief/**/*.py --warn-unused-ignores
-	# mypy *.py --warn-unused-ignores
-	# mypy chat_thief/models/user.py
-	# mypy *.py --warn-unused-ignores

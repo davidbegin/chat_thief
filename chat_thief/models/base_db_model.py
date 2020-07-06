@@ -1,12 +1,11 @@
 import abc
 import itertools
 import operator
-from typing import NoReturn
+from typing import Callable
 
 from tinydb import Query  # type: ignore
 
 from chat_thief.models.transaction import transaction
-
 from chat_thief.models.database import db_table
 
 
@@ -77,7 +76,7 @@ class BaseDbModel(abc.ABC):
         return
 
     # this is always based on the name, you should be able to override
-    def set_value(self, field, value) -> NoReturn:
+    def set_value(self, field, value) -> None:
         def _update_that_value():
             def transform(doc):
                 doc[field] = value
@@ -87,14 +86,14 @@ class BaseDbModel(abc.ABC):
         with transaction(self.db()) as tr:
             tr.update(_update_that_value(), Query().name == self.name)
 
-    def save(self):
-        with transaction(self.db()) as tr:
-            tr.insert(self.doc())
-        return self
-
-    def update(self, update_func):
+    def update(self, update_func: Callable):
         with transaction(self.db()) as tr:
             return tr.update(update_func(), Query().name == self.name)
+        return self
+
+    def save(self) -> 'BaseDbModel':
+        with transaction(self.db()) as tr:
+            tr.insert(self.doc())
         return self
 
     def update_value(self, field: str, amount: int = 1) -> None:

@@ -22,7 +22,6 @@ class TestCubeCasinoRouter(DatabaseConfig):
         assert result == "@wayne.shorter: 42"
 
     # !bet 45 clap damn
-    @pytest.mark.focus
     def test_best_with_multiple_commands(self):
         User("wayne.shorter").save()
         User("grant.green").save()
