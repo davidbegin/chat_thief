@@ -66,6 +66,9 @@ class CommandParser:
         if self.allow_random_sfx and self.target_sfx is None:
             self.target_sfx = "random"
 
+        if "all" in self.args and self.amount == 1 and self.target_command == "props":
+            self.amount = User(self.user).street_cred()
+
     def _is_sfx(self, sfx):
         if self.allow_random_sfx and sfx == "random":
             return True

@@ -92,6 +92,15 @@ class TestEconomyRouter(DatabaseConfig):
         result = EconomyRouter("uzibot", "props", ["uzi"]).route()
         assert result == "You cannot props your creator @uzibot @uzi"
 
+    def test_all_props(self):
+        young_thug = User("young.thug")
+        young_thug.update_street_cred(10)
+        uzi = User("uzi")
+        result = EconomyRouter(young_thug.name, "props", [uzi.name, "all"]).route()
+        assert young_thug.cool_points() == 0
+        assert young_thug.street_cred() == 0
+        assert uzi.cool_points() == 10
+
     def test_props(self):
         young_thug = User("young.thug")
         uzi = User("uzi")

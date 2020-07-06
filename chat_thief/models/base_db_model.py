@@ -1,7 +1,7 @@
 import abc
 import itertools
 import operator
-from typing import Callable
+from typing import Callable, List, Dict, Any, Optional, Tuple
 
 from tinydb import Query  # type: ignore
 
@@ -13,7 +13,7 @@ class BaseDbModel(abc.ABC):
     database_folder = ""
 
     @classmethod
-    def count_by_group(cls, category):
+    def count_by_group(cls, category: str) -> List[Tuple[str, int]]:
         all_data = cls.db().all()
 
         def get_by_category(item):
@@ -27,17 +27,17 @@ class BaseDbModel(abc.ABC):
         return list(reversed(sorted(data_counts, key=lambda data: data[1])))
 
     @classmethod
-    def delete(cls, doc_ids):
+    def delete(cls, doc_ids: List[int]):
         if not isinstance(doc_ids, list):
             doc_ids = [doc_ids]
         return cls.db().remove(doc_ids=doc_ids)
 
     @classmethod
-    def count(cls):
+    def count(cls) -> int:
         return len(cls.all())
 
     @classmethod
-    def all(cls):
+    def all(cls) -> List[Dict]:
         return cls.db().all()
 
     @classmethod
