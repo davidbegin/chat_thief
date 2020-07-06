@@ -1,9 +1,10 @@
 import abc
 import itertools
 import operator
-from typing import Callable, List, Dict, Any, Optional, Tuple
+from typing import Callable, List, Dict, Any, Optional, Tuple, Union
 
 from tinydb import Query  # type: ignore
+from tinydb.table import Table  # type: ignore
 
 from chat_thief.models.transaction import transaction
 from chat_thief.models.database import db_table
@@ -16,7 +17,7 @@ class BaseDbModel(abc.ABC):
     def count_by_group(cls, category: str) -> List[Tuple[str, int]]:
         all_data = cls.db().all()
 
-        def get_by_category(item):
+        def get_by_category(item: Dict) -> Any:
             return item.get(category)
 
         grouped_data = itertools.groupby(
@@ -27,10 +28,10 @@ class BaseDbModel(abc.ABC):
         return list(reversed(sorted(data_counts, key=lambda data: data[1])))
 
     @classmethod
-    def delete(cls, doc_ids: List[int]):
+    def delete(cls, doc_ids: Union[int, List[int]]) -> None:
         if not isinstance(doc_ids, list):
             doc_ids = [doc_ids]
-        return cls.db().remove(doc_ids=doc_ids)
+        cls.db().remove(doc_ids=doc_ids)
 
     @classmethod
     def count(cls) -> int:
@@ -40,45 +41,46 @@ class BaseDbModel(abc.ABC):
     def all(cls) -> List[Dict]:
         return cls.db().all()
 
+    # How do I grab the last with Tiny DB
     @classmethod
-    def last(cls):
-        # How do I grab the last with Tiny DB
-        if cls.all():
-            return cls.all()[-1]
+    def last(cls) -> Optional[Dict]:
+        if results := cls.all():
+            return results[-1]
+        else:
+            return None
 
     @classmethod
-    def db(cls):
+    def db(cls) -> Table:
         return db_table(cls.database_folder + cls.database_path, cls.table_name)
 
     @classmethod
-    def purge(cls):
-        return cls.db().truncate()
+    def purge(cls) -> None:
+        cls.db().truncate()
 
     @classmethod
-    def truncate(cls):
-        return cls.db().truncate()
+    def truncate(cls) -> None:
+        cls.db().truncate()
 
     @classmethod
-    def set_value_by_id(cls, doc_id, field, value):
-        def _update_that_value():
-            def transform(doc):
+    def set_value_by_id(cls, doc_id: int, field: str, value: Any) -> None:
+        def _update_that_value() -> Callable[[Dict], None]:
+            def transform(doc: Dict) -> None:
                 doc[field] = value
 
             return transform
 
         with transaction(cls.db()) as tr:
-            # db.update(your_operation(arguments), query)
             tr.update(_update_that_value(), doc_ids=[doc_id])
 
     @abc.abstractmethod
-    def doc(self):
+    def doc(self) -> Dict:
         """The dict representation of the model"""
-        return
+        return {}
 
     # this is always based on the name, you should be able to override
-    def set_value(self, field, value) -> None:
-        def _update_that_value():
-            def transform(doc):
+    def set_value(self, field: str, value: Any) -> None:
+        def _update_that_value() -> Callable[[Dict], None]:
+            def transform(doc: Dict) -> None:
                 doc[field] = value
 
             return transform
@@ -86,7 +88,7 @@ class BaseDbModel(abc.ABC):
         with transaction(self.db()) as tr:
             tr.update(_update_that_value(), Query().name == self.name)
 
-    def update(self, update_func: Callable):
+    def update(self, update_func: Callable[[], None]) -> "BaseDbModel":
         with transaction(self.db()) as tr:
             return tr.update(update_func(), Query().name == self.name)
         return self
@@ -97,8 +99,8 @@ class BaseDbModel(abc.ABC):
         return self
 
     def update_value(self, field: str, amount: int = 1) -> None:
-        def _update_that_value():
-            def transform(doc):
+        def _update_that_value() -> Callable[[Dict], None]:
+            def transform(doc: Dict) -> None:
                 if field in doc:
                     doc[field] = doc[field] + amount
                 else:
