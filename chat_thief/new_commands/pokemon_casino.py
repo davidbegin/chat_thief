@@ -7,6 +7,7 @@ from chat_thief.audioworld.audio_player import AudioPlayer
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.begin_fund import BeginFund
 from chat_thief.config.stream_lords import STREAM_GODS
+from chat_thief.models.notification import Notification
 
 POKEMON_NAMES = [
     "bulbasaur",
@@ -197,6 +198,7 @@ class PokemonCasino:
             cls.GUESSES_PATH.unlink()
 
             result = f"{user} Won! {pokemon} - Beating {guess_count} Other People"
+            prize = None
 
             if user not in STREAM_GODS:
                 prize = BeginFund(target_user=user).dropeffect()
@@ -207,6 +209,7 @@ class PokemonCasino:
                 soundfile = SoundeffectsLibrary.find_sample("pokewin")
                 AudioPlayer.play_sample(soundfile.resolve(), notification=False)
 
+            Notification(f"{user} won: {guess}").save()
             return result
         else:
             with open(cls.GUESSES_PATH, "a") as f:

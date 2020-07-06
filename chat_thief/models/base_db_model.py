@@ -1,6 +1,7 @@
 import abc
 import itertools
 import operator
+from typing import NoReturn
 
 from tinydb import Query  # type: ignore
 
@@ -76,7 +77,7 @@ class BaseDbModel(abc.ABC):
         return
 
     # this is always based on the name, you should be able to override
-    def set_value(self, field, value):
+    def set_value(self, field, value) -> NoReturn:
         def _update_that_value():
             def transform(doc):
                 doc[field] = value

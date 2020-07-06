@@ -1,16 +1,21 @@
 body{
 	overflow: hidden;
+	
+	background:rgb(180,180,180);
+
+	/*
 	animation-name: bodyanimation;
   	animation-duration: 10s;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
+	*/
 	
 }
 body *{
 	transform: scale(0.5);
 }
 h1{
-	background-color: 	rgb(192,192,192);
+	background-color: 	rgba(0,0,0,0.5);
 	padding: 1rem;
 	color: white;
 	border-radius: 20px;
@@ -22,44 +27,11 @@ a{
 @keyframes bodyanimation {
 	0%   {
 		transform: rotate(0deg);
-		background-color: rgb(255,0,0);
-		}
-	8%{
-		background-color: rgb(255,127,0);
-		}
-	16%{
-		background-color: rgb(255,255,0);
-		}
-	25%{
-		background-color: rgb(127,255,0);
-		}
-	33%{
-		background-color: rgb(0,255,0);
-		}
-	41%{
-		background-color: rgb(0,255,127);
 		}
 	50%{
 		transform: rotate(180deg);
-		background-color: rgb(0,255,255);
-		}
-	58%{
-		background-color: rgb(0,127,255);
-		}
-	66%{
-		background-color: rgb(0,0,255);
-		}
-	75%{
-		background-color: rgb(127,0,255);
-		}
-	83%{
-		background-color: rgb(255,0,255);
-		}
-	91%{
-		background-color: rgb(255,0,127);
 		}
 	100%  {
 		transform: rotate(360deg);
-		background-color: rgb(255,0,0);
 		}		
 }

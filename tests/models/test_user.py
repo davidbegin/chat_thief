@@ -55,7 +55,7 @@ class TestUser(DatabaseConfig):
         otheruser = User("otheruser")
         otheruser.update_cool_points(5)
         result = User.richest()
-        expected = [["thugga", 3], ["otheruser", 5], ["artmattdank", 10]]
+        expected = [("thugga", 3), ("otheruser", 5), ("artmattdank", 10)]
         assert result == expected
 
     def test_total_cool_points(self):

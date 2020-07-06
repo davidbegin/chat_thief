@@ -1,14 +1,14 @@
-from typing import List, Dict, Tuple, Optional, Any, NoReturn
+from typing import List, Dict, Tuple, Optional, Any, Iterator
 
 from tinydb import Query  # type: ignore
 
-from chat_thief.models.database import db_table
-from chat_thief.prize_dropper import random_soundeffect
-from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
-from chat_thief.config.log import error, warning, success
-from chat_thief.models.command import Command
-from chat_thief.models.base_db_model import BaseDbModel
-from chat_thief.models.transaction import transaction
+from chat_thief.models.database import db_table  # type: ignore
+from chat_thief.prize_dropper import random_soundeffect  # type: ignore
+from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary  # type: ignore
+from chat_thief.config.log import error, warning, success  # type: ignore
+from chat_thief.models.command import Command  # type: ignore
+from chat_thief.models.base_db_model import BaseDbModel  # type: ignore
+from chat_thief.models.transaction import transaction  # type: ignore
 
 
 class User(BaseDbModel):
@@ -16,7 +16,12 @@ class User(BaseDbModel):
     database_path = "db/users.json"
 
     def __init__(
-        self, name, cool_points=0, top_eight=[], custom_css=None, insured=False,
+        self,
+        name: str,
+        cool_points: int = 0,
+        top_eight: List[str] = [],
+        custom_css: Optional[str] = None,
+        insured: Optional[bool] = False,
     ):
         self._top_eight = top_eight
         self.name = name
@@ -26,7 +31,7 @@ class User(BaseDbModel):
         self._raw_user = self._find_or_create_user()
 
     @classmethod
-    def register_bot(cls, bot: str, creator: str) -> NoReturn:
+    def register_bot(cls, bot: str, creator: str) -> None:
         cls.db().upsert(
             {"is_bot": True, "creator": creator, "name": bot}, Query().name == bot
         )
@@ -48,25 +53,29 @@ class User(BaseDbModel):
         return sum([user[field] for user in cls.db().all()])
 
     @classmethod
-    def richest_cool_points(cls) -> int:
+    def richest_cool_points(cls) -> List[Dict]:
         return cls.max_of_field("cool_points")
 
     @classmethod
-    def max_of_field(cls, field: str) -> int:
+    def max_of_field(cls, field: str) -> List[Dict]:
         users = [user for user in cls.db().all()]
 
         if users:
             return sorted(users, key=lambda user: user[field])[-1]
+        else:
+            return []
 
     @classmethod
-    def by_cool_points(cls) -> Dict:
+    def by_cool_points(cls) -> List[Dict]:
         users = [user for user in cls.db().all()]
         if users:
-            return reversed(sorted(users, key=lambda user: user["cool_points"]))
+            return list(reversed(sorted(users, key=lambda user: user["cool_points"])))
+        else:
+            return []
 
     @classmethod
-    def richest(cls) -> Tuple[str, int]:
-        users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
+    def richest(cls) -> List[Tuple[str, int]]:
+        users = [(user["name"], user["cool_points"]) for user in cls.db().all()]
         return sorted(users, key=lambda user: user[1])
 
     # ====================================================================
@@ -121,7 +130,7 @@ class User(BaseDbModel):
 
     # =============================================
 
-    def update_mana(self, amount: int) -> NoReturn:
+    def update_mana(self, amount: int) -> None:
         self._update_value("mana", amount)
 
     # The ride or dies you have
@@ -129,19 +138,31 @@ class User(BaseDbModel):
         user_result = self.db().search(Query().ride_or_die == self.name)
         return len(user_result)
 
-    def kill(self) -> NoReturn:
+    def kill(self) -> None:
         self._update_value("mana", -self.mana())
 
-    def revive(self, mana: int = 3) -> NoReturn:
+    def revive(self, mana: int = 3) -> None:
         self.set_value("mana", mana)
 
-    def paperup(self, amount=100):
+    def paperup(self, amount: int = 100) -> str:
         self.update_street_cred(amount)
         self.update_cool_points(amount)
         return f"@{self.name} has been Papered Up"
 
+    def doc(self) -> Dict[str, Any]:
+        return {
+            "name": self.name,
+            "custom_css": self._custom_css,
+            "street_cred": 0,
+            "cool_points": self._cool_points,
+            "mana": 3,
+            "top_eight": self._top_eight,
+            "insured": self._insured,
+        }
+
     # This also might need a quick exit
-    def _find_affordable_random_command(self):
+    # This Might be potentially a problem
+    def _find_affordable_random_command(self) -> Command:
         if self.cool_points() < 1:
             raise ValueError("You can't afford anything!")
 
@@ -156,19 +177,11 @@ class User(BaseDbModel):
                 looking_for_effect = False
         return command
 
-    # This is initial doc
-    def doc(self):
-        return {
-            "name": self.name,
-            "custom_css": self._custom_css,
-            "street_cred": 0,
-            "cool_points": self._cool_points,
-            "mana": 3,
-            "top_eight": self._top_eight,
-            "insured": self._insured,
-        }
-
-    def _find_or_create_user(self):
+    # This is going to reveal some bugs
+    # or bad code
+    #  returning just a Dict
+    # or a Result from Query, which is a fancy dictionary
+    def _find_or_create_user(self) -> Dict:
         user_result = self.db().get(Query().name == self.name)
         if user_result:
             return user_result
@@ -179,20 +192,20 @@ class User(BaseDbModel):
                 tr.insert(self.doc())
             return self.doc()
 
-    def update_cool_points(self, amount=1):
+    def update_cool_points(self, amount: int = 1) -> None:
         return self._update_value("cool_points", amount)
 
-    def update_street_cred(self, amount=1):
-        return self._update_value("street_cred", amount)
+    def update_street_cred(self, amount: int = 1) -> None:
+        self._update_value("street_cred", amount)
 
-    def clear_top_eight(self):
+    def clear_top_eight(self) -> None:
         self.set_value("top_eight", [])
 
-    def set_ride_or_die(self, ride_or_die):
+    def set_ride_or_die(self, ride_or_die: str) -> None:
         if ride_or_die != self.name:
-            return self.set_value("ride_or_die", ride_or_die)
+            self.set_value("ride_or_die", ride_or_die)
 
-    def add_to_top_eight(self, friend):
+    def add_to_top_eight(self, friend: str) -> None:
         current_eight = self.top_eight()
 
         if len(current_eight) == 8:
@@ -202,42 +215,41 @@ class User(BaseDbModel):
             current_eight.append(friend)
             self.set_value("top_eight", current_eight)
 
-    def remove_from_top_eight(self, enemy):
+    def remove_from_top_eight(self, enemy: str) -> None:
         current_eight = self.top_eight()
         if enemy in current_eight:
             current_eight.remove(enemy)
             self.set_value("top_eight", current_eight)
 
-    def top_wealth(self):
+    def top_wealth(self) -> int:
         user_data = self.user()
         user_commands = Command.for_user(self.name)
         total_command_wealth = sum([command["cost"] for command in user_commands])
         return user_data["cool_points"] + total_command_wealth
 
     @classmethod
-    def wealthiest(cls):
+    def wealthiest(cls) -> Tuple[str, int]:
         richest = [
             (user["name"], User(user["name"]).top_wealth()) for user in cls.db().all()
         ]
-
         return sorted(richest, key=lambda user: user[1])[-1][0]
 
-    def remove_all_commands(self):
+    def remove_all_commands(self) -> None:
         for command in self.commands():
             Command(command).unallow_user(self.name)
 
-    def bankrupt(self):
+    def bankrupt(self) -> str:
         self.update_street_cred(-self.street_cred())
         self.update_cool_points(-self.cool_points())
         return f"@{self.name} is now Bankrupt"
 
-    def wealth(self):
+    def wealth(self) -> int:
         return (
             sum([Command(command).cost() for command in self.commands()])
             + self.cool_points()
         )
 
-    def buy_insurance(self):
+    def buy_insurance(self) -> str:
         current_cool_points = self.cool_points()
         if current_cool_points > 0:
             cool_points = current_cool_points - 1
