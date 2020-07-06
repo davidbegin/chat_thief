@@ -1,3 +1,5 @@
+from typing import List, Dict, Tuple, Optional, Any, NoReturn
+
 from tinydb import Query  # type: ignore
 
 from chat_thief.models.database import db_table
@@ -24,63 +26,56 @@ class User(BaseDbModel):
         self._raw_user = self._find_or_create_user()
 
     @classmethod
-    def register_bot(cls, bot, creator):
+    def register_bot(cls, bot: str, creator: str) -> NoReturn:
         cls.db().upsert(
             {"is_bot": True, "creator": creator, "name": bot}, Query().name == bot
         )
 
     @classmethod
-    def bots(cls):
-        return [
-            # bot["name"] for bot in cls.db().search(Query().is_bot)
-            bot["name"]
-            for bot in cls.db().search(Query().is_bot == True)
-        ]
+    def bots(cls) -> List[str]:
+        return [bot["name"] for bot in cls.db().search(Query().is_bot == True)]
 
     @classmethod
-    def total_street_cred(cls):
+    def total_street_cred(cls) -> int:
         return cls._total_of_field("street_cred")
 
     @classmethod
-    def total_cool_points(cls):
+    def total_cool_points(cls) -> int:
         return cls._total_of_field("cool_points")
 
     @classmethod
-    def _total_of_field(cls, field):
+    def _total_of_field(cls, field: str) -> int:
         return sum([user[field] for user in cls.db().all()])
 
     @classmethod
-    def richest_street_cred(cls):
-        return cls.max_of_field("street_cred")
-
-    @classmethod
-    def richest_cool_points(cls):
+    def richest_cool_points(cls) -> int:
         return cls.max_of_field("cool_points")
 
     @classmethod
-    def max_of_field(cls, field):
+    def max_of_field(cls, field: str) -> int:
         users = [user for user in cls.db().all()]
+
         if users:
             return sorted(users, key=lambda user: user[field])[-1]
 
     @classmethod
-    def by_cool_points(cls):
+    def by_cool_points(cls) -> Dict:
         users = [user for user in cls.db().all()]
         if users:
             return reversed(sorted(users, key=lambda user: user["cool_points"]))
 
     @classmethod
-    def richest(cls):
+    def richest(cls) -> Tuple[str, int]:
         users = [[user["name"], user["cool_points"]] for user in cls.db().all()]
         return sorted(users, key=lambda user: user[1])
 
     # ====================================================================
 
     # So this means, when we call, we find or init, thats fine!
-    def user(self):
+    def user(self) -> Dict:
         return self._find_or_create_user()
 
-    def stats(self):
+    def stats(self) -> str:
         return (
             f"@{self.name} - Mana: {self.mana()} | "
             f"Street Cred: {self.street_cred()} | "
@@ -89,58 +84,56 @@ class User(BaseDbModel):
             f"Insured: {self.insured()}"
         )
 
-    def commands(self):
+    def commands(self) -> List[str]:
         return [
             permission["name"]
             for permission in Command.for_user(self.name)
             if permission["name"] != self.name
         ]
 
-    # =====================================
-
     # Seems like it should be factored away
-    def street_cred(self):
+    def street_cred(self) -> int:
         return self._fetch_field("street_cred", 0)
 
-    def cool_points(self):
+    def cool_points(self) -> int:
         return self._fetch_field("cool_points", 0)
 
-    def custom_css(self):
+    def custom_css(self) -> Optional[str]:
         return self._fetch_field("custom_css", None)
 
-    def mana(self):
+    def mana(self) -> int:
         return self._fetch_field("mana", 0)
 
-    def is_bot(self):
+    def is_bot(self) -> bool:
         return self._fetch_field("is_bot", False)
 
-    def creator(self):
+    def creator(self) -> Optional[str]:
         return self._fetch_field("creator", None)
 
-    def top_eight(self):
+    def top_eight(self) -> List[str]:
         return self._fetch_field("top_eight", [])
 
-    def insured(self):
+    def insured(self) -> bool:
         return self._fetch_field("insured", False)
 
-    def _fetch_field(self, field, default):
+    def _fetch_field(self, field: str, default: Any) -> Any:
         return self.user().get(field, default)
 
     # =============================================
 
-    def update_mana(self, amount):
-        return self._update_value("mana", amount)
+    def update_mana(self, amount: int) -> NoReturn:
+        self._update_value("mana", amount)
 
     # The ride or dies you have
-    def karma(self):
+    def karma(self) -> int:
         user_result = self.db().search(Query().ride_or_die == self.name)
         return len(user_result)
 
-    def kill(self):
-        return self._update_value("mana", -self.mana())
+    def kill(self) -> NoReturn:
+        self._update_value("mana", -self.mana())
 
-    def revive(self, mana=3):
-        return self.set_value("mana", mana)
+    def revive(self, mana: int = 3) -> NoReturn:
+        self.set_value("mana", mana)
 
     def paperup(self, amount=100):
         self.update_street_cred(amount)

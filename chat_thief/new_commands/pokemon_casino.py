@@ -201,7 +201,7 @@ class PokemonCasino:
             if user not in STREAM_GODS:
                 prize = BeginFund(target_user=user).dropeffect()
 
-                result += " | {prize}"
+                result += f" | {prize}"
 
             if "TEST_MODE" not in os.environ:
                 soundfile = SoundeffectsLibrary.find_sample("pokewin")

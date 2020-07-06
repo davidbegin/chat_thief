@@ -125,21 +125,6 @@ class TestUser(DatabaseConfig):
         subject.set_ride_or_die("gary")
         assert subject.karma() == 0
 
-    def test_richest_street_cred(self):
-        User.richest_street_cred() == None
-        watto = User("watto")
-        watto.save()
-        watto.update_street_cred(3)
-
-        artmattdank = User("artmattdank")
-        artmattdank.save()
-        artmattdank.update_street_cred(9)
-
-        tpain = User("tpain")
-        tpain.save()
-        tpain.update_street_cred(1)
-        User.richest_street_cred()["name"] == "artmattdank"
-
     def test_richest_cool_points(self):
         User.richest_cool_points() == None
         watto = User("watto", 3)

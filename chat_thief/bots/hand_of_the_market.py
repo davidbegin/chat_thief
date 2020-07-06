@@ -27,13 +27,12 @@ def sync_main():
             send_twitch_msg(result)
 
             for peasant in peasants:
-                if peasant not in BLACKLIST:
-                    user = User(peasant)
-                    user_karma = user.karma()
-                    print(f"@{peasant} Karma: {user.karma()}")
-                    user.update_street_cred(1)
-                    # user.update_street_cred(1 + user_karma)
-                    user.revive(3 + user_karma)
+                user = User(peasant)
+                user_karma = user.karma()
+                print(f"@{peasant} Karma: {user.karma()}")
+                user.update_street_cred(1)
+                # user.update_street_cred(1 + user_karma)
+                user.revive(3 + user_karma)
 
             send_twitch_msg("CoolCat CoolCat CoolCat")
             # formatted_peasants = [f"@{peasant}" for peasant in peasants]

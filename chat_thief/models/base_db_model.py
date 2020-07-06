@@ -96,10 +96,10 @@ class BaseDbModel(abc.ABC):
             return tr.update(update_func(), Query().name == self.name)
         return self
 
-    def update_value(self, field, amount=1):
-        return self._update_value(field, amount=1)
+    def update_value(self, field: str, amount: int = 1) -> None:
+        self._update_value(field, amount=1)
 
-    def _update_value(self, field, amount=1):
+    def _update_value(self, field: str, amount: int = 1) -> None:
         def _update_that_value():
             def transform(doc):
                 if field in doc:

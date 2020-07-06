@@ -1,3 +1,7 @@
+*{
+  background-color: rgb(24, 42, 130);
+}
+
 body {
   /* background-color: none..class{ */
   background:rgba(0,0,0,0.7);
@@ -10,11 +14,26 @@ body {
 h1 {
   color: white;
   text-align: center;
+}
+a{
   text-decoration: none;
+}
+ul{
+  list-style-type: none;
+  display:flex;
+}
+h1 a:visited{
+  color:inherit;
+}
+h2{
+  text-align: center;
 }
 
 p {
   color: white;
   font-family: futura;
   font-style: bold;
+}
+span{
+  display:none;
 }

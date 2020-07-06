@@ -9,7 +9,7 @@ from chat_thief.models.issue import Issue
 
 class FeedbackRouter(BaseRouter):
     def route(self):
-        if self.command == "soundeffect":
+        if self.command in ["soundeffect", "sound"]:
             try:
                 sfx_request = SoundeffectRequestParser(self.user, self.args).parse()
             except Exception as e:
