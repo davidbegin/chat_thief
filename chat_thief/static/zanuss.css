@@ -1,4 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap);
+#cubeScramble{
+  text-align:center;
+  font-size: 20px;
+  position:relative;
+  top:-4em;
+}
 
 #pageNo{
   font-size:30px;

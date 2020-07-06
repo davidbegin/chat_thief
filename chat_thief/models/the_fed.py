@@ -28,15 +28,15 @@ class TheFed(BaseDbModel):
 
     def collect_tax(self, tax):
         if self.db().search(Query().version == self.version):
-            self._update_value("reserve", tax)
+            self.update_value("reserve", tax)
         else:
             self._reserve = tax
             self.save()
 
     def pay(self, tax):
-        self._update_value("reserve", -tax)
+        self.update_value("reserve", -tax)
 
-    def _update_value(self, field, amount=1):
+    def update_value(self, field, amount=1):
         def _update_that_value():
             def transform(doc):
                 doc[field] = doc[field] + amount

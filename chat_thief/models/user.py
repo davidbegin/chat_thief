@@ -131,7 +131,7 @@ class User(BaseDbModel):
     # =============================================
 
     def update_mana(self, amount: int) -> None:
-        self._update_value("mana", amount)
+        self.update_value("mana", amount)
 
     # The ride or dies you have
     def karma(self) -> int:
@@ -139,7 +139,7 @@ class User(BaseDbModel):
         return len(user_result)
 
     def kill(self) -> None:
-        self._update_value("mana", -self.mana())
+        self.update_value("mana", -self.mana())
 
     def revive(self, mana: int = 3) -> None:
         self.set_value("mana", mana)
@@ -193,10 +193,10 @@ class User(BaseDbModel):
             return self.doc()
 
     def update_cool_points(self, amount: int = 1) -> None:
-        return self._update_value("cool_points", amount)
+        return self.update_value("cool_points", amount)
 
     def update_street_cred(self, amount: int = 1) -> None:
-        self._update_value("street_cred", amount)
+        self.update_value("street_cred", amount)
 
     def clear_top_eight(self) -> None:
         self.set_value("top_eight", [])

@@ -112,7 +112,7 @@ class Command(BaseDbModel):
         return False
 
     def update_health(self, amount):
-        return self._update_value("health", amount)
+        return self.update_value("health", amount)
 
     def revive(self):
         return self.set_value("health", 3)
@@ -122,7 +122,7 @@ class Command(BaseDbModel):
 
     def increase_cost(self, amount=1):
         if command := self.db().get(Query().name == self.name):
-            self._update_value("cost", amount)
+            self.update_value("cost", amount)
 
     def unallow_user(self, target_user):
         try:
