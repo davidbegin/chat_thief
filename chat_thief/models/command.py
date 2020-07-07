@@ -1,6 +1,8 @@
 import traceback
 import os
 from collections import Counter
+
+from typing import Dict, List, Tuple, Any, Optional, Callable
 from itertools import chain
 
 from tinydb import Query  # type: ignore
@@ -18,67 +20,79 @@ class Command(BaseDbModel):
     table_name = "commands"
     database_path = "db/commands.json"
 
-    def __init__(self, name, inital_cost=1):
+    def __init__(self, name: str, inital_cost: int = 1):
         self.name = name
-        self.permitted_users = []
+        self.permitted_users: List[str] = []
         self.inital_health = 3
         self.inital_cost = inital_cost
         self.is_theme_song = self.name in SoundeffectsLibrary.fetch_theme_songs()
 
-    def _fetch_field(self, field, default):
-        return self.command().get(field, default)
+    def doc(self) -> Dict:
+        return {
+            "name": self.name,
+            "user": "beginbot",
+            "permitted_users": self.permitted_users,
+            "health": self.inital_health,
+            "cost": self.inital_cost,
+        }
 
-    def command(self):
+    def command(self) -> Dict:
         if command_result := self.db().search(Query().name == self.name):
             return command_result[0]
         else:
-
             with transaction(self.db()) as tr:
                 tr.insert(self.doc())
             return self.doc()
 
-    def health(self):
+    def health(self) -> int:
         return self._fetch_field("health", 0)
 
-    def cost(self):
+    def cost(self) -> int:
         return self._fetch_field("cost", 1)
 
-    def users(self):
+    def users(self) -> List[str]:
         return self._fetch_field("permitted_users", [])
 
-    # =====================================
-
     @classmethod
-    def available_sounds(cls):
-        def test_func(val):
+    def available_sounds(cls) -> Optional[List[Dict]]:
+        def test_func(val: List[str]) -> bool:
             return len(val) > 0
 
         return cls.db().search(Query().permitted_users.test(test_func))
 
     @classmethod
-    def most_expensive(cls):
-        cmds = cls.db().all()
-        if cmds:
-            return sorted(cmds, key=lambda cmd: cmd["cost"])[-1]
+    def most_expensive(cls) -> Optional[Dict]:
+        if cmd_by_cost := cls.by_cost():
+            return cmd_by_cost[0]
+        else:
+            return None
 
     @classmethod
-    def by_cost(cls):
+    def by_cost(cls) -> List[Dict]:
         cmds = cls.db().all()
         if cmds:
-            return reversed(sorted(cmds, key=lambda cmd: cmd["cost"]))
+            return list(reversed(sorted(cmds, key=lambda cmd: cmd["cost"])))
+        else:
+            return []
 
+    # Incompatible return value type (got "Iterator[Any]", expected "List[Dict[Any, Any]]")
+    # These are subtly different
+    # one time, we return the search
+    # other time, we save and return result of the save
     @classmethod
-    def find_or_create(cls, name):
+    def find_or_create(cls, name: str) -> Dict:
         found_command = cls.db().get(Query().name == name)
 
         if found_command:
             return found_command
         else:
-            return cls(name).save()
+            new_command = cls(name)
+            new_command.save()
+            return new_command.doc()
 
     @classmethod
-    def for_user(cls, user):
-        def in_permitted_users(permitted_users, current_user):
+    def for_user(cls, user: str) -> List[Dict]:
+        def in_permitted_users(permitted_users: List[str], current_user: str) -> bool:
             return current_user in permitted_users
 
         return [
@@ -89,17 +103,17 @@ class Command(BaseDbModel):
         ]
 
     @classmethod
-    def most_popular(cls):
+    def most_popular(cls) -> List[str]:
         result = cls.db().all()
         sorted_commands = sorted(result, key=lambda command: command["cost"])
         return [
             f"{command['name']}: {command['cost']}" for command in sorted_commands[-5:]
         ]
 
-    def exists(self):
-        return cls.db().get(Query().name == name) is not None
+    def exists(self) -> bool:
+        return self.db().get(Query().name == self.name) is not None
 
-    def allowed_to_play(self, user):
+    def allowed_to_play(self, user: str) -> bool:
         if self.is_theme_song:
             return user == self.name
 
@@ -111,20 +125,21 @@ class Command(BaseDbModel):
 
         return False
 
-    def update_health(self, amount):
-        return self.update_value("health", amount)
+    def update_health(self, amount: int) -> None:
+        self.update_value("health", amount)
 
-    def revive(self):
-        return self.set_value("health", 3)
+    def revive(self) -> None:
+        self.set_value("health", 3)
 
-    def silence(self):
-        return self.set_value("health", 0)
+    def silence(self) -> None:
+        self.set_value("health", 0)
 
-    def increase_cost(self, amount=1):
+    def increase_cost(self, amount: int = 1) -> None:
         if command := self.db().get(Query().name == self.name):
             self.update_value("cost", amount)
 
-    def unallow_user(self, target_user):
+    # TODO: Figure if this throwing ValueError's often
+    def unallow_user(self, target_user: str) -> Optional[str]:
         try:
             command = self.db().get(Query().name == self.name)
             if command:
@@ -132,11 +147,11 @@ class Command(BaseDbModel):
                 return f"@{target_user} lost access to !{self.name}"
             else:
                 return f"No One has accesss to !{self.name}"
-        except ValueError:
-            if "TEST_MODE" in os.environ:
-                traceback.print_exc()
+        except ValueError as e:
+            traceback.print_exc()
+            return f"Error Unallowing User: {e}"
 
-    def allow_user(self, target_user):
+    def allow_user(self, target_user: str) -> str:
         command = self.db().get(Query().name == self.name)
 
         # What if we are none
@@ -151,18 +166,24 @@ class Command(BaseDbModel):
             self.save()
             return f"@{target_user} is the 1st person with access to: !{self.name}"
 
-    def _add_user(self, target_user):
-        def add_permitted_users():
-            def transform(doc):
+    def decay(self) -> None:
+        current_cost = self.cost()
+        if current_cost > 1:
+            current_cost - 1
+            self.set_value("cost", current_cost - 1)
+
+    def _add_user(self, target_user: str) -> None:
+        def add_permitted_users() -> Callable[[Dict], None]:
+            def transform(doc: Dict) -> None:
                 doc["permitted_users"].append(target_user)
 
             return transform
 
         self.update(add_permitted_users)
 
-    def _remove_user(self, target_user):
-        def remove_permitted_users():
-            def transform(doc):
+    def _remove_user(self, target_user: str) -> None:
+        def remove_permitted_users() -> Callable[[Dict], None]:
+            def transform(doc: Dict) -> None:
                 if target_user in doc["permitted_users"]:
                     doc["permitted_users"].remove(target_user)
 
@@ -170,17 +191,5 @@ class Command(BaseDbModel):
 
         self.update(remove_permitted_users)
 
-    def doc(self):
-        return {
-            "name": self.name,
-            "user": "beginbot",
-            "permitted_users": self.permitted_users,
-            "health": self.inital_health,
-            "cost": self.inital_cost,
-        }
-
-    def decay(self):
-        current_cost = self.cost()
-        if current_cost > 1:
-            current_cost - 1
-            self.set_value("cost", current_cost - 1)
+    def _fetch_field(self, field: str, default: Any) -> Any:
+        return self.command().get(field, default)

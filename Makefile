@@ -29,12 +29,12 @@ restore:
 
 # TODO: Move log files from the day before
 new_day: backup
-	rm db/play_soundeffects.json
 	rm db/notifications.json
 	rm db/cube_bets.json
 	rm db/breaking_news.json
 	rm db/votes.json
 	rm .welcome
+	rm db/play_soundeffects.json
 
 sync:
 	scripts/sync_html.sh | lolcat
@@ -75,7 +75,7 @@ register_bots:
 	python -m chat_thief.scripts.register_bots
 
 types:
-	mypy chat_thief/models/base_db_model.py --disallow-untyped-defs
+	mypy chat_thief/models/command.py --disallow-untyped-defs
 
 mypy:
 	mypy chat_thief/**/*.py --warn-unused-ignores

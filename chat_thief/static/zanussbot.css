@@ -1,91 +1,55 @@
-@import url{'https://fonts.googleapis.com/css2?family=Michroma&display=swap'};
 
-@import url{'https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap'}
-
-@-webkit-keyframes glow {
-  from {
-    text-shadow: 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red;
-  }
-  to {
-    text-shadow: 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247, 0 0 3px #F59247;
-  }
+body:before{
+  content:"The site ahead contains harmful programs";
+  margin-left:7.5%;
+  position:relative;
+  top: -3.5em;
 }
 
+h1:before{
+  content:"Attackers on mygeoangelfirespace.city might attempt to trick you into installing programs that harm \A your browsing experience (for example, by changing your homepage or showing extra ads \A on sites you visit.) Learn more \A\A\A Help improve Safe Browsing by sending some system information and page content to Google. \A Privacy policy";
+  display: block;  
+  white-space: pre-wrap;
+  font-size: 16px !important;
+  font-weight:normal;
+  margin-left:7.5%;
+  position:relative;
+  top: -5.8em;
+  line-height: 30px;
+}
 
 body {
-  font-family: 'Michroma', sans-serif;
-  background-color:#296E01 !important;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:20%;
+  width:40%;
+  background-color:#D93024 !important;
   color: white;
   font-size: 2em;
+  font-family: "Helvetica";
+  background-image:url("https://i.imgur.com/elbFZMM.png"), url("https://i.imgur.com/UD9v319.png"), url("https://i.imgur.com/71aReGy.png") !important;
+  background-repeat:no-repeat !important;
+  background-position: top 1.3% left 34.2%, top 5.8% left 34.6%,  top 5.8% left 64.6% !important;
+  background-size: 100px, 100px, 125px !important;
 }
 
-h1, h1 a{
-  font-family: 'Michroma', sans-serif;
+h1 {
   color: white;
-  text-align: center;
+  font-size:0px;
+  text-align:initial !important;
+}
+
+p {
+  color: white;
+  font-family: futura;
+  font-style: bold;
+}
+
+a{
+  color:white;
 }
 
 h2{
-  padding-left:5%;
-  text-align:left;
-  color:white;
-  font-size:25px;
-  position:relative;
-  z-index:100;
-  background-image: url('https://i.imgur.com/pmThs87.png');
-  background-size: 300px 300px !important;
-  background-repeat:no-repeat !important;
-  background-position: 1% 15%!important;
-  width: 100%;
-  height:260px;
-  padding-top:8%;
-}
-
-
-h3{
-  text-align:center;
-  position:relative;
-  left: 20%;
-  bottom:270px;
-  font-size:23px;
-  font-family: 'Orbitron', sans-serif !important;
-  background-image: url('https://i.imgur.com/EDnquoB.png');
-  background-size: 100% 300px !important;
-  background-repeat:no-repeat !important;
-  background-position: -12% 15%!important;
-  border:solid grey 3px;
-  width:40%;
-  color: red;
-  -webkit-animation: glow 4s ease-in-out infinite alternate;
-  -moz-animation: glow 4s ease-in-out infinite alternate;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-table, th, td{
-  border: 2px solid white;
-  color: gold;
-}
-
-th a, td a{ 
-  color:gold;
-  text-decoration: none;
-}
-
-ul, li{
-  color:white;
-  list-style:none;
-}
-
-ul a, li a{
-  color:white;
-  text-decoration:none;
-}
-
-ul li::before {
-  content: "\2022";
-  color: gold;
-  font-weight: bold;
-  display: inline-block; 
-  width: 1em;
-  margin-left: -1em;
+  padding-top:8em;
 }

@@ -35,11 +35,12 @@ class SampleSaver:
             self._notify(sample_updated)
 
         command = Command(name=self.name)
-        # We need to makje sure to save the requester
-        if command.exists:
+
+        # We need to make sure to save the requester
+        if command.exists():
             command.allow_user(random_user())
         else:
-            command._create_new_command(random_user())
+            command.save()
 
         if requester:
             command.allow_user(requester)

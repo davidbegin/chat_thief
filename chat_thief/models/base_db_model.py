@@ -88,7 +88,10 @@ class BaseDbModel(abc.ABC):
         with transaction(self.db()) as tr:
             tr.update(_update_that_value(), Query().name == self.name)
 
-    def update(self, update_func: Callable[[], None]) -> "BaseDbModel":
+    # def update(self, update_func: Callable[[Dict], None]) -> "BaseDbModel":
+    def update(
+        self, update_func: Callable[[], Callable[[Dict], None]]
+    ) -> "BaseDbModel":
         with transaction(self.db()) as tr:
             return tr.update(update_func(), Query().name == self.name)
         return self
