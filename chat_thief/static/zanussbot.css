@@ -23,14 +23,14 @@ body {
   margin-left:auto;
   margin-right:auto;
   margin-top:20%;
-  width:40%;
+  width:50%;
   background-color:#D93024 !important;
   color: white;
   font-size: 2em;
   font-family: "Helvetica";
   background-image:url("https://i.imgur.com/elbFZMM.png"), url("https://i.imgur.com/UD9v319.png"), url("https://i.imgur.com/71aReGy.png") !important;
   background-repeat:no-repeat !important;
-  background-position: top 1.3% left 34.2%, top 5.8% left 34.6%,  top 5.8% left 64.6% !important;
+  background-position: top 3.3% left 30.2%, top 27.8% left 30.6%,  top 28% left 66.6% !important;
   background-size: 100px, 100px, 125px !important;
 }
 

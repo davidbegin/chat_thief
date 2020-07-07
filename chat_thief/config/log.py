@@ -16,13 +16,13 @@ ERROR = "\033[91m"
 CLEAR = "\033[0m"
 
 
-def success(msg):
+def success(msg: str) -> None:
     print(f"{SUCCESS}{msg}{CLEAR}")
 
 
-def warning(msg):
+def warning(msg: str) -> None:
     print(f"{WARNING}{msg}{CLEAR}")
 
 
-def error(msg):
+def error(msg: str) -> None:
     print(f"{ERROR}{msg}{CLEAR}")

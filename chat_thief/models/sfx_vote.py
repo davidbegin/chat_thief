@@ -13,7 +13,9 @@ class SFXVote(BaseDbModel):
 
     # Incompatible default for argument "detractors" (default has type
     # "Type[List[Any]]", argument has type "List[Any]")
-    def __init__(self, command: str, supporters: List[Any]=[], detractors: List[Any]=[]):
+    def __init__(
+        self, command: str, supporters: List[Any] = [], detractors: List[Any] = []
+    ):
         self.command = command
         self.supporters = supporters
         self.detractors = detractors

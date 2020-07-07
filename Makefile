@@ -75,7 +75,7 @@ register_bots:
 	python -m chat_thief.scripts.register_bots
 
 types:
-	mypy chat_thief/models/command.py --disallow-untyped-defs
+	mypy chat_thief/audioworld/soundeffects_library.py --disallow-untyped-defs
 
 mypy:
 	mypy chat_thief/**/*.py --warn-unused-ignores
