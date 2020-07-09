@@ -20,6 +20,7 @@ STREAM_PIMPS: List[str] = ["disk1of5"]
 STREAM_LORDS: List[str] = [
     "strager",
     "zanuss",
+    "nomorequity",
     "beginbot",
     "cachesking",
     "waleeboy",

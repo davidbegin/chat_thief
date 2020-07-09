@@ -12,6 +12,7 @@ from chat_thief.models.notification import Notification
 from chat_thief.models.the_fed import TheFed
 from chat_thief.models.css_vote import CSSVote
 from chat_thief.models.user_code import UserCode
+from chat_thief.data_scrubber import DataScrubber
 
 DEFAULT_MSG = "!add_perm ha johnnyutah"
 

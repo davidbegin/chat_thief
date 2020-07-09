@@ -1,0 +1,74 @@
+body{
+  background-color: #001027;
+}
+h1{
+  background-color: #1E8BC3;
+  color: #FFFFFF;
+  border: 8px dashed #FFFFFF;
+  padding: 13px;
+  font-family: verdana;
+  font-style: italic;
+  font-size: 28px;
+  border-radius: 22px;
+}
+h1, h1 a{
+  background-color: #1E8BC3;
+  color: #FFFFFF;
+  padding: 13px;
+  font-family: verdana;
+  font-style: italic;
+  font-size: 28px;
+}
+h2{
+  background-color: #1E8BC3;
+  color: #FFFFFF;
+  border: 5px dashed #FFFFFF;
+  padding: 13px;
+  font-family: verdana;
+  font-style: italic;
+  font-size: 28px;
+  border-radius: 22px;
+  text-align: left;
+}
+h3{
+  background-color: #1E8BC3;
+  color: #FFFFFF;
+  border: 5px dashed #FFFFFF;
+  padding: 13px;
+  font-family: verdana;
+  font-style: italic;
+  font-size: 18px;
+  border-radius: 22px;
+  text-align: right;
+}
+ul{
+  background-image: url("https://www.cssportal.com/css-style-editor/js/grid.gif");
+  color: #FFFFFF;
+  border: 5px dashed #FFFFFF;
+  padding: 13px;
+  font-family: verdana;
+  font-style: italic;
+  font-size: 18px;
+  border-radius: 22px;
+  text-align: left;
+}
+li{
+  background-color: #1E8BC3;
+  color: #FFFFFF;
+  border: 2px dashed #FFFFFF;
+  padding: 13px;
+  margin-bottom: 5px;
+  font-family: verdana;
+  font-style: italic;
+  font-size: 18px;
+  border-radius: 22px;
+  text-align: left;
+}
+li, li a{
+  background-color: #0E5A93;
+  color: #FFFFFF;
+  padding: 13px;
+  font-family: verdana;
+  font-style: italic;
+  font-size: 18px;
+}
