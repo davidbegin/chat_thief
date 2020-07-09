@@ -6,6 +6,7 @@ from chat_thief.models.base_db_model import BaseDbModel
 from datetime import datetime
 
 from tinydb import Query  # type: ignore
+from tinydb.table import Document # type: ignore
 
 
 class BreakingNews(BaseDbModel):
@@ -16,7 +17,7 @@ class BreakingNews(BaseDbModel):
         self,
         scope: str,
         user: Optional[str] = None,
-        category=None,
+        category: Optional[str]=None,
         reported_on: Optional[bool]=False,
         revolutionaries: Optional[List[str]]=[],
         peace_keepers: Optional[List[str]]=[],
@@ -31,16 +32,19 @@ class BreakingNews(BaseDbModel):
         self._fence_sitters = fence_sitters
 
     @classmethod
-    def unreported_news(cls) -> List[Dict]:
+    def unreported_news(cls) -> Optional[Document]:
         return cls.db().get(Query().reported_on == False)
 
     @classmethod
-    def report_last_story(cls) -> Dict:
+    def report_last_story(cls) -> Optional[Document]:
         last_story = cls.unreported_news()
-        cls.set_value_by_id(last_story.doc_id, "reported_on", True)
-        return last_story
+        if last_story:
+            cls.set_value_by_id(last_story.doc_id, "reported_on", True)
+            return last_story
+        else:
+            return None
 
-    def doc(self):
+    def doc(self) -> Dict:
         scope_time = datetime.fromtimestamp(time.time())
         return {
             "scope": self._scope,

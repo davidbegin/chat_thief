@@ -47,9 +47,7 @@ class Revolution:
 
         for fence_sitter in fence_sitters:
             fs = User(fence_sitter)
-
-            # Maybe in peace time, you should only lose a fraction of your
-            # commands
+            # Maybe in peace time, you should only lose a fraction of your commands
             fs.remove_all_commands()
             if tide == "revolution":
                 print(fs.bankrupt())
