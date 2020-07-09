@@ -1,13 +1,13 @@
-from chat_thief.routers.base_router import BaseRouter
-from chat_thief.models.vote import Vote
-from chat_thief.commands.la_libre import LaLibre
-from chat_thief.commands.revolution import Revolution
+from typing import Optional
+
+from chat_thief.routers.base_router import BaseRouter  # type: ignore
+from chat_thief.models.vote import Vote  # type: ignore
+from chat_thief.commands.la_libre import LaLibre  # type: ignore
+from chat_thief.commands.revolution import Revolution  # type: ignore
 
 
 class RevolutionRouter(BaseRouter):
-    def route(self):
-        # if self.command == "coup" and self.user == "beginbotbot":
-
+    def route(self) -> Optional[str]:
         if self.command == "coup":
             threshold = LaLibre.threshold()
             result = Vote.have_tables_turned(threshold)

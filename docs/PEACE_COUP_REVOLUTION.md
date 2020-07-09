@@ -4,12 +4,15 @@
 
 Viewers can vote for either !peace or !revolution.
 
-You can vote as many times as you want, but only your las tvote counts
+You can vote as many times as you want, but only your last vote counts
 
 Once the threshold of votes has been met, you are ALLOWED to trigger a Coup.
 The Threshold is determined by the number of active chatting users.
 
 Coups cost Cool Points
+
+If you try and trigger a coup without the proper amount of cool points,
+you are bankrupted.
 
 ---
 
@@ -35,3 +38,15 @@ and evenly distrusted among the Peace Keepers
 
 Maybe: (Except everyone gets to keep one).
 
+### Code
+
+!revolution
+!peace
+!coup
+
+Breaking News
+p
+
+Revolution
+Vote
+LaLibre

@@ -1,3 +1,5 @@
+from typing import List
+
 from chat_thief.chat_logs import ChatLogs
 from chat_thief.models.command import Command
 from chat_thief.models.user import User
@@ -9,7 +11,7 @@ DEFAULT_THRESHOLD = 3
 
 class LaLibre:
     @classmethod
-    def threshold(cls):
+    def threshold(cls) -> int:
         peasants = ChatLogs().recent_stream_peasants()
         value = int(len(peasants) / REVOLUTION_LIKELYHOOD)
         if value < DEFAULT_THRESHOLD:
@@ -17,7 +19,7 @@ class LaLibre:
         return value
 
     @classmethod
-    def inform(cls):
+    def inform(cls) -> List[str]:
         return [
             "PowerUpL La Libre PowerUpR",
             f"Total Votes: {Vote.count()}",
