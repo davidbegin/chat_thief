@@ -18,6 +18,7 @@ BOTS_AND_CREATORS = {
     "portaalgaming": "portaalgamingfriend",
     "rockerboo": "800807",
     "orenog_live4": "personnormalyesplus5",
+    "biged_twitch": "bigedbot",
     "eitanfuturo": "futubot",
 }
 

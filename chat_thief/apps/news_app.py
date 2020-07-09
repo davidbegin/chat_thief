@@ -34,7 +34,7 @@ def facts(name=None):
             if category in ["peace", "revolution", "coup"]:
                 print("Rendering A Coup")
                 return render_template(
-                    "coup.html",
+                    "news.html",
                     category=category,
                     stats=stats,
                     scope=breaking_news["scope"],
