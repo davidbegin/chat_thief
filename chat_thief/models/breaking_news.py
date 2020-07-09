@@ -1,3 +1,5 @@
+from typing import Optional, List, Any, Dict
+
 import time
 
 from chat_thief.models.base_db_model import BaseDbModel
@@ -12,13 +14,13 @@ class BreakingNews(BaseDbModel):
 
     def __init__(
         self,
-        scope,
-        user=None,
+        scope: str,
+        user: Optional[str] = None,
         category=None,
-        reported_on=False,
-        revolutionaries=[],
-        peace_keepers=[],
-        fence_sitters=[],
+        reported_on: Optional[bool]=False,
+        revolutionaries: Optional[List[str]]=[],
+        peace_keepers: Optional[List[str]]=[],
+        fence_sitters: Optional[List[str]]=[],
     ):
         self._scope = scope
         self._user = user
@@ -29,11 +31,11 @@ class BreakingNews(BaseDbModel):
         self._fence_sitters = fence_sitters
 
     @classmethod
-    def unreported_news(cls):
+    def unreported_news(cls) -> List[Dict]:
         return cls.db().get(Query().reported_on == False)
 
     @classmethod
-    def report_last_story(cls):
+    def report_last_story(cls) -> Dict:
         last_story = cls.unreported_news()
         cls.set_value_by_id(last_story.doc_id, "reported_on", True)
         return last_story

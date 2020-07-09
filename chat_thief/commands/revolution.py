@@ -1,3 +1,5 @@
+from typing import List, Optional
+
 import os
 from itertools import chain, cycle
 
@@ -9,12 +11,11 @@ from chat_thief.models.breaking_news import BreakingNews
 
 
 class Revolution:
-    def __init__(self, revolutionary):
+    def __init__(self, revolutionary: str):
         self.revolutionary = revolutionary
         self.coup = Command("coup")
-        # self.coup.save()
 
-    def attempt_coup(self, tide):
+    def attempt_coup(self, tide: str) -> str:
         user = User(self.revolutionary)
         coup_cost = self.coup.cost()
 
@@ -34,10 +35,12 @@ class Revolution:
             self._punish_revolutionary()
             return f"@{self.revolutionary} is now Bankrupt, that will teach you a lesson. Coups require {coup_cost} Cool Points"
 
-    def _punish_revolutionary(self):
-        return User(self.revolutionary).bankrupt()
+    # ================================================================
 
-    def _turn_the_tides(self, tide):
+    def _punish_revolutionary(self) -> None:
+        User(self.revolutionary).bankrupt()
+
+    def _turn_the_tides(self, tide: str) -> str:
         fence_sitters = Vote.fence_sitters()
         user = User("beginbot")
         vote = Vote("beginbot")
@@ -81,14 +84,13 @@ class Revolution:
             weaklings = revolutionaries
             self._transfer_power(peace_keepers, revolutionaries, revolutionary_sounds)
             return "REVOLUTIONS WILL NOT BE TOLERATED, AND REVOLUTIONARIES WILL BE PUNISHED"
-
-        if tide == "revolution":
+        else:
             power_users = revolutionaries
             weaklings = peace_keepers
 
             # We need to remove all Revolution permissionns before
             for revolutionary in revolutionaries:
-                print(User(revolutionary).remove_all_commands())
+                User(revolutionary).remove_all_commands()
 
             self._transfer_power(
                 revolutionaries,
@@ -98,7 +100,7 @@ class Revolution:
             return "THE REVOLUTION IS NOW!"
 
     #  Transferring power is Different
-    def _transfer_power(self, power_users, weaklings, bounty):
+    def _transfer_power(self, power_users: List[str], weaklings: List[str], bounty: List[str]) -> str:
         the_cycle_of_power_users = cycle(power_users)
 
         for user in weaklings:
@@ -113,13 +115,3 @@ class Revolution:
             Command(sfx).allow_user(user)
 
         return f"Power Transferred: {power_users} | {weaklings} | {bounty}"
-
-    # It should cost to coup
-    def _revolution(self):
-        results = []
-        result = self.user.purge()
-        results.append(result)
-        permissions_manager = PermissionsFetcher("beginbot")
-        result = permissions_manager.purge()
-        results.append(result)
-        return results

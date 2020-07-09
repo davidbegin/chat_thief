@@ -75,7 +75,7 @@ register_bots:
 	python -m chat_thief.scripts.register_bots
 
 types:
-	mypy chat_thief/models/vote.py --disallow-untyped-defs | grep vote
+	mypy chat_thief/models/breaking_news.py --disallow-untyped-defs | grep breaking_news
 
 mypy:
 	mypy chat_thief/**/*.py --warn-unused-ignores
