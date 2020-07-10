@@ -54,6 +54,42 @@
   
 }
 
+.bot{
+   background-repeat:no-repeat;
+   background-size: 50% 70%;
+    background-position: bottom 2% right 20%;
+}
+
+.bot .tip{
+  float:none !important;
+  display:block;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  text-align: center !important;
+}
+
+.bot code{
+  font-size:30px;  
+  font-family: 'Press Start 2P', monospace !important;
+}
+
+.stats{
+  background-repeat:no-repeat;
+  background-size: 30% 70%;
+  background-position: bottom 2% right 15%;
+}
+.stats h3:after{
+  content:"  .  .  .  .  .  .";
+}
+
+.stats h2{
+  color: #00FF00;
+}
+
+.stats h3{
+  color:#00FFFF;
+}
+
 .commands{
     text-align:center;
     color:#ffff00;

@@ -1,3 +1,4 @@
+from typing import Optional, List, Dict, Union
 from pathlib import Path
 import random
 
@@ -16,6 +17,7 @@ from chat_thief.models.sfx_vote import SFXVote
 from chat_thief.models.user import User
 from chat_thief.new_commands.buyer import Buyer, PurchaseResult
 from chat_thief.new_commands.stealer import Stealer
+from chat_thief.new_commands.result import Result
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.prize_dropper import random_user as find_random_user
 from chat_thief.routers.base_router import BaseRouter
@@ -103,7 +105,7 @@ class EconomyRouter(BaseRouter):
         stats = User(self.user).stats()
         return f"{stats} | {BASE_URL}/{self.user}.html"
 
-    def perms(self):
+    def perms(self) -> str:
         if (
             len(self.args) > 0
             and not self.parser.target_sfx
@@ -117,7 +119,7 @@ class EconomyRouter(BaseRouter):
             target_command=self.parser.target_sfx,
         )
 
-    def buy(self):
+    def buy(self) -> Union[List, str]:
         parser = CommandParser(
             user=self.user, command=self.command, args=self.args, allow_random_sfx=True,
         ).parse()
@@ -128,7 +130,7 @@ class EconomyRouter(BaseRouter):
 
         return self._format_result(result)
 
-    def share(self):
+    def share(self) -> str:
         parser = CommandParser(
             user=self.user,
             command=self.command,
@@ -154,7 +156,7 @@ class EconomyRouter(BaseRouter):
         else:
             return f"Error Sharing - Command: {parser.target_sfx} | User: {parser.target_user}"
 
-    def steal(self):
+    def steal(self) -> str:
         if self.parser.target_user and self.parser.target_sfx:
             result = Stealer(
                 thief=self.user,
@@ -174,7 +176,7 @@ class EconomyRouter(BaseRouter):
                 msg += f" Invalid Args: {' '.join(self.args)}"
             return msg
 
-    def give(self):
+    def give(self) -> str:
         parser = CommandParser(
             user=self.user,
             command=self.command,
@@ -204,7 +206,7 @@ class EconomyRouter(BaseRouter):
             user=self.user, command=parser.target_sfx, friend=parser.target_user,
         ).give()
 
-    def props(self):
+    def props(self) -> str:
         parser = CommandParser(
             user=self.user,
             command=self.command,
@@ -240,7 +242,7 @@ class EconomyRouter(BaseRouter):
             amount=parser.amount,
         ).transfer()
 
-    def love(self):
+    def love(self) -> Optional[str]:
         if self.parser.target_sfx and not self.parser.target_user:
             result = SFXVote(self.parser.target_sfx).support(self.user)
             love_count = len(result["supporters"])
@@ -256,7 +258,7 @@ class EconomyRouter(BaseRouter):
         else:
             return None
 
-    def hate(self):
+    def hate(self) -> str:
         if self.parser.target_sfx and not self.parser.target_user:
             result = SFXVote(self.parser.target_sfx).detract(self.user)
             love_count = len(result["supporters"])
@@ -265,8 +267,7 @@ class EconomyRouter(BaseRouter):
         else:
             return f"We are not sure who or what you trying to hate. Maybe try and focusing your hate better next time @{self.user}"
 
-    # formatters/purchase_formatter
-    def _format_result(self, result):
+    def _format_result(self, result: Result) -> Union[List, str]:
         if "purchase_results" in result.metadata:
             results = result.metadata["purchase_results"]
 
@@ -286,3 +287,4 @@ class EconomyRouter(BaseRouter):
                     return results[0].message
                 else:
                     return [result.message for result in results]
+
