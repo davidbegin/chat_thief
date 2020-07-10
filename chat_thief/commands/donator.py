@@ -1,3 +1,5 @@
+from typing import Optional, Dict, List
+
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
 
@@ -5,17 +7,17 @@ from chat_thief.prize_dropper import random_user
 
 
 class Donator:
-    def __init__(self, user):
+    def __init__(self, user: str):
         self.user = user
 
-    def donate(self, target_user=None):
-        results = {}
+    def donate(self, target_user: Optional[str] = None) -> str:
+        results: Dict[str, List[str]] = {}
 
-        for command in User(self.user).commands():
-            if command == self.user:
+        for command_name in User(self.user).commands():
+            if command_name == self.user:
                 continue
 
-            command = Command(command)
+            command = Command(command_name)  # This is a Command
 
             # so we we have a user use it
             # if not donate to randos
