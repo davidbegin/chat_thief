@@ -6,7 +6,7 @@ from chat_thief.models.base_db_model import BaseDbModel
 from datetime import datetime
 
 from tinydb import Query  # type: ignore
-from tinydb.table import Document # type: ignore
+from tinydb.table import Document  # type: ignore
 
 
 class BreakingNews(BaseDbModel):
@@ -17,11 +17,11 @@ class BreakingNews(BaseDbModel):
         self,
         scope: str,
         user: Optional[str] = None,
-        category: Optional[str]=None,
-        reported_on: Optional[bool]=False,
-        revolutionaries: Optional[List[str]]=[],
-        peace_keepers: Optional[List[str]]=[],
-        fence_sitters: Optional[List[str]]=[],
+        category: Optional[str] = None,
+        reported_on: Optional[bool] = False,
+        revolutionaries: Optional[List[str]] = [],
+        peace_keepers: Optional[List[str]] = [],
+        fence_sitters: Optional[List[str]] = [],
     ):
         self._scope = scope
         self._user = user

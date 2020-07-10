@@ -45,3 +45,12 @@ class TestCommandSharer(DatabaseConfig):
         assert user.name in command.users()
         assert friend.name not in command.users()
         assert command.cost() == 1
+
+    def test_invalid_command(self):
+        user = User("fake_user")
+        friend = User("bizmarkie")
+
+        result = CommandSharer(
+            user=user.name, command="fake_command", friend=friend.name,
+        ).share()
+        assert result == "@fake_user cannot share !fake_command as it's invalid"

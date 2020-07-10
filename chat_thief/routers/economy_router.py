@@ -1,4 +1,4 @@
-from typing import Optional, List, Dict, Union
+from typing import Optional, List, Dict, Union, Any
 from pathlib import Path
 import random
 
@@ -28,7 +28,7 @@ COMMANDS = {"give": {"aliases": ["transfer", "give"],}}
 
 
 class EconomyRouter(BaseRouter):
-    def route(self):
+    def route(self) -> Optional[Union[List[str], str]]:
         if self.command == "insurance":
             return User(self.user).buy_insurance()
 
@@ -287,4 +287,3 @@ class EconomyRouter(BaseRouter):
                     return results[0].message
                 else:
                     return [result.message for result in results]
-

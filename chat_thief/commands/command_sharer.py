@@ -6,14 +6,14 @@ from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 
 
 class CommandSharer:
-    def __init__(self, user, command, friend):
+    def __init__(self, user: str, command: str, friend: str):
         self.user = user
         self.command = command
         self.friend = friend
 
-    def share(self):
+    def share(self) -> str:
         if not self.command in SoundeffectsLibrary.fetch_soundeffect_names():
-            raise ValueError(f"!{self.command} invalid command")
+            return f"@{self.user} cannot share !{self.command} as it's invalid"
 
         command = Command(name=self.command)
         command_cost = command.cost()

@@ -98,7 +98,9 @@ class Revolution:
             return "THE REVOLUTION IS NOW!"
 
     #  Transferring power is Different
-    def _transfer_power(self, power_users: List[str], weaklings: List[str], bounty: List[str]) -> str:
+    def _transfer_power(
+        self, power_users: List[str], weaklings: List[str], bounty: List[str]
+    ) -> str:
         the_cycle_of_power_users = cycle(power_users)
 
         for user in weaklings:

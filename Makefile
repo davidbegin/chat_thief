@@ -75,7 +75,8 @@ register_bots:
 	python -m chat_thief.scripts.register_bots
 
 types:
-	mypy chat_thief/routers/economy_router.py --disallow-untyped-defs | grep economy_router
+	mypy chat_thief/commands/command_sharer.py --disallow-untyped-defs | grep command_sharer
+	# mypy chat_thief/routers/economy_router.py --disallow-untyped-defs | grep economy_router
 
 mypy:
 	mypy chat_thief/**/*.py --warn-unused-ignores --disallow-untyped-defs
