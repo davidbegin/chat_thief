@@ -202,9 +202,9 @@ async def generate_user_page(user_dict, all_commands):
         if widget.lower() not in deactivated_widgets
     ]
 
-    if approved_widgets or deactivated_widgets:
-        print(f"Approved Widgets: {approved_widgets}")
-        print(f"Deactivated Widets: {deactivated_widgets}")
+    # if approved_widgets or deactivated_widgets:
+    #     print(f"Approved Widgets: {approved_widgets}")
+    #     print(f"Deactivated Widets: {deactivated_widgets}")
 
     context = {
         "user": name,

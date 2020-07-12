@@ -10,7 +10,6 @@ class StitchAndSort:
         self._all_votes = SFXVote.db().all()
         self._all_users = User.db().all()
         self._all_cmds = Command.db().all()
-        # self._user_code = UserCode.db().all()
         self._all_sfxs = SoundeffectsLibrary.fetch_soundeffect_samples()
         self.command_users = self._setup_command_users()
 
