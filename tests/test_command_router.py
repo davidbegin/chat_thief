@@ -44,12 +44,7 @@ class TestCommandRouter(DatabaseConfig):
     @pytest.fixture
     def irc_msg(self):
         def _irc_msg(user, msg):
-            return [
-                f":{user}!{user}@user.tmi.twitch.tv",
-                "PRIVMSG",
-                "#beginbot",
-                f":{msg}",
-            ]
+            return f":{user}!{user}@user.tmi.twitch.tv PRIVMSG #beginbot :{msg}"
 
         return _irc_msg
 

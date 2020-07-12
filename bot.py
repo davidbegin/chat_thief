@@ -54,14 +54,20 @@ async def run_bot(server: socket.socket) -> None:
         # Example:
         #   :beginbotbot!beginbotbot@beginbotbot.tmi.twitch.tv PRIVMSG #beginbot :!wildcard
 
-        # print(raw_irc_response)
-
         if ARE_YOU_ALIVE in raw_irc_response:
             await pong(server)
         elif len(raw_irc_response.split()) < 2:
             pass
         elif CHAT_MSG in raw_irc_response:
-            irc_response = raw_irc_response.split(BEGINBOTBOT)[0].strip()
+            if raw_irc_response.startswith(BEGINBOTBOT):
+                irc_response = raw_irc_response
+            else:
+                irc_response = raw_irc_response.split(BEGINBOTBOT)[0].strip()
+
+            # I think sometimes the messages can still end up on one line
+            # However I haven't found an example yet
+            # print(f"{irc_response=}")
+
             try:
                 if response := CommandRouter(irc_response, logger).build_response():
                     MESSAGE_LIMIT = 500
