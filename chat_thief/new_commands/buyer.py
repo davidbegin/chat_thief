@@ -1,3 +1,5 @@
+from typing import Optional
+
 from chat_thief.new_commands.result import Result
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.models.user import User
@@ -14,7 +16,7 @@ class PurchaseResult(Enum):
 
 
 class PurchaseReceipt:
-    def __init__(self, user, sfx, result, cool_points, cost=None):
+    def __init__(self, user: str, sfx: str, result: PurchaseResult, cool_points: int, cost: Optional[int]=None):
         self.user = user
         self.sfx = sfx
         self.cost = cost
@@ -24,20 +26,22 @@ class PurchaseReceipt:
             user=user, sfx=sfx, cost=cost, cool_points=cool_points
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"PurchaseReceipt({self.user}, {self.sfx}, {self.result.name}, {self.cool_points}, {self.cost})"
+
+
 
 
 # This sometimes Buys 1, othertimes many
 # Should all Generic command class, be a single command
 # Need a unifed return type for all
 class Buyer:
-    def __init__(self, user, target_sfx, amount=1):
+    def __init__(self, user: str, target_sfx: str, amount: int=1):
         self._user = user
         self._target_sfx = target_sfx
         self._amount = amount
 
-    def buy(self):
+    def buy(self) -> Result:
         results = []
 
         for _ in range(0, self._amount):
@@ -49,7 +53,7 @@ class Buyer:
 
         return Result(user=self._user, command="buy", metadata=metadata)
 
-    def _try_and_buy(self):
+    def _try_and_buy(self) -> PurchaseReceipt:
         user = User(self._user)
 
         if self._target_sfx == "random":
@@ -61,7 +65,7 @@ class Buyer:
 
         return self._buy_sfx(user, target_sfx)
 
-    def _buy_sfx(self, user, effect):
+    def _buy_sfx(self, user: User, effect: str) -> PurchaseReceipt:
         current_cool_points = user.cool_points()
 
         if effect not in SoundeffectsLibrary.fetch_soundeffect_names():

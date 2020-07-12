@@ -1,5 +1,4 @@
 from chat_thief.routers.base_router import BaseRouter
-from chat_thief.prize_dropper import dropreward
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
@@ -44,9 +43,6 @@ class ModeratorRouter(BaseRouter):
                 target_command=self.parser.target_sfx,
                 amount=self.parser.amount,
             ).drop()
-
-        if self.command == "dropreward" and self.user in STREAM_GODS:
-            return dropreward()
 
     def _do_over(self):
         print("WE ARE GOING FOR IT!")

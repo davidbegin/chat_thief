@@ -41,4 +41,4 @@ class TestCubeBet(DatabaseConfig):
 
     def test_a_wager(self):
         result = CubeBet("carti", 32, ["clap"]).save()
-        assert result["wager"] == ["clap"]
+        assert result.wager == ["clap"]

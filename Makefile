@@ -75,7 +75,7 @@ register_bots:
 	python -m chat_thief.scripts.register_bots
 
 types:
-	mypy chat_thief/commands/user_requests.py --disallow-untyped-defs | grep user_requests
+	mypy chat_thief/new_commands/new_cube_casino.py --disallow-untyped-defs | grep new_cube_casino
 	# mypy chat_thief/routers/economy_router.py --disallow-untyped-defs | grep economy_router
 
 mypy:

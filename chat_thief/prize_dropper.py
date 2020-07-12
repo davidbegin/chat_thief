@@ -51,20 +51,6 @@ def drop_random_soundeffect_to_random_user():
     return drop_effect(user, soundeffect)
 
 
-def dropreward():
-    with Path(__file__).parent.parent.joinpath("logs/chat.log") as log:
-        chat_lines = [
-            line
-            for line in log.read_text().split("\n")
-            if line
-            and line.split(":")[0] not in INVALID_USERS
-            and line != CONNECTING_MSG
-        ]
-    user = chat_lines[-1].split(":")[0]
-    soundeffect = random_soundeffect()
-    return drop_effect(user, soundeffect)
-
-
 def _is_int_between(potential_int):
     try:
         return int(potential_int) in range(1, 100)

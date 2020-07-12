@@ -6,6 +6,7 @@ from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.routers.moderator_router import ModeratorRouter
 from tests.support.database_setup import DatabaseConfig
+from chat_thief.chat_logs import ChatLogs
 
 
 class TestModeratorRouter(DatabaseConfig):
@@ -46,10 +47,7 @@ class TestModeratorRouter(DatabaseConfig):
         ModeratorRouter("beginbotbot", "no_news", []).route()
         assert BreakingNews.count() == 0
 
-    # This needs the log file
-    def test_dropeffects(self):
+    def test_dropeffects(self, monkeypatch):
+        monkeypatch.setattr(ChatLogs, "recent_stream_peasants", ["quavo: nice", "takeoff: IDK"])
         result = ModeratorRouter("beginbotbot", "dropeffect").route()
-        assert "now has access" in result
-        assert "now has access to Sound Effect: !dropeffect" not in result
-        result = ModeratorRouter("beginbotbot", "dropreward").route()
-        assert "now has access" in result
+        assert "now has access to" in result
