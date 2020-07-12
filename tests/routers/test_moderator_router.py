@@ -48,6 +48,8 @@ class TestModeratorRouter(DatabaseConfig):
         assert BreakingNews.count() == 0
 
     def test_dropeffects(self, monkeypatch):
-        monkeypatch.setattr(ChatLogs, "recent_stream_peasants", ["quavo: nice", "takeoff: IDK"])
+        monkeypatch.setattr(
+            ChatLogs, "recent_stream_peasants", ["quavo: nice", "takeoff: IDK"]
+        )
         result = ModeratorRouter("beginbotbot", "dropeffect").route()
         assert "now has access to" in result

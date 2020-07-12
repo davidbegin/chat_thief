@@ -13,11 +13,12 @@ DEFAULT_VOTES_DB_PATH = "db/cube_bets.json"
 # TODO: Maybe this should be Bets
 Bet = Tuple[str, int, List[str]]
 
+
 class CubeBet(BaseDbModel):
     table_name = "cube_bets"
     database_path = "db/cube_bets.json"
 
-    def __init__(self, user: str, duration: int, wager: List[str]=[]):
+    def __init__(self, user: str, duration: int, wager: List[str] = []):
         self._user = user
         self._duration = int(duration)
         self._wager = wager
@@ -25,7 +26,7 @@ class CubeBet(BaseDbModel):
     def doc(self) -> Dict:
         return {"user": self._user, "duration": self._duration, "wager": self._wager}
 
-    def save(self) -> 'CubeBet':
+    def save(self) -> "CubeBet":
         bet = self.db().get(Query().user == self._user)
 
         if bet:

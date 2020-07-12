@@ -16,7 +16,14 @@ class PurchaseResult(Enum):
 
 
 class PurchaseReceipt:
-    def __init__(self, user: str, sfx: str, result: PurchaseResult, cool_points: int, cost: Optional[int]=None):
+    def __init__(
+        self,
+        user: str,
+        sfx: str,
+        result: PurchaseResult,
+        cool_points: int,
+        cost: Optional[int] = None,
+    ):
         self.user = user
         self.sfx = sfx
         self.cost = cost
@@ -30,13 +37,11 @@ class PurchaseReceipt:
         return f"PurchaseReceipt({self.user}, {self.sfx}, {self.result.name}, {self.cool_points}, {self.cost})"
 
 
-
-
 # This sometimes Buys 1, othertimes many
 # Should all Generic command class, be a single command
 # Need a unifed return type for all
 class Buyer:
-    def __init__(self, user: str, target_sfx: str, amount: int=1):
+    def __init__(self, user: str, target_sfx: str, amount: int = 1):
         self._user = user
         self._target_sfx = target_sfx
         self._amount = amount

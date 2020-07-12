@@ -59,7 +59,9 @@ class NewCubeCasino:
 
         return transfer_of_wealth
 
-    def _find_winners_and_losers(self) -> Tuple[List[Bet], List[Tuple[str, str, int]], int]:
+    def _find_winners_and_losers(
+        self,
+    ) -> Tuple[List[Bet], List[Tuple[str, str, int]], int]:
         all_bets = CubeBet.all_bets()
 
         # Start with huge winning duration

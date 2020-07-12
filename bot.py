@@ -8,6 +8,7 @@ from chat_thief.config.log import logger
 from chat_thief.config.twitch import TwitchConfig
 from chat_thief.command_router import CommandRouter
 
+BEGINBOTBOT = ":beginbotbot!beginbotbot@beginbotbot.tmi.twitch.tv"
 CONNECTION_DATA = ("irc.chat.twitch.tv", 6667)
 ENCODING = "utf-8"
 CHAT_MSG = "PRIVMSG"
@@ -41,18 +42,26 @@ def irc_handshake(server: socket.socket) -> None:
 
 
 async def chat_response(server: socket.socket):
-    return server.recv(2048).decode(ENCODING).split()
+    # whatsinmyopsec: so i can be a web dever :beginbotbot!beginbotbot@beginbotbot.tmi.twitch.tv PRIVMSG #beginbot :@lunchboxsushi now has access to !myspacepage :beginbotbot!beginbotbot@beginbotbot.tmi.twitch.tv PRIVMSG #beginbot :Welcome @lunchboxsushi! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-URL @lunchboxsushi 00:03 00:07
+    # So I typically splitting on whitespace.
+    # return server.recv(2048).decode(ENCODING).split()
+    return server.recv(2048).decode(ENCODING)
 
 
 async def run_bot(server: socket.socket) -> None:
     while True:
-        irc_response = await chat_response(server)
+        raw_irc_response = await chat_response(server)
+        # Example:
+        #   :beginbotbot!beginbotbot@beginbotbot.tmi.twitch.tv PRIVMSG #beginbot :!wildcard
 
-        if irc_response[0] == ARE_YOU_ALIVE:
+        # print(raw_irc_response)
+
+        if ARE_YOU_ALIVE in raw_irc_response:
             await pong(server)
-        elif len(irc_response) < 2:
+        elif len(raw_irc_response.split()) < 2:
             pass
-        elif irc_response[1] == CHAT_MSG:
+        elif CHAT_MSG in raw_irc_response:
+            irc_response = raw_irc_response.split(BEGINBOTBOT)[0].strip()
             try:
                 if response := CommandRouter(irc_response, logger).build_response():
                     MESSAGE_LIMIT = 500
@@ -62,7 +71,6 @@ async def run_bot(server: socket.socket) -> None:
                             await send_msg(server, f"{r}")
                     elif len(response) > MESSAGE_LIMIT:
                         # This is dumb!
-                        # await send_msg(server, f"{''.join(response[:500])}")
                         await send_msg(server, f"{response[:500]}")
                         await send_msg(server, f"{response[500:]}")
                     else:
