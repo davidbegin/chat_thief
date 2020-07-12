@@ -18,6 +18,9 @@ class PlaySoundeffectRequest(BaseDbModel):
         if command:
             self.command = command.lower()
 
+    def __len__(self):
+        return 0
+
     # Deprecate this
     def command_count(self):
         # We should check if this is valid json

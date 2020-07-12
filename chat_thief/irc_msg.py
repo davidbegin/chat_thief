@@ -4,6 +4,7 @@ from typing import List, Optional
 class IrcMsg:
     def __init__(self, msg: str):
         # ':beginbot!beginbot@beginbot.tmi.twitch.tv PRIVMSG #beginbot :hello'
+
         split_msg = msg.split()
         if len(split_msg) >= 4:
             user_info, _, _, *raw_msg = split_msg

@@ -42,49 +42,41 @@ def irc_handshake(server: socket.socket) -> None:
 
 
 async def chat_response(server: socket.socket):
-    # whatsinmyopsec: so i can be a web dever :beginbotbot!beginbotbot@beginbotbot.tmi.twitch.tv PRIVMSG #beginbot :@lunchboxsushi now has access to !myspacepage :beginbotbot!beginbotbot@beginbotbot.tmi.twitch.tv PRIVMSG #beginbot :Welcome @lunchboxsushi! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-URL @lunchboxsushi 00:03 00:07
-    # So I typically splitting on whitespace.
-    # return server.recv(2048).decode(ENCODING).split()
     return server.recv(2048).decode(ENCODING)
 
 
 async def run_bot(server: socket.socket) -> None:
+    chat_buffer = ""
+
     while True:
         raw_irc_response = await chat_response(server)
-        # Example:
-        #   :beginbotbot!beginbotbot@beginbotbot.tmi.twitch.tv PRIVMSG #beginbot :!wildcard
 
-        if ARE_YOU_ALIVE in raw_irc_response:
-            await pong(server)
-        elif len(raw_irc_response.split()) < 2:
-            pass
-        elif CHAT_MSG in raw_irc_response:
-            if raw_irc_response.startswith(BEGINBOTBOT):
-                irc_response = raw_irc_response
-            else:
-                irc_response = raw_irc_response.split(BEGINBOTBOT)[0].strip()
+        chat_buffer = chat_buffer + raw_irc_response
+        messages = chat_buffer.split("\r\n")
+        chat_buffer = messages.pop()
+        for message in messages:
+            if message == "PING :tmi.twitch.tv":
+                await pong(server)
+            elif len(message.split()) < 2:
+                continue
+            elif CHAT_MSG in message:
+                try:
+                    if response := CommandRouter(message, logger).build_response():
+                        MESSAGE_LIMIT = 500
 
-            # I think sometimes the messages can still end up on one line
-            # However I haven't found an example yet
-            # print(f"{irc_response=}")
-
-            try:
-                if response := CommandRouter(irc_response, logger).build_response():
-                    MESSAGE_LIMIT = 500
-
-                    if isinstance(response, List):
-                        for r in response:
-                            await send_msg(server, f"{r}")
-                    elif len(response) > MESSAGE_LIMIT:
-                        # This is dumb!
-                        await send_msg(server, f"{response[:500]}")
-                        await send_msg(server, f"{response[500:]}")
-                    else:
-                        await send_msg(server, f"{response}")
-            except:
-                print("\033[91m")
-                traceback.print_exc()
-                print("\033[0m")
+                        if isinstance(response, List):
+                            for r in response:
+                                await send_msg(server, f"{r}")
+                        elif len(response) > MESSAGE_LIMIT:
+                            # This is dumb!
+                            await send_msg(server, f"{response[:500]}")
+                            await send_msg(server, f"{response[500:]}")
+                        else:
+                            await send_msg(server, f"{response}")
+                except:
+                    print("\033[91m")
+                    traceback.print_exc()
+                    print("\033[0m")
 
 
 async def main():

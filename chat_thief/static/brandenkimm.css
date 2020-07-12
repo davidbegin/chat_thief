@@ -1,0 +1,7 @@
+h1:hover {
+  color: yellow;
+}
+
+h1:active {
+  color: purple;
+}

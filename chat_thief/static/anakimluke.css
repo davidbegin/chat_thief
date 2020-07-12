@@ -1,0 +1,10 @@
+body {
+    background: rgb(0, 0, 0);
+    color: red;
+    font-size: 20px;
+    font-family: monospace;
+    margin: 200px;
+}
+h1 {
+    color: #e40000;
+}

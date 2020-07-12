@@ -19,6 +19,7 @@ from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.new_commands.result import Result
 
 BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot"]
+# BLACKLISTED_LOG_USERS = []
 
 ROUTERS = [
     EconomyRouter,
@@ -101,4 +102,13 @@ class CommandRouter:
 
         if self.command in SoundeffectsLibrary.fetch_soundeffect_names():
             if self.command:
-                PlaySoundeffectRequest(user=self.user, command=self.command).save()
+                return PlaySoundeffectRequest(
+                    user=self.user, command=self.command
+                ).save()
+
+        from pathlib import Path
+
+        user_msgs_path = Path(__file__).parent.parent.joinpath("logs/user_msgs.log")
+        if self.user not in BLACKLISTED_LOG_USERS:
+            with open(user_msgs_path, "a") as log_file:
+                log_file.write(f"{self.user}: {self.msg}\n")

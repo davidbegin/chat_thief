@@ -7,7 +7,7 @@ from chat_thief.config.log import success
 from chat_thief.models.notification import Notification
 from chat_thief.models.command import Command
 
-MPLAYER_VOL_NORM = "0.40"
+MPLAYER_VOL_NORM = "0.30"
 
 
 class AudioPlayer:
