@@ -64,24 +64,19 @@ def setup_build_dir():
 
 
 async def _render_and_save_html(file_name, context, dest_filename=None):
-    # warning(f"Rendering Template: {dest_filename}")
     template = jinja2.Environment(
         loader=jinja2.FileSystemLoader(template_path),
     ).get_template(file_name)
 
     rendered_template = template.render(context)
-    # success(f"Finished Rendering Template: {dest_filename}")
 
-    # warning(f"Writing Template: {file_name}")
     if dest_filename:
         html_file = dest_filename
-
     else:
         html_file = file_name
 
     with open(rendered_template_path.joinpath(html_file), "w") as f:
         f.write(rendered_template)
-    # success(f"Finished Writing Template: {file_name}")
 
 
 async def generate_widgets_page(winner):

@@ -20,6 +20,8 @@ BOTS_AND_CREATORS = {
     "orenog_live4": "personnormalyesplus5",
     "biged_twitch": "bigedbot",
     "eitanfuturo": "futubot",
+    "mrsmoofy": "mrsmoofybot",
+    "nineteenletterslong": "blortbot",
 }
 
 

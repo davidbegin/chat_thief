@@ -49,11 +49,27 @@ invalidate_cdn:
 			--distribution-id E382OTJDHBFSJL \
 			--paths "/*" "/**/*"
 
-deploy_all:
-	aws s3 sync ./build/beginworld_finance s3://beginworld.exchange-f27cf15
+
+pull_user:
+	aws s3api get-object --bucket beginworld.exchange-f27cf15 --key beginbot.html bucket_beginworld.html
+
+deploy_user: gen_user_page sync_user invalidate_cdn
+
+gen_user_page:
+	python -m chat_thief.mygeoangelfirespace.user_publisher -u $(USER)
+
+sync_user:
+	aws s3api put-object                                                        \
+		--bucket beginworld.exchange-f27cf15                                      \
+	 	--key $(USER).html                                                       \
+		--body /home/begin/code/chat_thief/build/beginworld_finance/$(USER).html \
+		--content-type "text/html"
 
 sync_json:
 	aws s3 sync ./db/ s3://beginworld.exchange-f27cf15/db
+
+deploy_all:
+	aws s3 sync ./build/beginworld_finance s3://beginworld.exchange-f27cf15
 
 sync_sounds:
 	aws s3 sync --exclude "*" \
