@@ -29,8 +29,12 @@ COMMANDS = {"give": {"aliases": ["transfer", "give"],}}
 
 class EconomyRouter(BaseRouter):
     def route(self) -> Optional[Union[List[str], str]]:
-        if self.command == "insurance":
+        if self.command in  ["insurance", "insure"]:
             return User(self.user).buy_insurance()
+
+        if self.command == "commands":
+            cmd_list = " | ".join(User(self.user).commands())
+            return f"@{self.user} Commands: {cmd_list}"
 
         if self.command == "css":
             # if self.user in STREAM_LORDS:

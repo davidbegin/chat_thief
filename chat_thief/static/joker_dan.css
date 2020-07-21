@@ -1,0 +1,24 @@
+body {
+  background-color: #172933;
+  color: #c1d9e5;
+}
+a {
+  color: #f3ce76;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 600;
+  transition-duration: 250ms;
+  transition-timing-fuction: linear;
+  transition-property: border;
+  border: 0.15rem solid transparent;
+}
+a:hover {
+  border-bottom: 0.15rem solid #f3ce76;
+}
+a:before { content: '» ' }
+a:after  { content: ' «' }
+h1, h2, h3, h4 {
+  text-align: center;
+  color: #f3ce76;
+}
+li, ol { list-style-type: none; }

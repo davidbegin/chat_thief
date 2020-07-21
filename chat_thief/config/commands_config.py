@@ -5,4 +5,5 @@ OBS_COMMANDS = [
     "brb",
     "i_hate_that_thing",
     "i_like_that_thing",
+    "keyboard",
 ]

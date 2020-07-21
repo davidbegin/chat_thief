@@ -44,7 +44,7 @@ class WelcomeCommittee:
             # Use non private method
             User(user)._find_or_create_user()
             send_twitch_msg(BeginFund(user).dropeffect())
-            os.system(f"USER={user} make deploy_user")
+            # os.system(f"USER={user} make deploy_user")
             send_twitch_msg(
                 f"Welcome @{user}! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-URL @{user} 00:03 00:07"
             )

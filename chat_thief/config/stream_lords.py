@@ -34,7 +34,6 @@ STREAM_LORDS: List[str] = [
     "kiekaemodaiwieco",
     "mondaynightfreehotdogs",
     "sketchyscripts",
-    "whatsinmyopsec",
     "spfar",
     "sweeku",
     "tramstarzz",

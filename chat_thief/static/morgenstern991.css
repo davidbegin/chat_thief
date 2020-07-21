@@ -1,0 +1,66 @@
+@import url(https://fonts.googleapis.com/css?family=Major+Mono+Display);
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  
+}
+
+body {
+  height: 100%;
+  background-color: black;
+  background-image: linear-gradient(to bottom right, black, #999);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+a {
+  text-decoration: none;
+  color: #3786BE;
+}
+
+a:hover{
+  color: #29648E;
+}
+
+h1, h2, h3, ul {
+  font-family: 'Major Mono Display', monospace;
+}
+
+h1 {
+  font-size: 14px;
+  text-align: left;
+  margin: 20px;
+}
+
+h2 {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 40px;
+}
+
+h3 {
+  margin: 70px 40px 20px 40px;
+  text-align: center;
+  font-size: 20px;
+}
+
+ul {
+  margin: 50px 150px 150px 150px;
+  list-style: decimal-leading-zero;
+  font-size: 14px;
+}
+
+span, code {
+  margin: 0 60px;
+  font-size: 12px;
+}
+
+code {
+  background-color: #000;
+  padding: 3px 5px;
+}

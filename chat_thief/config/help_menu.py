@@ -10,7 +10,6 @@ HELP_COMMANDS = {
     "perms": "!perms !clap OR !perms @beginbot - See who is allowed to use the !clap command",
     "donate": "!donate give away all your commands to random users",
     "issue": "!issue Description of a Bug - A bug you found you want Beginbot to look at",
-    "most_popular": "!most_popular - Shows the most coveted commands",
     "coup": "trigger either a revolution or a crushing or the rebellion based on !vote - if you don't have enough Cool Points to afford to trigger a coup, you will be stripped of all your Street Cred and Cool Points",
     "soundeffect": "!soundeffect YOUTUBE_URL COMMAND_NAME 00:01 00:05 - Must be less than 5 second",
     "vote": "!vote (peace|revolution) - Where you stand when a coup happens.  Should all sounds be redistributed, or should the trouble makes lose their sounds and the rich get richer",
