@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+body {
+  background-color: #011728;
+  color: #00A6FB;
+  font-size: 1.5em;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+}
+h2 {
+  color: #33EBB1;
+}
+h1 > a {
+  text-decoration: line;
+  color: #F75C03;
+}
+li > a {
+  color: #D90368;
+  padding-bottom: 5px;
+  text-decoration: overline;
+}
+li {
+  list-style: none;
+}
+h1 {
+  font-family: 'Nanum Pen Script', cursive, Arial, Helvetica, sans-serif;
+}
+span > a {
+  color: #00537D;
+  text-decoration: none;
+}
+br{
+  margin-bottom: 20px;
+}
+code {
+  font-family: 'Pacifico', cursive;
+}

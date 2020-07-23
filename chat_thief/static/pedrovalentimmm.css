@@ -1,0 +1,8 @@
+span:nth-last-child(-n+7) {
+   display: none;
+}
+
+figure audio {
+  width: 100%;
+  margin: 1rem auto;
+}

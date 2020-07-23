@@ -29,12 +29,12 @@ restore:
 
 # TODO: Move log files from the day before
 new_day: backup
+	rm .welcome
 	rm db/notifications.json
-	rm db/cube_bets.json
 	rm db/breaking_news.json
 	rm db/votes.json
-	rm .welcome
 	rm db/play_soundeffects.json
+	rm db/cube_bets.json
 
 sync:
 	scripts/sync_html.sh | lolcat
