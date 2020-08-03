@@ -61,7 +61,8 @@ class User(BaseDbModel):
         users = [user for user in cls.db().all()]
 
         if users:
-            return sorted(users, key=lambda user: user[field])[-1]
+            # TODO: This ain't right
+            return sorted(users, key=lambda user: user.get(field, 0))[-1]
         else:
             return []
 

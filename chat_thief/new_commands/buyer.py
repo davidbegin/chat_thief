@@ -49,6 +49,11 @@ class Buyer:
     def buy(self) -> Result:
         results = []
 
+        # Trying to buy a lot of one thing
+        # this is for repeated random buys
+        if self._amount > 1 and self._target_sfx != "random":
+            raise ValueError(f"Stop Spamming: {self._user}")
+
         for _ in range(0, self._amount):
             result = self._try_and_buy()
             print(result)

@@ -22,6 +22,7 @@ BOTS_AND_CREATORS = {
     "eitanfuturo": "futubot",
     "mrsmoofy": "mrsmoofybot",
     "nineteenletterslong": "blortbot",
+    "adengamestv": "adengamesbot",
 }
 
 

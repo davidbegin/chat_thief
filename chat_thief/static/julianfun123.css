@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200&family=Rowdies&family=Sora&display=swap');
+
+body {
+    animation: bg 1s infinite;
+    color: #FFFFFF !important;
+    max-width: 900px;
+    margin: 60px auto;
+    font-family: Sora;
+    text-shadow: #BA4678 4px 3px;
+    background: #090438 !important;
+}
+
+a {
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+
+[href="https://mygeoangelfirespace.city"]::before {
+    content: "JulianFun123 - this is the best website ever!";
+    display: block;
+    font-size: 30px;
+    animation: title 1s infinite;
+    margin-bottom: 20px;
+}
+
+[href="https://gist.github.com/"], [href="https://pastebin.com/"] {
+    text-decoration: line-through;
+}
+
+[href="https://gist.github.com/"]::after {
+    content: " - All those paste sites are trash! https://pastefy.ga is the best";
+    display: inline-block;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+h2 {
+    animation: usernamejumping 0.1s infinite;
+    position: fixed;
+    top: 10px;
+    right: -520px;
+}
+
+@keyframes usernamejumping {
+    0% {
+        color: #FFFFFF;
+        text-shadow: #356423 4px 3px;
+    }
+    50% {
+        color: #587432;
+        text-shadow: #764523 4px 3px;
+    }
+    100% {
+        color: #FFFFFF;
+        text-shadow: #FF5432 4px 3px;
+    }
+}
+
+@keyframes bg {
+    10% {
+        background: #365412;
+    }
+    20% {
+        background: #453682;
+        transform: rotate(1deg);
+        text-shadow: #543257 4px 3px;
+    }
+    30% {
+        background: #678950;
+    }
+    40% {
+        background: #346795;
+    }
+    50% {
+        background: #587432;
+        transform: rotate(-1deg);
+    }
+    60% {
+        background: #BA4678;
+    }
+    70% {
+        background: #653465;
+        text-shadow: #134839 4px 3px;
+    }
+    80% {
+        background: #53328A;
+        transform: scaleX(1.09);
+    }
+    90% {
+        background: #12B132;
+        transform: rotate(0deg);
+    }
+    100% {
+        background: #463452;
+        text-shadow: #BA4678 4px 3px;
+    }
+}
+
+@keyframes title {
+    0% {
+        font-size: 20px;
+    }
+    50% {
+        font-size: 25px;
+    }
+    100% {
+        font-size: 20px;
+    }
+}

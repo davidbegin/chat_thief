@@ -21,6 +21,8 @@ from chat_thief.new_commands.result import Result
 from chat_thief.permissions_fetcher import PermissionsFetcher
 from chat_thief.prize_dropper import random_user as find_random_user
 from chat_thief.routers.base_router import BaseRouter
+from chat_thief.config.stream_lords import STREAM_GODS
+from chat_thief.prize_dropper import drop_effect
 
 BASE_URL = "https://mygeoangelfirespace.city"
 
@@ -31,6 +33,13 @@ class EconomyRouter(BaseRouter):
     def route(self) -> Optional[Union[List[str], str]]:
         if self.command in  ["insurance", "insure"]:
             return User(self.user).buy_insurance()
+
+        if self.command == "archpack" and self.user in STREAM_GODS:
+            return [
+                drop_effect(self.parser.target_user,"arch"),
+                drop_effect(self.parser.target_user,"archluke"),
+                drop_effect(self.parser.target_user,"gcc")
+            ]
 
         if self.command == "commands":
             cmd_list = " | ".join(User(self.user).commands())
@@ -221,11 +230,6 @@ class EconomyRouter(BaseRouter):
         target_user_creator = User(parser.target_user).creator()
         user_creator = User(self.user).creator()
 
-        if target_user_creator == self.user:
-            return f"You cannot props your own bot @{self.user} @{parser.target_user}"
-        elif user_creator and user_creator == parser.target_user:
-            return f"You cannot props your creator @{self.user} @{parser.target_user}"
-
         target_user = parser.target_user
         top_eight = []
 
@@ -237,6 +241,12 @@ class EconomyRouter(BaseRouter):
             ]
             if top_eight == []:
                 return f"@{self.user} You must specify a Top8 to give random props (Bots Don't count). !top8 @user"
+
+        if target_user_creator == self.user:
+            return f"You cannot props your own bot @{self.user} @{parser.target_user}"
+
+        elif user_creator and user_creator == parser.target_user:
+            return f"You cannot props your creator @{self.user} @{parser.target_user}"
 
         # target_user = random.sample( top_eight, 1)[0]
         return StreetCredTransfer(
