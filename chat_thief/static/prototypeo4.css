@@ -1,0 +1,8 @@
+body {
+  animation: rotate 3s linear infinite;
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

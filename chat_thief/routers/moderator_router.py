@@ -1,3 +1,5 @@
+import os
+
 from chat_thief.routers.base_router import BaseRouter
 from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
 from chat_thief.models.user import User
@@ -11,6 +13,10 @@ from chat_thief.data_scrubber import DataScrubber
 class ModeratorRouter(BaseRouter):
     def route(self):
         if self.user in STREAM_GODS:
+            if self.command == "nomeme":
+                os.system("nomeme")
+                return
+
             if self.command == "no_news":
                 return BreakingNews.purge()
 

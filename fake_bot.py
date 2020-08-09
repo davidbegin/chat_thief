@@ -1,4 +1,4 @@
-vrom argparse import ArgumentParser
+from argparse import ArgumentParser
 
 from tinydb import Query  # type: ignore
 

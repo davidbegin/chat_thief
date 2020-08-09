@@ -32,7 +32,6 @@ new_day: backup
 	rm .welcome
 	rm db/notifications.json
 	rm db/breaking_news.json
-	rm db/votes.json
 	rm db/play_soundeffects.json
 	rm db/cube_bets.json
 

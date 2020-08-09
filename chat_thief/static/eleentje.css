@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+body {
+  margin:0;
+  background-color:white;
+  color:black;
+  font-family: "Open Sans";
+  font-size:0;
+}
+
+h1 a {
+  color:white;
+  font-size:0;
+  display:block;
+  height:1.5rem;
+  width:9rem;
+  background-image: url("https://i.imgur.com/ZFF1gTn.png");
+  background-size: 8rem;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border-radius: 24px;
+  border: 0.3rem solid white;
+  margin-top:1.25rem;
+  margin-left:1.5rem;
+}
+
+h1 {
+  background-color:#e60012;
+  margin:0;
+  padding:0;
+  height: 4.5rem;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1;
+}
+
+h2 {
+  color: white;
+  position:fixed;
+  right:0;
+  margin:0;
+  top:0;
+  margin-top:1.5rem;
+  font-weight:normal;
+  font-size:0;
+  margin-right: 1.5rem;
+  z-index:2;
+}
+
+h2:first-of-type {
+  font-size: 14px;
+}
+
+h2 a {
+  font-size:0;
+  width:0;
+  height:0;
+}
+
+ul {
+  position:fixed;
+  top:2rem;
+  background-color:#e60012;
+  width:5rem;
+  height:100%;
+  margin:0;
+  margin-top:1.5rem;
+  padding:0;
+  list-style-type: none;
+  overflow:hidden;
+}
+
+ul li {
+  transition: background-color 0.25s;
+  font-size:0;
+}
+
+ul li:hover {
+  background-color:#d10000;
+}
+
+ul li a {
+  color:white;
+  font-size: 0.64rem;
+  text-decoration: none;
+  display:block;
+  width:100%;
+  height:6rem;
+  line-height:10rem;
+  text-align:center;
+  background-image: url("https://i.imgur.com/m7nxRg9.png");
+  background-size:3.5rem;
+  background-position:50%;
+  background-repeat: no-repeat;
+  margin:0 !important;
+  text-shadow: 0 0 0 transparent;
+}
+
+h3 {
+  margin-top:5rem;
+  margin-left:0.33rem;
+  transition: transform 0.25s, box-shadow 0.25s;
+  font-weight:normal;
+  font-size:0.8rem;
+  color:white;
+  background-color: rgba(0,0,0,0.32);
+  display: inline-block;
+  height:24rem;
+  width:24rem;
+  text-align:center;
+  background-image: url("https://cdn02.nintendo-europe.com/media/images/11_square_images/others_4/SQ_LegoSuperMario_image600w.jpg");
+  background-repeat: no-repeat;
+  background-size:contain;
+  line-height:46rem;
+  overflow:hidden;
+  text-shadow: 0 0 0.16rem black;
+  float:left;
+  border-radius:6px;
+  animation: fadein 5s forwards;
+}
+
+h3:first-of-type {
+  margin-left: 5.5rem;
+}
+
+h3:hover {
+  transform:translateY(-0.5rem);
+  box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+figure {
+  display:none;
+}
+
+@keyframes fadein {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+span {
+  display:none;
+}
+
+a {
+  font-size:1rem;
+  display:inline-block;
+  height:24rem;
+  width:40rem;
+  color: white;
+  text-shadow: 0 0 4px black;
+  background-image: url("https://cdn02.nintendo-europe.com/media/images/10_share_images/others_3/H2x1_LegoSuperMario.jpg");
+  background-size:cover;
+  background-repeat: no-repeat;
+  margin-left: 0.3rem;
+  margin-top:5rem;
+  border-radius: 6px;
+  text-align:center;
+  line-height:46rem;
+  text-decoration:none;
+  transition:0.25s;
+}
+
+a:hover {
+  transform:translateY(-0.5rem);
+  box-shadow: 0 0 4px rgba(0,0,0,0.33);
+}
+
+ul li a:hover {
+  transform:translateY(0);
+  box-shadow: 0 0 0 transparent;
+}
+
+h1 a:hover {
+  transform:translateY(0);
+  box-shadow: 0 0 0 transparent;
+}

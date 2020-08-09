@@ -9,20 +9,51 @@ body {
     margin:0 auto;
     min-height:100vh;
 }
-
-h1 a {
+@keyframes example {
+    100% {background: black; -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    55% {background: black; -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    0% {background: linear-gradient(180deg, rgba(254,255,0,1) 47%, rgba(0,255,239,1) 100%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    5% {background: linear-gradient(180deg, rgba(254,255,0,1) 0%, rgba(0,255,239,1) 45%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    10% {background: linear-gradient(180deg, rgba(0,255,239,1) 43%, rgba(9,255,0,1) 98%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    15% {background: linear-gradient(180deg, rgba(0,255,239,1) 0%, rgba(9,255,0,1) 47%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    20% {background: linear-gradient(180deg, rgba(9,255,0,1) 39%, rgba(255,0,241,1) 100%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    25% {background: linear-gradient(180deg, rgba(9,255,0,1) 0%, rgba(255,0,241,1) 45%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    30% {background: linear-gradient(180deg, rgba(255,0,241,1) 47%, rgba(255,0,0,1) 100%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    35% {background: linear-gradient(180deg, rgba(255,0,241,1) 0%, rgba(255,0,0,1) 46%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    40% {background: linear-gradient(180deg, rgba(255,0,0,1) 46%, rgba(0,18,255,1) 100%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    45% {background: linear-gradient(180deg, rgba(255,0,0,1) 0%, rgba(0,18,255,1) 46%);-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    50% {background: linear-gradient(180deg, rgba(0,18,255,1) 46%,rgba(0,0,0,1) 0% );-webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;}
+}
+h1 a, .home h1 a:first-of-type {
     color:white;
     text-decoration: none;
+    left:unset;
+    font-size:1.1em;
+    width:unset;
+    animation:unset;
 }
-h1 {
+h1, .home h1{
     background:#02329a;
     margin:0;
     padding:50px 2%;
     width:96%;
-    font-size:1.1em;
+
     text-align:left;
 }
-h3 {
+h3, .home h1::after{
     background:#6797ce;
     color:white;
     width:96%;
@@ -30,9 +61,17 @@ h3 {
     padding:10px 2%;
     margin:0;
 }
-h2 {
+.home h1::after {
+    height:46px;
+    display:block;
+}
+.user h2 {
+    top:225px;
+
+}
+h2, .home h3, .home h2 a {
     position:absolute;
-    top:200px;
+    background:unset;
     display:block;
     color:black;
     font-size:.9em;
@@ -40,7 +79,15 @@ h2 {
     max-width:400px;
     padding:0 2%;
 }
-h2::after {
+.home h2 a {
+    position:unset;
+
+}
+.home h2 a:hover {
+    color:#f4c996;
+    
+}
+h2::after,.home h3::after {
     display:block;
     background-image:url('https://myspace.com/common/images/user.png');
     background-size:200px 200px;
@@ -49,7 +96,7 @@ h2::after {
     height:400px;
     font-size:.5em;
     padding:0 10px 0px 210px;
-    content:"'What do I do with my hands'  California    United States";
+    content:"'but most of all, beginbot is my hero United States";
 
 }
  h2:nth-of-type(2) {
@@ -57,7 +104,7 @@ h2::after {
 }
 table::before {
     border:1px solid black;
-    content:"but most of all, beginbot is my hero";
+    content:"BALDCLAP WAS HERE";
     color:#000;
     font-size:.7em;
     padding:10px;
@@ -70,6 +117,106 @@ ul {
     width:45%;
     margin:0;
 }
+.home ul {
+    top:-300px;
+}
+.home h2::after {
+
+    height:250px;
+
+
+}
+.home h2 a:first-of-type,.home h1 a:first-of-type {
+    top:unset;
+    left:unset;
+    animation:unset;
+    font-size:.9em;
+}
+
+.home h2.stylish_users ~ h2.stylish_users::before{
+    height:46px;
+}
+.home a:first-of-type {
+    position:relative;
+    top:-370px;
+    display:inline-block;
+    list-style-type: none;
+    padding:0 20px;
+    width:45%;
+    margin:0 20px ;
+    color:black;
+    text-decoration: none;
+    font-size: 16px;
+    padding:10px 0;
+    font-size:1.5em;
+    font-weight:700;
+    animation: example 1.82s infinite;
+}
+ .home a {
+    position:relative;
+    left:50%;
+    top:-50px;
+    display:inline-block;
+    list-style-type: none;
+    padding:0 20px;
+    width:45%;
+    margin:0 20px ;
+    color:black;
+    text-decoration: none;
+    font-size: 16px;
+    padding:10px 0;
+}
+.home h3::after {
+    height:225px;
+}
+.home .stylish_link {
+    top:-300px;
+}
+.stylish_link ~ .stylish_link {
+    border-top:0;
+    margin-top:0;
+}
+.stylish_link  {
+    border-top:20px solid #f4c996;
+    margin-top:20px;
+}
+
+.home span {
+    display: block;
+    color: white;
+    /* height: 100px; */
+    background: #6797ce;;
+    position: relative;
+}
+.home .stylish_link a:hover {
+    color:#f4c996;
+}
+.home ul {
+    top:-300px;
+}
+.home 
+    h2 {
+        position:relative; 
+        /* top:200px;  */
+        display:block;
+        color:black;
+        font-size:.9em;
+        width:50%;
+        max-width:400px;
+        padding:0 2%;
+    
+}
+.home h3 {
+    position:relative;
+    margin: 25px 0;
+}
+.home ul li a,.home ul li a:first-of-type {
+    left:unset;
+    width:unset;
+    top:unset;
+    animation:unset;
+}
+
 li:first-of-type {
     border-top:20px solid #f4c996;
     margin-top:20px;

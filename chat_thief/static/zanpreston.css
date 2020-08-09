@@ -1,0 +1,28 @@
+html {
+    background-image: url("https://gifimage.net/wp-content/uploads/2017/10/hamster-dance-gif.gif");
+    background-size: 70px;
+}
+
+
+body.user > h1 > a , body.user > h1 > a:visited {
+    color: red;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0
+    }
+}
+
+body.user > h2,h3 {
+    color: yellow
+}
+
+body.user > ul > li, a,a:visited {
+    color: green
+}
+
+body.user > figure {
+    color: #e10dfb
+}

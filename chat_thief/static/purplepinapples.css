@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'thisfont';
+  src: url('https://sean.fish/p/vt.ttf') format('truetype');
+}
+
+ul, span {
+  display: none;
+}
+
+body {
+  font-family: 'thisfont', sans-serif;
+  text-align: center;
+  color: #534099;
+	background: linear-gradient(90deg, #c6ffdd, #fbd786, #f7797d, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+}
+
+a, a:visited {
+  color: #292043;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
