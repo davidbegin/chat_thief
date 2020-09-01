@@ -23,10 +23,14 @@ BOTS_AND_CREATORS = {
     "mrsmoofy": "mrsmoofybot",
     "nineteenletterslong": "blortbot",
     "adengamestv": "adengamesbot",
+    "teamviewselect": "nightmareassistant",
+    "teamviewselect": "nightmareassistant",
+    "erikdotdev": "erikbotdev",
 }
 
 
 def register_them_bots():
+
     for creator, bot in BOTS_AND_CREATORS.items():
         print(f"Registering: {bot} to it's Creator: {creator}")
         User.register_bot(bot, creator)

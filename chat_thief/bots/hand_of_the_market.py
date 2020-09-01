@@ -22,6 +22,8 @@ def sync_main():
     while True:
         try:
             peasants = ChatLogs().recent_stream_peasants()
+            print(f"\n\npeasants {peasants}\n\n")
+
             # We need to make this better
             result = drop_random_soundeffect_to_user(random.sample(peasants, 1)[0])
             send_twitch_msg(result)

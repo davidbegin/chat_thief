@@ -33,4 +33,7 @@ if __name__ == "__main__":
         if cmd in NIGHTBOT_COMMANDS:
             cmd = f"!{cmd}"
 
-        simple_send_msg(server, f"{cmd} {' '.join(args)}")
+        try:
+            simple_send_msg(server, f"{cmd} {' '.join(args)}")
+        except Exception as e:
+            print(e)

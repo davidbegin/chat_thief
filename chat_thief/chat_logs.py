@@ -5,7 +5,7 @@ from chat_thief.config.stream_lords import STREAM_GODS
 
 # Keeping to shorter number rewards more recent users,
 # ALL_LINES has to also be False
-DEFAULT_LINE_COUNT = 100
+DEFAULT_LINE_COUNT = 1000
 ALL_LINES = True
 
 

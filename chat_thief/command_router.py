@@ -2,6 +2,7 @@ from typing import Dict, List, Optional
 import logging
 import traceback
 import os
+import time
 
 from chat_thief.config.commands_config import OBS_COMMANDS
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
@@ -36,6 +37,20 @@ ROUTERS = [
     VotingBoothRouter,
 ]
 
+def spin_begin(pause):
+    SCENES = [
+        "TopRight",
+        "TopLeft",
+        "BottomLeft",
+        "Giger",
+        "BottomLeft",
+        "hottub",
+        "codin",
+    ]
+
+    for scene in SCENES:
+        os.system(f"scene {scene}")
+        time.sleep(pause)
 
 class CommandRouter:
     def __init__(self, irc_msg: List[str], logger: logging.Logger) -> None:
@@ -99,6 +114,15 @@ class CommandRouter:
         if self.command in OBS_COMMANDS and self.user in STREAM_LORDS:
             print(f"executing OBS Command: {self.command}")
             return os.system(f"so {self.command}")
+
+        if self.command == "trollbegin" and self.user in STREAM_LORDS:
+            pause = 1
+            for _ in range(0, parser.amount):
+                spin_begin(pause)
+            return
+
+        if self.command == "hottub" and self.user in STREAM_LORDS:
+            return os.system("scene hottub")
 
         if self.command in SoundeffectsLibrary.fetch_soundeffect_names():
             if self.command:

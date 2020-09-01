@@ -1,0 +1,74 @@
+@font-face {font-family: "Futura Bold";
+  src: url("/fonts/FuturaBold.eot"); /* IE9*/
+  src: url("/fonts/FuturaBold.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("/fonts/FuturaBold.woff2") format("woff2"), /* chromeã€firefox */
+  url("/fonts/FuturaBold.woff") format("woff"), /* chromeã€firefox */
+  url("/fonts/FuturaBold.ttf") format("truetype"), /* chromeã€firefoxã€operaã€Safari, Android, iOS 4.2+*/
+  url("/fonts/FuturaBold.svg#Futura Bold") format("svg"); /* iOS 4.1- */
+}
+ 
+html, body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align:center;
+}
+ 
+body {
+    background: #000;
+    color: #fff;
+    margin: 0;
+    padding: 8px;
+    box-sizing: border-box;
+    font-family: 'Futura Bold', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+ 
+a {
+    color: #56BC58;
+    text-decoration: none;
+}
+ 
+a:hover {
+    text-decoration: underline;
+}
+ 
+ 
+label {
+    display: block;
+}
+ 
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0.4em;
+    margin: 0 0 0.5em 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+ 
+input:disabled {
+    color: #ccc;
+}
+ 
+input[type="range"] {
+    height: 0;
+}
+ 
+button {
+    color: #333;
+    background-color: #f4f4f4;
+    outline: none;
+}
+ 
+button:active {
+    background-color: #ddd;
+}
+ 
+button:focus {
+    border-color: #666;
+}
+ 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Futura Bold', sans-serif;
+}

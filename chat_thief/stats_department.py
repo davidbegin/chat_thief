@@ -8,8 +8,8 @@ class StatsDepartment:
         all_users = User.db().all()
         all_cmds = Command.db().all()
 
-        total_cool_points = sum([user["cool_points"] for user in all_users])
-        total_street_cred = sum([user["street_cred"] for user in all_users])
+        total_cool_points = sum([user.get("cool_points", 0) for user in all_users])
+        total_street_cred = sum([user.get("street_cred", 0) for user in all_users])
         fed_reserve = TheFed.reserve()
         total_user_sfx_property = sum(
             [

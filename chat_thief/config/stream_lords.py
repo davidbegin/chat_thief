@@ -6,6 +6,7 @@ STREAM_GODS: List[str] = [
     "stupac62",
     "artmattdank",
     "syoonee",
+    # "zanuss",
     "sunny_ai",
 ]
 

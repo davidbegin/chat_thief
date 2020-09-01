@@ -1,0 +1,38 @@
+main {
+  font-family: monospace, monospace;
+  margin: auto;
+}
+
+::selection {
+  background: #d3869b;
+}
+
+body {
+  background: #1d2021;
+  color:      #ebdbb2;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+pre {
+  background-color: #3c3836;
+}
+
+a, a:active, a:visited {
+  color: #b16286;
+  background-color: #1d2021;
+}
+
+h1, h2, h3, h4, h5 {
+  text-align: center;
+}
+
+blockquote {
+  border-left: 1px solid #bdae93;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+}

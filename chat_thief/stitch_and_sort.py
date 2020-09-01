@@ -40,7 +40,7 @@ class StitchAndSort:
             if user_dict["name"] in self.command_users:
                 command_info = self.command_users[user_dict["name"]]["commands"]
                 total_propery_value = sum([command["cost"] for command in command_info])
-                user_dict["wealth"] = user_dict["cool_points"] + total_propery_value
+                user_dict["wealth"] = user_dict.get("cool_points", 0) + total_propery_value
 
             # This small change to have all the command info
             user_dict["commands"] = [
