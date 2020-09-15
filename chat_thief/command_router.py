@@ -13,6 +13,7 @@ from chat_thief.irc_msg import IrcMsg
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.breaking_news import BreakingNews
 from chat_thief.models.user_event import UserEvent
+from chat_thief.models.user import User
 
 from chat_thief.routers import *
 
@@ -115,7 +116,8 @@ class CommandRouter:
             print(f"executing OBS Command: {self.command}")
             return os.system(f"so {self.command}")
 
-        if self.command == "trollbegin" and self.user in STREAM_LORDS:
+        if self.command == "trollbegin" and User(self.user).mana() > 0:
+            User(self.user).kill()
             pause = 1
             for _ in range(0, parser.amount):
                 spin_begin(pause)

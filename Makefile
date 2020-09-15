@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 check: format mypy t
 
 format:
@@ -27,8 +29,13 @@ restore:
 	cp db/backups/issues.json db/issues.json
 	cp db/backups/sfx_votes.json db/sfx_votes.json
 
-# TODO: Move log files from the day before
-new_day: backup
+save_file="$$(date -u "+%Y-%m-%d").log"
+
+save_logs:
+	cp logs/chat.log "logs/${save_file}"
+
+new_day: save_logs backup
+	rm logs/chat.log
 	rm .welcome
 	rm db/notifications.json
 	rm db/breaking_news.json

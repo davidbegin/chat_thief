@@ -1,0 +1,23 @@
+body {
+    background-color: #fff;
+    color: #4b4444;
+    font-size: 2em;
+    font-family: "Helvetica";
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+h2 {
+    color: #00d900;
+}
+a {
+    text-decoration: none;
+}
+h2:before {
+    content: url(https://manascode.com/assets/static/logo.0d639c8.a1afb7f….png);
+    position: absolute;
+    top: 6rem;
+    left: 45rem;
+}

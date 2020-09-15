@@ -117,4 +117,5 @@ Peace Keepers Win:
 
 Revolutionaries Win:
 
-- All sounds are removed from everyone and redistibuted to revolutionaries
+- All sounds are removed from everyone and redistibuted to
+  revolutionaries
