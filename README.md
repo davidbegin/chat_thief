@@ -5,7 +5,7 @@ into an entire economy with multiple ways of participating.
 
 ## What Is Going On During Your Stream
 
-There are over [1300+
+There are over [2200+
 Soundeffects](https://github.com/davidbegin/twitch-soundboard) (added by users
 like you!), that area access
 through various commands, like:
