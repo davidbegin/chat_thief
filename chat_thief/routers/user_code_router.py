@@ -7,6 +7,7 @@ from chat_thief.models.user_code import UserCode
 from chat_thief.models.user_page import UserPage
 from chat_thief.routers.base_router import BaseRouter
 from chat_thief.config.stream_lords import STREAM_LORDS
+from chat_thief.chat_parsers.soundeffect_request_parser import SoundeffectRequestParser
 
 
 BASE_URL = "https://mygeoangelfirespace.city"
@@ -14,6 +15,8 @@ BASE_URL = "https://mygeoangelfirespace.city"
 
 class UserCodeRouter(BaseRouter):
     def route(self):
+        self.url_parser = SoundeffectRequestParser(self.user, self.args).parse()
+
         if self.command == "css":
             return self.set_css()
 
@@ -51,18 +54,12 @@ class UserCodeRouter(BaseRouter):
         return UserCode.approve(user_to_approve, potential_widget)
 
     def set_js(self):
-        if len(self.args) == 1:
-            # This should get a widget_name here
-            custom_js = self.args[0]
-            user_code = UserCode(
-                user=self.user, code_link=custom_js, code_type="js"
-            ).update_or_create()
-        else:
-            widget_name = self.args[0]
-            custom_js = self.args[1]
-            user_code = UserCode(
-                user=self.user, code_link=custom_js, code_type="js", name=widget_name
-            ).update_or_create()
+        custom_js = self.url_parser.youtube_id
+        name = self.url_parser.command
+
+        user_code = UserCode(
+            user=self.user, code_link=custom_js, code_type="js", name=name
+        ).update_or_create()
 
         # Switch to NOT USE requests
         response = requests.get(custom_js)

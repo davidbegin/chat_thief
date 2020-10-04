@@ -17,6 +17,7 @@ class TestUserCodeRouter(DatabaseConfig):
         Command("damn").allow_user(user)
         result = UserCodeRouter(
             user,
+
             "css",
             ["https://gist.githubusercontent.com/davidbegin/raw/beginfun.css"],
         ).route()
@@ -69,6 +70,29 @@ class TestUserCodeRouter(DatabaseConfig):
             == "https://gist.githubusercontent.com/davidbegin/raw"
         )
         assert user_code["code_type"] == "js"
+
+    def test_submit_custom_in_diff_order_js(self):
+        user = "beginbotbot"
+        result = UserCodeRouter(
+            user,
+            "js",
+            ["https://gist.githubusercontent.com/davidbegin/raw", "cool_widget"],
+        ).route()
+        assert "Thanks for the custom JS @beginbotbot!" in result
+
+        js_filepath = Path(__file__).parent.parent.parent.joinpath(
+            "chat_thief/js/beginbotbot.js"
+        )
+        assert js_filepath.exists()
+        user_code = UserCode.last()
+        assert user_code["user"] == "beginbotbot"
+        assert user_code["name"] == "cool_widget"
+        assert (
+            user_code["code_link"]
+            == "https://gist.githubusercontent.com/davidbegin/raw"
+        )
+        assert user_code["code_type"] == "js"
+
 
     def test_submit_custom_js(self):
         user = "beginbotbot"
