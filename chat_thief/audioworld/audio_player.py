@@ -25,10 +25,11 @@ class AudioPlayer:
                 Notification(f"Playing: !{sound_name}", duration=1).save()
 
         try:
-            subprocess.call(
-                ["mplayer", "-af", f"volnorm=2:{MPLAYER_VOL_NORM}", sound_file],
-                stderr=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-            )
+            pass
+            # subprocess.call(
+            #     ["mplayer", "-af", f"volnorm=2:{MPLAYER_VOL_NORM}", sound_file],
+            #     stderr=subprocess.DEVNULL,
+            #     stdout=subprocess.DEVNULL,
+            # )
         except:
             traceback.print_exc()

@@ -1,0 +1,155 @@
+@font-face {
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: normal;
+src: local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v13/JTUSjIg1_i6t8kCHKm459WlhyyTh89Y.woff2) format('woff2');
+}
+@font-face {
+font-family: 'Montserrat';
+font-style: italic;
+font-weight: normal;
+src: local('Montserrat-Italic'), url(https://fonts.gstatic.com/s/montserrat/v13/JTUQjIg1_i6t8kCHKm459WxRyS7m0dR9pA.woff2) format('woff2');
+}
+@font-face {
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: bold;
+src: local('Montserrat-Bold'), url(https://fonts.gstatic.com/s/montserrat/v13/JTURjIg1_i6t8kCHKm45_dJE3gnD_vx3rCs.woff2) format('woff2');
+}
+@font-face {
+font-family: 'Montserrat';
+font-style: italic;
+font-weight: bold;
+src: local('Montserrat-BoldItalic'), url(https://fonts.gstatic.com/s/montserrat/v13/JTUPjIg1_i6t8kCHKm459WxZcgvz_PZwjimrqw.woff2) format('woff2');
+}
+
+
+body {
+  margin: 1em;
+  font-family: 'Montserrat', Verdana, sans-serif; 
+  font-weight: bold; 
+  font-style: normal;
+  background: #d7b2b2;
+  color: #645555;
+}
+
+a, a:visited {
+  font-style: normal;
+    color: #4a8876;
+}
+
+h1 {
+    font-size: 50%;
+    margin-left: auto;
+    width: 20%;
+    font-style:italic;
+}
+
+h2 {
+    font-family: 'Montserrat', Verdana, sans-serif; font-weight: bold; font-style: italic;
+    
+    padding: 0.5em;
+    font-size: 300%;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background: repeating-linear-gradient(
+      45deg,
+      #d0dda6c7,
+      #d0dda6c7 20px,
+      #d7b2b2 20px,
+      #d7b2b2 40px
+    );
+}
+
+body > span:nth-child(8), body > span:nth-child(10), body > span:nth-child(12), body > span:nth-child(14) {
+    display: none;
+}
+
+body > ul {
+    padding: 1em 1em 1em 2em;
+    background: #d0dda6;
+    display: inline-block;
+    
+     -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    
+    -webkit-transform-style: preserve-3d;
+    -webkit-animation: spin 5s linear infinite;
+    -webkit-transform-origin: 116px 20px 116px;
+
+    -moz-transform-style: preserve-3d;
+    -moz-animation: spin 5s linear infinite;
+    -moz-transform-origin: 116px 20px 116px;
+
+    -ms-transform-style: preserve-3d;
+    -ms-animation: spin 5s linear infinite;
+    -ms-transform-origin: 116px 20px 116px;
+
+    transform-style: preserve-3d;
+    animation: spin 5s linear infinite;
+    transform-origin: 116px 20px 116px;
+
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotateX(-15deg) rotateY(-45deg) rotateZ(-5deg);
+  }
+  to {
+    -webkit-transform: rotateX(15deg) rotateY(45deg) rotateZ(5deg);
+  }
+  from {
+    -webkit-transform: rotateX(15deg) rotateY(45deg) rotateZ(5deg);
+  }
+  to {
+    -webkit-transform: rotateX(-15deg) rotateY(-45deg) rotateZ(-5deg);
+  }
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotateX(-15deg) rotateY(-45deg) rotateZ(-5deg);
+  }
+  to {
+    -moz-transform: rotateX(15deg) rotateY(45deg) rotateZ(5deg);
+  }
+  from {
+    -moz-transform: rotateX(15deg) rotateY(45deg) rotateZ(5deg);    
+  }
+  to {
+    -moz-transform: rotateX(-15deg) rotateY(-45deg) rotateZ(-5deg);
+  }
+}
+
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotateX(-15deg) rotateY(-45deg) rotateZ(-5deg);
+  }
+  to {
+    -ms-transform: rotateX(15deg) rotateY(45deg) rotateZ(5deg);
+  }
+  from {
+    -ms-transform: rotateX(15deg) rotateY(45deg) rotateZ(5deg);
+  }
+  to {
+    -ms-transform: rotateX(-15deg) rotateY(-45deg) rotateZ(-5deg);
+  }
+
+}
+
+@keyframes spin {
+  from {
+    transform: rotateX(-15deg) rotateY(-45deg) rotateZ(-5deg);
+  }
+  to {
+    transform: rotateX(15deg) rotateY(45deg) rotateZ(5deg);
+  }
+  from {
+    transform: rotateX(15deg) rotateY(45deg) rotateZ(5deg);
+  }
+  to {
+    transform: rotateX(-15deg) rotateY(-45deg) rotateZ(-5deg);
+  }
+}

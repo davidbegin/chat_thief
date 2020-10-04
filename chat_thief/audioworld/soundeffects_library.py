@@ -3,7 +3,7 @@ from typing import List, Set, Optional
 
 THEME_SONGS_PATH = "/home/begin/stream/Stream/Samples/theme_songs"
 SAMPLES_PATH = "/home/begin/stream/Stream/Samples/"
-ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus"]
+ALLOWED_AUDIO_FORMATS = [".mp3", ".m4a", ".wav", ".opus", ".ogg"]
 
 
 class SoundeffectsLibrary:

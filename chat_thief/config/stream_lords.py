@@ -52,4 +52,5 @@ STREAM_LORDS: List[str] = [
     "airtonzanon",
     "pedrovalentimmm",
     "eleentje",
+    "rednave21",
 ] + STREAM_GODS

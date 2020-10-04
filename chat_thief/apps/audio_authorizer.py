@@ -3,6 +3,7 @@ from flask import render_template
 
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
+from chat_thief.config.stream_lords import STREAM_GODS
 
 app = Flask(__name__, template_folder="templates")
 
@@ -15,23 +16,25 @@ def home():
 
 
 @app.route("/sound/<sound>/allowed/<username>")
-def profile(sound, username):
+def authorizer(sound, username):
     user = User(username)
-    allowed = Command(sound).allowed_to_play(username)
-    return {"allowed": allowed}
-    # return render_template("user.html", user=user, stats=stats, commands=commands)
+    mana = user.mana()
+    streamlord = username in STREAM_GODS
 
+    owned = Command(sound).allowed_to_play(username)
+    if streamlord:
+        allowed = True
+    else:
+        allowed = owned and mana > 0
 
-# @app.route("/command/<command_name>")
-# def command_stats(command_name):
-#     command = Command(command_name)
-#     sfx_vote = SFXVote(command_name)
-#     return render_template(
-#         "command.html",
-#         command=command,
-#         like_to_hate_ratio=sfx_vote.like_to_hate_ratio(),
-#     )
+    if allowed:
+        user.update_mana(-1)
 
+    result = {"allowed": allowed, "owned": owned, "streamlord": streamlord, "extra": False, "mana": mana}
+
+    print(f"\n\n\t{result=}")
+
+    return result
 
 if __name__ == "audio_authorizer":
     app.run(debug=True)

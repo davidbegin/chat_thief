@@ -26,6 +26,7 @@ BOTS_AND_CREATORS = {
     "teamviewselect": "nightmareassistant",
     "teamviewselect": "nightmareassistant",
     "erikdotdev": "erikbotdev",
+    "barfolomeu": "Barfolobot"
 }
 
 

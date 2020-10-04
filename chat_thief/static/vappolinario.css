@@ -1,0 +1,36 @@
+body {
+  background-color:#005377;
+  color: white;
+  font-size: 1.3em;
+  font-family: "Helvetica";
+}
+
+h1 {
+  text-align: center;
+}
+
+h1 a {
+  color: #F1A208;
+}
+
+h2 {
+  text-shadow: 0 0 5px #d5c67a;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+h2:hover {
+  transform: scale(1.3);
+}
+
+a {
+  text-decoration: none;
+}
+
+li a {
+  color: #06a77d;
+}
+
+span {
+  visibility: hidden;
+}

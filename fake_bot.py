@@ -15,6 +15,8 @@ from chat_thief.models.user_code import UserCode
 from chat_thief.data_scrubber import DataScrubber
 
 DEFAULT_MSG = "!add_perm ha johnnyutah"
+DEFAULT_MSG =  "nice"
+
 
 
 def _fake_irc_msg_builder(user, msg):

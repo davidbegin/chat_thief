@@ -1,0 +1,97 @@
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+@import url('https://fonts.googleapis.com/css2?family=Nova+Flat&family=Nova+Square&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+  background-color: #fff;
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
+  display: grid;
+}
+
+body h1 {
+  display: inline-block;
+  font-size: .5em;
+  text-align: left;
+  margin-top: 10px!important;
+}
+
+h1 a {
+    text-decoration: none!important;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+h1 a:before {
+  font-family: "FontAwesome";
+  font-weight: 900;
+  content: "\f100\0020";
+}
+
+body h2:before {
+  font-family: "FontAwesome"; font-weight: 900; content: "\f1d1";
+}
+
+body h2 {
+  text-transform: uppercase;
+  font-family: 'Nova Square', cursive;
+  font-size: 72px;
+  letter-spacing: .15em;
+  color: white;
+  text-shadow: 0px 0px 6px black;
+  margin: auto;
+}
+
+h3 {
+  font-size: .75em;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  border: 1px solid black;
+  padding: 10px;
+  background-color: black;
+}
+
+ul {
+  margin: auto;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+li {
+  margin: auto;
+  width: 100%;
+}
+
+li a {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: .25em;
+  font-size: .8em;
+  background-color: white;
+  padding: .5em;
+  display: block;
+  text-align: center;
+  font-family: 'Open Sans';
+  font-weight: 800;
+  font-style: italic;
+  box-shadow:
+  0 1.6px 1.4px rgba(0, 0, 0, 0.087),
+  0 4.2px 3.6px rgba(0, 0, 0, 0.124),
+  0 8.5px 7.4px rgba(0, 0, 0, 0.156),
+  0 17.5px 15.3px rgba(0, 0, 0, 0.193),
+  0 48px 42px rgba(0, 0, 0, 0.28)
+;
+
+}
+
+body span, body code {
+  display: none;
+}

@@ -83,9 +83,9 @@ class SampleSaver:
     # We need to be doing this in python instead
     def _save_with_youtube_dl(self):
         subprocess.call(
-            [ADD_SOUND_EFFECT_PATH.resolve()] + self._add_soundeffect_args(),
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
+            [ADD_SOUND_EFFECT_PATH.resolve()] + self._add_soundeffect_args()
+            # stderr=subprocess.DEVNULL,
+            # stdout=subprocess.DEVNULL,
         )
 
     def _add_soundeffect_args(self):

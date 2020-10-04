@@ -83,12 +83,14 @@ sync_sounds:
 		--include "*.wav"       \
 		--include "*.m4a"       \
 		--include "*.opus"      \
+		--include "*.ogg"      \
 		"/home/begin/stream/Stream/Samples/" s3://beginworld.exchange-f27cf15/media
 	aws s3 sync --exclude "*" \
 		--include "*.mp3"       \
 		--include "*.wav"       \
 		--include "*.m4a"       \
 		--include "*.opus"      \
+		--include "*.ogg"      \
 		"/home/begin/stream/Stream/Samples/theme_songs/" s3://beginworld.exchange-f27cf15/media
 
 full_deploy: beginworld_html deploy_all
@@ -102,3 +104,6 @@ types:
 
 mypy:
 	mypy chat_thief/**/*.py --warn-unused-ignores --disallow-untyped-defs
+
+audio_authorizer:
+	 FLASK_APP=chat_thief/apps/audio_authorizer.py flask run -p 1989

@@ -17,7 +17,6 @@ I_AM_ALIVE = "PONG"
 
 config = TwitchConfig()
 
-
 async def pong(server: socket.socket) -> None:
     server.sendall(bytes(I_AM_ALIVE + "\r\n", ENCODING))
 

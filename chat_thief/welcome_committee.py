@@ -45,9 +45,9 @@ class WelcomeCommittee:
             User(user)._find_or_create_user()
             send_twitch_msg(BeginFund(user).dropeffect())
             # os.system(f"USER={user} make deploy_user")
-            send_twitch_msg(
-                f"Welcome @{user}! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-URL @{user} 00:03 00:07"
-            )
-            send_twitch_msg(
-                f"Here's your new website @{user}: {BASE_URL}/{user}.html See instructions on how to Style your site!"
-            )
+            # send_twitch_msg(
+            #     f"Welcome @{user}! You need a Theme song (max 5 secs): !soundeffect YOUTUBE-URL @{user} 00:03 00:07"
+            # )
+            # send_twitch_msg(
+            #     f"Here's your new website @{user}: {BASE_URL}/{user}.html See instructions on how to Style your site!"
+            # )
