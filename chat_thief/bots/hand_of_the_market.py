@@ -36,7 +36,9 @@ def sync_main():
                 # user.update_street_cred(1 + user_karma)
                 user.revive(3 + user_karma)
 
+            # Should I tell people this when mana dropped.
             send_twitch_msg("CoolCat CoolCat CoolCat")
+
             # formatted_peasants = [f"@{peasant}" for peasant in peasants]
             # send_twitch_msg(
             #     f"Squid1 Enjoy your street cred: {' '.join(formatted_peasants)} Squid4"

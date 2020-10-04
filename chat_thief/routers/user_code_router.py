@@ -6,6 +6,7 @@ from chat_thief.models.user import User
 from chat_thief.models.user_code import UserCode
 from chat_thief.models.user_page import UserPage
 from chat_thief.routers.base_router import BaseRouter
+from chat_thief.config.stream_lords import STREAM_LORDS
 
 
 BASE_URL = "https://mygeoangelfirespace.city"
@@ -19,7 +20,7 @@ class UserCodeRouter(BaseRouter):
         if self.command == "js":
             return self.set_js()
 
-        if self.command == "approvejs" and self.user == "beginbotbot":
+        if self.command == "approvejs" and self.user in STREAM_LORDS:
             return self.approve_js()
 
         if self.command == "buyjs":
@@ -51,6 +52,7 @@ class UserCodeRouter(BaseRouter):
 
     def set_js(self):
         if len(self.args) == 1:
+            # This should get a widget_name here
             custom_js = self.args[0]
             user_code = UserCode(
                 user=self.user, code_link=custom_js, code_type="js"

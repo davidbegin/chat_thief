@@ -13,7 +13,6 @@ from chat_thief.models.user_event import UserEvent
 from chat_thief.models.bot_vote import BotVote
 from chat_thief.models.css_vote import CSSVote
 from chat_thief.welcome_committee import WelcomeCommittee
-from chat_thief.new_commands.pokemon_casino import PokemonCasino
 
 from tests.support.database_setup import DatabaseConfig
 from tests.support.utils import setup_logger
@@ -22,18 +21,6 @@ logger = setup_logger()
 
 
 class TestCommandRouter(DatabaseConfig):
-    @pytest.fixture(autouse=True)
-    def clean_guess(self):
-        PokemonCasino.MYSTERY_POKEMON_PATH = Path(__file__).parent.joinpath(
-            "tmp/pokeguess"
-        )
-        if PokemonCasino.MYSTERY_POKEMON_PATH.exists():
-            PokemonCasino.MYSTERY_POKEMON_PATH.unlink()
-
-        PokemonCasino.GUESSES_PATH = Path(__file__).parent.joinpath("tmp/guesses")
-        if PokemonCasino.GUESSES_PATH.exists():
-            PokemonCasino.GUESSES_PATH.unlink()
-
     @pytest.fixture(autouse=True)
     def mock_present_users(self, monkeypatch):
         def _mock_present_users(self):
@@ -191,8 +178,3 @@ class TestCommandRouter(DatabaseConfig):
         irc_response = irc_msg("uzi", "!js https://gitlab.com/snippets/1990806/raw")
         result = CommandRouter(irc_response, logger).build_response()
         assert result == "Thanks for the custom JS @uzi!"
-
-    def test_pokemon_game(self, irc_msg):
-        irc_response = irc_msg("uzi", "!pokemon")
-        result = CommandRouter(irc_response, logger).build_response()
-        assert result == "Guess Which Pokemon This Is!!!"
