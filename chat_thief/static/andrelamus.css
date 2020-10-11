@@ -1,0 +1,38 @@
+body{
+	background-image: url("https://wallsheaven.com/photos/C21267908/220/sumo-doodle-seamless-pattern-background.webp")!important;
+	color:red;
+	text-align: center;
+	text-shadow: 3px 3px black;
+	font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+	}
+	h1 a{
+	margin-bottom: 10px;
+	font-weight: bold;
+	color:red;
+	}
+	h2 {
+	text-transform: capitalize;
+	}
+	h3{
+	white-space: pre;
+	}
+	h3::after{
+	content: "\A \A" url("https://live.staticflickr.com/2524/3923647005_55590eedf0_b.jpg") "\A SUMO SUMO SUMO SUMO SUMO SUMO";
+	white-space: pre;
+	}
+	ul{
+	list-style-type: none;
+	columns: 2;
+	-webkit-columns: 2;
+	-moz-columns: 2;
+	}
+	ul li a{
+	color:black;
+	text-shadow: 0 0 3px #FF0000, 0 0 5px #FF0000;
+	}
+	figure figcaption::before{
+	content:"Super Awesome "
+	}
+	span{
+	display:none!important;
+	}

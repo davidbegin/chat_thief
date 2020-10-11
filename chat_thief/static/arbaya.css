@@ -34,6 +34,52 @@ span{
  color: #000000;
 }
 
+
+/* ---------- bsod */
+.bsod{
+ width: 100%;
+ height: 100%;
+ position: absolute;
+ top: 0;
+ left: 0;
+ visibility: hidden;
+ z-index: 6;
+ background-color: #0000AA;
+ background-image: url(https://tinyurl.com/y6xofvsw);
+ background-repeat: no-repeat;
+ background-position: center;
+ background-size: cover;
+ }
+
+span:nth-of-type(2)::before{
+ content: url(https://win98icons.alexmeub.com/images/directory_closed-4.png);
+ display: block;
+}
+
+span:nth-of-type(2){
+ width: 2%;
+ cursor: pointer;
+ visibility: visible;
+ color: inherit;
+ margin-left:100px;
+}
+
+/* ---------- screensaver */
+.screensaver{
+ width: 100%;
+ height: 100%;
+ position: absolute;
+ top: 0;
+ left: 0;
+ visibility: hidden;
+ z-index: 5;
+ background-color: #000000;
+ background-image: url(https://tinyurl.com/y53qbwm5);
+ background-repeat: no-repeat;
+ background-position: center;
+ background-size: cover;
+ }
+
 /* ----------  start menu */
 .start_menu{
  width: 20%;

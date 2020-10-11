@@ -20,7 +20,7 @@ def sync_main():
         try:
             # os.system("time make full_deploy")
             os.system("time make deploy")
-            time.sleep(300)
+            time.sleep(600)
             # time.sleep(60)
         except Exception as e:
             time.sleep(30)

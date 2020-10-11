@@ -8,7 +8,7 @@ from chat_thief.config.commands_config import OBS_COMMANDS
 from chat_thief.audioworld.soundeffects_library import SoundeffectsLibrary
 from chat_thief.chat_parsers.command_parser import CommandParser
 from chat_thief.config.log import error, success, warning
-from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS
+from chat_thief.config.stream_lords import STREAM_LORDS, STREAM_GODS, BOTS_AND_CREATORS
 from chat_thief.irc_msg import IrcMsg
 from chat_thief.models.play_soundeffect_request import PlaySoundeffectRequest
 from chat_thief.models.breaking_news import BreakingNews
@@ -21,7 +21,8 @@ from chat_thief.routers import *
 from chat_thief.welcome_committee import WelcomeCommittee
 from chat_thief.new_commands.result import Result
 
-BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot"]
+# We need to add all bots here
+BLACKLISTED_LOG_USERS = ["beginbotbot", "beginbot", "nightbot", "zanussbot", "cykablondesbot"]
 # BLACKLISTED_LOG_USERS = []
 
 ROUTERS = [
@@ -34,8 +35,8 @@ ROUTERS = [
     ModeratorRouter,
     NewCubeCasinoRouter,
     RevolutionRouter,
-    UserCodeRouter,
     VotingBoothRouter,
+    UserCodeRouter,
 ]
 
 def spin_begin(pause):
@@ -117,7 +118,14 @@ class CommandRouter:
 
         pack_config = {
             "teej_pack" : [],
-            "dean_pack" : [],
+            "dean_pack" : [
+                "dean1.opus",
+                "dean2.opus",
+                "dean3.opus",
+                "dean4.opus",
+                "dean5.opus",
+                "dean6.opus",
+            ],
             "erik_pack" : [],
             "vim_pack" : [],
             "pokemon_pack" : [],
@@ -180,6 +188,7 @@ class CommandRouter:
         from pathlib import Path
 
         user_msgs_path = Path(__file__).parent.parent.joinpath("logs/user_msgs.log")
-        if self.user not in BLACKLISTED_LOG_USERS:
+        # I want to remove all bots here
+        if self.user not in (BLACKLISTED_LOG_USERS + list(BOTS_AND_CREATORS.values())):
             with open(user_msgs_path, "a") as log_file:
                 log_file.write(f"{self.user}: {self.msg}\n")

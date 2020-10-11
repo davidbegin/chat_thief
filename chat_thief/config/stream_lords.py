@@ -1,5 +1,31 @@
 from typing import List
 
+BOTS_AND_CREATORS = {
+    "aquafunkalisticbootywhap": "aquafunkbot",
+    "ravonus": "r4vb0t",
+    "beginbot": "beginbotbot",
+    "bopojoe_": "cykablondesbot",
+    "isidentical": "stallmansbot",
+    "disk1of5": "disk_bot",
+    "jr_boss": "jr_bots",
+    "cachesking": "distributedcache",
+    "whatsinmyopsec": "opsecbot",
+    "zanuss": "zanussbot",
+    "baldclap": "cheb0t",
+    "nomorequity": "nomoreb0t",
+    "r_u_ri_ui": "hal9thou",
+    "detlion1643": "botriptide",
+    "portaalgaming": "portaalgamingfriend",
+    "rockerboo": "800807",
+    "orenog_live4": "personnormalyesplus5",
+    "biged_twitch": "bigedbot",
+    "eitanfuturo": "futubot",
+    "mrsmoofy": "mrsmoofybot",
+    "nineteenletterslong": "blortbot",
+    "adengamestv": "adengamesbot",
+    "erikdotdev": "erikbotdev",
+    "barfolomeu": "Barfolobot"
+}
 STREAM_GODS: List[str] = [
     "beginbot",
     "beginbotbot",
@@ -9,6 +35,8 @@ STREAM_GODS: List[str] = [
     # "zanuss",
     "sunny_ai",
 ]
+
+STREAM_POPE = "zanuss"
 
 STREAM_PEASANTS: List[str] = []
 
@@ -53,4 +81,5 @@ STREAM_LORDS: List[str] = [
     "pedrovalentimmm",
     "eleentje",
     "rednave21",
+    "soulshined",
 ] + STREAM_GODS

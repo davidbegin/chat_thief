@@ -66,7 +66,7 @@ class UserCode(BaseDbModel):
             cls.set_value_by_id(result.doc_id, "approved", True)
             return f"@{result['user']}'s {result['name']}.js has been approved!"
 
-        return f"Could Not Find User Code to Approve {self.args}"
+        return f"Could Not Find User Code to Approve {widget_name}"
 
     @classmethod
     def purchase(cls, purchaser, widget_name):

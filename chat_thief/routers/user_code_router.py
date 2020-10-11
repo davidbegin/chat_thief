@@ -15,12 +15,12 @@ BASE_URL = "https://mygeoangelfirespace.city"
 
 class UserCodeRouter(BaseRouter):
     def route(self):
-        self.url_parser = SoundeffectRequestParser(self.user, self.args).parse()
 
         if self.command == "css":
             return self.set_css()
 
         if self.command == "js":
+            self.url_parser = SoundeffectRequestParser(self.user, self.args).parse()
             return self.set_js()
 
         if self.command == "approvejs" and self.user in STREAM_LORDS:

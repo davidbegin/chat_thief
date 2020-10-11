@@ -23,8 +23,6 @@ BOTS_AND_CREATORS = {
     "mrsmoofy": "mrsmoofybot",
     "nineteenletterslong": "blortbot",
     "adengamestv": "adengamesbot",
-    "teamviewselect": "nightmareassistant",
-    "teamviewselect": "nightmareassistant",
     "erikdotdev": "erikbotdev",
     "barfolomeu": "Barfolobot"
 }
