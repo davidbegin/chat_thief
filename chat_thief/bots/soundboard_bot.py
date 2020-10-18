@@ -51,7 +51,7 @@ def sync_main():
                         AudioPlayer.play_sample(
                             soundfile.resolve(), sfx["notification"], user.name
                         )
-                        user.update_mana(-1)
+                        # user.update_mana(-1)
                     else:
                         warning(f"Couldn't find soundfile for {sfx['command']}")
                 else:

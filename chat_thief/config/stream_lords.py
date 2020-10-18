@@ -82,4 +82,5 @@ STREAM_LORDS: List[str] = [
     "eleentje",
     "rednave21",
     "soulshined",
+    "bfredl"
 ] + STREAM_GODS

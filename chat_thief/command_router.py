@@ -156,7 +156,7 @@ class CommandRouter:
         if self.command in pack_config["prime_pack"]:
             os.system(f"scene primetime")
 
-        if self.command == "droppack" and self.user in STREAM_GODS and self.args[0] in pack_config.keys():
+        if (self.command == "droppack" or self.command == "drop_pack") and self.user in STREAM_GODS and self.args[0] in pack_config.keys():
             sounds = pack_config[ self.args[0] ]
             for sound in sounds:
                 drop_effect(parser.target_user, sound)
