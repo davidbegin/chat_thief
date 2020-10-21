@@ -3,7 +3,7 @@ from flask import render_template
 
 from chat_thief.models.user import User
 from chat_thief.models.command import Command
-from chat_thief.config.stream_lords import STREAM_GODS
+from chat_thief.config.stream_lords import STREAM_GODS, STREAM_LORDS
 
 app = Flask(__name__, template_folder="templates")
 
@@ -19,7 +19,8 @@ def home():
 def authorizer(sound, username):
     user = User(username)
     mana = user.mana()
-    streamlord = username in STREAM_GODS
+    streamlord = username in STREAM_LORDS
+    # streamlord = username in STREAM_GODS
 
     owned = Command(sound).allowed_to_play(username)
     if streamlord:

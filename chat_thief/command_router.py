@@ -117,8 +117,8 @@ class CommandRouter:
             os.system(f"scene codin_and_teej")
 
         pack_config = {
-            "teej_pack" : [],
-            "dean_pack" : [
+            "teej" : [],
+            "dean" : [
                 "dean1.opus",
                 "dean2.opus",
                 "dean3.opus",
@@ -126,12 +126,12 @@ class CommandRouter:
                 "dean5.opus",
                 "dean6.opus",
             ],
-            "erik_pack" : [],
-            "vim_pack" : [],
-            "pokemon_pack" : [],
-            "sandstorm_pack" : [],
-            "linux_pack" : [],
-            "eightbit_pack" : [ "8bitmack", "8bitymca", "8bitmackintro",
+            "erik" : [],
+            "vim" : [],
+            "pokemon" : [],
+            "sandstorm" : [],
+            "linux" : [],
+            "eightbit" : [ "8bitmack", "8bitymca", "8bitmackintro",
                 "8bitsk8erboi", "8bitmacarena", "8bitrickandmorty", "8bitimperial",
                 "8bitfriday", "8bitghostbusters1", "8bitghostbuster2",
                 "8bitfatbottomedgirls", "8bittoto", "8bitbitesthedust",
@@ -139,21 +139,21 @@ class CommandRouter:
                 "8bitzelda", "8bitonemoretime", "8bitabout", "8bitblue",
                 "8bithammer", "8bitafrica", "8bitrugrats", "8bitroll",
                 "8bitparadise", "8bitrangers", "8bitcalifornialove" ],
-            "silicon_valley_pack" : [],
-            "gaming_pack" : [],
-            "begin_pack" : [ "itsmedavid", "penisinspected", "bestsound",
+            "silicon_valley" : [],
+            "gaming" : [],
+            "begin" : [ "itsmedavid", "penisinspected", "bestsound",
                 "beginsing", "beginvimeyes", "crack" ],
-            "yacht_pack" : [],
-            "luke_pack" : [ "gcc", "alpine", "xoomers", "inspiredme", "i3", "i3v2", "python" ],
-            "wesley_willis_pack" : [],
-            "art_matt_pack" : ["thisiscoke", "easyartmatt", "zenofartmatt", "moremore", "thisslaps"],
-            "shannon_pack" : [],
-            "meme_pack" : [],
-            "i3_pack" : [],
-            "prime_pack" : [ "primetrollsbegin", "primebegin", "primeslam", "primeagen", "primeagenpity", "begin_v_prime", "nevervim", ]
+            "yacht" : [],
+            "luke" : [ "gcc", "alpine", "xoomers", "inspiredme", "i3", "i3v2", "python" ],
+            "wesley_willis" : [],
+            "art_matt" : ["thisiscoke", "easyartmatt", "zenofartmatt", "moremore", "thisslaps"],
+            "shannon" : [],
+            "meme" : [],
+            "i3" : [],
+            "prime" : [ "primetrollsbegin", "primebegin", "primeslam", "primeagen", "primeagenpity", "begin_v_prime", "nevervim", ]
         }
 
-        if self.command in pack_config["prime_pack"]:
+        if self.command in pack_config["prime"]:
             os.system(f"scene primetime")
 
         if (self.command == "droppack" or self.command == "drop_pack") and self.user in STREAM_GODS and self.args[0] in pack_config.keys():

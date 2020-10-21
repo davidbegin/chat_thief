@@ -32,6 +32,7 @@ STREAM_GODS: List[str] = [
     "stupac62",
     "artmattdank",
     "syoonee",
+    "eleentje",
     # "zanuss",
     "sunny_ai",
 ]
@@ -84,3 +85,5 @@ STREAM_LORDS: List[str] = [
     "soulshined",
     "bfredl"
 ] + STREAM_GODS
+
+

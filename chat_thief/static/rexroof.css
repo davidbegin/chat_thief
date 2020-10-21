@@ -1,0 +1,75 @@
+body {
+  background: black;
+  color: yellow;
+  font-size: 1.9em;
+  font-family: "monospace";
+}
+
+h1 {
+  display: none;
+}
+span {
+  color: pink;
+  font-size: 0.3em;
+  line-height: 1px;
+  text-align: end;
+  
+}
+
+}
+h2 {
+  text-align: center;
+  font-size: 2.5em;
+}
+
+p {
+  color: white;
+  font-family: futura;
+  font-style: bold;
+}
+
+a {
+  color: orange;
+}
+
+ul {
+  font-size: 0.5em;
+  position: inherit;
+  color: white;
+
+}
+
+h3 {
+ position: inherit;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ font-size: 0.5em;
+ line-height: 50px;
+ text-align: left;
+
+ /* Apply animation to this element */	
+ -moz-animation: example4 10s ease-out;
+ -webkit-animation: example4 10s ease-out;
+ animation: example4 10s ease-out;
+}
+/* Move it (define the animation) */
+@-moz-keyframes example4 {
+ 0%   { -moz-transform: translateX(200%); }
+ 100% { -moz-transform: translateX(0%); }
+}
+@-webkit-keyframes example4 {
+ 0%   { -webkit-transform: translateX(200%); }
+ 100% { -webkit-transform: translateX(0%); }
+}
+@keyframes example4 {
+ 0%   { 
+ -moz-transform: translateX(200%); /* Firefox bug fix */
+ -webkit-transform: translateX(200%); /* Firefox bug fix */
+ transform: translateX(200%); 		
+ }
+ 100% { 
+ -moz-transform: translateX(0%); /* Firefox bug fix */
+ -webkit-transform: translateX(0%); /* Firefox bug fix */
+ transform: translateX(0%); 
+ }
