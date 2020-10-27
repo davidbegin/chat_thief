@@ -8,7 +8,7 @@ import codecs
 
 from typing import List
 
-DEFAULT_LINES_TO_GRAB = 5
+DEFAULT_LINES_TO_GRAB = 10
 # BLACKLISTED_USERS = ["beginbotbot", "nightbot"]
 # BLACKLISTED_USERS = []
 BLACKLISTED_USERS = ["nightbot"]

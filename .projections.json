@@ -1,0 +1,10 @@
+{
+  "chat_thief/*.py": {
+    "alternate": "tests/{dirname}/test_{basename}.py",
+    "type": "source"
+  },
+  "tests/**/test_*.py": {
+    "alternate": "chat_thief/{dirname}/{basename}.py",
+    "type": "test"
+  }
+}
