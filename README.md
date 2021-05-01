@@ -7,7 +7,7 @@ into an entire economy with multiple ways of participating.
 
 There are over [1300+
 Soundeffects](https://github.com/davidbegin/twitch-soundboard) (added by users
-like you!), that area access
+like you!), that are accessible
 through various commands, like:
 
 ```twitch chat
@@ -16,18 +16,18 @@ through various commands, like:
 !wow
 ```
 
-You can, earn, trade, steal, and gamble with these sounds.
+You can: earn, trade, steal, and gamble with these sounds.
 
 As you chat and participate in the stream you get access to more sounds by
 either the friends you make in chat, strategic bets and/or investments.
 
 ## Other Ways to Participate
 
-We like to talk to about code on stream, and also want to encourage you to code
-as well! If you are looking to learn about code, and join a community, we have
-multiple ways you can influence and participate in the Stream.
+We like to talk about and discuss the code on stream, as well as wanting to encourage you to code too!
+If you are wanting to learn about code then we are the community for you. There is multiple ways for you
+to participate and also influence the stream, so stick around to discover them!
 
-This entire system was largely influeced by Users partipating themselves.
+This entire system was largely influeced by Users participating themselves.
 
 ### Write CSS
 
@@ -44,12 +44,12 @@ You can style your page with:
 ```twitch chat
 !css URL_TO_RAW_CSS
 ```
-
-[Pastebin](https://pastebin.com/) or [Gitlab
-Snippets](https://gitlab.com/snippets/new) work great!
+The 2 best options we found are:
+[Pastebin](https://pastebin.com/)
+[Gitlab Snippets](https://gitlab.com/snippets/new)
 
 **Note:** Make sure to link to the raw CSS. Typically the link will have "raw"
-in it.
+inside of it.
 
 On the [Homepage](https://mygeoangelfirespace.city/) you will see a Homepage CSS
 Leaderboard, which lists the most popular user pages.
@@ -66,12 +66,12 @@ on the [Homepage](https://mygeoangelfirespace.city/)
 
 ### Write a Chat Bot
 
-Write **1** Bot in whatever language, to interact with the stream, potentially
-participate in Bot Survivor
+Write **1** Bot in whatever language you desire so it can then interact with the stream and
+it might even participate in Bot Survivor!
 
 You must register your bot by telling Begin and the chat who your bot is.
 
-Violators will be banned.
+**If you violate the rules, you will be banned!!**
 
 For More Details on Bots in BeginWorld see:
 [Bot Law](docs/BOT_LAW.md)
@@ -89,19 +89,21 @@ The restrictions are:
 We will make a "Widget Shop" Available, give creators
 a chance to sell their Widgets.
 
-When you submit a Widget, its Needs to be approved, by a number
-of reviewers.
+We will make a "Widget Shop" available to give creators
+a one-stop shop to sell them.
 
-Reviewers: [
-  {"eno": True}
-]
-Approvers: []
+Please keep in mind that when a widget is submitted,
+it has to be approved by a team of reviewers.
+
+| Reviewers   | Approvers   |
+| ----------- | ----------- |
+| eno         | N/A         |
 
 #### Why
 
-How can we simulate the smallest market for selling code.
-If you want to learn to code, its learning how to code
-and sell that code.
+We aim to simulate the smallest market for selling code.
+This will help members learn to code and give them a goal
+to work towards.
 
 ### Add Sounds to the Stream
 
@@ -126,14 +128,14 @@ and sell that code.
 ### Street Cred
 
 - You earn it from working (if you are chatting, you will earn street cred
-  automatically (note: this is different than Beginbux AKA channel points)
-- You can only give it to other viewer:
+  automatically **note: this is different than Beginbux AKA channel points**)
+- You can only give it to other viewers:
   `!props other_user`
   `!endorse other_user`
   `!bigups other_user`
 - You may also share one of your sounds with another viewer for 1 Street Cred:
   `!share sound other_user`
-- You can also transfer a soundeffect to another user, costing No Streed Cred:
+- You can also transfer a soundeffect to another user, costing **No** Streed Cred:
   `!transfer sound other_user`
 
 ### Cool Points
@@ -147,7 +149,7 @@ and sell that code.
 ## The Government
 
 - We will not provide services to trade commands
-  if you need that, then the market should supply it
+  if you need that, then the market should supply it.
 
 ## Drops
 
@@ -163,12 +165,12 @@ A: Chatting
 
 Q: What is the difference in transfer, share, endorse, buy?
 A:
-
-- !transfer -> Transfer access to a soundeffect to another user (No Street
-  Cred Required)
-- !share    -> Share a sound with a User for Street Cred
-- !endorse  -> Give someone your Street Cred (they become Cool Points)
-- !buy      -> Purchase access to a sound with Cool Points
+| Command     | Description |
+| ----------- | ----------- |
+| !transfer   | Transfer access to a soundeffect to another user (No Street Cred Required) |
+| !share      | Share a sound with a User for Street Cred                                  |
+| !endorse    | Give someone your Street Cred (they become Cool Points)                    |
+| !buy        | Purchase access to a sound with Cool Points                                |
 
 ## Theme Song
 
@@ -185,7 +187,7 @@ first time that stream!
 
 ## Revolution
 
-If you accure 100 Cool Points, you can reset the entire econonmy with
+If you accure 100 Cool Points, you can reset the entire econonmy with:
 `!revolution`
 
 ## Some Useful Commands
